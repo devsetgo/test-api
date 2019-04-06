@@ -21,6 +21,10 @@ This should be just consider a beta app at this time.
   - Development: hypercorn main:app  --reload -b 0.0.0.0:5000 --access-log -
   - Docker: docker pull mikeryan56/test-api:latest
 
+## Issues/Bugs
+
+- [ ] Hypercorn log in Docker does not display anyting (why?)
+
 ## TODO
 
 - [ ] Create tests
@@ -31,7 +35,7 @@ This should be just consider a beta app at this time.
   - [ ] Add Access controls and signup
   - [ ] Add JWT/Token access
   - [ ] Rate limiting
-- [ ] Hypercorn configuration
+- [ ] Hypercorn configuration from file (similar to gunicorn?)
 - [ ] Logging
 - [ ] Setup CI/CD Pipeline for test and deployment
 - [ ] Make [Twelve Factor App](https://12factor.net/) ready
