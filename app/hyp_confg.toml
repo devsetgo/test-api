@@ -1,0 +1,2 @@
+# uvicorn main:app --workers 12 --reload --log-level=info
+config = 

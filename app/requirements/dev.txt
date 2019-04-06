@@ -1,0 +1,6 @@
+-r prod.txt
+pylint
+pytest
+black
+auotpep8
+flake8
