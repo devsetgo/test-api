@@ -7,14 +7,14 @@ app = FastAPI(title="Test API",
               version="19.1", openapi_url="/api/v1/openapi.json")
 
 app.include_router(
-    users.router, prefix="api/users/v1", tags=["users"], responses={404: {"description": "Not found"}},
+    users.router, prefix="/api/v1/users", tags=["users"], responses={404: {"description": "Not found"}},
 )
 app.include_router(
-    sample.router, prefix="api/sample/v1", tags=["sample"], responses={404: {"description": "Not found"}},
+    sample.router, prefix="/api/v1/sample", tags=["sample"], responses={404: {"description": "Not found"}},
 )
 app.include_router(
     items.router,
-    prefix="/items",
+    prefix="/api/v1/items",
     tags=["items"],
     responses={404: {"description": "Not found"}},
 )
