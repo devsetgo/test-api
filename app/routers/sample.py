@@ -32,7 +32,7 @@ async def sample_list(
 
 @router.get("/{id}", tags=["sample"], responses={404: {"description": "Operation forbidden"}, 500: {"description": "Mommy!"}})
 async def sample_item(
-        id: str = Query(..., title='The ID to search for', alias="id"), delay: int = Query(None, title='The delay time in seconds', ge=1, le=10, alias="delay")):
+        id: str = Path(..., title='The ID to search for'), delay: int = Query(None, title='The delay time in seconds', ge=1, le=10, alias="delay")):
 
     if delay is None:
         j_response = create_item(id)

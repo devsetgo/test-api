@@ -51,6 +51,31 @@ def create_item(id: str):
     return result
 
 
+def create_Todo(qty: int):
+    response_list = []
+    for i in range(qty):
+        id = uuid.uuid1()
+        rand_str = r_w(random.randrange(1, 10))
+
+        r_tags = []
+        for t in range(0, random.randrange(1, 10)):
+            rand_tag = r_w(1)
+            rt = {'tag': rand_tag}
+            r_tags.append(rt)
+
+        right_now = datetime.datetime.now()
+
+        j_response = {
+                        'id': uuid.uuid1()
+                        , 'item': ''
+                        , 'isComplete': ''
+                        , 'dateDue': ''
+                        , 'dateCreated': '', 'dateUpdated': '', 'dateComplete': ''
+                    }
+        response_list.append(j_response)
+    return response_list
+
+
 if __name__ == '__main__':
     x = create_item('123-456')
 
