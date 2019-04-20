@@ -23,8 +23,8 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   - production: pip3 install -r requirements.txt
   - Development: pip3 install -r requirements/dev.txt
 - run it
-  - Production: hypercorn main:app  --workers 2 -b 0.0.0.0:5000 --access-log -
-  - Development: hypercorn main:app  --reload -b 0.0.0.0:5000 --access-log -
+  - Production: hypercorn app:app  --workers 2 -b 0.0.0.0:5000 --access-log -
+  - Development: hypercorn app:app  --reload -b 0.0.0.0:5000 --access-log -
   - Docker: docker pull mikeryan56/test-api:latest
 
 ## Issues/Bugs
@@ -33,17 +33,17 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ## TODO
 
-- [ ] Refactor by endpoint (sample, user, etc..)
+- [x] Refactor by endpoint (sample, user, etc..)
 - [ ] Create tests
 - [ ] Extend API parameters
-- [ ] Better organization
+- [x] Better organization
 - [ ] Standardize API pattern for versioning
 - Access Controls
   - [ ] Add Access controls and signup
   - [ ] Add JWT/Token access
   - [ ] Rate limiting
 - [ ] Hypercorn configuration from file (similar to gunicorn?)
-- [ ] Logging
+- [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
 - [ ] Setup CI/CD Pipeline for test and deployment
 - [ ] Make [Twelve Factor App](https://12factor.net/) ready
 - [ ] Build a [cookiecutter](https://github.com/audreyr/cookiecutter) template for future projects similar to the [FastAPI example](https://github.com/tiangolo/full-stack-fastapi-postgresql)
