@@ -2,7 +2,7 @@ version: '3.7'
 services:
   web:
     build: ./app
-    # image: mikeryan56/test-api:19.4.1-beta
+    # image: mikeryan56/test-api:19.4.20-beta
     image: mikeryan56/test-api:latest
     ports:
     - "52002:5000"
