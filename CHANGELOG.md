@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - websockets (working on it)
 
 
-## [19.2-beta-1] - 2019-04-20
+## [19.4.20-beta-1] - 2019-04-20
 ### Added
 - routers for todo, users, and silly
 - .env file update
@@ -29,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed list for todos
 - Some of the Silly endpoints to limit to just list or one user generation
 
-## [19.1-beta-1] - 2019-04-06
+## [19.4.6-beta-1] - 2019-04-06
 ### Added
 - initial commit
 - building base frame of project
