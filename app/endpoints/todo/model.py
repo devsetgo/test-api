@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Set
 from pydantic import BaseModel, Schema, Json, UUID1
 import uuid
 from datetime import datetime,timedelta
@@ -17,6 +17,7 @@ def daysPlus30():
     result = current_time() + timedelta(days=30)
     return result
 
+
 class ToDoBase(BaseModel):
     id: Optional[str]
     title: str
@@ -28,7 +29,6 @@ class ToDoBase(BaseModel):
     dateComplete: Optional[str]
     userId: str
 
-        
 
 # Properties to receive via API on creation
 # Additional properties to return via API
@@ -40,7 +40,8 @@ class TodoCreate(BaseModel):
     title: str
     description: str = None
     dateDue: str = None
-    userId: str =None
+    userId: str = None
+
 
     
     #date_information: ToDoDateInformation = Schema(None)

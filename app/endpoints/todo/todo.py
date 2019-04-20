@@ -10,11 +10,11 @@ from services.gen_data import create_list, create_item
 from services.rand_word import r_w
 from services.rand_name import randName
 from endpoints.todo.services import list_count, get_todo
-from typing import List
+from typing import List, Set
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
 from .model import ToDoBase, TodoCreate, TodoGetId, TodoUpdate, TodoDelete
 from fastapi import APIRouter, HTTPException, Body
-from pydantic import BaseModel, Schema
+from pydantic import BaseModel, Schema, json
 from loguru import logger
 
 file_path = (os.path.abspath("logfile/file_1.log"))
@@ -29,7 +29,8 @@ todo_full_list = []
 
 
 @router.get("/list", tags=["todo"], responses={404: {"description": "Operation forbidden"}, 500: {"description": "Mommy!"}})
-async def todo_list(delay: int = Query(None, title='The number of items in the list to return (min of 1 and max 10)', ge=1, le=10, alias="delay")):
+async def todo_list(delay: int = Query(None, title='The number of items in the list to return (min of 1 and max 10)', ge=1, le=10, alias="delay")
+                    ,user: str = Query(None, title='filter by userid', alias="userid")):
     if delay is None:
         result = todo_full_list
         # print(result)
@@ -84,16 +85,25 @@ async def get_todo_id(id: str = Path(..., title='The ID to search for'), delay: 
 
 
 
-@router.post("/create/", tags=["todo"], response_model=TodoCreate
+@router.post("/create/", tags=["todo"], response_model=TodoCreate, response_description="The created item"
              , responses={302: {"description": "Incorect URL, redirecting"}, 404: {"description": "Operation forbidden"}, 405: {"description": "Method not allowed"}, 500: {"description": "Mommy!"}})
-async def create_todo(todo: TodoCreate = Body(..., example={"title": "A thing", "description": "A description of a thing", "dateDue": '2019-04-14 15:15:34.832031','userId': 'Bob'}, embed=True), delay: int = Query(None, title='The number of items in the list to return (min of 1 and max 10)', ge=1, le=10, alias="delay")):
-    # = Body(..., example={"title": "A thing", "description": "A description of a thing", "dateDue": '2019-04-14 15:15:34.832031'}, embed=True)
+async def create_todo(*,todo: TodoCreate
+                    , delay: int = Query(None, title='The number of items in the list to return (min of 1 and max 10)', ge=1, le=10, alias="delay")):
+    #  = Body(..., example={"title": "A thing", "description": "A description of a thing", "dateDue": '2019-04-14 15:15:34.832031','userId': 'Bob'}, embed=True)
     value = todo.dict()
-    # result = todo.dict()
-    # print(value)
+    
     # dictionary to append to todo_full_list
-    result = {
-        'id': str(uuid.uuid1()), 'title': value['title'], 'description': value['description'], 'dueDate': value['dateDue'], 'isComplete': False, 'dateCreate': currentTime, 'dateUpdate': currentTime,'userId': value['userId'], 'dateCompleted': ''}
+    result = {'id': str(uuid.uuid1())
+            ,'title': value['title']
+            ,'description': value['description']
+            ,'dueDate': value['dateDue']
+            ,'isComplete': False
+            ,'dateCreate': currentTime
+            ,'dateUpdate': currentTime
+            ,'userId': value['userId']
+            ,'checklist': []
+            ,'dateCompleted': None
+            }
     # print(len(todo_full_list))
     logger.info('{description} with ID: {id} and a delay={delay}',id=result['id'],description='ToDo Created',delay=delay)
     if delay is None:

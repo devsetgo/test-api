@@ -9,7 +9,7 @@ from loguru import logger
 
 file_path = (os.path.abspath("logfile/file_1.log"))
 # logger.debug("That's it, beautiful and simple logging!")
-logger.add(file_path, backtrace=True, retention="10 days",rotation="1 MB")
+logger.add(file_path, backtrace=True, retention="10 days",rotation="10 MB")
 
 
 def list_count(full_list):
@@ -24,4 +24,11 @@ def get_todo(id, full_list):
         if id == i['id']:
             result = i
     print(result)
+    return result
+
+def getList(data, user:str):
+    result = []
+    for i in data:
+        if i['userId']==user:
+            result.append(i)
     return result
