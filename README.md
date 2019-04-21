@@ -9,23 +9,32 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ## Create Environment
 
-- git clone https://github.com/devsetgo/test-api.git
-- python3.7 -m venv env
-- source env/bin/activate
-- cd app
-- install requirements
-  - Notes:
+- Copy the repo
+  ~~~~
+  git clone https://github.com/devsetgo/test-api.git
+  python3.7 -m venv env
+  source env/bin/activate
+  cd app
+  ~~~~
+
+- Notes:
     - Some libraries require Python 3.7 or higher (welcome to the edge!)
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
       - Upgrading (adding) [Python 3.7 to Ubuntu](https://jcutrer.com/linux/upgrade-python37-ubuntu1810) and setting it as the default for Python3
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
     - You may need to upgrade pip and setuptools first (pip3 install --upgrade pip setuptools)
-  - production: pip3 install -r requirements.txt
-  - Development: pip3 install -r requirements/dev.txt
-- run it
-  - Production: hypercorn app:app  --workers 2 -b 0.0.0.0:5000 --access-log -
-  - Development: hypercorn app:app  --reload -b 0.0.0.0:5000 --access-log -
-  - Docker: docker pull mikeryan56/test-api:latest
+- Install requirements
+  ~~~~
+  Production: pip3 install -r requirements.txt
+  Development: pip3 install -r requirements/dev.txt
+  ~~~~
+
+- Run it
+  ~~~~
+    Production: hypercorn app:app  --workers 2 -b 0.0.0.0:5000 --access-log -
+    Development: hypercorn app:app  --reload -b 0.0.0.0:5000 --access-log -
+    Docker: docker pull mikeryan56/test-api:latest
+~~~~
 
 ## Issues/Bugs
 
