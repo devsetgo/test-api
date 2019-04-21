@@ -1,6 +1,6 @@
--r prod.txt
+-r prd.txt
 pylint
 pytest
 black
-auotpep8
+autopep8
 flake8
