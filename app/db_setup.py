@@ -79,12 +79,4 @@ todos = Table(
     Column("userId", String(length=100)),
 )
 
-# id: Optional[str]
-# title: str
-# description: Optional[str]
-# isComplete: Optional[bool] = False
-# dateDue: Optional[str] = daysPlus30()
-# dateCreate: Optional[str] = str(current_time())
-# dateUpdate: datetime = str(current_time())
-# dateComplete: Optional[str]
-# userId: str
+# foreing key Column('userId', None, ForeignKey('users.userId')),
