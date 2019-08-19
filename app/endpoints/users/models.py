@@ -73,12 +73,19 @@ class UserUpdate(UserBaseInDB):
     # dateCreate: datetime = None
     # isActive: bool = True
 
+class UserList(UserBaseInDB):
+    firstName: str
+    lastName: str
+    # password: str
+    title: Optional[str] = None
+    company: Optional[str] = None
+    address: Optional[str] = None
+    city: Optional[str] = None
+    country: Optional[str] = None
+    postal: Optional[str] = None
+    email: Optional[str] = None
+    website: Optional[str] = None
+    description: Optional[str] = None
+    # dateCreate: datetime = None
+    isActive: bool = True
 
-# # Additional properties to return via API
-# class User(UserBaseInDB):
-#     pass
-
-
-# # Additional properties stored in DB
-# class UserInDB(UserBaseInDB):
-#     hashed_password: str
