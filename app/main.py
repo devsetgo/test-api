@@ -3,7 +3,8 @@ import uvicorn
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
 from loguru import logger
 from starlette.responses import PlainTextResponse, RedirectResponse
-
+import databases
+from db_setup import createDB, disconnectDB, connectDB, database
 from com_lib.logging_config import config_logging
 from settings import (
     APP_VERSION,
@@ -15,14 +16,18 @@ from settings import (
     WEBSITE,
 )
 
-# from endpoints.todo import views as todo
+from endpoints.todo import views as todo
 from endpoints.sillyusers import views as silly_users
 
-# from endpoints.users import views as users
+from endpoints.users import views as users
 
-
+# config logging start
 config_logging()
 logger.info("API Logging inititated")
+# database start
+createDB()
+logger.info("API database inititated")
+# fastapi start
 app = FastAPI(
     title="Test API",
     description="Checklist APIs",
@@ -33,25 +38,60 @@ logger.info("API App inititated")
 
 
 # Endpoint routers
-# app.include_router(
-#     todo.router,
-#     prefix="/api/v1/todo",
-#     tags=["todo"],
-#     responses={404: {"description": "Not found"}},
-# )
-# app.include_router(
-#     users.router,
-#     prefix="/api/v1/users",
-#     tags=["users"],
-#     responses={404: {"description": "Not found"}},
-# )
+# ToDo router
+app.include_router(
+    todo.router,
+    prefix="/api/v1/todo",
+    tags=["todo"],
+    responses={404: {"description": "Not found"}},
+)
+# User router
+app.include_router(
+    users.router,
+    prefix="/api/v1/users",
+    tags=["users"],
+    responses={404: {"description": "Not found"}},
+)
+# Silly router
 app.include_router(
     silly_users.router,
     prefix="/api/v1/silly-users",
-    tags=["Silly Users"],
+    tags=["silly users"],
     responses={404: {"description": "Not found"}},
 )
 # app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
+
+# startup events
+@app.on_event("startup")
+async def startup_event():
+
+    # initiate log with statement
+    if RELEASE_ENV.lower() == "dev":
+        logger.debug("Inititating logging for API")
+        logger.info("API inititated in Development environment")
+    else:
+        logger.info("API inititated in Production environment")
+
+    try:
+        await database.connect()
+        logger.info("Connecting to database")
+
+    except Exception as e:
+        logger.info(f"Error: {error}")
+        logger.trace(f"tracing: {exception} - {e}")
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+
+    try:
+        await database.disconnect()
+        logger.info("Disconnecting from database")
+    except Exception as e:
+        logger.info("Error: {error}", error=e)
+        logger.trace("tracing: {exception} - {e}", error=e)
+
+    logger.info("API shutting down")
 
 
 @app.get("/")
