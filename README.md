@@ -19,7 +19,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 - Notes:
-    - Some libraries require Python 3.7 or higher (welcome to the edge!)
+    - Libraries require Python 3.6 or 3.7
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
       - Upgrading (adding) [Python 3.7 to Ubuntu](https://jcutrer.com/linux/upgrade-python37-ubuntu1810) and setting it as the default for Python3
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
@@ -48,16 +48,42 @@ Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
+## Features
+- default
+    - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
+    - [x] GET ***/Information*** endpoint containing basic app info
+    - [x] GET ***/joke*** [PyJoke](https://pyjok.es/) list
+- todos
+    - [x] GET ***/api/v1/todo/list***
+    - [x] GET ***/api/v1/todo/list/count***
+    - [x] GET ***/api/v1/todo/list/{todoId}***
+    - [x] DELETE ***/api/v1/todo/list/{todoId}***
+    - [x] PUT ***/api/v1/todo/list/{todoId}***
+    - [x] POST ***/api/v1/todo/create/***
+- users
+    - [x] GET ***/api/v1/users/list***
+    - [x] GET ***/api/v1/users/list/count***
+    - [x] GET ***/api/v1/users/list/{todoId}***
+    - [x] DELETE ***/api/v1/users/list/{todoId}***
+    - [x] PUT ***/api/v1/users/list/{todoId}***
+    - [x] POST ***/api/v1/users/create/***
+- silly users
+    - [x] GET ***/api/v1/silly-users/make-one***
+    - [x] GET ***/api/v1/silly-users/list***
+
 
 ## Issues/Bugs
 
-- [ ] Hypercorn log in Docker does not display anyting (why?)
+- [ ] None
 
 ## TODO
 
 - [x] Refactor by endpoint (sample, user, etc..)
 - [ ] Create tests
 - [ ] Extend API parameters
+    - [ ] Pagination
+    - [ ] Number of Items per list returned (Max)
+    - [ ] Additional Optional for filtering
 - [x] Better organization
 - [ ] Standardize API pattern for versioning
 - Access Controls
