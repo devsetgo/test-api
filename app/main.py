@@ -29,7 +29,7 @@ app = FastAPI(
     )
 logger.info("API App inititated")
 
-
++
 # Endpoint routers
 # app.include_router(
 #     todo.router,
