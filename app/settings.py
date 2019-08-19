@@ -5,31 +5,28 @@ For local development, use a .env file to set
 environment variables.
 """
 import os
-from dotenv import load_dotenv
+from starlette.config import Config
 
+# get environment variables
+config = Config(".env")
 
-load_dotenv()
+# Application information
+APP_VERSION = config("APP_VERSION")
+OWNER = config("OWNER")
+WEBSITE = config("WEBSITE")
+LICENSE_TYPE = config("LICENSE_TYPE")
+LICENSE_LINK = config("LICENSE_LINK")
 
-# Environment settings
-HOST_DOMAIN = os.getenv("HOST_DOMAIN")
-RELEASE_ENV = os.getenv("RELEASE_ENV")
-SECRET_KEY = os.getenv("SECRET_KEY")
-# Database
-SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
-# LOGURU settings
-LOGURU_BACKTRACE = True
-LOGURU_RETENTION = "10 days"
-LOGURU_ROTATION = "100 MB"
+# Application Configurations
+HOST_DOMAIN = config("HOST_DOMAIN")
+RELEASE_ENV = config("RELEASE_ENV")
+SQLALCHEMY_DATABASE_URI = config("SQLALCHEMY_DATABASE_URI")
 
+# Loguru settings
+LOGURU_RETENTION = config("LOGURU_RETENTION")
+LOGURU_ROTATION = config("LOGURU_ROTATION")
 
-# env settings from cookiecutter flask for ideas
-# ENV = os.getenv('RELEASE_ENV')
-# DEBUG = ENV == 'development'
-# SQLALCHEMY_DATABASE_URI = os.getenv('RELEASE_ENV')
-# SECRET_KEY = os.getenv('RELEASE_ENV')
-# BCRYPT_LOG_ROUNDS = os.getenv('RELEASE_ENV')
-# DEBUG_TB_ENABLED = DEBUG
-# DEBUG_TB_INTERCEPT_REDIRECTS = False
-# CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
-# SQLALCHEMY_TRACK_MODIFICATIONS = False
-# WEBPACK_MANIFEST_PATH = 'webpack/manifest.json'
+# Access Token Settings
+SECRET_KEY = config("SECRET_KEY")
+ALGORITHM = config("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES")

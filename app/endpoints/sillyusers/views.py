@@ -6,13 +6,14 @@ import asyncio
 router = APIRouter()
 
 
-@router.get("/make-one", tags=["silly users"])
+@router.get("/make-one", tags=["Silly Users"])
 async def make_user(
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="Silly Users",
+        description="Seconds (max 121)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     )
 ):
@@ -35,20 +36,22 @@ async def make_user(
     return result
 
 
-@router.get("/list", tags=["silly users"])
+@router.get("/list", tags=["Silly Users"])
 async def user_list(
     qty: int = Query(
         ...,
-        title="Quantity of fake users to return (min of 1 and max 1000)",
+        title="Silly List",
+        description="(max 1000)",
         ge=1,
         le=1000,
         alias="qty",
     ),
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="Delay",
+        description='Delay seconds (Max 121)',
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ):
@@ -81,7 +84,7 @@ async def user_list(
         )
 
 
-# @router.get("/me", tags=["silly users"])
+# @router.get("/me", tags=["Silly Users"])
 # async def user_me(
 #     delay: int = Query(
 #         None,
@@ -101,7 +104,7 @@ async def user_list(
 #     return result
 
 
-# @router.get("/{id}", tags=["silly users"])
+# @router.get("/{id}", tags=["Silly Users"])
 # async def user_id(
 #     id: str = Path(..., title="The user id to be searched for", alias="id"),
 #     delay: int = Query(
