@@ -6,11 +6,11 @@ import asyncio
 router = APIRouter()
 
 
-@router.get("/make-one", tags=["Silly Users"])
+@router.get("/make-one", tags=["silly users"])
 async def make_user(
     delay: int = Query(
         None,
-        title="Silly Users",
+        title="silly users",
         description="Seconds (max 121)",
         ge=1,
         le=121,
@@ -36,10 +36,10 @@ async def make_user(
     return result
 
 
-@router.get("/list", tags=["Silly Users"])
+@router.get("/list", tags=["silly users"])
 async def user_list(
     qty: int = Query(
-        ..., title="Silly List", description="(max 1000)", ge=1, le=1000, alias="qty"
+        ..., title="silly list", description="(max 1000)", ge=1, le=1000, alias="qty"
     ),
     delay: int = Query(
         None,
@@ -79,7 +79,7 @@ async def user_list(
         )
 
 
-# @router.get("/me", tags=["Silly Users"])
+# @router.get("/me", tags=["silly users"])
 # async def user_me(
 #     delay: int = Query(
 #         None,
@@ -99,7 +99,7 @@ async def user_list(
 #     return result
 
 
-# @router.get("/{id}", tags=["Silly Users"])
+# @router.get("/{id}", tags=["silly users"])
 # async def user_id(
 #     id: str = Path(..., title="The user id to be searched for", alias="id"),
 #     delay: int = Query(
