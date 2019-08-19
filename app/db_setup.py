@@ -21,7 +21,8 @@ from loguru import logger
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100)
+    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100
+)
 metadata = MetaData()
 database = databases.Database(SQLALCHEMY_DATABASE_URI)
 

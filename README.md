@@ -31,11 +31,23 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 - Run it
-  ~~~~
-    Production: hypercorn app:app  --workers 2 -b 0.0.0.0:5000 --access-log -
-    Development: hypercorn app:app  --reload -b 0.0.0.0:5000 --access-log -
+
+~~~~
+UVICORN
+    Development: 
+        uvicorn main:app --port 5000 --reload
+        python3 main.py (running Uvicorn from Code - no reload)
+    
+    Production:
+        uvicorn main:app --workers 2
+        python3 main.py (running Uvicorn from code)
+        gunicorn -c gunicorn_cfg.py main:app
+        # Note: gunicorn is the config for the dockerfile
+
+Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
+
 
 ## Issues/Bugs
 

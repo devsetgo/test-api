@@ -39,17 +39,12 @@ async def make_user(
 @router.get("/list", tags=["Silly Users"])
 async def user_list(
     qty: int = Query(
-        ...,
-        title="Silly List",
-        description="(max 1000)",
-        ge=1,
-        le=1000,
-        alias="qty",
+        ..., title="Silly List", description="(max 1000)", ge=1, le=1000, alias="qty"
     ),
     delay: int = Query(
         None,
         title="Delay",
-        description='Delay seconds (Max 121)',
+        description="Delay seconds (Max 121)",
         ge=1,
         le=121,
         alias="delay",

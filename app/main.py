@@ -14,8 +14,10 @@ from settings import (
     RELEASE_ENV,
     WEBSITE,
 )
+
 # from endpoints.todo import views as todo
 from endpoints.sillyusers import views as silly_users
+
 # from endpoints.users import views as users
 
 
@@ -26,10 +28,10 @@ app = FastAPI(
     description="Checklist APIs",
     version=APP_VERSION,
     openapi_url="/openapi.json",
-    )
+)
 logger.info("API App inititated")
 
-+
+
 # Endpoint routers
 # app.include_router(
 #     todo.router,
@@ -52,7 +54,6 @@ app.include_router(
 # app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
 
 
-
 @app.get("/")
 async def root():
     response = RedirectResponse(url="/docs")
@@ -63,17 +64,17 @@ async def root():
 async def joke(
     qty: int = Query(
         None,
-        title='Pyjokes',
+        title="Pyjokes",
         description="Quantity of PyJokes (max 10)",
         ge=1,
         le=10,
         alias="qty",
         deprecated=False,
     ),
-        delay: int = Query(
+    delay: int = Query(
         None,
         title="Delay",
-        description='Delay seconds (Max 121)',
+        description="Delay seconds (Max 121)",
         ge=1,
         le=121,
         alias="delay",
