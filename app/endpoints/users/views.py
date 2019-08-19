@@ -8,6 +8,7 @@ from endpoints.users.models import (
     UserCreate,
     UserUpdate,
     UserDeactivate,
+    UserList,
 )  # , UserUpdate,User, UserInDB
 from db_setup import users, database
 from settings import SQLALCHEMY_DATABASE_URI
@@ -38,33 +39,86 @@ currentTime = datetime.now()
 async def user_list(
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="Delay",
+        description="Seconds to delay (max 121)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
+    ),
+    qty: int = Query(
+        None,
+        title="Quanity",
+        description="Records to return (max 500)",
+        ge=1,
+        le=500,
+        alias="qty",
+    ),
+    offset: int = Query(
+        None,
+        title="Offset",
+        description="Offset increment",
+        ge=1,
+        le=500,
+        alias="offset",
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
 ):
-
+    """
+    docstring
+    """
     # sleep if delay option is used
-    if delay is not None:
-        asyncio.sleep(delay)
+    if delay is None:
+        delay == 0
+
+    asyncio.sleep(delay)
+
+    if qty is None:
+        qty: int = 100
+    if offset is None:
+        offset: int = 0
 
     try:
         # await database.connect()
         # Fetch multiple rows
         if isActive is not None:
-            query = users.select().where(users.c.isActive == isActive)
+            query = (
+                users.select()
+                .where(users.c.isActive == isActive)
+                .order_by(users.c.dateCreate)
+                .limit(qty)
+            )
             # values = {'isActive': isActive}
-            x = await database.fetch_all(query)
+            db_result = await database.fetch_all(query)
         else:
-            query = users.select()
-            x = await database.fetch_all(query)
+            query = users.select().order_by(users.c.dateCreate).limit(qty)
+            db_result = await database.fetch_all(query)
 
-        result = x
+        result_set = []
+        for r in db_result:
+            # iterate through data and return simplified data set
+            user_data = {
+                "userId": r["userId"],
+                "firstName": r["firstName"],
+                "lastName": r["lastName"],
+                "company": r["company"],
+                "title": r["title"],
+                "isActive": r["isActive"],
+            }
+            result_set.append(user_data)
+
+        result = {
+            "parameters": {
+                "returned_results": len(result_set),
+                "quantity": qty,
+                "filter": isActive,
+                "delay": delay,
+            },
+            "users": result_set,
+        }
         # await database.disconnect()
+        return result
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         result = {"error": e}
     return result
@@ -93,6 +147,7 @@ async def users_list_count(
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
+
     try:
         # Fetch multiple rows
         if isActive is not None:
@@ -119,7 +174,7 @@ async def get_user_id(
         None,
         title="The number of items in the list to return (min of 1 and max 10)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ):
@@ -131,12 +186,29 @@ async def get_user_id(
     try:
         # Fetch single row
         query = users.select().where(users.c.userId == userId)
-        result = await database.fetch_one(query)
-    except Exception as e:
-        print(e)
-        logger.info("Error: {error}", error=e)
+        db_result = await database.fetch_one(query)
 
-    return result
+        user_data = {
+                "userId": db_result["userId"],
+                "firstName": db_result["firstName"],
+                "lastName": db_result["lastName"],
+                "company": db_result["company"],
+                "title": db_result["title"],
+                "address": db_result['address'],
+                "city": db_result['city'],
+                "country": db_result['country'],
+                "postal": db_result['postal'],
+                "email": db_result['email'],
+                "website": db_result['website'],
+                "description": db_result['description'],
+                "dateCreate": db_result['dateCreate'],
+                "isActive": db_result["isActive"],
+            }
+        return user_data
+
+    except Exception as e:
+        # print(e)
+        logger.info("Error: {error}", error=e)
 
 
 @router.put(
