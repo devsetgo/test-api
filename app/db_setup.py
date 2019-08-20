@@ -47,6 +47,7 @@ users = Table(
     metadata,
     # Column('Id', Integer, primary_key=True),
     Column("userId", String(length=100), primary_key=True),
+    Column("user_name", String(length=50), unique=True, nullable=False),
     Column("firstName", String(length=150)),
     Column("lastName", String(length=150)),
     Column("title", String(length=200)),
