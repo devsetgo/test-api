@@ -1,6 +1,10 @@
-version: '3.2'
-services:
+version: '3'
+networks:
   web:
+    external: trueservices:
+
+services:
+  test-api:
     build: ./app
     image: mikeryan56/test-api:19.8.21-beta
     # image: mikeryan56/test-api:latest
