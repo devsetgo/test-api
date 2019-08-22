@@ -21,7 +21,32 @@ client = TestClient(app)
 
 
 class test_default_endpoints(unittest.TestCase):
-    def test_index(self):
+    def test_silly_make_one_delay(self):
         client = TestClient(app)
-        response = client.get("/")
+        response = client.get("/api/v1/silly-users/make-one?delay=1")
         assert response.status_code == 200
+
+    def test_silly_make_one(self):
+        client = TestClient(app)
+        response = client.get("/api/v1/silly-users/make-one")
+        assert response.status_code == 200
+
+    def test_silly_list_qty_delay(self):
+        client = TestClient(app)
+        response = client.get("/api/v1/silly-users/list?qty=3&delay=1")
+        assert response.status_code == 200
+
+    def test_silly_list(self):
+        client = TestClient(app)
+        response = client.get("/api/v1/silly-users/list?qty=1")
+        assert response.status_code == 200
+
+    def test_silly_list_error(self):
+        client = TestClient(app)
+        response = client.get("/api/v1/silly-users/list")
+        assert response.status_code == 422
+
+    def test_silly_list_error_delay(self):
+        client = TestClient(app)
+        response = client.get("/api/v1/silly-users/list?delay=122")
+        assert response.status_code == 422

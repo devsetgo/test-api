@@ -64,7 +64,7 @@ async def user_list(
         t1 = time.time() - t0
         return result
 
-    elif delay in range(0, 11):
+    elif delay in range(0, 122):
         await asyncio.sleep(delay)
 
         for i in range(qty):
@@ -73,7 +73,7 @@ async def user_list(
         t1 = time.time() - t0
         return result
 
-    elif delay not in range(0, 10):
+    elif delay not in range(0, 122):
         raise HTTPException(
             status_code=406,
             detail="Not Acceptable: Delay parameter must be between an int 0 and 10 seconds",
