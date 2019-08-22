@@ -1,6 +1,7 @@
 # ignore project files
 .env
 settings.json
+scratch_pad/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

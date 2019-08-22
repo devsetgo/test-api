@@ -78,8 +78,8 @@ async def startup_event():
         logger.info("Connecting to database")
 
     except Exception as e:
-        logger.info(f"Error: {error}")
-        logger.trace(f"tracing: {exception} - {e}")
+        logger.info(f"Error: {e}")
+        logger.trace(f"tracing: {e}")
 
 
 @app.on_event("shutdown")

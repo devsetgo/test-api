@@ -48,6 +48,21 @@ Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
+Run Tests
+~~~~
+python3 -m pytest
+~~~~
+
+Create coverage badge
+~~~~
+    coverage-badge -o coverage.svg -f
+~~~~
+
+Pre-Commit & Hooks
+    - Follow install instructionsL: [https://pre-commit.com/#install](https://pre-commit.com/#install)
+    - pre-commit install
+    - pre-commit run -a
+
 ## Features
 - default
     - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
