@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # FastAPI and Starlette libraries
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
 

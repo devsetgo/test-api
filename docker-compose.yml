@@ -17,7 +17,7 @@ services:
     # environment:
     #   VIRTUAL_HOST: test-api.devsetgo.com
     #   LETSENCRYPT_HOST: test-api.devsetgo.com
-    
+
     #if using traefik
     labels:
     - traefik.backend=testapi

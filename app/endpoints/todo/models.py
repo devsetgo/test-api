@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from typing import List, Optional, Union, Set
 from pydantic import BaseModel, Schema, Json, UUID1
 import uuid

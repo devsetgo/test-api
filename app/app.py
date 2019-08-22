@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from starlette.responses import PlainTextResponse, RedirectResponse
 from fastapi import FastAPI
 

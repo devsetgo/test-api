@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
 from endpoints.sillyusers.gen_user import user_info
 import time

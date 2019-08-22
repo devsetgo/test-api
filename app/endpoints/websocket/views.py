@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header, Body
 from starlette.responses import HTMLResponse
 from starlette.websockets import WebSocket
@@ -103,7 +104,7 @@ html = """
     /** Add a user to the list of connected users.*/
     function addToUsersList(userId, isYou) {
         const newUserLi = $('<li id="users-list-' + userId + '"></li>');
-        newUserLi.append(userId);            
+        newUserLi.append(userId);
         if(isYou) {
             newUserLi.append($('<em> (you)</em>'));
         }
@@ -140,7 +141,7 @@ html = """
         newMessage.append(msg);
         $('#messages').append(newMessage);
     }
-    
+
     /** Add a new error message to the chat. */
     function addErrorMessage(msg) {
         const newMessage = $('<div class="alert thin-alert alert-danger" role="alert"></div>');
@@ -174,7 +175,7 @@ html = """
                 return;
         }
     }
-    
+
     function onClickFactory(websocket) {
         return function (event) {
             event.preventDefault();
@@ -207,8 +208,8 @@ html = """
             .off('click')
             .attr('disabled', 'disabled');
     }
-    /** On page load, open a websocket connection, and fetch the list of active users. */ 
-    $(function() { 
+    /** On page load, open a websocket connection, and fetch the list of active users. */
+    $(function() {
         function reqListener () {
             const userList = JSON.parse(this.responseText);
             console.log('Received user list:', userList);

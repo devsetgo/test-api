@@ -34,10 +34,10 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ~~~~
 UVICORN
-    Development: 
+    Development:
         uvicorn main:app --port 5000 --reload
         python3 main.py (running Uvicorn from Code - no reload)
-    
+
     Production:
         uvicorn main:app --workers 2
         python3 main.py (running Uvicorn from code)

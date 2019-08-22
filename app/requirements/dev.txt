@@ -1,6 +1,11 @@
 -r prd.txt
-autopep8==1.4.4 # Change from Empty Version in requirements.txt
-black==19.3b0 # Change from Empty Version in requirements.txt
-flake8==3.7.8 # Change from Empty Version in requirements.txt
-pylint==2.3.1 # Change from Empty Version in requirements.txt
-pytest==5.1.0 # Change from Empty Version in requirements.txt
+pytest==5.0.1
+pylint==2.3.1
+autopep8==1.4.4
+black==19.3b0
+coverage==4.5.4
+pytest-cov==2.7.1
+coverage-badge==1.0.1
+flake8==3.7.8
+pre-commit
+requests-mock==1.6.0

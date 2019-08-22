@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pyjokes
 import uvicorn
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
