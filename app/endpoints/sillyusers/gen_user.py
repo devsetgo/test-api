@@ -45,9 +45,9 @@ def user_info(user: str = None, id: str = None):
     return result
 
 
-if __name__ == "__main__":
-    id = "123"
-    user = None
-    for i in range(0, 1):
-        x = user_info(user, id)
-        print(x)
+# if __name__ == "__main__":
+#     id = "123"
+#     user = None
+#     for i in range(0, 1):
+#         x = user_info(user, id)
+#         print(x)
