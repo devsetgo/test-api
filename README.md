@@ -85,6 +85,7 @@ Pre-Commit & Hooks
     - [x] DELETE ***/api/v1/users/list/{todoId}***
     - [x] PUT ***/api/v1/users/list/{todoId}***
     - [x] POST ***/api/v1/users/create/***
+    - [x] POST ***/api/v1/users/check-pwd/***
 - silly users
     - [x] GET ***/api/v1/silly-users/make-one***
     - [x] GET ***/api/v1/silly-users/list***
