@@ -111,14 +111,27 @@ Pre-Commit & Hooks
   - [ ] Add Access controls and signup
   - [ ] Add JWT/Token access
   - [ ] Rate limiting
-- [ ] Hypercorn configuration from file (similar to gunicorn?)
+- [X] Gunicorn with Uvicorn configuration
 - [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
 - [ ] Setup CI/CD Pipeline for test and deployment
 - [ ] Make [Twelve Factor App](https://12factor.net/) ready
+    - [x] One codebase tracked in revision control, many deploys
+    - [x] Explicitly declare and isolate dependencies
+    - [x] Store config in the environment
+    - [ ] Treat backing services as attached resources
+    - [ ] Strictly separate build and run stages
+    - [ ] Execute the app as one or more stateless processes
+    - [x] Export services via port binding
+    - [x] Scale out via the process model
+    - [x] Maximize robustness with fast startup and graceful shutdown
+    - [x] Keep development, staging, and production as similar as possible
+    - [x] Treat logs as event streams
+    - [ ] Run admin/management tasks as one-off processes
+
 - [ ] Build a [cookiecutter](https://github.com/audreyr/cookiecutter) template for future projects similar to the [FastAPI example](https://github.com/tiangolo/full-stack-fastapi-postgresql)
 - [ ] Add code comments
 - Docker
-  - [ ] Docker Stack example
+  - [X] Docker Stack example
   - [ ] Docker Swarm example
   - [ ] Kubernetes example
 - Tutorials/Documentation
