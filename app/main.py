@@ -143,14 +143,12 @@ async def info():
 
     openApi_ulr = f"{main_url}/docs"
     reDoc_ulr = f"{main_url}/redoc"
-    joke = pyjokes.get_joke()
     result = {
         "App Version": APP_VERSION,
         "Environment": RELEASE_ENV,
         "Docs": {"OpenAPI": openApi_ulr, "ReDoc": reDoc_ulr},
         "License": {"Type": LICENSE_TYPE, "License Link": LICENSE_LINK},
         "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
-        "PyJoke": joke,
     }
     return result
 
