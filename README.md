@@ -1,5 +1,8 @@
+![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
+<!-- ![image](https://travis-ci.org/devsetgo/python_common_functions.svg "Build Status") -->
+![image](app/coverage.svg "Code Coverage")
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 # Test-API a FASTAPI Example
-![Calendar Versioning Year Month Day of release](https://img.shields.io/badge/calver-YY.MM.DD-22bfda.svg)
 
 A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
 
@@ -19,7 +22,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 - Notes:
-    - Some libraries require Python 3.7 or higher (welcome to the edge!)
+    - Libraries require Python 3.6 or 3.7
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
       - Upgrading (adding) [Python 3.7 to Ubuntu](https://jcutrer.com/linux/upgrade-python37-ubuntu1810) and setting it as the default for Python3
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
@@ -31,21 +34,76 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 - Run it
-  ~~~~
-    Production: hypercorn app:app  --workers 2 -b 0.0.0.0:5000 --access-log -
-    Development: hypercorn app:app  --reload -b 0.0.0.0:5000 --access-log -
+
+~~~~
+UVICORN
+    Development:
+        uvicorn main:app --port 5000 --reload
+        python3 main.py (running Uvicorn from Code - no reload)
+
+    Production:
+        uvicorn main:app --workers 2
+        python3 main.py (running Uvicorn from code)
+        gunicorn -c gunicorn_cfg.py main:app
+        # Note: gunicorn is the config for the dockerfile
+
+Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
+Run Tests
+~~~~
+python3 -m pytest
+~~~~
+
+Create coverage badge
+~~~~
+    coverage-badge -o coverage.svg -f
+~~~~
+
+Pre-Commit & Hooks
+    - Follow install instructionsL: [https://pre-commit.com/#install](https://pre-commit.com/#install)
+    - pre-commit install
+    - pre-commit run -a
+
+## Features
+- default
+    - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
+    - [x] GET ***/Information*** endpoint containing basic app info
+    - [x] GET ***/joke*** [PyJoke](https://pyjok.es/) list
+- todos
+    - [x] GET ***/api/v1/todo/list***
+    - [x] GET ***/api/v1/todo/list/count***
+    - [x] GET ***/api/v1/todo/list/{todoId}***
+    - [x] DELETE ***/api/v1/todo/list/{todoId}***
+    - [x] PUT ***/api/v1/todo/list/{todoId}***
+    - [x] POST ***/api/v1/todo/create/***
+- users
+    - [x] GET ***/api/v1/users/list***
+    - [x] GET ***/api/v1/users/list/count***
+    - [x] GET ***/api/v1/users/list/{todoId}***
+    - [x] DELETE ***/api/v1/users/list/{todoId}***
+    - [x] PUT ***/api/v1/users/list/{todoId}***
+    - [x] POST ***/api/v1/users/create/***
+- silly users
+    - [x] GET ***/api/v1/silly-users/make-one***
+    - [x] GET ***/api/v1/silly-users/list***
+
+
 ## Issues/Bugs
 
-- [ ] Hypercorn log in Docker does not display anyting (why?)
+- [ ] None
 
 ## TODO
 
 - [x] Refactor by endpoint (sample, user, etc..)
-- [ ] Create tests
+- [x] Create tests
+    - [x] Minimum of 80%
+    - [ ] Exception Testing
 - [ ] Extend API parameters
+    - [ ] Pagination
+    - [ ] Number of Items per list returned (Max)
+    - [ ] Additional Optional for filtering
 - [x] Better organization
 - [ ] Standardize API pattern for versioning
 - Access Controls

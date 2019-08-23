@@ -1,16 +1,31 @@
-version: '3.7'
-services:
+version: '3'
+networks:
   web:
+    external: true
+
+services:
+  test-api:
     build: ./app
-    image: mikeryan56/test-api:19.4.20-beta
+    image: mikeryan56/test-api:19.8.21-beta
     # image: mikeryan56/test-api:latest
     ports:
-    - "52002:5000"
+    - "5000"
     volumes:
     - .:/code
-    environment:
-      VIRTUAL_HOST: test-api.devsetgo.com
-      LETSENCRYPT_HOST: test-api.devsetgo.com
+
+    # if using jwilder/nginx-proxy
+    # environment:
+    #   VIRTUAL_HOST: test-api.devsetgo.com
+    #   LETSENCRYPT_HOST: test-api.devsetgo.com
+
+    #if using traefik
+    labels:
+    - traefik.backend=testapi
+    - traefik.frontend.rule=Host:test-api.devsetgo.com
+    - traefik.docker.network=web
+    - traefik.port=5000
+    networks:
+      - web
   # deploy:
   #    replicas: 2
   #    resources:

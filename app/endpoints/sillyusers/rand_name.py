@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from random import randint
 
 names = ["Mike", "Dan", "Ger", "Chuck", "Valerie", "Cathy", "Linda", "Kristi"]

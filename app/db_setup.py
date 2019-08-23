@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy import (
     Table,
     Column,
@@ -21,7 +22,8 @@ from loguru import logger
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100)
+    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100
+)
 metadata = MetaData()
 database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
@@ -46,6 +48,7 @@ users = Table(
     metadata,
     # Column('Id', Integer, primary_key=True),
     Column("userId", String(length=100), primary_key=True),
+    Column("user_name", String(length=50), unique=True, nullable=False),
     Column("firstName", String(length=150)),
     Column("lastName", String(length=150)),
     Column("title", String(length=200)),
@@ -78,12 +81,4 @@ todos = Table(
     Column("userId", String(length=100)),
 )
 
-# id: Optional[str]
-# title: str
-# description: Optional[str]
-# isComplete: Optional[bool] = False
-# dateDue: Optional[str] = daysPlus30()
-# dateCreate: Optional[str] = str(current_time())
-# dateUpdate: datetime = str(current_time())
-# dateComplete: Optional[str]
-# userId: str
+# foreing key Column('userId', None, ForeignKey('users.userId')),

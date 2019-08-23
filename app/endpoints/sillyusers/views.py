@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
 from endpoints.sillyusers.gen_user import user_info
 import time
@@ -10,9 +11,10 @@ router = APIRouter()
 async def make_user(
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="silly users",
+        description="Seconds (max 121)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     )
 ):
@@ -38,17 +40,14 @@ async def make_user(
 @router.get("/list", tags=["silly users"])
 async def user_list(
     qty: int = Query(
-        ...,
-        title="Quantity of fake users to return (min of 1 and max 1000)",
-        ge=1,
-        le=1000,
-        alias="qty",
+        ..., title="silly list", description="(max 1000)", ge=1, le=1000, alias="qty"
     ),
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="Delay",
+        description="Delay seconds (Max 121)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ):
@@ -65,7 +64,7 @@ async def user_list(
         t1 = time.time() - t0
         return result
 
-    elif delay in range(0, 11):
+    elif delay in range(0, 122):
         await asyncio.sleep(delay)
 
         for i in range(qty):
@@ -74,7 +73,7 @@ async def user_list(
         t1 = time.time() - t0
         return result
 
-    elif delay not in range(0, 10):
+    elif delay not in range(0, 122):
         raise HTTPException(
             status_code=406,
             detail="Not Acceptable: Delay parameter must be between an int 0 and 10 seconds",

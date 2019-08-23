@@ -1,33 +1,28 @@
-# FastAPI and Starlette libraries
-from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
-
-# from starlette.responses import response_description
-
-# application libraries
-from endpoints.users.models import (
-    UserCreate,
-    UserUpdate,
-    UserDeactivate,
-)  # , UserUpdate,User, UserInDB
-from db_setup import users, database
-from settings import SQLALCHEMY_DATABASE_URI
-
-# Python libraries
+# -*- coding: utf-8 -*-
+"""
+doc string
+"""
 import asyncio
+import os
 import random
 import uuid
-import os
-from datetime import datetime, date, timedelta, time
+from datetime import date, datetime, time, timedelta
 
-# External Library imports
 import databases
-
-# from databases import Database
+from pydantic import BaseModel, Schema, Json, UUID1, SecretStr
+from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query, Form
 from loguru import logger
 
-
-# database = databases.Database(SQLALCHEMY_DATABASE_URI)
-# database = databases.Database(SQLALCHEMY_DATABASE_URI)
+from db_setup import database, users
+from endpoints.users.models import (
+    UserCreate,  # , UserUpdate,User, UserInDB
+    UserDeactivate,
+    UserList,
+    UserPwd,
+    UserUpdate,
+)
+from endpoints.users.pass_lib import encrypt_pass, verify_pass
+from settings import SQLALCHEMY_DATABASE_URI
 
 router = APIRouter()
 # time variables
@@ -38,34 +33,88 @@ currentTime = datetime.now()
 async def user_list(
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title="Delay",
+        description="Seconds to delay (max 121)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
+    ),
+    qty: int = Query(
+        None,
+        title="Quanity",
+        description="Records to return (max 500)",
+        ge=1,
+        le=500,
+        alias="qty",
+    ),
+    offset: int = Query(
+        None,
+        title="Offset",
+        description="Offset increment",
+        ge=1,
+        le=500,
+        alias="offset",
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
 ):
-
+    """
+    docstring
+    """
     # sleep if delay option is used
-    if delay is not None:
-        asyncio.sleep(delay)
+    if delay is None:
+        delay == 0
+
+    asyncio.sleep(delay)
+
+    if qty is None:
+        qty: int = 100
+    if offset is None:
+        offset: int = 0
 
     try:
         # await database.connect()
         # Fetch multiple rows
         if isActive is not None:
-            query = users.select().where(users.c.isActive == isActive)
+            query = (
+                users.select()
+                .where(users.c.isActive == isActive)
+                .order_by(users.c.dateCreate)
+                .limit(qty)
+            )
             # values = {'isActive': isActive}
-            x = await database.fetch_all(query)
+            db_result = await database.fetch_all(query)
         else:
-            query = users.select()
-            x = await database.fetch_all(query)
+            query = users.select().order_by(users.c.dateCreate).limit(qty)
+            db_result = await database.fetch_all(query)
 
-        result = x
+        result_set = []
+        for r in db_result:
+            # iterate through data and return simplified data set
+            user_data = {
+                "userId": r["userId"],
+                "user_name": r["user_name"],
+                "firstName": r["firstName"],
+                "lastName": r["lastName"],
+                "company": r["company"],
+                "title": r["title"],
+                "isActive": r["isActive"],
+            }
+            result_set.append(user_data)
+
+        result = {
+            "parameters": {
+                "returned_results": len(result_set),
+                "quantity": qty,
+                "filter": isActive,
+                "delay": delay,
+            },
+            "users": result_set,
+        }
         # await database.disconnect()
+        return result
     except Exception as e:
-        print(e)
-        logger.info("Error: {error}", error=e)
+        # print(e)
+        logger.error(f"Error: {e}")
         result = {"error": e}
     return result
 
@@ -93,6 +142,7 @@ async def users_list_count(
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
+
     try:
         # Fetch multiple rows
         if isActive is not None:
@@ -104,8 +154,8 @@ async def users_list_count(
 
         result = {"count": len(x)}
     except Exception as e:
-        print(e)
-        logger.info("Error: {error}", error=e)
+        # print(e)
+        logger.error(f"Error: {e}")
         result = {"error": e}
 
     # print(result)
@@ -119,7 +169,7 @@ async def get_user_id(
         None,
         title="The number of items in the list to return (min of 1 and max 10)",
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ):
@@ -131,12 +181,30 @@ async def get_user_id(
     try:
         # Fetch single row
         query = users.select().where(users.c.userId == userId)
-        result = await database.fetch_one(query)
-    except Exception as e:
-        print(e)
-        logger.info("Error: {error}", error=e)
+        db_result = await database.fetch_one(query)
 
-    return result
+        user_data = {
+            "userId": db_result["userId"],
+            "user_name": db_result["user_name"],
+            "firstName": db_result["firstName"],
+            "lastName": db_result["lastName"],
+            "company": db_result["company"],
+            "title": db_result["title"],
+            "address": db_result["address"],
+            "city": db_result["city"],
+            "country": db_result["country"],
+            "postal": db_result["postal"],
+            "email": db_result["email"],
+            "website": db_result["website"],
+            "description": db_result["description"],
+            "dateCreate": db_result["dateCreate"],
+            "isActive": db_result["isActive"],
+        }
+        return user_data
+
+    except Exception as e:
+        # print(e)
+        logger.error(f"Error: {e}")
 
 
 @router.put(
@@ -175,7 +243,7 @@ async def deactivatee_user_id(
 
     except Exception as e:
         print(e)
-        logger.info("Error: {error}", error=e)
+        logger.error(f"Error: {e}")
 
     return result
 
@@ -202,7 +270,7 @@ async def delete_user_id(
         result = {"status": f"{userId} deleted"}
     except Exception as e:
         print(e)
-        logger.info("Error: {error}", error=e)
+        logger.error(f"Error: {e}")
 
     return result
 
@@ -230,13 +298,15 @@ async def create_user(
     ),
 ):
     value = user.dict()
+    hash_pwd = encrypt_pass(value["password"])
     # print(value)
     # dictionary to append to todo_full_list
     userInformation = {
         "userId": str(uuid.uuid1()),
+        "user_name": value["user_name"],
         "firstName": value["firstName"],
         "lastName": value["lastName"],
-        "password": value["password"],
+        "password": hash_pwd,
         "title": value["title"],
         "company": value["company"],
         "address": value["address"],
@@ -262,7 +332,33 @@ async def create_user(
         result = {"userId": userInformation["userId"]}
     except Exception as e:
         print(e)
-        logger.info("Error: {error}", error=e)
+        logger.error(f"Error: {e}")
         result = {"error": e}
 
     return result
+
+
+@router.post(
+    "/check-pwd/",
+    tags=["users"],
+    response_description="The created item",
+    responses={
+        302: {"description": "Incorect URL, redirecting"},
+        404: {"description": "Operation forbidden"},
+        405: {"description": "Method not allowed"},
+        500: {"description": "Mommy!"},
+    },
+)
+async def check_pwd(user_name: str = Form(...), password: str = Form(...)):
+    try:
+        # Fetch single row
+        query = users.select().where(users.c.user_name == user_name)
+        db_result = await database.fetch_one(query)
+        # print(user_data)
+        result = verify_pass(password, db_result["password"])
+        # print(db_result['user_name'],db_result['password'])
+        return {"result": result}
+
+    except Exception as e:
+        # print(e)
+        logger.error(f"Error: {e}")
