@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## Todo
-- [ ] Add Testing
+- [X] Add Testing
+  - [ ] Add Excepton Handling Testing
 - [ ] Create cookiecutter from template
 - [ ] Work on one to many relationshipts
 - [ ] Validate userId in ToDo's
@@ -12,6 +13,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 - websockets (working on it)
+
+## [19.8.22-beta] - 2019-08-22
+### Added
+- Cleanup of routers for todo, users, and silly
+- Using Starlette Config over python-dotenv
+- Testing of endpoints (default, users, todos, silly)
+- Adding Password Check to Users endpoint
+- Adding Passlib and Bcrypt for hashing of password
+
+### Changed
+- Cleanup of routers for todo, users, and silly
 
 
 ## [19.4.20-beta-1] - 2019-04-20

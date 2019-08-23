@@ -1,5 +1,8 @@
+![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
+<!-- ![image](https://travis-ci.org/devsetgo/python_common_functions.svg "Build Status") -->
+![image](app/coverage.svg "Code Coverage")
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 # Test-API a FASTAPI Example
-![Calendar Versioning Year Month Day of release](https://img.shields.io/badge/calver-YY.MM.DD-22bfda.svg)
 
 A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
 
@@ -94,7 +97,9 @@ Pre-Commit & Hooks
 ## TODO
 
 - [x] Refactor by endpoint (sample, user, etc..)
-- [ ] Create tests
+- [x] Create tests
+    - [x] Minimum of 80%
+    - [ ] Exception Testing
 - [ ] Extend API parameters
     - [ ] Pagination
     - [ ] Number of Items per list returned (Max)

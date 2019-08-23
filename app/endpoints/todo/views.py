@@ -60,7 +60,7 @@ async def todo_list(
         result = x
         # await database.disconnect()
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         result = {"error": e}
     return result
@@ -100,7 +100,7 @@ async def todos_list_count(
 
         result = {"count": len(x)}
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         result = {"error": e}
 
@@ -126,10 +126,10 @@ async def get_todo_id(
     try:
         # Fetch single row
         query = todos.select().where(todos.c.todoId == todoId)
-        await database.fetch_one(query)
-        result = {"status": f"{todoId} retrieved"}
+        result = await database.fetch_one(query)
+
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         # retry db call
         await database.fetch_one(query)
@@ -173,7 +173,7 @@ async def deactivatee_todo_id(
         await database.execute(query, values)
         result = await get_todo_id(todoId)
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         # retry db call
         await database.execute(query, values)
@@ -203,7 +203,7 @@ async def delete_todo_id(
         await database.execute(query)
         result = {"status": f"{todoId} deleted"}
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         # retry db call
         await database.execute(query)
@@ -261,7 +261,7 @@ async def create_todo(
         await database.execute(query, values)
         result = {"todoId": todoInformation["todoId"]}
     except Exception as e:
-        print(e)
+        # print(e)
         logger.info("Error: {error}", error=e)
         result = {"error": e}
         # retry db call
