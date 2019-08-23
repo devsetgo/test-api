@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 - websockets (working on it)
 
+## [19.8.23-beta] - 2019-08-23
+### Added
+- Additional test to ToDo and User for posting failure
+
 ## [19.8.22-beta] - 2019-08-22
 ### Added
 - Cleanup of routers for todo, users, and silly

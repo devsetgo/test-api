@@ -260,12 +260,12 @@ async def create_todo(
         values = todoInformation
         await database.execute(query, values)
         result = {"todoId": todoInformation["todoId"]}
+        return result
     except Exception as e:
         # print(e)
-        logger.info("Error: {error}", error=e)
-        result = {"error": e}
+        logger.info(f"Error: {e}")
+        # result = {"error": e}
         # retry db call
-        await database.execute(query, values)
-        result = {"todoId": todoInformation["todoId"]}
-        logger.info("Retry Result: {result}", result=result)
-    return result
+        # await database.execute(query, values)
+        # result = {"todoId": todoInformation["todoId"]}
+        # logger.info("Retry Result: {result}", result=result)
