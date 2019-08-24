@@ -58,7 +58,7 @@ users = Table(
     Column("country", String(length=200)),
     Column("postal", String(length=50)),
     Column("email", String(length=200)),
-    Column("website", String(length=500)),
+    Column("website", String(length=150)),
     Column("password", String(length=50)),
     Column("description", String(length=2000)),
     Column("dateCreate", DateTime()),

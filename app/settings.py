@@ -11,22 +11,26 @@ from starlette.config import Config
 config = Config(".env")
 
 # Application information
-APP_VERSION = config("APP_VERSION")
-OWNER = config("OWNER")
-WEBSITE = config("WEBSITE")
-LICENSE_TYPE = config("LICENSE_TYPE")
-LICENSE_LINK = config("LICENSE_LINK")
+APP_VERSION = config("APP_VERSION", default="1.0.0")
+OWNER = config("OWNER", default="Mike Ryan")
+WEBSITE = config("WEBSITE", default="https://devsetgo.com")
+LICENSE_TYPE = config("LICENSE_TYPE", default="MIT")
+LICENSE_LINK = config(
+    "LICENSE_LINK", default="https://github.com/devsetgo/starlette-SRTDashboard"
+)
 
 # Application Configurations
-HOST_DOMAIN = config("HOST_DOMAIN")
-RELEASE_ENV = config("RELEASE_ENV")
-SQLALCHEMY_DATABASE_URI = config("SQLALCHEMY_DATABASE_URI")
+HOST_DOMAIN = config("HOST_DOMAIN", default="http://devsetgo.com")
+RELEASE_ENV = config("RELEASE_ENV", default="prd")
+SQLALCHEMY_DATABASE_URI = config(
+    "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/test-api.db"
+)
 
 # Loguru settings
-LOGURU_RETENTION = config("LOGURU_RETENTION")
-LOGURU_ROTATION = config("LOGURU_ROTATION")
+LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
+LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
 
 # Access Token Settings
-SECRET_KEY = config("SECRET_KEY")
-ALGORITHM = config("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES")
+SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
+ALGORITHM = config("ALGORITHM", default="HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)

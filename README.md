@@ -1,5 +1,5 @@
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
-<!-- ![image](https://travis-ci.org/devsetgo/python_common_functions.svg "Build Status") -->
+![image](https://travis-ci.org/devsetgo//test-api.svg "Build Status")
 ![image](app/coverage.svg "Code Coverage")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 # Test-API a FASTAPI Example
@@ -113,7 +113,11 @@ Pre-Commit & Hooks
   - [ ] Rate limiting
 - [X] Gunicorn with Uvicorn configuration
 - [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
-- [ ] Setup CI/CD Pipeline for test and deployment
+- [X] Setup CI/CD Pipeline for test and deployment
+    - [X] [Travis-CI](https://travis-ci.org)
+    - [ ] [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
+        - [ ] Continous Integration
+        - [ ] Continous Deployment (Docker Hub Push)
 - [ ] Make [Twelve Factor App](https://12factor.net/) ready
     - [x] One codebase tracked in revision control, many deploys
     - [x] Explicitly declare and isolate dependencies

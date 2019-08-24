@@ -51,8 +51,8 @@ class UserCreate(UserBase):
     # isActive: bool = True
 
 
-class UserBaseInDB(UserBase):
-    userId: str = None
+# class UserBaseInDB(UserBase):
+#     userId: str = None
 
 
 class UserPwd(UserBase):
