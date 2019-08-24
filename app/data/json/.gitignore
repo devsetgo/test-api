@@ -2,4 +2,4 @@
 *
 # except this one
 !.gitignore
-!.sample.json
+!.Test_*.json
