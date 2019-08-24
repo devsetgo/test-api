@@ -329,7 +329,7 @@ async def create_user(
         query = users.insert()
         values = userInformation
         await database.execute(query, values)
-        result = {"userId": userInformation["userId"]}
+        result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
     except Exception as e:
         print(e)
         logger.error(f"Error: {e}")
