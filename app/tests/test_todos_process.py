@@ -26,40 +26,6 @@ directory_to__files: str = "data"
 
 
 class test_default_endpoints(unittest.TestCase):
-    def test_todos_post_exception(self):
-        test_data = {
-            # "title": "Test",
-            "userId": "123",
-            "description": "test",
-            "dateDue": "2019-08-22T23:51:28.873Z",
-        }
-        url = f"/api/v1/todo/create/"
-        client = TestClient(app)
-        response = client.post(url, json=test_data)
-        # result = response.json()
-        assert response.status_code == 422
-        # data = response.json()
-        # save_json("test_data_todos.json", data)
-
-    def test_todos_post(self):
-        test_data = {
-            "title": "Test",
-            "userId": "123",
-            "description": "test",
-            "dateDue": "2019-08-22T23:51:28.873Z",
-        }
-        url = f"/api/v1/todo/create/?delay=1"
-        client = TestClient(app)
-        response = client.post(url, json=test_data)
-        assert response.status_code == 200
-        data = response.json()
-        save_json("test_data_todos.json", data)
-
-    def test_todos_count(self):
-        client = TestClient(app)
-        response = client.get(f"api/v1/todo/list/count")
-        assert response.status_code == 200
-
     def test_todos_count_complete_delay(self):
         client = TestClient(app)
         response = client.get(f"/api/v1/todo/list/count?delay=1&complete=true")

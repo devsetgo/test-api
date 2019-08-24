@@ -46,33 +46,6 @@ class test_file_processing(unittest.TestCase):
         except Exception:
             assert True
 
-    def test_save_json(self):
-        sample_dict = {"name": "bob", "date": str(time_str)}
-        file_named = "test_1.json"
-        json_data = []
-        for i in range(10):
-            sample_dict = {"name": "bob", "date": str(time_str)}
-            json_data.append(sample_dict)
-
-        result = save_json(file_named, json_data)
-        assert result == "complete"
-
-    def test_save_csv(self):
-        csv_data = []
-        file_named = "test_1.csv"
-        csv_data = []
-        count = 0
-        for i in range(10):
-            if count == 0:
-                sample_dict = ["name", "date"]
-            else:
-                sample_dict = ["bob", str(datetime.datetime.now())]
-            count += 1
-            csv_data.append(sample_dict)
-
-            result = save_csv(file_named, csv_data)
-            assert result == "complete"
-
     def test_open_json(self):
         file_named = "test_1.json"
         result = open_json(file_named)
