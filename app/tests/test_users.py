@@ -14,6 +14,7 @@ from loguru import logger
 import pytest
 from app.main import app
 from app.com_lib.file_functions import open_json, save_json
+from app.endpoints.sillyusers.gen_user import user_info
 
 # from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
@@ -26,31 +27,34 @@ directory_to__files: str = "data"
 
 
 class test_default_endpoints(unittest.TestCase):
-    def test_users_post_error(self):
-        test_password = "testpassword"
-        name = f"test-user-fail"
-        test_data = {
-            "user_name": name,
-            # "firstName": "string",
-            "lastName": "string",
-            "password": test_password,
-            "title": "string",
-            "company": "string",
-            "address": "string",
-            "city": "string",
-            "country": "string",
-            "postal": "string",
-            "email": "string",
-            "website": "string",
-            "description": "string",
-        }
+    # def test_users_post_error(self):
+    #     test_password = "testpassword"
+    #     user_id = None
+    #     userName = f"test-user-fail"
+    #     user_info = user_info(name, user_id)
 
-        url = f"/api/v1/users/create/"
-        client = TestClient(app)
-        response = client.post(url, json=test_data)
-        assert response.status_code == 422
-        # data = response.json()
-        # save_json("test_data_users.json", data)
+    #     test_data = {
+    #         "user_name": userName,
+    #         # "firstName": "string",
+    #         "lastName": "string",
+    #         "password": test_password,
+    #         "title": "string",
+    #         "company": "string",
+    #         "address": "string",
+    #         "city": "string",
+    #         "country": "string",
+    #         "postal": "string",
+    #         "email": "string",
+    #         "website": "string",
+    #         "description": "string",
+    #     }
+
+    #     url = f"/api/v1/users/create/"
+    #     client = TestClient(app)
+    #     response = client.post(url, json=test_data)
+    #     assert response.status_code == 422
+    # data = response.json()
+    # save_json("test_data_users.json", data)
 
     def test_users_post(self):
         test_password = "testpassword"
@@ -133,8 +137,8 @@ class test_default_endpoints(unittest.TestCase):
         response = client.put(f"/api/v1/users/deactivate/{user_id['userId']}?delay=1")
         assert response.status_code == 200
 
-    def test_users_delete_delay(self):
-        user_id = open_json("test_data_users.json")
-        client = TestClient(app)
-        response = client.delete(f"/api/v1/users/{user_id['userId']}?delay=1")
-        assert response.status_code == 200
+    # def test_users_delete_delay(self):
+    #     user_id = open_json("test_data_users.json")
+    #     client = TestClient(app)
+    #     response = client.delete(f"/api/v1/users/{user_id['userId']}?delay=1")
+    #     assert response.status_code == 200
