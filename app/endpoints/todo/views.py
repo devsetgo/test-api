@@ -41,11 +41,11 @@ async def todo_list(
         alias="delay",
     ),
     isComplete: bool = Query(None, title="by completion status", alias="complete"),
-):
+) -> dict:
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         # await database.connect()
@@ -57,13 +57,12 @@ async def todo_list(
             query = todos.select()
             x = await database.fetch_all(query)
 
+        logger.info(f"todo list accessed")
         result = x
-        # await database.disconnect()
+        return result
+
     except Exception as e:
-        # print(e)
-        logger.info("Error: {error}", error=e)
-        result = {"error": e}
-    return result
+        logger.error(f"Error: {e}")
 
 
 @router.get(
@@ -84,7 +83,7 @@ async def todos_list_count(
         alias="delay",
     ),
     isComplete: bool = Query(None, title="by completion status", alias="complete"),
-):
+) -> dict:
 
     # sleep if delay option is used
     if delay is not None:
@@ -99,13 +98,9 @@ async def todos_list_count(
             x = await database.fetch_all(query)
 
         result = {"count": len(x)}
+        return result
     except Exception as e:
-        # print(e)
         logger.info("Error: {error}", error=e)
-        result = {"error": e}
-
-    # print(result)
-    return result
 
 
 @router.get("/{todoId}", tags=["todo"], response_description="Get todo information")
@@ -118,7 +113,7 @@ async def get_todo_id(
         le=10,
         alias="delay",
     ),
-):
+) -> dict:
 
     # sleep if delay option is used
     if delay is not None:
@@ -127,15 +122,9 @@ async def get_todo_id(
         # Fetch single row
         query = todos.select().where(todos.c.todoId == todoId)
         result = await database.fetch_one(query)
-
+        return result
     except Exception as e:
-        # print(e)
         logger.info("Error: {error}", error=e)
-        # retry db call
-        await database.fetch_one(query)
-        result = {"status": f"{todoId} retrieved"}
-        logger.info("Retry Result: {result}", result=result)
-    return result
 
 
 @router.put(
@@ -159,7 +148,7 @@ async def deactivatee_todo_id(
         le=10,
         alias="delay",
     ),
-):
+) -> dict:
 
     todoInformation = {"isComplete": True, "dateComplete": currentTime}
     # sleep if delay option is used
@@ -172,14 +161,9 @@ async def deactivatee_todo_id(
         values = todoInformation
         await database.execute(query, values)
         result = await get_todo_id(todoId)
+        return result
     except Exception as e:
-        # print(e)
         logger.info("Error: {error}", error=e)
-        # retry db call
-        await database.execute(query, values)
-        result = await get_todo_id(todoId)
-        logger.info("Retry Result: {result}", result=result)
-    return result
 
 
 @router.delete(
@@ -195,21 +179,16 @@ async def deactivatee_todo_id(
 )
 async def delete_todo_id(
     *, todoId: str = Path(..., title="The todo id to be searched for", alias="todoId")
-):
+) -> dict:
 
     try:
         # delete id
         query = todos.delete().where(todos.c.todoId == todoId)
         await database.execute(query)
         result = {"status": f"{todoId} deleted"}
+        return result
     except Exception as e:
-        # print(e)
         logger.info("Error: {error}", error=e)
-        # retry db call
-        await database.execute(query)
-        result = {"status": f"{todoId} deleted"}
-        logger.info("Retry Result: {result}", result=result)
-    return result
 
 
 @router.post(
@@ -233,10 +212,9 @@ async def create_todo(
         le=10,
         alias="delay",
     ),
-):
-    #  = Body(..., example={"title": "A thing", "description": "A description of a thing", "dateDue": '2019-04-14 15:15:34.832031','userId': 'Bob'}, embed=True)
+) -> dict:
+
     value = todo.dict()
-    # print(value)
     # dictionary to append to todo_full_list
     todoInformation = {
         "todoId": str(uuid.uuid1()),
@@ -250,7 +228,7 @@ async def create_todo(
         # ,'checklist': []
         "dateComplete": None,
     }
-    # print(len(todo_full_list))
+
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
@@ -262,10 +240,4 @@ async def create_todo(
         result = {"todoId": todoInformation["todoId"]}
         return result
     except Exception as e:
-        # print(e)
         logger.info(f"Error: {e}")
-        # result = {"error": e}
-        # retry db call
-        # await database.execute(query, values)
-        # result = {"todoId": todoInformation["todoId"]}
-        # logger.info("Retry Result: {result}", result=result)
