@@ -19,7 +19,6 @@ from settings import (
 
 from endpoints.todo import views as todo
 from endpoints.sillyusers import views as silly_users
-
 from endpoints.users import views as users
 
 # config logging start
