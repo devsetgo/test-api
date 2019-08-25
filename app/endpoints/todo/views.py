@@ -45,7 +45,7 @@ async def todo_list(
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         # await database.connect()
@@ -57,11 +57,12 @@ async def todo_list(
             query = todos.select()
             x = await database.fetch_all(query)
 
+        logger.info(f"todo list accessed")
         result = x
         return result
 
     except Exception as e:
-        logger.info("Error: {error}", error=e)
+        logger.error(f"Error: {e}")
 
 
 @router.get(
@@ -227,7 +228,7 @@ async def create_todo(
         # ,'checklist': []
         "dateComplete": None,
     }
-    # print(len(todo_full_list))
+
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
