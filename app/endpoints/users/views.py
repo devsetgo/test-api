@@ -303,7 +303,7 @@ async def create_user(
     # dictionary to append to todo_full_list
     userInformation = {
         "userId": str(uuid.uuid1()),
-        "user_name": value["user_name"],
+        "user_name": value["user_name"].lower(),
         "firstName": value["firstName"],
         "lastName": value["lastName"],
         "password": hash_pwd,
