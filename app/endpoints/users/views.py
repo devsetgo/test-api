@@ -5,6 +5,7 @@ doc string
 import asyncio
 import os
 import random
+from typing import Dict
 import uuid
 from datetime import date, datetime, time, timedelta
 
@@ -56,9 +57,19 @@ async def user_list(
         alias="offset",
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
-):
+) -> dict:
+
     """
-    docstring
+    list of users
+
+    Keyword Arguments:
+        delay {int} -- [description] (default: {Query(None,title="Delay",description="Seconds to delay (max 121)",ge=1,le=121,alias="delay",)})
+        qty {int} -- [description] (default: {Query(None,title="Quanity",description="Records to return (max 500)",ge=1,le=500,alias="qty",)})
+        offset {int} -- [description] (default: {Query(None,title="Offset",description="Offset increment",ge=1,le=500,alias="offset",)})
+        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+
+    Returns:
+        dict -- [description]
     """
     # sleep if delay option is used
     if delay is None:
@@ -113,10 +124,9 @@ async def user_list(
         # await database.disconnect()
         return result
     except Exception as e:
-        # print(e)
+        # )
         logger.error(f"Error: {e}")
         result = {"error": e}
-    return result
 
 
 @router.get(
@@ -137,8 +147,17 @@ async def users_list_count(
         alias="delay",
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
-):
+) -> dict:
+    """
+    Count of users in the database
 
+    Keyword Arguments:
+        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+
+    Returns:
+        dict -- [description]
+    """
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
@@ -153,13 +172,9 @@ async def users_list_count(
             x = await database.fetch_all(query)
 
         result = {"count": len(x)}
+        return result
     except Exception as e:
-        # print(e)
         logger.error(f"Error: {e}")
-        result = {"error": e}
-
-    # print(result)
-    return result
 
 
 @router.get("/{userId}", tags=["users"], response_description="Get user information")
@@ -172,8 +187,17 @@ async def get_user_id(
         le=121,
         alias="delay",
     ),
-):
+) -> dict:
+    """
+    User information for requested UUID
 
+    Keyword Arguments:
+        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
+        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=121,alias="delay",)})
+
+    Returns:
+        dict -- [description]
+    """
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
@@ -203,7 +227,6 @@ async def get_user_id(
         return user_data
 
     except Exception as e:
-        # print(e)
         logger.error(f"Error: {e}")
 
 
@@ -228,8 +251,17 @@ async def deactivatee_user_id(
         le=10,
         alias="delay",
     ),
-):
+) -> dict:
+    """
+    Deactivate a specific user UUID
 
+    Keyword Arguments:
+        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
+        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+
+    Returns:
+        dict -- [description]
+    """
     userInformation = {"isActive": False}
     # sleep if delay option is used
     if delay is not None:
@@ -240,12 +272,9 @@ async def deactivatee_user_id(
         query = users.update().where(users.c.userId == userId)
         values = userInformation
         result = await database.execute(query, values)
-
+        return result
     except Exception as e:
-        print(e)
         logger.error(f"Error: {e}")
-
-    return result
 
 
 @router.delete(
@@ -261,18 +290,25 @@ async def deactivatee_user_id(
 )
 async def delete_user_id(
     *, userId: str = Path(..., title="The user id to be searched for", alias="userId")
-):
+) -> dict:
+    """
+    Delete a user by UUID
 
+    Keyword Arguments:
+        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
+
+    Returns:
+        dict -- [result: user UUID deleted]
+    """
     try:
         # delete id
         query = users.delete().where(users.c.userId == userId)
         await database.execute(query)
         result = {"status": f"{userId} deleted"}
-    except Exception as e:
-        print(e)
-        logger.error(f"Error: {e}")
+        return result
 
-    return result
+    except Exception as e:
+        logger.error(f"Error: {e}")
 
 
 @router.post(
@@ -296,11 +332,22 @@ async def create_user(
         le=10,
         alias="delay",
     ),
-):
+) -> dict:
+    """
+    POST/Create a new User. user_name (unique), firstName, lastName, and password are required. All other fields are optional.
+
+    Arguments:
+        user {UserCreate} -- [description]
+
+    Keyword Arguments:
+        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+
+    Returns:
+        dict -- [userId: uuid, user_name: user_name]
+    """
     value = user.dict()
     hash_pwd = encrypt_pass(value["password"])
-    # print(value)
-    # dictionary to append to todo_full_list
+
     userInformation = {
         "userId": str(uuid.uuid1()),
         "user_name": value["user_name"].lower(),
@@ -330,12 +377,9 @@ async def create_user(
         values = userInformation
         await database.execute(query, values)
         result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
+        return result
     except Exception as e:
-        print(e)
         logger.error(f"Error: {e}")
-        result = {"error": e}
-
-    return result
 
 
 @router.post(
@@ -349,16 +393,25 @@ async def create_user(
         500: {"description": "Mommy!"},
     },
 )
-async def check_pwd(user_name: str = Form(...), password: str = Form(...)):
+async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> dict:
+    """
+        Check password function
+
+        Keyword Arguments:
+            user_name {str} -- [description] (default: {Form(...)})
+            password {str} -- [description] (default: {Form(...)})
+
+        Returns:
+            [Dict] -- [result: bool]
+
+    """
     try:
         # Fetch single row
-        query = users.select().where(users.c.user_name == user_name)
+        query = users.select().where(users.c.user_name == user_name.lower())
         db_result = await database.fetch_one(query)
-        # print(user_data)
         result = verify_pass(password, db_result["password"])
-        # print(db_result['user_name'],db_result['password'])
+        logger.info(f"password validation: user: {user_name.lower()} as {result}")
         return {"result": result}
 
     except Exception as e:
-        # print(e)
         logger.error(f"Error: {e}")
