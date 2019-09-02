@@ -52,14 +52,20 @@ Docker
 ~~~~
 
 Run Tests
+
+By commands
 ~~~~
 python3 -m pytest
 ~~~~
-
 Create coverage badge
 ~~~~
     coverage-badge -o coverage.svg -f
 ~~~~
+As a Script from app directory
+~~~~
+./scripts/tests.sh
+~~~~
+
 
 Pre-Commit & Hooks
     - Follow install instructionsL: [https://pre-commit.com/#install](https://pre-commit.com/#install)
