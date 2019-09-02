@@ -34,5 +34,3 @@ services:
   #      limits:
   #        cpus: "2"
   #        memory: 100M
-#      restart_policy:
-#        condition: always
