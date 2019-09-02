@@ -6,10 +6,36 @@ import sys
 import os
 import psutil
 import datetime
+import time
 
 
-def get_status():
-    result: dict = {"status": "UP", "current_datetime": str(datetime.datetime.now())}
+def get_status() -> dict:
+    uptime = seconds_elapsed()
+    result: dict = {
+        "status": "UP",
+        "uptime": uptime,
+        "current_datetime": str(datetime.datetime.now()),
+    }
+    return result
+
+
+def seconds_elapsed() -> dict:
+    uptime = time.time() - psutil.boot_time()
+
+    days: float = uptime // (24 * 3600)
+    uptime = uptime % (24 * 3600)
+    hours: float = uptime // 3600
+    uptime %= 3600
+    minutes: float = uptime // 60
+    uptime %= 60
+    seconds: float = uptime
+
+    result = {
+        "days": int(days),
+        "hours": int(hours),
+        "minutes": int(minutes),
+        "seconds": int(seconds),
+    }
     return result
 
 
