@@ -14,6 +14,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 - websockets (working on it)
 
+## [19.9.1-beta] - 2019-09-01
+### Added
+- Hurricane Dorian release.
+- Adding Health Endpoints
+- Adding tests
+- Adding scripts to start tests and run app (dev)
+
 ## [19.8.23-beta] - 2019-08-23
 ### Added
 - Additional test to ToDo and User for posting failure
