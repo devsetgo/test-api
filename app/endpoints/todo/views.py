@@ -1,30 +1,22 @@
 # -*- coding: utf-8 -*-
-# FastAPI and Starlette libraries
+"""
+ToDo api endpoints
+"""
 from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
 
-# application libraries
 from endpoints.todo.models import TodoCreate
 
-#  from endpoints.todo.models import TodoCreate,TodoUpdate #,TodoDeactivate #, UserUpdate,User, UserInDB
 from db_setup import todos, database
 from settings import SQLALCHEMY_DATABASE_URI
 
-# Python libraries
 import asyncio
 import random
 import uuid
 import os
 from datetime import datetime, date, timedelta, time
 
-# External Library imports
 import databases
-
-# from databases import Database
 from loguru import logger
-
-
-# database = databases.Database(SQLALCHEMY_DATABASE_URI)
-# database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
 router = APIRouter()
 # time variables

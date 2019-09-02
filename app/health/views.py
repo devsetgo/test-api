@@ -4,7 +4,7 @@ import time
 import datetime
 import asyncio
 from loguru import logger
-from health.checks import get_platform, get_processes, get_status
+from health.checks import get_platform, get_processes
 
 # from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
@@ -21,8 +21,7 @@ async def health_main() -> dict:
         dict -- [status: UP, uptime: seconds current_datetime: datetime.now]
     """
     try:
-        result: dict = get_status()
-        logger.info(f"GET processes")
+        result: dict = {"status": "UP"}
         return result
     except Exception as e:
         logger.error(f"Error: {e}")

@@ -23,7 +23,7 @@ from endpoints.users.models import (
     UserUpdate,
 )
 from endpoints.users.pass_lib import encrypt_pass, verify_pass
-from settings import SQLALCHEMY_DATABASE_URI
+
 
 router = APIRouter()
 # time variables
@@ -403,7 +403,6 @@ async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> di
 
         Returns:
             [Dict] -- [result: bool]
-
     """
     try:
         # Fetch single row

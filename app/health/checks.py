@@ -8,35 +8,35 @@ import psutil
 import datetime
 import time
 
+# TODO: Make a status that gets app uptime
+# def get_status() -> dict:
+#     uptime = seconds_elapsed()
+#     result: dict = {
+#         "status": "UP",
+#         "uptime": uptime,
+#         "current_datetime": str(datetime.datetime.now()),
+#     }
+#     return result
 
-def get_status() -> dict:
-    uptime = seconds_elapsed()
-    result: dict = {
-        "status": "UP",
-        "uptime": uptime,
-        "current_datetime": str(datetime.datetime.now()),
-    }
-    return result
 
+# def seconds_elapsed() -> dict:
+#     uptime = time.time() - psutil.boot_time()
 
-def seconds_elapsed() -> dict:
-    uptime = time.time() - psutil.boot_time()
+#     days: float = uptime // (24 * 3600)
+#     uptime = uptime % (24 * 3600)
+#     hours: float = uptime // 3600
+#     uptime %= 3600
+#     minutes: float = uptime // 60
+#     uptime %= 60
+#     seconds: float = uptime
 
-    days: float = uptime // (24 * 3600)
-    uptime = uptime % (24 * 3600)
-    hours: float = uptime // 3600
-    uptime %= 3600
-    minutes: float = uptime // 60
-    uptime %= 60
-    seconds: float = uptime
-
-    result = {
-        "days": int(days),
-        "hours": int(hours),
-        "minutes": int(minutes),
-        "seconds": int(seconds),
-    }
-    return result
+#     result = {
+#         "days": int(days),
+#         "hours": int(hours),
+#         "minutes": int(minutes),
+#         "seconds": int(seconds),
+#     }
+#     return result
 
 
 def get_platform() -> dict:
