@@ -4,7 +4,7 @@ import time
 import datetime
 import asyncio
 from loguru import logger
-from health.checks import get_platform, get_processes
+from health.checks import get_platform, get_processes, get_status
 
 # from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
@@ -18,13 +18,11 @@ async def health_main() -> dict:
     GET status, uptime, and current datetime
 
     Returns:
-        dict -- [status: UP, current_datetime: datetime.now]
+        dict -- [status: UP, uptime: seconds current_datetime: datetime.now]
     """
     try:
-        result: dict = {
-            "status": "UP",
-            "current_datetime": str(datetime.datetime.now()),
-        }
+        result: dict = get_status()
+        logger.info(f"GET processes")
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
@@ -38,7 +36,7 @@ async def health_details() -> dict:
     Returns:
         dict -- [current_datetime: datetime.now, system information: Python and System Information]
     """
-    system_info = get_platform()
+    # system_info = get_platform()
 
     try:
         system_info = get_cpu_info()
@@ -46,6 +44,7 @@ async def health_details() -> dict:
             "current_datetime": str(datetime.datetime.now()),
             "system_info": system_info,
         }
+        logger.info(f"GET system info")
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
@@ -66,7 +65,7 @@ async def health_processes() -> dict:
             # "note": "this is filter to only return, python, gunicorn, uvicorn, hypercorn, and daphne pids for security",
             "running_processes": system_info,
         }
-        print(result)
+        logger.info(f"GET processes")
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
