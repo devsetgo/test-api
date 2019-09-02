@@ -4,7 +4,7 @@ import time
 import datetime
 import asyncio
 from loguru import logger
-from health.checks import get_platform, get_processes, get_status
+from health.checks import get_platform, get_processes
 
 # from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
