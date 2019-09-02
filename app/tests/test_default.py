@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 import datetime
+import logging
 import os
 import sys
 import time
 import unittest
 from unittest import mock
-import requests
-from requests.exceptions import Timeout
-import requests_mock
-import logging
+
 import pytest
+import requests
+import requests_mock
 from _pytest.logging import caplog
-from app.main import app, startup_event, shutdown_event
+from requests.exceptions import Timeout
 
 # from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
+
+from app.main import app, shutdown_event, startup_event
 
 # from starlette.exceptions import HTTPException
 

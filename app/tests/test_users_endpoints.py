@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
 import datetime
-import os
 import json
-from pathlib import Path
+import os
 import sys
 import time
 import unittest
+from pathlib import Path
 from unittest import mock
+
+import pytest
 import requests
-from requests.exceptions import Timeout
 import requests_mock
 from loguru import logger
-import pytest
-from app.main import app
-from app.com_lib.file_functions import open_json, save_json
-from app.endpoints.sillyusers.gen_user import user_test_info
+from requests.exceptions import Timeout
 
 # from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
+
+from app.com_lib.file_functions import open_json, save_json
+from app.endpoints.sillyusers.gen_user import user_test_info
+from app.main import app
 
 # from starlette.exceptions import HTTPException
 
@@ -26,12 +28,10 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class test_default_endpoints(unittest.TestCase):
+class test_users_endpoints(unittest.TestCase):
     def test_user_password(self):
         user_id = open_json("test_data_users.json")
-
         test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}
-
         url = f"/api/v1/users/check-pwd/"
         client = TestClient(app)
         response = client.post(url, data=test_data)
