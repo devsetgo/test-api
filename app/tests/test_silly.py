@@ -5,22 +5,23 @@ import sys
 import time
 import unittest
 from unittest import mock
-import requests
-from requests.exceptions import Timeout
-import requests_mock
 
 import pytest
-from app.main import app
+import requests
+import requests_mock
+from requests.exceptions import Timeout
 
 # from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
+
+from app.main import app
 
 # from starlette.exceptions import HTTPException
 
 client = TestClient(app)
 
 
-class test_default_endpoints(unittest.TestCase):
+class test_silly_endpoints(unittest.TestCase):
     def test_silly_make_one_delay(self):
         client = TestClient(app)
         response = client.get("/api/v1/silly-users/make-one?delay=1")

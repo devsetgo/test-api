@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
+import databases
 import pyjokes
 import uvicorn
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
 from loguru import logger
 from starlette.responses import PlainTextResponse, RedirectResponse
-import databases
-from db_setup import createDB, disconnectDB, connectDB, database
+
 from com_lib.logging_config import config_logging
+from db_setup import connectDB, createDB, database, disconnectDB
+from endpoints.sillyusers import views as silly_users
+from endpoints.todo import views as todo
+from endpoints.users import views as users
+from health import views as health
 from settings import (
     APP_VERSION,
     HOST_DOMAIN,
@@ -16,10 +21,6 @@ from settings import (
     RELEASE_ENV,
     WEBSITE,
 )
-
-from endpoints.todo import views as todo
-from endpoints.sillyusers import views as silly_users
-from endpoints.users import views as users
 
 # config logging start
 config_logging()
@@ -59,7 +60,17 @@ app.include_router(
     tags=["silly users"],
     responses={404: {"description": "Not found"}},
 )
+
+# Health router
+app.include_router(
+    health.router,
+    prefix="/api/health",
+    tags=["system-health"],
+    responses={404: {"description": "Not found"}},
+)
+
 # app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
+
 
 # startup events
 @app.on_event("startup")
