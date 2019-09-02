@@ -21,8 +21,7 @@ async def health_main() -> dict:
         dict -- [status: UP, uptime: seconds current_datetime: datetime.now]
     """
     try:
-        result: dict = get_status()
-        logger.info(f"GET processes")
+        result: dict = {"status": "UP"}
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
