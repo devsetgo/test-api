@@ -11,7 +11,7 @@ from db_setup import connectDB, createDB, database, disconnectDB
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.users import views as users
-from health import health_check as health
+from health import views as health
 from settings import (
     APP_VERSION,
     HOST_DOMAIN,
@@ -21,7 +21,6 @@ from settings import (
     RELEASE_ENV,
     WEBSITE,
 )
-
 
 # config logging start
 config_logging()
@@ -61,15 +60,17 @@ app.include_router(
     tags=["silly users"],
     responses={404: {"description": "Not found"}},
 )
-# app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
 
-# ToDo router
+# Health router
 app.include_router(
     health.router,
-    prefix="/api/v1/health",
-    tags=["health"],
+    prefix="/api/health",
+    tags=["system-health"],
     responses={404: {"description": "Not found"}},
 )
+
+# app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
+
 
 # startup events
 @app.on_event("startup")
