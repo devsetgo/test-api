@@ -52,14 +52,20 @@ Docker
 ~~~~
 
 Run Tests
+
+By commands
 ~~~~
 python3 -m pytest
 ~~~~
-
 Create coverage badge
 ~~~~
     coverage-badge -o coverage.svg -f
 ~~~~
+As a Script from app directory
+~~~~
+./scripts/tests.sh
+~~~~
+
 
 Pre-Commit & Hooks
     - Follow install instructionsL: [https://pre-commit.com/#install](https://pre-commit.com/#install)
@@ -71,6 +77,7 @@ Pre-Commit & Hooks
     - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
     - [x] GET ***/Information*** endpoint containing basic app info
     - [x] GET ***/joke*** [PyJoke](https://pyjok.es/) list
+
 - todos
     - [x] GET ***/api/v1/todo/list***
     - [x] GET ***/api/v1/todo/list/count***
@@ -78,6 +85,7 @@ Pre-Commit & Hooks
     - [x] DELETE ***/api/v1/todo/list/{todoId}***
     - [x] PUT ***/api/v1/todo/list/{todoId}***
     - [x] POST ***/api/v1/todo/create/***
+
 - users
     - [x] GET ***/api/v1/users/list***
     - [x] GET ***/api/v1/users/list/count***
@@ -86,10 +94,15 @@ Pre-Commit & Hooks
     - [x] PUT ***/api/v1/users/list/{todoId}***
     - [x] POST ***/api/v1/users/create/***
     - [x] POST ***/api/v1/users/check-pwd/***
+
 - silly users
     - [x] GET ***/api/v1/silly-users/make-one***
     - [x] GET ***/api/v1/silly-users/list***
 
+- health
+    - [x] GET ***/api/health/***
+    - [x] GET ***/api/health/system-info***
+    - [x] GET ***/api/health/processes***
 
 ## Issues/Bugs
 
