@@ -26,11 +26,11 @@ services:
     - traefik.port=5000
     networks:
       - web
+    restart:
+      - always
   # deploy:
   #    replicas: 2
   #    resources:
   #      limits:
   #        cpus: "2"
   #        memory: 100M
-#      restart_policy:
-#        condition: always
