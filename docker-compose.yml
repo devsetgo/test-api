@@ -6,7 +6,7 @@ networks:
 services:
   test-api:
     build: ./app
-    image: mikeryan56/test-api:19.8.21-beta
+    image: mikeryan56/test-api:19.09.02
     # image: mikeryan56/test-api:latest
     ports:
     - "5000"
