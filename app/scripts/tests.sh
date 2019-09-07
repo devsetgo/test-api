@@ -6,4 +6,4 @@ set -x
 python3 -m pytest
 
 # create coverage-badge
-coverage-badge -o coverage.svg -f
+coverage-badge -o ../coverage.svg -f
