@@ -1,6 +1,6 @@
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 ![image](https://travis-ci.org/devsetgo//test-api.svg "Build Status")
-![image](app/coverage.svg "Code Coverage")
+![image](coverage.svg "Code Coverage")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 # Test-API a FASTAPI Example
 
