@@ -119,7 +119,7 @@ Pre-Commit & Hooks
     - [ ] Number of Items per list returned (Max)
     - [ ] Additional Optional for filtering
 - [x] Better organization
-- [ ] Standardize API pattern for versioning
+- [x] Standardize API pattern for versioning
 - Access Controls
   - [ ] Add Access controls and signup
   - [ ] Add JWT/Token access
@@ -137,7 +137,7 @@ Pre-Commit & Hooks
     - [x] Store config in the environment
     - [ ] Treat backing services as attached resources
     - [ ] Strictly separate build and run stages
-    - [ ] Execute the app as one or more stateless processes
+    - [x] Execute the app as one or more stateless processes
     - [x] Export services via port binding
     - [x] Scale out via the process model
     - [x] Maximize robustness with fast startup and graceful shutdown
