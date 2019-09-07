@@ -107,6 +107,12 @@ async def shutdown_event():
 
 @app.get("/")
 async def root():
+    """
+    Root endpoint of API
+
+    Returns:
+        Redrects to openapi document
+    """
     response = RedirectResponse(url="/docs")
     return response
 
@@ -131,6 +137,16 @@ async def joke(
         alias="delay",
     ),
 ):
+    """
+    GET a Joke endpoint
+
+    Keyword Arguments:
+        qty {int} -- [description] max of 10 random jokes can be returened
+        delay {int} -- [description] delay in API response (sleep) and can be 121 seconds
+
+    Returns:
+        [json] -- [description] a list of jokes
+    """
     if qty == None:
         qty = 1
     jokes_result = []
@@ -145,7 +161,12 @@ async def joke(
 
 @app.get("/information")
 async def info():
+    """
+    API information endpoint
 
+    Returns:
+        [json] -- [description] app version, environment running in (dev/prd), Doc/Redoc link, Lincense information, and support information
+    """
     if RELEASE_ENV.lower() == "dev":
         main_url = "http://localhost:5000"
     else:
