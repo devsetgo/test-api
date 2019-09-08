@@ -22,8 +22,7 @@ from endpoints.users.models import (
     UserPwd,
     UserUpdate,
 )
-from endpoints.users.pass_lib import encrypt_pass, verify_pass
-
+from com_lib.pass_lib import encrypt_pass, verify_pass
 
 router = APIRouter()
 # time variables
