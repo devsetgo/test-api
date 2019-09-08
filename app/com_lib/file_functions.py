@@ -41,13 +41,16 @@ def get_data_directory_list(directory: str):
 
 # Json File Processing
 # Json Save new file
-def save_json(filename: str, data: List[Dict[Any, Any]]):
-    # add extension to file name
+def save_json(filename: str, data):
     file_name = f"{filename}"
     file_directory = f"{directory_to__files}/json"
-    # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
     try:
+        if "/" in file_name or "\\" in file_name:
+            raise TypeError(f"{file_name} cannot contain \\ or /")
+        # elif type(data) is not list or type(data) is not dict:
+        #     raise TypeError(f"{data} must be a list or a dictionary instead of type {type(data)}")
+
         # open/create file
         with open(file_save, "w+") as write_file:
             # write data to file
@@ -55,14 +58,9 @@ def save_json(filename: str, data: List[Dict[Any, Any]]):
 
         logger.info(f"File Create: {file_name}")
         return "complete"
-    except FileNotFoundError as e:
+    except TypeError as e:
         # log error if
         logger.critical(e)
-        # return status
-        # error: dict = {
-        #     "error": f"ERROR: no file named {file_name} in location {file_save}"
-        # }
-        # return error
 
 
 # TODO: figure out a method of appending an existing json file
