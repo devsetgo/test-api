@@ -2,6 +2,9 @@
 set -e
 set -x
 
+#run pre-commit
+pre-commit run -a
+
 # bash scripts/test.sh --cov-report=html ${@}
 python3 -m pytest
 
