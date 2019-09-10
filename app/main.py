@@ -12,15 +12,17 @@ from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.users import views as users
 from health import views as health
-from settings import (
-    APP_VERSION,
-    HOST_DOMAIN,
-    LICENSE_LINK,
-    LICENSE_TYPE,
-    OWNER,
-    RELEASE_ENV,
-    WEBSITE,
-)
+from app import settings
+
+# from settings import (
+#     APP_VERSION,
+#     HOST_DOMAIN,
+#     LICENSE_LINK,
+#     LICENSE_TYPE,
+#     OWNER,
+#     RELEASE_ENV,
+#     WEBSITE,
+# )
 
 # config logging start
 config_logging()
@@ -32,7 +34,7 @@ logger.info("API database inititated")
 app = FastAPI(
     title="Test API",
     description="Checklist APIs",
-    version=APP_VERSION,
+    version=settings.APP_VERSION,
     openapi_url="/openapi.json",
 )
 logger.info("API App inititated")
@@ -167,19 +169,25 @@ async def info():
     Returns:
         [json] -- [description] app version, environment running in (dev/prd), Doc/Redoc link, Lincense information, and support information
     """
-    if RELEASE_ENV.lower() == "dev":
+    if settings.RELEASE_ENV.lower() == "dev":
         main_url = "http://localhost:5000"
     else:
-        main_url = HOST_DOMAIN
+        main_url = settings.HOST_DOMAIN
 
     openApi_ulr = f"{main_url}/docs"
     reDoc_ulr = f"{main_url}/redoc"
     result = {
-        "App Version": APP_VERSION,
-        "Environment": RELEASE_ENV,
+        "App Version": settings.APP_VERSION,
+        "Environment": settings.RELEASE_ENV,
         "Docs": {"OpenAPI": openApi_ulr, "ReDoc": reDoc_ulr},
-        "License": {"Type": LICENSE_TYPE, "License Link": LICENSE_LINK},
-        "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
+        "License": {
+            "Type": settings.LICENSE_TYPE,
+            "License Link": settings.LICENSE_LINK,
+        },
+        "Application_Information": {
+            "Owner": settings.OWNER,
+            "Support Site": settings.WEBSITE,
+        },
     }
     return result
 

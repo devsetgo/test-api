@@ -5,7 +5,9 @@ from pathlib import Path
 
 from loguru import logger
 
-from settings import LOGURU_RETENTION, LOGURU_ROTATION, RELEASE_ENV
+from app import settings
+
+# from settings import LOGURU_RETENTION, LOGURU_ROTATION, RELEASE_ENV
 
 
 def config_logging():
@@ -14,7 +16,7 @@ def config_logging():
     """
     LOGURU_BACKTRACE = False
     LOGGING_HANDLER_LEVEL = 20
-    if RELEASE_ENV.lower() == "dev":
+    if settings.RELEASE_ENV.lower() == "dev":
         LOGURU_BACKTRACE = True
         LOGGING_HANDLER_LEVEL = 10
 
@@ -24,8 +26,8 @@ def config_logging():
         format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",
         enqueue=True,
         backtrace=LOGURU_BACKTRACE,
-        rotation=LOGURU_ROTATION,
-        retention=LOGURU_RETENTION,
+        rotation=settings.LOGURU_ROTATION,
+        retention=settings.LOGURU_RETENTION,
         compression="zip",
     )
 
