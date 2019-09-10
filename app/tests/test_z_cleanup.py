@@ -30,6 +30,8 @@ class test_file_delete(unittest.TestCase):
             "test_data_test_user.json",
             "test_data_todos.json",
             "test_data_users.json",
+            "test_1.csv",
+            "test_sample.csv",
         ]
         for f in files:
             delete_file(f)
