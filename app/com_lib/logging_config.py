@@ -2,12 +2,8 @@
 import logging
 import os
 from pathlib import Path
-
 from loguru import logger
-
 from app import settings
-
-# from settings import LOGURU_RETENTION, LOGURU_ROTATION, RELEASE_ENV
 
 
 def config_logging():
