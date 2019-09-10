@@ -41,17 +41,22 @@ class test_users_endpoints(unittest.TestCase):
 
     def test_users_count(self):
         client = TestClient(app)
-        response = client.get(f"api/v1/todo/list/count")
+        response = client.get(f"api/v1/users/list/count")
         assert response.status_code == 200
 
     def test_users_count_complete_delay(self):
         client = TestClient(app)
-        response = client.get(f"/api/v1/users/list/count?delay=1&complete=true")
+        response = client.get(f"api/v1/users/list/count?delay=1&active=true")
         assert response.status_code == 200
 
     def test_users_list(self):
         client = TestClient(app)
         response = client.get(f"/api/v1/users/list?delay=1&qty=2")
+        assert response.status_code == 200
+
+    def test_users_list_param_none(self):
+        client = TestClient(app)
+        response = client.get(f"/api/v1/users/list")
         assert response.status_code == 200
 
     def test_users_list_options(self):
@@ -66,9 +71,15 @@ class test_users_endpoints(unittest.TestCase):
 
     def test_users_id(self):
         user_id = open_json("test_data_users.json")
+        uid = user_id["userId"]
         client = TestClient(app)
-        response = client.get(f"/api/v1/users/{user_id['userId']}")
-        assert response.status_code == 200
+        response = client.get(f"/api/v1/users/{uid}")
+        state = response.status_code
+        user_id_data = response.json()
+        logger.critical(f"test_user_id_info UUID: {uid} - response: {response.json()}")
+        save_json("user_id.json", user_id_data)
+        assert state is 200
+        # assert user_id_data is not None
 
     def test_users_id_delay(self):
         user_id = open_json("test_data_users.json")
@@ -80,10 +91,4 @@ class test_users_endpoints(unittest.TestCase):
         user_id = open_json("test_data_users.json")
         client = TestClient(app)
         response = client.put(f"/api/v1/users/deactivate/{user_id['userId']}?delay=1")
-        assert response.status_code == 200
-
-    def test_users_delete_delay(self):
-        user_id = open_json("test_data_users.json")
-        client = TestClient(app)
-        response = client.delete(f"/api/v1/users/{user_id['userId']}?delay=1")
         assert response.status_code == 200
