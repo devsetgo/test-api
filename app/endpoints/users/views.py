@@ -365,7 +365,7 @@ async def create_user(
 
         result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
         return result
-    except DatabaseError as e:
+    except Exception as e:
         logger.error(f"Error: {e}")
 
 
