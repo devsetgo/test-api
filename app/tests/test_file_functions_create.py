@@ -37,12 +37,12 @@ class test_file_processing(unittest.TestCase):
         result = save_json(file_named, json_data)
         assert result == "complete"
 
-    # def test_save_json_exception(self):
-    #     sample_str = "not a dict"
-    #     file_named = "test_1_error.json"
+    def test_save_json_exception(self):
+        sample_str = "not a dict"
+        file_named = "test_1_error.json"
 
-    #     with pytest.raises(Exception):
-    #         assert save_json(file_named, sample_str)
+        with pytest.raises(Exception):
+            assert save_json(file_named, sample_str)
 
     def test_save_csv(self):
         csv_data = []

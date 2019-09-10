@@ -84,8 +84,10 @@ def save_json(filename: str, data):
     try:
         if "/" in file_name or "\\" in file_name:
             raise TypeError(f"{file_name} cannot contain \\ or /")
-        # elif type(data) is not list or type(data) is not dict:
-        #     raise TypeError(f"{data} must be a list or a dictionary instead of type {type(data)}")
+        elif type(data) is not list and type(data) is not dict:
+            raise TypeError(
+                f"{data} must be a list or a dictionary instead of type {type(data)}"
+            )
 
         # open/create file
         with open(file_save, "w+") as write_file:
