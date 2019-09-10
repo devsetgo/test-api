@@ -147,7 +147,7 @@ async def joke(
     Returns:
         [json] -- [description] a list of jokes
     """
-    if qty == None:
+    if qty is None:
         qty = 1
     jokes_result = []
     for j in range(qty):
