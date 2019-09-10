@@ -71,9 +71,3 @@ class test_users_endpoints(unittest.TestCase):
         }
 
         save_json("test_data_users.json", user_data)
-
-    # def test_users_delete_delay(self):
-    #     user_id = open_json("test_data_users.json")
-    #     client = TestClient(app)
-    #     response = client.delete(f"/api/v1/users/{user_id['userId']}?delay=1")
-    #     assert response.status_code == 200
