@@ -75,11 +75,8 @@ class test_users_endpoints(unittest.TestCase):
         client = TestClient(app)
         response = client.get(f"/api/v1/users/{uid}")
         state = response.status_code
-        user_id_data = response.json()
-        logger.critical(f"test_user_id_info UUID: {uid} - response: {response.json()}")
-        save_json("user_id.json", user_id_data)
         assert state is 200
-        # assert user_id_data is not None
+        assert response.json() is not None
 
     def test_users_id_delay(self):
         user_id = open_json("test_data_users.json")
