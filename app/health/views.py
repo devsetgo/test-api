@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
-import time
-import datetime
 import asyncio
-from loguru import logger
-from health.checks import get_platform, get_processes
+import datetime
+import time
 
 # from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
+from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from loguru import logger
+
+from health.checks import get_platform, get_processes
 
 router = APIRouter()
 

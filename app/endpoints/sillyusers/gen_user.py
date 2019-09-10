@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import silly
-import uuid
 import random
+import uuid
+
+import silly
 
 
 def user_info():

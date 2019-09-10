@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import (
-    Table,
-    Column,
-    Integer,
-    String,
-    Boolean,
-    MetaData,
-    ForeignKey,
-    Float,
-    Date,
-    DateTime,
-)
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.pool import QueuePool
-
 # from sqlalchemy.orm import scoped_session, sessionmaker
 from datetime import datetime, timedelta
-from settings import SQLALCHEMY_DATABASE_URI
+
 import databases
 from loguru import logger
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    MetaData,
+    String,
+    Table,
+    create_engine,
+)
 
+# from sqlalchemy import create_engine, MetaData
+from sqlalchemy.pool import QueuePool
+
+from settings import SQLALCHEMY_DATABASE_URI
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100

@@ -5,28 +5,22 @@ doc string
 import asyncio
 import os
 import random
-from typing import Dict
 import uuid
 from datetime import date, datetime, time, timedelta
+from typing import Dict
 
 import databases
-from pydantic import BaseModel, Schema, Json, UUID1, SecretStr
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query, Form
+from fastapi import APIRouter, FastAPI, Form, Header, HTTPException, Path, Query
 from loguru import logger
+from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
 
-from db_setup import database, users
-from endpoints.users.models import (
-    UserCreate,  # , UserUpdate,User, UserInDB
-    UserDeactivate,
-    UserList,
-    UserPwd,
-    UserUpdate,
-)
 from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.simple_functions import get_current_datetime
+from db_setup import database, users
+from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
+from endpoints.users.models import UserDeactivate, UserList, UserPwd, UserUpdate
 
 router = APIRouter()
-# time variables
-currentTime = datetime.now()
 
 
 @router.get("/list", tags=["users"])
@@ -71,61 +65,54 @@ async def user_list(
         dict -- [description]
     """
     # sleep if delay option is used
-    if delay is None:
-        delay == 0
-
-    asyncio.sleep(delay)
+    if delay is not None:
+        asyncio.sleep(delay)
 
     if qty is None:
         qty: int = 100
+
     if offset is None:
         offset: int = 0
 
-    try:
-        # await database.connect()
-        # Fetch multiple rows
-        if isActive is not None:
-            query = (
-                users.select()
-                .where(users.c.isActive == isActive)
-                .order_by(users.c.dateCreate)
-                .limit(qty)
-            )
-            # values = {'isActive': isActive}
-            db_result = await database.fetch_all(query)
-        else:
-            query = users.select().order_by(users.c.dateCreate).limit(qty)
-            db_result = await database.fetch_all(query)
+    # Fetch multiple rows
+    if isActive is not None:
+        query = (
+            users.select()
+            .where(users.c.isActive == isActive)
+            .order_by(users.c.dateCreate)
+            .limit(qty)
+        )
+        # values = {'isActive': isActive}
+        db_result = await database.fetch_all(query)
+    else:
+        query = users.select().order_by(users.c.dateCreate).limit(qty)
+        db_result = await database.fetch_all(query)
 
-        result_set = []
-        for r in db_result:
-            # iterate through data and return simplified data set
-            user_data = {
-                "userId": r["userId"],
-                "user_name": r["user_name"],
-                "firstName": r["firstName"],
-                "lastName": r["lastName"],
-                "company": r["company"],
-                "title": r["title"],
-                "isActive": r["isActive"],
-            }
-            result_set.append(user_data)
-
-        result = {
-            "parameters": {
-                "returned_results": len(result_set),
-                "quantity": qty,
-                "filter": isActive,
-                "delay": delay,
-            },
-            "users": result_set,
+    result_set = []
+    for r in db_result:
+        # iterate through data and return simplified data set
+        user_data = {
+            "userId": r["userId"],
+            "user_name": r["user_name"],
+            "firstName": r["firstName"],
+            "lastName": r["lastName"],
+            "company": r["company"],
+            "title": r["title"],
+            "isActive": r["isActive"],
         }
-        # await database.disconnect()
-        return result
-    except Exception as e:
-        # )
-        logger.error(f"Error: {e}")
-        result = {"error": e}
+        result_set.append(user_data)
+
+    result = {
+        "parameters": {
+            "returned_results": len(result_set),
+            "quantity": qty,
+            "filter": isActive,
+            "delay": delay,
+        },
+        "users": result_set,
+    }
+    # await database.disconnect()
+    return result
 
 
 @router.get(
@@ -362,7 +349,7 @@ async def create_user(
         "email": value["email"],
         "website": value["website"],
         "description": value["description"],
-        "dateCreate": currentTime,
+        "dateCreate": get_current_datetime(),
         "isActive": True,
         "isSuperuser": False,
     }
@@ -375,9 +362,10 @@ async def create_user(
         query = users.insert()
         values = userInformation
         await database.execute(query, values)
+
         result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
         return result
-    except Exception as e:
+    except DatabaseError as e:
         logger.error(f"Error: {e}")
 
 

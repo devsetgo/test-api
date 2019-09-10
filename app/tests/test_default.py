@@ -33,7 +33,7 @@ class test_default_endpoints(unittest.TestCase):
         # client = TestClient(app)
         response = client.get("/joke")
         assert response.status_code == 200
-        assert response.json != None
+        assert response.json is not None
         # ['Credit'] == "https://pyjok.es/"
 
     def test_information(self):

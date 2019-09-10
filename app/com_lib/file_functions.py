@@ -1,28 +1,29 @@
 # -*- coding: utf-8 -*-
-import json
 import csv
+import json
 import os
-from typing import (
-    List,
-    Dict,
-    Tuple,
-    Sequence,
-    Mapping,
-    Iterable,
-    TypeVar,
-    Generic,
-    Sized,
-    Union,
-    Any,
-    Optional,
-)
-from pathlib import Path
-from datetime import datetime, timedelta
-import time
 import random
+import time
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import (
+    Any,
+    Dict,
+    Generic,
+    Iterable,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Sized,
+    Tuple,
+    TypeVar,
+    Union,
+)
+
+from loguru import logger
 
 from com_lib.logging_config import config_logging
-from loguru import logger
 
 config_logging()
 

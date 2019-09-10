@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from typing import List, Optional, Union, Set
-from pydantic import BaseModel, Schema, Json, UUID1
+import json
 import uuid
 from datetime import datetime, timedelta
-import json
+from typing import List, Optional, Set, Union
+
+from pydantic import UUID1, BaseModel, Json, Schema
 
 
 class ToDoBase(BaseModel):

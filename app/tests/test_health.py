@@ -16,8 +16,8 @@ from requests.exceptions import Timeout
 from starlette.testclient import TestClient
 
 from app.com_lib.file_functions import open_json, save_json
-from app.main import app
 from app.health.checks import get_platform
+from app.main import app
 
 client = TestClient(app)
 

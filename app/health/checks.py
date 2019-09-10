@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-import platform
-import multiprocessing
-import threading
-import sys
-import os
-import psutil
 import datetime
+import multiprocessing
+import os
+import platform
+import sys
+import threading
 import time
+
+import psutil
 
 # TODO: Make a status that gets app uptime
 # def get_status() -> dict:
