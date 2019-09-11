@@ -42,12 +42,7 @@ async def user_list(
         alias="qty",
     ),
     offset: int = Query(
-        None,
-        title="Offset",
-        description="Offset increment",
-        ge=1,
-        le=500,
-        alias="offset",
+        None, title="Offset", description="Offset increment", ge=0, alias="offset"
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
@@ -81,12 +76,24 @@ async def user_list(
             .where(users.c.isActive == isActive)
             .order_by(users.c.dateCreate)
             .limit(qty)
+            .offset(offset)
         )
         # values = {'isActive': isActive}
         db_result = await database.fetch_all(query)
+
+        count_query = (
+            users.select()
+            .where(users.c.isActive == isActive)
+            .order_by(users.c.dateCreate)
+        )
+        total_count = await database.fetch_all(count_query)
+
     else:
-        query = users.select().order_by(users.c.dateCreate).limit(qty)
+
+        query = users.select().order_by(users.c.dateCreate).limit(qty).offset(offset)
         db_result = await database.fetch_all(query)
+        count_query = users.select().order_by(users.c.dateCreate)
+        total_count = await database.fetch_all(count_query)
 
     result_set = []
     for r in db_result:
@@ -105,13 +112,14 @@ async def user_list(
     result = {
         "parameters": {
             "returned_results": len(result_set),
-            "quantity": qty,
+            "qty": qty,
+            "total_count": len(total_count),
+            "offset": offset,
             "filter": isActive,
             "delay": delay,
         },
         "users": result_set,
     }
-    # await database.disconnect()
     return result
 
 
