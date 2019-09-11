@@ -9,7 +9,8 @@ import time
 
 import psutil
 
-# TODO: Make a status that gets app uptime
+# @todo Make a status that gets app uptime
+# @body how to get uptime of app, not running os. Such as dockerimage or how long the code has been running.
 # def get_status() -> dict:
 #     uptime = seconds_elapsed()
 #     result: dict = {
