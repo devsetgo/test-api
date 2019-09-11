@@ -49,10 +49,22 @@ class test_users_endpoints(unittest.TestCase):
         response = client.get(f"api/v1/users/list/count?delay=1&active=true")
         assert response.status_code == 200
 
-    def test_users_list(self):
+    def test_users_list_params(self):
         client = TestClient(app)
-        response = client.get(f"/api/v1/users/list?delay=1&qty=2")
+        response = client.get(f"api/v1/users/list?delay=1&qty=100&offset=1&active=true")
         assert response.status_code == 200
+
+    def test_users_list_offset(self):
+        client = TestClient(app)
+        response = client.get(f"api/v1/users/list?qty=2")
+
+        test_offset_1 = response.json()
+        test_user_1 = test_offset_1["users"][1]
+        response = client.get(f"api/v1/users/list?qty=2&offset=1")
+        test_offset_2 = response.json()
+        test_user_2 = test_offset_2["users"][0]
+        assert response.status_code == 200
+        assert test_user_1["userId"] == test_user_2["userId"]
 
     def test_users_list_param_none(self):
         client = TestClient(app)
