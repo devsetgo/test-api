@@ -51,10 +51,10 @@ async def user_list(
     list of users
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="Delay",description="Seconds to delay (max 121)",ge=1,le=121,alias="delay",)})
-        qty {int} -- [description] (default: {Query(None,title="Quanity",description="Records to return (max 500)",ge=1,le=500,alias="qty",)})
-        offset {int} -- [description] (default: {Query(None,title="Offset",description="Offset increment",ge=1,le=500,alias="offset",)})
-        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+        delay {int} -- [description] 0 seconds default, maximum is 122
+        qty {int} -- [description] 100 returned results is default, maximum is 500
+        offset {int} -- [description] 0 seconds default
+        isActive {bool} -- [description] no default as not required, must be isActive=true or false if used
 
     Returns:
         dict -- [description]
@@ -146,8 +146,8 @@ async def users_list_count(
     Count of users in the database
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
-        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+        delay {int} -- [description] 0 seconds default, maximum is 122
+        isActive {bool} -- [description] no default as not required, must be isActive=true or false if used
 
     Returns:
         dict -- [description]
@@ -186,8 +186,9 @@ async def get_user_id(
     User information for requested UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=121,alias="delay",)})
+        userId {str} -- [description] UUID of userId property required
+        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [description]
@@ -250,8 +251,8 @@ async def deactivatee_user_id(
     Deactivate a specific user UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+        userId {str} -- [description] UUID of userId property required
+        delay {int} -- [description] 0 seconds default, maximum is 122
 
     Returns:
         dict -- [description]
@@ -289,7 +290,7 @@ async def delete_user_id(
     Delete a user by UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
+        userId {str} -- [description] UUID of userId property required
 
     Returns:
         dict -- [result: user UUID deleted]
@@ -334,7 +335,7 @@ async def create_user(
         user {UserCreate} -- [description]
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+        delay {int} -- [description] 0 seconds default, maximum is 122
 
     Returns:
         dict -- [userId: uuid, user_name: user_name]
@@ -393,8 +394,8 @@ async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> di
         Check password function
 
         Keyword Arguments:
-            user_name {str} -- [description] (default: {Form(...)})
-            password {str} -- [description] (default: {Form(...)})
+            user_name {str} -- [description] existing user_name required
+            password {str} -- [description] password required
 
         Returns:
             [Dict] -- [result: bool]
