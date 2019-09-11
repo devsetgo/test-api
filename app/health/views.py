@@ -21,11 +21,8 @@ async def health_main() -> dict:
     Returns:
         dict -- [status: UP, uptime: seconds current_datetime: datetime.now]
     """
-    try:
-        result: dict = {"status": "UP"}
-        return result
-    except Exception as e:
-        logger.error(f"Error: {e}")
+    result: dict = {"status": "UP"}
+    return result
 
 
 @router.get("/system-info", tags=["system-health"])
@@ -46,6 +43,8 @@ async def health_details() -> dict:
         }
         logger.info(f"GET system info")
         return result
+        # TODO: make more specific Exception
+        # BODY: Exception is generic and should be more specific or removed.
     except Exception as e:
         logger.error(f"Error: {e}")
 
