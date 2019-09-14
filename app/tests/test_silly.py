@@ -10,13 +10,9 @@ import pytest
 import requests
 import requests_mock
 from requests.exceptions import Timeout
-
-# from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
 
 from app.main import app
-
-# from starlette.exceptions import HTTPException
 
 client = TestClient(app)
 

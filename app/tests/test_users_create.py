@@ -7,20 +7,17 @@ import time
 import unittest
 from pathlib import Path
 from unittest import mock
-
 import pytest
 import requests
 import requests_mock
 from loguru import logger
 from requests.exceptions import Timeout
 from starlette.testclient import TestClient
-
 from app.com_lib.file_functions import open_json, save_json
 from app.endpoints.sillyusers.gen_user import user_test_info
 from app.main import app
 
 client = TestClient(app)
-
 directory_to__files: str = "data"
 
 
@@ -28,10 +25,10 @@ class test_users_endpoints(unittest.TestCase):
     def test_users_post_error(self):
         test_password = "testpassword"
         user_id = None
-        userName = f"test-user-fail"
+        user_name = f"test-user-fail"
 
         test_data = {
-            "user_name": userName,
+            "user_name": user_name,
             # "firstName": "string",
             "lastName": "string",
             "password": test_password,

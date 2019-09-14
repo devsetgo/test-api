@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# import json
-# import csv
 import datetime
 import os
 import time
@@ -120,8 +118,6 @@ class test_file_processing(unittest.TestCase):
         for _ in range(10):
             sample_dict = {"name": "bob", "date": str(time_str)}
             json_data.append(sample_dict)
-
-        # result = save_json(file_named, json_data)
 
         with pytest.raises(Exception):
             assert save_json(file_named, json_data)
