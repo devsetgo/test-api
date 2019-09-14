@@ -10,6 +10,5 @@ def get_current_datetime() -> datetime:
     Returns:
         datetime.now()
     """
-    currentTime: datetime = datetime.now()
-    # print(type(currentTime))
-    return currentTime
+    current_time: datetime = datetime.now()
+    return current_time

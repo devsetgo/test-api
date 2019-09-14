@@ -75,7 +75,7 @@ async def user_list(
     if delay is not None:
         await asyncio.sleep(delay)
 
-    for i in range(qty):
+    for _ in range(qty):
         x = user_info()
         result.append(x)
 
