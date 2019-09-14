@@ -44,7 +44,7 @@ async def user_list(
     offset: int = Query(
         None, title="Offset", description="Offset increment", ge=0, alias="offset"
     ),
-    isActive: bool = Query(None, title="by active status", alias="active"),
+    is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
 
     """
@@ -70,20 +70,19 @@ async def user_list(
         offset: int = 0
 
     # Fetch multiple rows
-    if isActive is not None:
+    if is_active is not None:
         query = (
             users.select()
-            .where(users.c.isActive == isActive)
+            .where(users.c.isActive == is_active)
             .order_by(users.c.dateCreate)
             .limit(qty)
             .offset(offset)
         )
-        # values = {'isActive': isActive}
         db_result = await database.fetch_all(query)
 
         count_query = (
             users.select()
-            .where(users.c.isActive == isActive)
+            .where(users.c.isActive == is_active)
             .order_by(users.c.dateCreate)
         )
         total_count = await database.fetch_all(count_query)
@@ -115,7 +114,7 @@ async def user_list(
             "qty": qty,
             "total_count": len(total_count),
             "offset": offset,
-            "filter": isActive,
+            "filter": is_active,
             "delay": delay,
         },
         "users": result_set,
@@ -140,7 +139,7 @@ async def users_list_count(
         le=10,
         alias="delay",
     ),
-    isActive: bool = Query(None, title="by active status", alias="active"),
+    is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
     """
     Count of users in the database
@@ -158,8 +157,8 @@ async def users_list_count(
 
     try:
         # Fetch multiple rows
-        if isActive is not None:
-            query = users.select().where(users.c.isActive == isActive)
+        if is_active is not None:
+            query = users.select().where(users.c.isActive == is_active)
             x = await database.fetch_all(query)
         else:
             query = users.select()
@@ -173,7 +172,7 @@ async def users_list_count(
 
 @router.get("/{userId}", tags=["users"], response_description="Get user information")
 async def get_user_id(
-    userId: str = Path(..., title="The user id to be searched for", alias="userId"),
+    user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
     delay: int = Query(
         None,
         title="The number of items in the list to return (min of 1 and max 10)",
@@ -199,7 +198,7 @@ async def get_user_id(
 
     try:
         # Fetch single row
-        query = users.select().where(users.c.userId == userId)
+        query = users.select().where(users.c.userId == user_id)
         db_result = await database.fetch_one(query)
 
         user_data = {
@@ -238,7 +237,7 @@ async def get_user_id(
 )
 async def deactivatee_user_id(
     *,
-    userId: str = Path(..., title="The user id to be searched for", alias="userId"),
+    user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
     delay: int = Query(
         None,
         title="The number of items in the list to return (min of 1 and max 10)",
@@ -257,15 +256,15 @@ async def deactivatee_user_id(
     Returns:
         dict -- [description]
     """
-    userInformation = {"isActive": False}
+    user_information = {"isActive": False}
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.userId == userId)
-        values = userInformation
+        query = users.update().where(users.c.userId == user_id)
+        values = user_information
         result = await database.execute(query, values)
         return result
     except Exception as e:
@@ -284,7 +283,7 @@ async def deactivatee_user_id(
     },
 )
 async def delete_user_id(
-    *, userId: str = Path(..., title="The user id to be searched for", alias="userId")
+    *, user_id: str = Path(..., title="The user id to be searched for", alias="userId")
 ) -> dict:
     """
     Delete a user by UUID
@@ -297,9 +296,9 @@ async def delete_user_id(
     """
     try:
         # delete id
-        query = users.delete().where(users.c.userId == userId)
+        query = users.delete().where(users.c.userId == user_id)
         await database.execute(query)
-        result = {"status": f"{userId} deleted"}
+        result = {"status": f"{user_id} deleted"}
         return result
 
     except Exception as e:
@@ -343,7 +342,7 @@ async def create_user(
     value = user.dict()
     hash_pwd = encrypt_pass(value["password"])
 
-    userInformation = {
+    user_information = {
         "userId": str(uuid.uuid1()),
         "user_name": value["user_name"].lower(),
         "firstName": value["firstName"],
@@ -369,10 +368,10 @@ async def create_user(
 
     try:
         query = users.insert()
-        values = userInformation
+        values = user_information
         await database.execute(query, values)
 
-        result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
+        result = {"userId": user_information["userId"], "user_name": value["user_name"]}
         return result
     except Exception as e:
         logger.error(f"Error: {e}")

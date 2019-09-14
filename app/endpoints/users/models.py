@@ -9,7 +9,6 @@ from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
 
 # Shared properties
 class UserBase(BaseModel):
-    # userId: str
     user_name: str
     firstName: str
     lastName: str
@@ -23,19 +22,15 @@ class UserBase(BaseModel):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-    # dateCreate: datetime = None
-    # isActive: Optional[bool] = True
-    # isSuperuser: Optional[bool] = False
 
 
 class UserBaseInDB(UserBase):
-    userId: str = None
+    user_id: str = None
     user_name: str
 
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
-    # userId: str
     user_name: str
     firstName: str
     lastName: str
@@ -49,12 +44,6 @@ class UserCreate(UserBase):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-    # dateCreate: datetime = None
-    # isActive: bool = True
-
-
-# class UserBaseInDB(UserBase):
-#     userId: str = None
 
 
 class UserPwd(UserBase):
@@ -64,14 +53,13 @@ class UserPwd(UserBase):
 
 # Properties to receive via API on update
 class UserDeactivate(UserBaseInDB):
-    isActive: bool = False
+    is_active: bool = False
 
 
 # Properties to receive via API on update
 class UserUpdate(UserBaseInDB):
     firstName: str
     lastName: str
-    # password: str
     title: Optional[str] = None
     company: Optional[str] = None
     address: Optional[str] = None
@@ -81,14 +69,11 @@ class UserUpdate(UserBaseInDB):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-    # dateCreate: datetime = None
-    # isActive: bool = True
 
 
 class UserList(UserBaseInDB):
     firstName: str
     lastName: str
-    # password: str
     title: Optional[str] = None
     company: Optional[str] = None
     address: Optional[str] = None
@@ -98,5 +83,4 @@ class UserList(UserBaseInDB):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-    # dateCreate: datetime = None
     isActive: bool = True
