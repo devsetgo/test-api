@@ -13,8 +13,6 @@ import requests
 import requests_mock
 from loguru import logger
 from requests.exceptions import Timeout
-
-# from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
 
 from app.main import app
@@ -26,8 +24,6 @@ from com_lib.file_functions import (
     save_csv,
     save_json,
 )
-
-# from starlette.exceptions import HTTPException
 
 client = TestClient(app)
 
