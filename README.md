@@ -121,8 +121,12 @@ Pre-Commit & Hooks
 - [x] Refactor by endpoint (sample, user, etc..)
 - [x] Create tests
     - [x] Minimum of 80%
-    - [ ] Exception Testing
-- [ ] Extend API parameters
+    - [x] Exception Testing
+- [x] Extend API parameters for Users
+    - [x] Pagination
+    - [x] Number of Items per list returned (Max)
+    - [x] Additional Optional for filtering
+- [ ] Extend API parameters for ToDo
     - [ ] Pagination
     - [ ] Number of Items per list returned (Max)
     - [ ] Additional Optional for filtering
@@ -135,24 +139,12 @@ Pre-Commit & Hooks
 - [X] Gunicorn with Uvicorn configuration
 - [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
 - [X] Setup CI/CD Pipeline for test and deployment
+    - [X] [SonarCloud](https://sonarcloud.io)
     - [X] [Travis-CI](https://travis-ci.org)
     - [ ] [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
         - [ ] Continous Integration
         - [ ] Continous Deployment (Docker Hub Push)
-- [ ] Make [Twelve Factor App](https://12factor.net/) ready
-    - [x] One codebase tracked in revision control, many deploys
-    - [x] Explicitly declare and isolate dependencies
-    - [x] Store config in the environment
-    - [ ] Treat backing services as attached resources
-    - [ ] Strictly separate build and run stages
-    - [x] Execute the app as one or more stateless processes
-    - [x] Export services via port binding
-    - [x] Scale out via the process model
-    - [x] Maximize robustness with fast startup and graceful shutdown
-    - [x] Keep development, staging, and production as similar as possible
-    - [x] Treat logs as event streams
-    - [ ] Run admin/management tasks as one-off processes
-
+- [x] Make [Twelve Factor App](https://12factor.net/) ready
 - [ ] Build a [cookiecutter](https://github.com/audreyr/cookiecutter) template for future projects similar to the [FastAPI example](https://github.com/tiangolo/full-stack-fastapi-postgresql)
 - [ ] Add code comments
 - Docker
