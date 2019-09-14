@@ -22,5 +22,4 @@ matrix:
   include:
     - python: '3.7'
     - python: '3.6'
-    # PyPy versions
-    - python: "pypy3"
+    - python: 'pypy3'
