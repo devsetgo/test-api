@@ -17,14 +17,22 @@ from requests.exceptions import Timeout
 # from starlette.responses import HTMLResponse
 from starlette.testclient import TestClient
 
-from app.com_lib.file_functions import open_json, save_json
 from app.main import app
+from com_lib.file_functions import (
+    create_sample_files,
+    get_data_directory_list,
+    open_csv,
+    open_json,
+    save_csv,
+    save_json,
+)
 
 # from starlette.exceptions import HTTPException
 
 client = TestClient(app)
 
 directory_to__files: str = "data"
+time_str = datetime.datetime.now()
 
 
 class test_todos_endpoints(unittest.TestCase):
@@ -38,12 +46,10 @@ class test_todos_endpoints(unittest.TestCase):
         url = f"/api/v1/todo/create/"
         client = TestClient(app)
         response = client.post(url, json=test_data)
-        # result = response.json()
         assert response.status_code == 422
-        # data = response.json()
-        # save_json("test_data_todos.json", data)
 
     def test_todos_post(self):
+        file_name = "test_data_todos.json"
         test_data = {
             "title": "Test",
             "userId": "123",
@@ -53,6 +59,9 @@ class test_todos_endpoints(unittest.TestCase):
         url = f"/api/v1/todo/create/?delay=1"
         client = TestClient(app)
         response = client.post(url, json=test_data)
-        assert response.status_code == 200
         data = response.json()
+        state = response.status_code
+        data = response.json()
+        save_json(file_name, data)
         save_json("test_data_todos.json", data)
+        assert state == 200

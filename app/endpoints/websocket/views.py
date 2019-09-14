@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header, Body
-from starlette.responses import HTMLResponse
-from starlette.websockets import WebSocket
+from enum import Enum
+from typing import List
+
+from fastapi import APIRouter, Body, FastAPI, Header, HTTPException, Path, Query
+from loguru import logger
 from pydantic import BaseModel
 from starlette.endpoints import WebSocketEndpoint
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, HTMLResponse
 from starlette.types import ASGIApp, ASGIInstance, Scope
 from starlette.websockets import WebSocket
-from enum import Enum
-from typing import List
-from loguru import logger
 
 router = APIRouter()
 app = FastAPI()

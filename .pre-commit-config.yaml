@@ -10,6 +10,13 @@ repos:
       - id: fix-encoding-pragma
       - id: trailing-whitespace
       - id: check-json
+      - id: pretty-format-json
+      - id: requirements-txt-fixer
+
+# -   repo: git://github.com/doublify/pre-commit-isort
+#     sha: master
+#     hooks:
+#     -   id: isort
 
       # - id: flake8
 # -   repo: https://github.com/pre-commit/mirrors-isort

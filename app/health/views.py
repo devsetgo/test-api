@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
-import time
-import datetime
 import asyncio
-from loguru import logger
-from health.checks import get_platform, get_processes
+import datetime
+import time
 
 # from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
+from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from loguru import logger
+
+from health.checks import get_platform, get_processes
 
 router = APIRouter()
 
@@ -20,11 +21,8 @@ async def health_main() -> dict:
     Returns:
         dict -- [status: UP, uptime: seconds current_datetime: datetime.now]
     """
-    try:
-        result: dict = {"status": "UP"}
-        return result
-    except Exception as e:
-        logger.error(f"Error: {e}")
+    result: dict = {"status": "UP"}
+    return result
 
 
 @router.get("/system-info", tags=["system-health"])
@@ -45,6 +43,8 @@ async def health_details() -> dict:
         }
         logger.info(f"GET system info")
         return result
+        # TODO: make more specific Exception
+        # BODY: Exception is generic and should be more specific or removed.
     except Exception as e:
         logger.error(f"Error: {e}")
 

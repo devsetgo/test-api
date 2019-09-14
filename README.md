@@ -1,6 +1,6 @@
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 ![image](https://travis-ci.org/devsetgo//test-api.svg "Build Status")
-![image](app/coverage.svg "Code Coverage")
+![image](coverage.svg "Code Coverage")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 # Test-API a FASTAPI Example
 
@@ -119,7 +119,7 @@ Pre-Commit & Hooks
     - [ ] Number of Items per list returned (Max)
     - [ ] Additional Optional for filtering
 - [x] Better organization
-- [ ] Standardize API pattern for versioning
+- [x] Standardize API pattern for versioning
 - Access Controls
   - [ ] Add Access controls and signup
   - [ ] Add JWT/Token access
@@ -137,7 +137,7 @@ Pre-Commit & Hooks
     - [x] Store config in the environment
     - [ ] Treat backing services as attached resources
     - [ ] Strictly separate build and run stages
-    - [ ] Execute the app as one or more stateless processes
+    - [x] Execute the app as one or more stateless processes
     - [x] Export services via port binding
     - [x] Scale out via the process model
     - [x] Maximize robustness with fast startup and graceful shutdown

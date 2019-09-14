@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from typing import List, Optional, Union, Set
-from pydantic import BaseModel, Schema, Json, UUID1, SecretStr
+import json
 import uuid
 from datetime import datetime, timedelta
-import json
+from typing import List, Optional, Set, Union
+
+from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
+
 
 # Shared properties
 class UserBase(BaseModel):

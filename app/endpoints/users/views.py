@@ -5,29 +5,22 @@ doc string
 import asyncio
 import os
 import random
-from typing import Dict
 import uuid
 from datetime import date, datetime, time, timedelta
+from typing import Dict
 
 import databases
-from pydantic import BaseModel, Schema, Json, UUID1, SecretStr
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query, Form
+from fastapi import APIRouter, FastAPI, Form, Header, HTTPException, Path, Query
 from loguru import logger
+from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
 
+from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.simple_functions import get_current_datetime
 from db_setup import database, users
-from endpoints.users.models import (
-    UserCreate,  # , UserUpdate,User, UserInDB
-    UserDeactivate,
-    UserList,
-    UserPwd,
-    UserUpdate,
-)
-from endpoints.users.pass_lib import encrypt_pass, verify_pass
-
+from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
+from endpoints.users.models import UserDeactivate, UserList, UserPwd, UserUpdate
 
 router = APIRouter()
-# time variables
-currentTime = datetime.now()
 
 
 @router.get("/list", tags=["users"])
@@ -49,12 +42,7 @@ async def user_list(
         alias="qty",
     ),
     offset: int = Query(
-        None,
-        title="Offset",
-        description="Offset increment",
-        ge=1,
-        le=500,
-        alias="offset",
+        None, title="Offset", description="Offset increment", ge=0, alias="offset"
     ),
     isActive: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
@@ -63,70 +51,76 @@ async def user_list(
     list of users
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="Delay",description="Seconds to delay (max 121)",ge=1,le=121,alias="delay",)})
-        qty {int} -- [description] (default: {Query(None,title="Quanity",description="Records to return (max 500)",ge=1,le=500,alias="qty",)})
-        offset {int} -- [description] (default: {Query(None,title="Offset",description="Offset increment",ge=1,le=500,alias="offset",)})
-        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+        delay {int} -- [description] 0 seconds default, maximum is 122
+        qty {int} -- [description] 100 returned results is default, maximum is 500
+        offset {int} -- [description] 0 seconds default
+        isActive {bool} -- [description] no default as not required, must be isActive=true or false if used
 
     Returns:
         dict -- [description]
     """
     # sleep if delay option is used
-    if delay is None:
-        delay == 0
-
-    asyncio.sleep(delay)
+    if delay is not None:
+        asyncio.sleep(delay)
 
     if qty is None:
         qty: int = 100
+
     if offset is None:
         offset: int = 0
 
-    try:
-        # await database.connect()
-        # Fetch multiple rows
-        if isActive is not None:
-            query = (
-                users.select()
-                .where(users.c.isActive == isActive)
-                .order_by(users.c.dateCreate)
-                .limit(qty)
-            )
-            # values = {'isActive': isActive}
-            db_result = await database.fetch_all(query)
-        else:
-            query = users.select().order_by(users.c.dateCreate).limit(qty)
-            db_result = await database.fetch_all(query)
+    # Fetch multiple rows
+    if isActive is not None:
+        query = (
+            users.select()
+            .where(users.c.isActive == isActive)
+            .order_by(users.c.dateCreate)
+            .limit(qty)
+            .offset(offset)
+        )
+        # values = {'isActive': isActive}
+        db_result = await database.fetch_all(query)
 
-        result_set = []
-        for r in db_result:
-            # iterate through data and return simplified data set
-            user_data = {
-                "userId": r["userId"],
-                "user_name": r["user_name"],
-                "firstName": r["firstName"],
-                "lastName": r["lastName"],
-                "company": r["company"],
-                "title": r["title"],
-                "isActive": r["isActive"],
-            }
-            result_set.append(user_data)
+        count_query = (
+            users.select()
+            .where(users.c.isActive == isActive)
+            .order_by(users.c.dateCreate)
+        )
+        total_count = await database.fetch_all(count_query)
 
-        result = {
-            "parameters": {
-                "returned_results": len(result_set),
-                "quantity": qty,
-                "filter": isActive,
-                "delay": delay,
-            },
-            "users": result_set,
+    else:
+
+        query = users.select().order_by(users.c.dateCreate).limit(qty).offset(offset)
+        db_result = await database.fetch_all(query)
+        count_query = users.select().order_by(users.c.dateCreate)
+        total_count = await database.fetch_all(count_query)
+
+    result_set = []
+    for r in db_result:
+        # iterate through data and return simplified data set
+        user_data = {
+            "userId": r["userId"],
+            "user_name": r["user_name"],
+            "firstName": r["firstName"],
+            "lastName": r["lastName"],
+            "company": r["company"],
+            "title": r["title"],
+            "isActive": r["isActive"],
         }
-        # await database.disconnect()
-        return result
-    except Exception as e:
-        # )
-        logger.error(f"Error: {e}")
-        result = {"error": e}
+        result_set.append(user_data)
+
+    result = {
+        "parameters": {
+            "returned_results": len(result_set),
+            "qty": qty,
+            "total_count": len(total_count),
+            "offset": offset,
+            "filter": isActive,
+            "delay": delay,
+        },
+        "users": result_set,
+    }
+    return result
 
 
 @router.get(
@@ -152,8 +146,8 @@ async def users_list_count(
     Count of users in the database
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
-        isActive {bool} -- [description] (default: {Query(None, title="by active status", alias="active")})
+        delay {int} -- [description] 0 seconds default, maximum is 122
+        isActive {bool} -- [description] no default as not required, must be isActive=true or false if used
 
     Returns:
         dict -- [description]
@@ -192,8 +186,9 @@ async def get_user_id(
     User information for requested UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=121,alias="delay",)})
+        userId {str} -- [description] UUID of userId property required
+        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [description]
@@ -256,8 +251,8 @@ async def deactivatee_user_id(
     Deactivate a specific user UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+        userId {str} -- [description] UUID of userId property required
+        delay {int} -- [description] 0 seconds default, maximum is 122
 
     Returns:
         dict -- [description]
@@ -295,7 +290,7 @@ async def delete_user_id(
     Delete a user by UUID
 
     Keyword Arguments:
-        userId {str} -- [description] (default: {Path(..., title="The user id to be searched for", alias="userId")})
+        userId {str} -- [description] UUID of userId property required
 
     Returns:
         dict -- [result: user UUID deleted]
@@ -340,7 +335,7 @@ async def create_user(
         user {UserCreate} -- [description]
 
     Keyword Arguments:
-        delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
+        delay {int} -- [description] 0 seconds default, maximum is 122
 
     Returns:
         dict -- [userId: uuid, user_name: user_name]
@@ -363,7 +358,7 @@ async def create_user(
         "email": value["email"],
         "website": value["website"],
         "description": value["description"],
-        "dateCreate": currentTime,
+        "dateCreate": get_current_datetime(),
         "isActive": True,
         "isSuperuser": False,
     }
@@ -376,6 +371,7 @@ async def create_user(
         query = users.insert()
         values = userInformation
         await database.execute(query, values)
+
         result = {"userId": userInformation["userId"], "user_name": value["user_name"]}
         return result
     except Exception as e:
@@ -398,8 +394,8 @@ async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> di
         Check password function
 
         Keyword Arguments:
-            user_name {str} -- [description] (default: {Form(...)})
-            password {str} -- [description] (default: {Form(...)})
+            user_name {str} -- [description] existing user_name required
+            password {str} -- [description] password required
 
         Returns:
             [Dict] -- [result: bool]

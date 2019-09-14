@@ -2,21 +2,19 @@
 """
 ToDo api endpoints
 """
-from fastapi import FastAPI, Path, Query, HTTPException, APIRouter, Header
-
-from endpoints.todo.models import TodoCreate
-
-from db_setup import todos, database
-from settings import SQLALCHEMY_DATABASE_URI
-
 import asyncio
+import os
 import random
 import uuid
-import os
-from datetime import datetime, date, timedelta, time
+from datetime import date, datetime, time, timedelta
 
 import databases
+from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
 from loguru import logger
+
+from db_setup import database, todos
+from endpoints.todo.models import TodoCreate
+from settings import SQLALCHEMY_DATABASE_URI
 
 router = APIRouter()
 # time variables

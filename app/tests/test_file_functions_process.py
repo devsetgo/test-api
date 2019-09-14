@@ -5,17 +5,19 @@ import datetime
 import os
 import time
 import unittest
-from unittest import mock
 
 import pytest
 
 from com_lib.file_functions import (
     create_sample_files,
+    delete_file,
     get_data_directory_list,
     open_csv,
     open_json,
+    open_text,
     save_csv,
     save_json,
+    save_text,
 )
 
 time_str = datetime.datetime.now()
@@ -31,20 +33,8 @@ class test_file_processing(unittest.TestCase):
 
         file_named = "test_1.csv"
         result = open_csv(file_named)
+
         assert len(result) == samplesize - 1
-
-    def test_create_sample_files_exception(self):
-        filename = "test_sample"
-        samplesize = 10
-
-        file_named = "test_2.csv"
-        # result = open_csv(file_named)
-        m = mock.Mock()
-        m.side_effect = Exception(create_sample_files(filename, samplesize))
-        try:
-            m()
-        except Exception:
-            assert True
 
     def test_open_json(self):
         file_named = "test_1.json"
@@ -54,14 +44,23 @@ class test_file_processing(unittest.TestCase):
 
     def test_open_json_no_file(self):
         file_named = "no_file_name.json"
-        # result = open_json(file_named)
-        m = mock.Mock()
-        m.side_effect = Exception(open_json(file_named))
-        try:
-            m()
-        except Exception:
-            assert True
-        # assert result["error"].startswith("ERROR")
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
+    def test_open_json_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
+    def test_open_json_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
+    def test_open_json_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_json(file_named)
 
     def test_open_csv(self):
         file_named = "test_1.csv"
@@ -70,14 +69,48 @@ class test_file_processing(unittest.TestCase):
 
     def test_open_csv_no_file(self):
         file_named = "no_file_name.csv"
-        # result = open_csv(file_named)
-        # assert result["error"].startswith("ERROR")
-        m = mock.Mock()
-        m.side_effect = Exception(open_csv(file_named))
-        try:
-            m()
-        except Exception:
-            assert True
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_csv_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_csv_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_csv_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_text(self):
+        file_named = "test_1.html"
+        result = open_text(file_named)
+        assert "Test" in str(result)
+
+    def test_open_txt_no_file(self):
+        file_named = "no_file_name.html"
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_text(file_named)
 
     def test_get_data_directory_json(self):
         directory = "json"
@@ -91,14 +124,7 @@ class test_file_processing(unittest.TestCase):
         assert f"test_1.{directory}" in result
         assert isinstance(result, list)
 
-    def test_get_data_directory_exception(self):
-        directory = "csv"
-        # result = get_data_directory_list(directory)
-        # assert f"test_1.{directory}" in result
-        # assert isinstance(result, list)
-        m = mock.Mock()
-        m.side_effect = Exception(get_data_directory_list(directory))
-        try:
-            m()
-        except Exception:
-            assert True
+    def test_get_data_directory_typeerror(self):
+        directory = {"csv"}
+        with pytest.raises(Exception):
+            assert get_data_directory_list(directory)

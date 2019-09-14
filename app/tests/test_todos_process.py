@@ -33,6 +33,11 @@ class test_todos_endpoints(unittest.TestCase):
         response = client.get(f"/api/v1/todo/list/count?delay=1&complete=true")
         assert response.status_code == 200
 
+    def test_todos_count(self):
+        client = TestClient(app)
+        response = client.get(f"/api/v1/todo/list/count")
+        assert response.status_code == 200
+
     def test_todos_list(self):
         client = TestClient(app)
         response = client.get(f"/api/v1/todo/list")

@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-import silly
-import uuid
 import random
+import uuid
+
+import silly
 
 
 def user_info():
 
     set_id = uuid.uuid1()
     rand_name: str = silly.noun()
-    rand_num: int = random.randint(1, 101)
+    rand_num: int = random.randint(1, 10000)
     username: str = f"{rand_name}-{rand_num}"
     firstName: str = silly.verb()
-    lastName: str = silly.noun()
+    lastName: str = rand_name
     password: str = f"{silly.verb()}-{silly.noun()}"
     title: str = silly.title(capitalize=True)
     company: str = silly.company(capitalize=True)
