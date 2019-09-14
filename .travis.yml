@@ -11,7 +11,7 @@ before_install:
   - pip install --upgrade pip setuptools
 install:
   - pip install -r requirements/dev.txt
-  # - pip install codecov
+  - pip install codecov
 # before_script: cd app
 
 script:
