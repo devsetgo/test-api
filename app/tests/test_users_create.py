@@ -24,7 +24,6 @@ directory_to__files: str = "data"
 class test_users_endpoints(unittest.TestCase):
     def test_users_post_error(self):
         test_password = "testpassword"
-        user_id = None
         user_name = f"test-user-fail"
 
         test_data = {
