@@ -5,7 +5,6 @@ import datetime
 import os
 import time
 import unittest
-from unittest import mock
 
 import pytest
 
@@ -48,6 +47,21 @@ class test_file_processing(unittest.TestCase):
         with pytest.raises(Exception):
             assert open_json(file_named)
 
+    def test_open_json_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
+    def test_open_json_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
+    def test_open_json_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_json(file_named)
+
     def test_open_csv(self):
         file_named = "test_1.csv"
         result = open_csv(file_named)
@@ -58,6 +72,21 @@ class test_file_processing(unittest.TestCase):
         with pytest.raises(Exception):
             assert open_csv(file_named)
 
+    def test_open_csv_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_csv_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
+    def test_open_csv_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_csv(file_named)
+
     def test_open_text(self):
         file_named = "test_1.html"
         result = open_text(file_named)
@@ -65,6 +94,21 @@ class test_file_processing(unittest.TestCase):
 
     def test_open_txt_no_file(self):
         file_named = "no_file_name.html"
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_not_str(self):
+        file_named = ["a", "list"]
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_slash_win(self):
+        file_named = "\this_is_not_right"
+        with pytest.raises(Exception):
+            assert open_text(file_named)
+
+    def test_open_txt_exception_slash_linux(self):
+        file_named = "//this_is_not_right"
         with pytest.raises(Exception):
             assert open_text(file_named)
 

@@ -5,7 +5,6 @@ import datetime
 import os
 import time
 import unittest
-from unittest import mock
 
 import pytest
 
