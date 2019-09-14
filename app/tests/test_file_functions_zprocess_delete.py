@@ -72,11 +72,11 @@ class test_file_delete(unittest.TestCase):
             assert delete_file(file_named)
 
     def test_delete_no_slash_error(self):
-        file_named = "\error_file.csv"
+        file_named = r"\error_file.csv"
         with pytest.raises(Exception):
             assert delete_file(file_named)
 
     def test_delete_no_slash_two_error(self):
-        file_named = "/error_file.csv"
+        file_named = r"/error_file.csv"
         with pytest.raises(Exception):
             assert delete_file(file_named)
