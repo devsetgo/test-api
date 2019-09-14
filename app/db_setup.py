@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-# from sqlalchemy.orm import scoped_session, sessionmaker
 from datetime import datetime, timedelta
-
 import databases
 from loguru import logger
 from sqlalchemy import (
@@ -17,8 +15,6 @@ from sqlalchemy import (
     Table,
     create_engine,
 )
-
-# from sqlalchemy import create_engine, MetaData
 from sqlalchemy.pool import QueuePool
 
 from settings import SQLALCHEMY_DATABASE_URI
@@ -30,17 +26,17 @@ metadata = MetaData()
 database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
 
-def createDB():
+def create_db():
     metadata.create_all(engine)
     logger.info("Create: {info}", info="Creating tables")
 
 
-async def connectDB():
+async def connect_db():
     await database.connect()
     logger.info("Create: {info}", info="connecting to database")
 
 
-async def disconnectDB():
+async def disconnect_db():
     await database.disconnect()
     logger.info("Create: {info}", info="disconnecting database")
 
@@ -82,5 +78,4 @@ todos = Table(
     Column("dateComplete", DateTime()),
     Column("userId", String(length=100)),
 )
-
-# foreing key Column('userId', None, ForeignKey('users.userId')),
+# Foreign key Column('userId', None, ForeignKey('users.userId')),

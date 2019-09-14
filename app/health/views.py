@@ -3,7 +3,6 @@ import asyncio
 import datetime
 import time
 
-# from health.shutdown import Rebooter
 from cpuinfo import get_cpu_info, get_cpu_info_json
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
 from loguru import logger
@@ -11,6 +10,9 @@ from loguru import logger
 from health.checks import get_platform, get_processes
 
 router = APIRouter()
+
+# TODO: detmine method to shutdown/restart python application
+# TODO: Determine method to get application uptime
 
 
 @router.get("/", tags=["system-health"])
@@ -33,7 +35,6 @@ async def health_details() -> dict:
     Returns:
         dict -- [current_datetime: datetime.now, system information: Python and System Information]
     """
-    # system_info = get_platform()
 
     try:
         system_info = get_cpu_info()
@@ -68,29 +69,3 @@ async def health_processes() -> dict:
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
-
-
-# @router.post("/shutdown", tags=["system-health"])
-# async def health_shutdown(
-#     delay: int = Query(
-#         None, title="Delay time for shutdown", ge=1, le=10, alias="delay"
-#     ),
-# ):
-#     """
-#     Process is not working yet. This will shutdown the process
-
-#     Keyword Arguments:
-#         delay {int} -- [description] (default: {Query(None,title="The number of items in the list to return (min of 1 and max 10)",ge=1,le=10,alias="delay",)})
-
-#     Returns:
-#         [type] -- [description]
-#     """
-#     try:
-#         if delay is not None:
-#             asyncio.sleep(delay)
-
-#         Rebooter(operation="shutdown", delay=False, reason=None, force=False)
-
-#         # return result
-#     except Exception as e:
-#         logger.error(f"Error: {e}")
