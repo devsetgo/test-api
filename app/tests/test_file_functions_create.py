@@ -21,15 +21,13 @@ from com_lib.file_functions import (
 
 time_str = datetime.datetime.now()
 
-# TODO: Improve Exception handling to check logging
-
 
 class test_file_processing(unittest.TestCase):
     def test_save_json(self):
         sample_dict = {"name": "bob", "date": str(time_str)}
         file_named = "test_1.json"
         json_data = []
-        for i in range(10):
+        for _ in range(10):
             sample_dict = {"name": "bob", "date": str(time_str)}
             json_data.append(sample_dict)
 
@@ -48,7 +46,7 @@ class test_file_processing(unittest.TestCase):
         file_named = "test_1.csv"
         csv_data = []
         count = 0
-        for i in range(10):
+        for _ in range(10):
             if count == 0:
                 sample_dict = ["name", "date"]
             else:
@@ -94,10 +92,10 @@ class test_file_processing(unittest.TestCase):
 
     def test_save_csv_slash_exception(self):
         csv_data = []
-        file_named = "test\_1.csv"
+        file_named = r"test\_1.csv"
         csv_data = []
         count = 0
-        for i in range(10):
+        for _ in range(10):
             if count == 0:
                 sample_dict = ["name", "date"]
             else:
@@ -110,7 +108,7 @@ class test_file_processing(unittest.TestCase):
 
     def test_save_text_slash_exception(self):
         sample_str = "not a list"
-        file_named = "te/st_1_error.txt"
+        file_named = r"te/st_1_error.txt"
 
         with pytest.raises(Exception):
             assert save_text(file_named, sample_str)
@@ -119,7 +117,7 @@ class test_file_processing(unittest.TestCase):
         sample_dict = {"name": "bob", "date": str(time_str)}
         file_named = "tes/t_1.json"
         json_data = []
-        for i in range(10):
+        for _ in range(10):
             sample_dict = {"name": "bob", "date": str(time_str)}
             json_data.append(sample_dict)
 

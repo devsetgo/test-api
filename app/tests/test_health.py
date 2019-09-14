@@ -26,17 +26,16 @@ directory_to__files: str = "data"
 
 class test_health_endpoints(unittest.TestCase):
     def test_health_status(self):
-        client = TestClient(app)
         response = client.get(f"/api/health/")
         assert response.status_code == 200
 
     def test_health_system_info(self):
-        client = TestClient(app)
+
         response = client.get(f"/api/health/system-info")
         assert response.status_code == 200
 
     def test_health_processes(self):
-        client = TestClient(app)
+
         response = client.get(f"/api/health/processes")
         assert response.status_code == 200
 
