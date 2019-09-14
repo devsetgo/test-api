@@ -71,3 +71,18 @@ class test_users_endpoints(unittest.TestCase):
         }
 
         save_json("test_data_users.json", user_data)
+
+    def test_users_post_two(self):
+        test_user = user_test_info()
+        save_json("test_data_test_user.json", test_user)
+        url = f"/api/v1/users/create/?delay=1"
+        client = TestClient(app)
+        response = client.post(url, json=test_user)
+        assert response.status_code == 200
+        data = response.json()
+
+        user_data = {
+            "userId": data["userId"],
+            "user_name": data["user_name"],
+            "password": test_user["password"],
+        }
