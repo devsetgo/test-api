@@ -11,34 +11,6 @@ import psutil
 
 # TODO: Make a status that gets app uptime
 # BODY: how to get uptime of app, not running os. Such as dockerimage or how long the code has been running.
-# def get_status() -> dict:
-#     uptime = seconds_elapsed()
-#     result: dict = {
-#         "status": "UP",
-#         "uptime": uptime,
-#         "current_datetime": str(datetime.datetime.now()),
-#     }
-#     return result
-
-
-# def seconds_elapsed() -> dict:
-#     uptime = time.time() - psutil.boot_time()
-
-#     days: float = uptime // (24 * 3600)
-#     uptime = uptime % (24 * 3600)
-#     hours: float = uptime // 3600
-#     uptime %= 3600
-#     minutes: float = uptime // 60
-#     uptime %= 60
-#     seconds: float = uptime
-
-#     result = {
-#         "days": int(days),
-#         "hours": int(hours),
-#         "minutes": int(minutes),
-#         "seconds": int(seconds),
-#     }
-#     return result
 
 
 def get_platform() -> dict:
@@ -64,10 +36,8 @@ def get_platform() -> dict:
     friendly_maxsize = {2 ** 31 - 1: "32 bit", 2 ** 63 - 1: "64 bit"}.get(
         sys.maxsize
     ) or "unknown bits"
-    friendly_version = f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]} {sys.version_info[3]}"  # .{sys.version_info[0]}" #.format(*sys.version_info)
+    friendly_version = f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]} {sys.version_info[3]}"
     python_version = "{0} ({1})".format(friendly_version, friendly_maxsize)
-
-    # 'threads_size': threads_size, threads_size = threading.stack_size()
 
     result = {
         "os": os,
@@ -98,7 +68,3 @@ def get_processes() -> dict:
 
     print(result)
     return result
-
-
-if __name__ == "__main__":
-    get_processes()

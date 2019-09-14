@@ -7,7 +7,7 @@ from loguru import logger
 from starlette.responses import PlainTextResponse, RedirectResponse
 
 from com_lib.logging_config import config_logging
-from db_setup import connectDB, createDB, database, disconnectDB
+from db_setup import connect_db, create_db, database, disconnect_db
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.users import views as users
@@ -26,7 +26,7 @@ from settings import (
 config_logging()
 logger.info("API Logging inititated")
 # database start
-createDB()
+create_db()
 logger.info("API database inititated")
 # fastapi start
 app = FastAPI(
@@ -172,12 +172,12 @@ async def info():
     else:
         main_url = HOST_DOMAIN
 
-    openApi_ulr = f"{main_url}/docs"
-    reDoc_ulr = f"{main_url}/redoc"
+    openapi_url = f"{main_url}/docs"
+    redoc_url = f"{main_url}/redoc"
     result = {
         "App Version": APP_VERSION,
         "Environment": RELEASE_ENV,
-        "Docs": {"OpenAPI": openApi_ulr, "ReDoc": reDoc_ulr},
+        "Docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
         "License": {"Type": LICENSE_TYPE, "License Link": LICENSE_LINK},
         "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
     }
