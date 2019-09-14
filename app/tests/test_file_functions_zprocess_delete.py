@@ -22,8 +22,6 @@ from com_lib.file_functions import (
 
 time_str = datetime.datetime.now()
 
-# TODO: Improve Exception handling to check logging
-
 
 class test_file_delete(unittest.TestCase):
     def test_delete_csv_test_one(self):

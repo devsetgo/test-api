@@ -36,12 +36,3 @@ class test_pass_lib(unittest.TestCase):
         pwd_fail = "toasT"
         result = verify_pass(pwd_fail, crypt_pwd)
         assert result == False
-
-        # user_id = open_json("test_data_users.json")
-        # test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}
-        # url = f"/api/v1/users/check-pwd/"
-        # client = TestClient(app)
-        # response = client.post(url, data=test_data)
-        # result = response.json()
-        # assert response.status_code == 200
-        # assert result["result"] == True

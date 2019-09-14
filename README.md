@@ -8,6 +8,7 @@ SonarCloud
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 
 # Test-API a FASTAPI Example
 

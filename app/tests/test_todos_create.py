@@ -44,7 +44,7 @@ class test_todos_endpoints(unittest.TestCase):
             "dateDue": "2019-08-22T23:51:28.873Z",
         }
         url = f"/api/v1/todo/create/"
-        client = TestClient(app)
+
         response = client.post(url, json=test_data)
         assert response.status_code == 422
 
@@ -57,7 +57,7 @@ class test_todos_endpoints(unittest.TestCase):
             "dateDue": "2019-08-22T23:51:28.873Z",
         }
         url = f"/api/v1/todo/create/?delay=1"
-        client = TestClient(app)
+
         response = client.post(url, json=test_data)
         data = response.json()
         state = response.status_code
