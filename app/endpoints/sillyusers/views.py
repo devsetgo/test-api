@@ -5,7 +5,7 @@ import time
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
 from loguru import logger
 
-from endpoints.sillyusers.gen_user import user_info
+from endpoints.sillyusers.gen_user import user_test_info
 
 router = APIRouter()
 
@@ -39,7 +39,7 @@ async def make_user(
     response = {
         "delay_time": delay,
         "delay_timer": f"{t1:.8f}",
-        "user_info": user_info(),
+        "user_info": user_test_info(),
     }
     logger.info(f"process time: {t1:.8f}")
     return response
@@ -76,7 +76,7 @@ async def user_list(
         await asyncio.sleep(delay)
 
     for _ in range(qty):
-        x = user_info()
+        x = user_test_info()
         result.append(x)
 
     t1: float = time.time() - t0
