@@ -23,7 +23,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class test_todos_endpoints(unittest.TestCase):
+class TestTodosProcess(unittest.TestCase):
     def test_todos_count_complete_delay(self):
 
         response = client.get(f"/api/v1/todo/list/count?delay=1&complete=true")

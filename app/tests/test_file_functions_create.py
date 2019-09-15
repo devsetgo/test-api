@@ -20,7 +20,7 @@ from com_lib.file_functions import (
 time_str = datetime.datetime.now()
 
 
-class test_file_processing(unittest.TestCase):
+class TestFileCreate(unittest.TestCase):
     def test_save_json(self):
         sample_dict = {"name": "bob", "date": str(time_str)}
         file_named = "test_1.json"

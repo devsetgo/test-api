@@ -23,7 +23,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class test_users_endpoints(unittest.TestCase):
+class TestUsersProcess(unittest.TestCase):
     def test_user_password(self):
         user_id = open_json("test_data_users.json")
         test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}

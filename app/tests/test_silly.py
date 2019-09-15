@@ -17,7 +17,7 @@ from app.main import app
 client = TestClient(app)
 
 
-class test_silly_endpoints(unittest.TestCase):
+class TestSilly(unittest.TestCase):
     def test_silly_make_one_delay(self):
 
         response = client.get("/api/v1/silly-users/make-one?delay=1")
