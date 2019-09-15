@@ -23,7 +23,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class TestUsersDelete(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_users_delete_delay(self):
         user_id = open_json("test_data_users.json")
 
