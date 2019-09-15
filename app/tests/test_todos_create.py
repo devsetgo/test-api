@@ -31,7 +31,7 @@ directory_to__files: str = "data"
 time_str = datetime.datetime.now()
 
 
-class TestTodosCreate(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_todos_post_exception(self):
         test_data = {
             # "title": "Test",

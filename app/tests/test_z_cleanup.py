@@ -22,7 +22,7 @@ from com_lib.file_functions import (
 )
 
 
-class TestCleanup(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_clean_up(self):
         files = [
             "test_1_error.json",

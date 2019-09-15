@@ -19,7 +19,7 @@ from app.main import app, shutdown_event, startup_event
 client = TestClient(app)
 
 
-class TestDefaultEndpoints(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_index(self):
         response = client.get("/")
         assert response.status_code == 200

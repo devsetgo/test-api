@@ -21,7 +21,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class TestUsersCreate(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_users_post_error(self):
         test_password = "testpassword"
         user_name = f"test-user-fail"

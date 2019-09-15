@@ -24,7 +24,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 
-class TestHealth(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_health_status(self):
         response = client.get(f"/api/health/")
         assert response.status_code == 200

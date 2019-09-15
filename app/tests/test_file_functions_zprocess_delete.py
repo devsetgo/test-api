@@ -23,7 +23,7 @@ from com_lib.file_functions import (
 time_str = datetime.datetime.now()
 
 
-class TestFileDelete(unittest.TestCase):
+class Test(unittest.TestCase):
     def test_delete_csv_test_one(self):
         file_named = "test_1.csv"
         result = delete_file(file_named)
