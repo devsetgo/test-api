@@ -15,7 +15,7 @@ import requests_mock
 from com_lib.pass_lib import encrypt_pass, verify_pass
 
 
-class test_pass_lib(unittest.TestCase):
+class TestPassLib(unittest.TestCase):
     def test_encrypt_password(self):
         password = "toast"
         hashed_pwd = encrypt_pass(password)

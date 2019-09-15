@@ -23,7 +23,7 @@ from com_lib.file_functions import (
 time_str = datetime.datetime.now()
 
 
-class test_file_processing(unittest.TestCase):
+class TestFileProcessing(unittest.TestCase):
     def test_create_sample_files(self):
         filename = "test_sample"
         samplesize = 10
