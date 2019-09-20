@@ -6,7 +6,7 @@ networks:
 services:
   test-api:
     build: ./app
-    image: mikeryan56/test-api:19.09.02
+    image: mikeryan56/test-api:19.09.15
     # image: mikeryan56/test-api:latest
     ports:
     - "5000"
@@ -26,8 +26,8 @@ services:
     - traefik.port=5000
     networks:
       - web
-    restart:
-      - always
+    # restart:
+    #   - "always"
     # healthcheck:
     #   test: curl --fail -s http://localhost:5000/ || exit 1
     #   interval: 1m30s
