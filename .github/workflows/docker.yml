@@ -38,8 +38,9 @@ jobs:
         CAL_VER=$(date '+%Y-%m-%d')
         echo 'Docker Build'
         docker build . -t mikeryan56/testapi:$CAL_VER
-
-
+        docker push mikeryan56/testapi:$CAL_VER
+        # docker build . -t mikeryan56/testapi:latest
+        # docker push mikeryan56/testapi:latest
       # uses: elgohr/Publish-Docker-Github-Action@master
       # with:
       #   name: mikeryan56/testapi
