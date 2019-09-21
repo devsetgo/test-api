@@ -25,7 +25,9 @@ jobs:
     - name: docker-build
       run: |
         cd app
-        docker build . -t test
+        docker build . -t mikeryan56/testapi:date +"%y.%m.%d""-dev"
+        date=$(date '+%Y-%m-%d')
+        docker tag
 
       # uses: elgohr/Publish-Docker-Github-Action@master
       # with:
