@@ -1,4 +1,4 @@
-name: TestAPI
+name: DockerBuild-Master
 
 on: [push]
 
@@ -25,9 +25,9 @@ jobs:
     - name: docker-build
       run: |
         cd app
-        docker build . -t mikeryan56/testapi:date +"%y.%m.%d""-dev"
-        date=$(date '+%Y-%m-%d')
-        docker tag
+        docker build . -t date=$(date '+%Y-%m-%d')
+        # date=$(date '+%Y-%m-%d')
+        # docker tag
 
       # uses: elgohr/Publish-Docker-Github-Action@master
       # with:
