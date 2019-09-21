@@ -25,7 +25,8 @@ jobs:
     - name: docker-build
       run: |
         cd app
-        docker build . -t date=$(date '+%Y-%m-%d')
+        date=$(date '+%Y-%m-%d')
+        docker build . -t echo mikeryan56/testapi:$date
         # date=$(date '+%Y-%m-%d')
         # docker tag
 
