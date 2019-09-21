@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [ '3.6', '3.7']
+        python: [ '3.7'] #, '3.7']
     steps:
     - uses: actions/checkout@master
-    - name: Python ${{ matrix.python }}
+    - name: Python ${{ matrix.python }} version
       uses: actions/setup-python@v1
       with:
           python-version: ${{ matrix.python }}
@@ -36,8 +36,8 @@ jobs:
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         cd app
         # date=$(date '+%Y-%m-%d')
-        # echo 'Docker Build'
-        # docker build . -t mikeryan56/testapi:$CAL_VER
+        echo 'Docker Build'
+        docker build . -t mikeryan56/testapi:$CAL_VER-dev
 
 
       # uses: elgohr/Publish-Docker-Github-Action@master
