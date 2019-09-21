@@ -29,15 +29,15 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        CAL_VER: $(date '+%Y-%m-%d')
+
       run: |
         ls -l
         echo 'Docker Login'
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         cd app
-        # date=$(date '+%Y-%m-%d')
+        CAL_VER=$(date '+%Y-%m-%d')
         echo 'Docker Build'
-        docker build . -t mikeryan56/testapi:$CAL_VER-dev
+        docker build . -t mikeryan56/testapi:$CAL_VER
 
 
       # uses: elgohr/Publish-Docker-Github-Action@master
