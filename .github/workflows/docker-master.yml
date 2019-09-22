@@ -2,8 +2,9 @@ name: DockerBuild-Master
 
 on:
   pull_request:
-    branches:
-      - master
+    types: [closed]
+    braches:
+    - release-candidate
 
 jobs:
   build:
