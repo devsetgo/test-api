@@ -1,9 +1,8 @@
 name: DockerBuild-Master
 on:
-  pull_request:
-    branches-ignore:
-    - !'master'
-    types: [closed]
+  push:
+    branches:
+    - master
 jobs:
   build:
     runs-on: ubuntu-18.04
