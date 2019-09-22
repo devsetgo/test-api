@@ -1,9 +1,9 @@
-name: DockerBuild-Master
+name: DockerBuild-RC
 
 on:
-  push:
+  pull_request:
     braches:
-    - master
+    - release-candidate
 jobs:
   build:
 
@@ -39,15 +39,7 @@ jobs:
         cd app
         CAL_VER=$(date '+%Y-%m-%d')
         echo 'Docker Build'
-        docker build . -t mikeryan56/test-api:$CAL_VER
-        docker push mikeryan56/test-api:$CAL_VER
-        docker build . -t mikeryan56/test-api:latest
-        docker push mikeryan56/test-api:latest
-      # uses: elgohr/Publish-Docker-Github-Action@master
-      # with:
-      #   name: mikeryan56/testapi
-      #   username: ${{ secrets.DOCKER_USERNAME }}
-      #   password: ${{ secrets.DOCKER_PASSWORD }}
-      #   dockerfile: /app/dockerfile
+        docker build . -t mikeryan56/test-api:$CAL_VER-rc
+        docker push mikeryan56/test-api:$CAL_VER-rc
 
 

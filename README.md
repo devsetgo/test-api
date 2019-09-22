@@ -15,7 +15,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ### Note
 - This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)
-- This should be just consider a **beta version** api at this time.
+- ~~This should be just consider a **beta version** api at this time.~~
 
 ## Create Environment
 
