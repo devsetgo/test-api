@@ -1,7 +1,7 @@
 name: DockerBuild-RC
 on:
   pull_request:
-        branches-ignore:
+    branches-ignore:
     - !'release-candidate'
     types: [closed]
 jobs:
