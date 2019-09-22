@@ -4,15 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## Todo
-- [X] Add Testing
-  - [ ] Add Excepton Handling Testing
-- [ ] Create cookiecutter from template
-- [ ] Work on one to many relationshipts
-- [ ] Validate userId in ToDo's
-- [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
 ## [Unreleased]
 - websockets (working on it)
+
+## [19.9.22] - 2019-09-22
+### Added
+- Adding Github Actions
+  - Test on push
+  - docker build for release candidate
+  - docker build for master
+- adding release-candidate branch as default. Master is now for stable release
+- code cleanup of sonarcloud issues found during static scan (Grade A code)
+- improved tests and exception testing (still needs some work)
+- Update of README documentation
 
 ## [19.9.1-beta] - 2019-09-01
 ### Added

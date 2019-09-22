@@ -8,6 +8,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 
+
 # Test-API a FASTAPI Example
 
 A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
@@ -15,7 +16,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ### Note
 - This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)
-- This should be just consider a **beta version** api at this time.
+- ~~This should be just consider a **beta version** api at this time.~~
 
 ## Create Environment
 
@@ -114,8 +115,18 @@ Pre-Commit & Hooks
 
 - [ ] None
 
-## TODO
+### TODO
+- [X] Setup CI/CD Pipeline for test and deployment
+    - [X] [SonarCloud](https://sonarcloud.io)
+    - [X] [Travis-CI](https://travis-ci.org)
+    - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
+        - [x] tests - matrix run of Python 3.6 and 3.7
+        - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
+        - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
+        - [ ] ensure docker build only happens after pull_request approved and merged into higher branch
+- [x] Make [Twelve Factor App](https://12factor.net/) ready
 
+**Application**
 - [x] Refactor by endpoint (sample, user, etc..)
 - [x] Create tests
     - [x] Minimum of 80%
@@ -136,19 +147,15 @@ Pre-Commit & Hooks
   - [ ] Rate limiting
 - [X] Gunicorn with Uvicorn configuration
 - [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
-- [X] Setup CI/CD Pipeline for test and deployment
-    - [X] [SonarCloud](https://sonarcloud.io)
-    - [X] [Travis-CI](https://travis-ci.org)
-    - [ ] [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
-        - [ ] Continous Integration
-        - [ ] Continous Deployment (Docker Hub Push)
-- [x] Make [Twelve Factor App](https://12factor.net/) ready
 - [ ] Build a [cookiecutter](https://github.com/audreyr/cookiecutter) template for future projects similar to the [FastAPI example](https://github.com/tiangolo/full-stack-fastapi-postgresql)
 - [ ] Add code comments
+- [ ] Work on one to many relationshipts
+- [ ] Validate userId in ToDo's
+- [ ] Work on Connection Pool for SQLite and Postgres for scaling
+
 - Docker
   - [X] Docker Stack example
-  - [ ] Docker Swarm example
-  - [ ] Kubernetes example
+
 - Tutorials/Documentation
   - [ ] Basic Overview
   - [ ] Explantion of functions
