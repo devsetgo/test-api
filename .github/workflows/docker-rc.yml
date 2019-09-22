@@ -2,6 +2,7 @@ name: DockerBuild-RC
 
 on:
   pull_request:
+    types: [closed]
     braches:
     - release-candidate
 
