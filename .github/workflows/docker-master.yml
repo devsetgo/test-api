@@ -1,12 +1,12 @@
 name: DockerBuild-Master
 on:
   pull_request:
-    types: [closed]
     braches:
     - master
+    types: [closed]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
       with:
