@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
-      ref: master
+        ref: master
     - name: docker-build
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
