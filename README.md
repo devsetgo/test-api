@@ -8,7 +8,6 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 
-[![Actions Status](https://github.com/github/devsetgo/test-api/actions)](https://github.com/devsetgo/test-api/actions)
 
 # Test-API a FASTAPI Example
 
@@ -122,8 +121,9 @@ Pre-Commit & Hooks
     - [X] [Travis-CI](https://travis-ci.org)
     - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
         - [x] tests - matrix run of Python 3.6 and 3.7
-        - [ ] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
-        - [ ] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
+        - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
+        - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
+        - [ ] ensure docker build only happens after pull_request approved and merged into higher branch
 
 - [x] Make [Twelve Factor App](https://12factor.net/) ready
 
