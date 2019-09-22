@@ -21,7 +21,7 @@ LICENSE_LINK = config(
 )
 
 # Application Configurations
-HOST_DOMAIN = config("HOST_DOMAIN", default="http://devsetgo.com")
+HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
 RELEASE_ENV = config("RELEASE_ENV", default="prd")
 SQLALCHEMY_DATABASE_URI = config(
     "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/test-api.db"

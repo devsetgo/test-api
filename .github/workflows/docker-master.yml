@@ -1,6 +1,6 @@
 name: DockerBuild-Master
 on:
-  pull_request:
+  push:
     braches:
     - master
     types: [closed]

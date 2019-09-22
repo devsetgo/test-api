@@ -22,7 +22,7 @@ def user_test_info():
     email = silly.email()
     phone = silly.phone_number()
     description: str = silly.paragraph(length=1)
-    website = f"http://www.{silly.domain()}"
+    website = f"https://www.{silly.domain()}"
 
     result = {
         "userId": set_id,
