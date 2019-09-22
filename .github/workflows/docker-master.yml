@@ -1,8 +1,8 @@
 name: DockerBuild-Master
 on:
-  push:
-    braches:
-    - master
+  pull_request:
+    branches-ignore:
+    - !'master'
     types: [closed]
 jobs:
   build:
