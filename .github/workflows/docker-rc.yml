@@ -1,9 +1,8 @@
 name: DockerBuild-RC
 on:
-  pull_request:
-    branches-ignore:
-    - !release-candidate
-    types: [closed]
+  push:
+    branches:
+    - release-candidate
 jobs:
   build:
     runs-on: ubuntu-18.04
