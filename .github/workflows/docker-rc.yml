@@ -3,7 +3,7 @@ on:
   push:
     braches:
     - release-candidate
-    types: [closed]
+    # types: [closed]
 jobs:
   build:
     runs-on: ubuntu-18.04
