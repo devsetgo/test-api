@@ -1,6 +1,6 @@
 name: DockerBuild-RC
 on:
-  pull_request:
+  push:
     braches:
     - release-candidate
     types: [closed]
