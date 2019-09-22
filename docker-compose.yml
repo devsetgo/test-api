@@ -5,9 +5,9 @@ networks:
 
 services:
   test-api:
-    build: ./app
-    image: mikeryan56/test-api:19.09.15
-    # image: mikeryan56/test-api:latest
+    # build: ./app
+    # image: mikeryan56/test-api:19.09.15
+    image: mikeryan56/test-api:latest
     ports:
     - "5000"
     volumes:
