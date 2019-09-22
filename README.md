@@ -154,7 +154,8 @@ Pre-Commit & Hooks
 - [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
 - Docker
-  - [X] Docker Stack example
+  - [X] Docker-Compose example
+    - Configuraton for Traefik (default) and [Jwilder/Nginx-Proxy](https://github.com/jwilder/nginx-proxy) & [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
 
 - Tutorials/Documentation
   - [ ] Basic Overview
