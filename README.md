@@ -124,7 +124,6 @@ Pre-Commit & Hooks
         - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
         - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
         - [ ] ensure docker build only happens after pull_request approved and merged into higher branch
-
 - [x] Make [Twelve Factor App](https://12factor.net/) ready
 
 **Application**
@@ -150,6 +149,9 @@ Pre-Commit & Hooks
 - [x] Logging (using [Loguru](https://github.com/Delgan/loguru))
 - [ ] Build a [cookiecutter](https://github.com/audreyr/cookiecutter) template for future projects similar to the [FastAPI example](https://github.com/tiangolo/full-stack-fastapi-postgresql)
 - [ ] Add code comments
+- [ ] Work on one to many relationshipts
+- [ ] Validate userId in ToDo's
+- [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
 - Docker
   - [X] Docker Stack example
