@@ -24,4 +24,11 @@ jobs:
     - name: Test with pytest
       run: |
         cd app
-        python3 -m pytest -v -s
+        python3 -m pytest
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@master
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./app/coverage.xml
+        flags: unittests
+        name: codecov-umbrella

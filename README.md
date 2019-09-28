@@ -1,13 +1,22 @@
+Python:
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
-![image](https://travis-ci.org/devsetgo//test-api.svg "Build Status")
-![image](coverage.svg "Code Coverage")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
+Github Actions:
+[![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
+[![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
+[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg)](https://github.com/devsetgo/test-api/actions)
+[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20Latest/badge.svg)](https://github.com/devsetgo/test-api/actions)
+
+
+SonarCloud:
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
-
+<!-- ![image](coverage.svg "Code Coverage") -->
 
 # Test-API a FASTAPI Example
 
@@ -121,6 +130,7 @@ Pre-Commit & Hooks
     - [X] [Travis-CI](https://travis-ci.org)
     - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
         - [x] tests - matrix run of Python 3.6 and 3.7
+            - [x] CodeCove.io upload
         - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
         - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
         - [ ] ensure docker build only happens after pull_request approved and merged into higher branch

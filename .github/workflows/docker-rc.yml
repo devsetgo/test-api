@@ -1,4 +1,4 @@
-name: DockerBuild-RC
+name: Docker RC
 on:
   push:
     branches:
