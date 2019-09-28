@@ -4,7 +4,7 @@ Python:
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
-Github Actions:
+CI/CD Pipeline:
 [![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg)](https://github.com/devsetgo/test-api/actions)
@@ -16,7 +16,6 @@ SonarCloud:
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
-<!-- ![image](coverage.svg "Code Coverage") -->
 
 # Test-API a FASTAPI Example
 
@@ -127,13 +126,13 @@ Pre-Commit & Hooks
 ### TODO
 - [X] Setup CI/CD Pipeline for test and deployment
     - [X] [SonarCloud](https://sonarcloud.io)
-    - [X] [Travis-CI](https://travis-ci.org)
+    - [X] [Travis-CI](https://travis-ci.org) ***not used anymore***
     - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
         - [x] tests - matrix run of Python 3.6 and 3.7
             - [x] CodeCove.io upload
         - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
         - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
-        - [ ] ensure docker build only happens after pull_request approved and merged into higher branch
+        - [x] ensure docker build only happens after pull_request approved and merged into higher branch
 - [x] Make [Twelve Factor App](https://12factor.net/) ready
 
 **Application**
