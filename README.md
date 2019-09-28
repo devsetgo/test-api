@@ -125,8 +125,8 @@ Pre-Commit & Hooks
 
 ### TODO
 - [X] Setup CI/CD Pipeline for test and deployment
+    - ~~[X] [Travis-CI](https://travis-ci.org)~~ ***replaced by Github Actions***
     - [X] [SonarCloud](https://sonarcloud.io)
-    - [X] [Travis-CI](https://travis-ci.org) ***not used anymore***
     - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
         - [x] tests - matrix run of Python 3.6 and 3.7
             - [x] CodeCove.io upload
