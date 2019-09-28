@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 - websockets (working on it)
 
+## [19.9.27] - 2019-09-27
+### Added
+- Github Actions complete
+  - Test on Push (any branch)
+  - Build and Push of Release Candidate Docker Image
+  - Build and Push of Latest Docker Image
+  - Codecov.io xml update on each run of tests
+- README updates for documentation
+
+
 ## [19.9.22] - 2019-09-22
 ### Added
 - Adding Github Actions
@@ -18,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - code cleanup of sonarcloud issues found during static scan (Grade A code)
 - improved tests and exception testing (still needs some work)
 - Update of README documentation
+- Docker-Compose file now includes Traefik 2.0 labels
 
 ## [19.9.1-beta] - 2019-09-01
 ### Added
