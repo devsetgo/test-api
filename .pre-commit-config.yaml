@@ -9,8 +9,8 @@ repos:
     hooks:
       - id: fix-encoding-pragma
       - id: trailing-whitespace
-      - id: check-json
-      - id: pretty-format-json
+      # - id: check-json
+      # - id: pretty-format-json
       - id: requirements-txt-fixer
 
 # -   repo: git://github.com/doublify/pre-commit-isort
