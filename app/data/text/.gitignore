@@ -4,3 +4,4 @@
 !.gitignore
 !.sample.xml
 !.test.xml
+!.sample_bad.xml

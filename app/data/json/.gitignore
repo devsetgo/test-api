@@ -3,3 +3,4 @@
 # except this one
 !.gitignore
 !.sample.json
+!.sample_bad.json
