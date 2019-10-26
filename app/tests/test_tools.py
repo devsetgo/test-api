@@ -30,9 +30,8 @@ class Test(unittest.TestCase):
         directory_path = Path.cwd().joinpath(file_directory)
         file_path = f"{directory_path}/sample.json"
 
-
         url = f"/api/v1/tools/xml-json"
-        files={'files': open(file_path,'rb')}
+        files = {"files": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 500
 

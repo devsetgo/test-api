@@ -10,9 +10,9 @@ from com_lib.logging_config import config_logging
 from db_setup import connect_db, create_db, database, disconnect_db
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
+from endpoints.tools import views as tools
 from endpoints.users import views as users
 from health import views as health
-from endpoints.tools import views as tools
 from settings import (
     APP_VERSION,
     HOST_DOMAIN,
