@@ -2,3 +2,5 @@
 *
 # except this one
 !.gitignore
+!.sample.xml
+!.test.xml
