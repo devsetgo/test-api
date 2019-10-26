@@ -23,11 +23,16 @@ router = APIRouter()
 
 
 @router.post("/xml-json")
-async def convert_xml(
-    # myfile: bytes = File(...),
-    myfile: UploadFile = File(...),
-):
+async def convert_xml(myfile: UploadFile = File(...),) -> dict:
+    """
+    convert xml document to json
 
+    Returns:
+        json object
+    """
+
+    # determine if file has no content_type set
+    # set file_type to a value
     if len(myfile.content_type) == 0:
         file_type = "unknown"
     else:
@@ -36,6 +41,7 @@ async def convert_xml(
     logger.info(f"file_name: {myfile.filename} file_type: {file_type}")
 
     file_named = myfile.filename
+    # if document is not a xml document, give http exception
     if file_named.endswith(".xml", 4) is not True:
         error_exception = (
             f"API requires a XML docuement, but file {myfile.filename} is {file_type}"
@@ -44,9 +50,9 @@ async def convert_xml(
         raise HTTPException(status_code=400, detail=error_exception)
 
     try:
-
+        # async method to get data from file upload
         contents = await myfile.read()
-        # contents = myfile
+        # xml to json conversion with xmltodict
         result = xml_parse(
             contents, encoding="utf-8", process_namespaces=True, xml_attribs=True
         )
@@ -56,29 +62,23 @@ async def convert_xml(
     except Exception as e:
         logger.critical(f"error: {e}")
         err = str(e)
-        if err.startswith("syntax error") == True:
-            error_exception = f"The syntax of the object is not valid"
+        # when error occurs output http exception
+        if err.startswith("syntax error") == True or e is not None:
+            error_exception = f"The syntax of the object is not valid. Error: {e}"
             raise HTTPException(status_code=400, detail=error_exception)
 
 
 @router.post("/json-xml")
-async def convert_json(
-    # myfile: bytes = File(...),
-    myfile: UploadFile = File(...),
-):
-    # if myfile.content_type != "application/json":
-    #     error_exception = f"API requires application/json, but file {myfile.filename} is {myfile.content_type}"
-    #     raise HTTPException(status_code=400, detail=error_exception)
+async def convert_json(myfile: UploadFile = File(...),) -> str:
+    """
+    convert json document to xml
 
-    # try:
-    #     content = await myfile.read()
-    #     new_dict = json.loads(content.decode("utf8"))
-    #     result = xml_unparse(new_dict, pretty=True)
-    #     logger.info(f"file {myfile.filename} converted to xml")
-    #     return Response(content=result, media_type="application/xml")
+    Returns:
+        XML object
+    """
 
-    # except Exception as e:
-    #     logger.critical(f"error: {e}")
+    # determine if file is of zero bytes
+    # set file_type to a value
     if len(myfile.content_type) == 0:
         file_type = "unknown"
     else:
@@ -87,6 +87,7 @@ async def convert_json(
     logger.info(f"file_name: {myfile.filename} file_type: {file_type}")
 
     file_named = myfile.filename
+    # if document is not a json document, give http exception
     if file_named.endswith(".json", 5) is not True:
         error_exception = (
             f"API requirs a JSON docuement, but file {myfile.filename} is {file_type}"
@@ -95,9 +96,11 @@ async def convert_json(
         raise HTTPException(status_code=400, detail=error_exception)
 
     try:
-
+        # async method to get data from file upload
         content = await myfile.read()
+        # create a dictionary with decoded content
         new_dict = json.loads(content.decode("utf8"))
+        # xml to json conversion with xmltodict
         result = xml_unparse(new_dict, pretty=True)
         logger.info(f"file converted to JSON")
         return result
@@ -105,7 +108,7 @@ async def convert_json(
     except Exception as e:
         logger.critical(f"error: {e}")
         err = str(e)
-        # or e is not None:
+        # when error occurs output http exception
         if err.startswith("Extra data") == True or e is not None:
             error_exception = f"The syntax of the object is not valid. Error: {e}"
             raise HTTPException(status_code=400, detail=error_exception)
