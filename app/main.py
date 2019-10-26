@@ -10,6 +10,7 @@ from com_lib.logging_config import config_logging
 from db_setup import connect_db, create_db, database, disconnect_db
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
+from endpoints.tools import views as tools
 from endpoints.users import views as users
 from health import views as health
 from settings import (
@@ -53,6 +54,14 @@ app.include_router(
     tags=["users"],
     responses={404: {"description": "Not found"}},
 )
+# Converter router
+app.include_router(
+    tools.router,
+    prefix="/api/v1/tools",
+    tags=["tools"],
+    responses={404: {"description": "Not found"}},
+)
+
 # Silly router
 app.include_router(
     silly_users.router,
