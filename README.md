@@ -58,7 +58,7 @@ UVICORN
         python3 main.py (running Uvicorn from Code - no reload)
 
     Production:
-        uvicorn main:app --workers 2
+        uvicorn main:app --port 5000 --workers 2
         python3 main.py (running Uvicorn from code)
         gunicorn -c gunicorn_cfg.py main:app
         # Note: gunicorn is the config for the dockerfile
