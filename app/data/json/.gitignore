@@ -2,6 +2,3 @@
 *
 # except this one
 !.gitignore
-!.test_sample.json
-!.test_sample_bad.json
-!.test_sample_big.json
