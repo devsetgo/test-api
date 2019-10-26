@@ -16,6 +16,7 @@ SonarCloud:
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
+![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
 
 # Test-API a FASTAPI Example
 
@@ -57,7 +58,7 @@ UVICORN
         python3 main.py (running Uvicorn from Code - no reload)
 
     Production:
-        uvicorn main:app --workers 2
+        uvicorn main:app --port 5000 --workers 2
         python3 main.py (running Uvicorn from code)
         gunicorn -c gunicorn_cfg.py main:app
         # Note: gunicorn is the config for the dockerfile
@@ -110,6 +111,10 @@ Pre-Commit & Hooks
     - [x] POST ***/api/v1/users/create/***
     - [x] POST ***/api/v1/users/check-pwd/***
 
+- tools
+    - [x] POST ***/api/v1/tools/convert-to/xml***
+    - [x] POST ***/api/v1/tools/convert-to/json***
+
 - silly users
     - [x] GET ***/api/v1/silly-users/make-one***
     - [x] GET ***/api/v1/silly-users/list***
@@ -148,6 +153,13 @@ Pre-Commit & Hooks
     - [ ] Pagination
     - [ ] Number of Items per list returned (Max)
     - [ ] Additional Optional for filtering
+- [ ] Extend Tools API
+    - [ ] Text Conversion
+        - [x] XML to JSON (required to be valid XML)
+        - [ ] JSON to XML (required to be valid XML)
+    - [ ] Text Functions
+        - [ ] Language of text
+
 - [x] Better organization
 - [x] Standardize API pattern for versioning
 - Access Controls
