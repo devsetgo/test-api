@@ -20,12 +20,14 @@ from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
 
 router = APIRouter()
 
+title = "Delay in Seconds"
+
 
 @router.get("/list", tags=["users"])
 async def user_list(
     delay: int = Query(
         None,
-        title="Delay",
+        title=title,
         description="Seconds to delay (max 121)",
         ge=1,
         le=121,
@@ -130,13 +132,7 @@ async def user_list(
     },
 )
 async def users_list_count(
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
     is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
     """
@@ -171,13 +167,7 @@ async def users_list_count(
 @router.get("/{userId}", tags=["users"], response_description="Get user information")
 async def get_user_id(
     user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=121, alias="delay",),
 ) -> dict:
     """
     User information for requested UUID
@@ -236,13 +226,7 @@ async def get_user_id(
 async def deactivatee_user_id(
     *,
     user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
     Deactivate a specific user UUID
@@ -317,13 +301,7 @@ async def delete_user_id(
 async def create_user(
     *,
     user: UserCreate,
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
     POST/Create a new User. user_name (unique), firstName, lastName,
