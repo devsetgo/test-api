@@ -37,9 +37,8 @@ class Test(unittest.TestCase):
         url = f"/api/v1/todo/create/?delay=1"
 
         response = client.post(url, json=test_data)
-        data = response.json()
+
         state = response.status_code
         data = response.json()
         save_json(file_name, data)
-        save_json("test_data_todos.json", data)
         assert state == 200

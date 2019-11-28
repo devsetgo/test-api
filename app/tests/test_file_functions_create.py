@@ -13,7 +13,7 @@ time_str = datetime.datetime.now()
 
 class Test(unittest.TestCase):
     def test_save_json(self):
-        sample_dict = {"name": "bob", "date": str(time_str)}
+
         file_named = "test_1.json"
         json_data = []
         for _ in range(10):
@@ -103,7 +103,7 @@ class Test(unittest.TestCase):
             assert save_text(file_named, sample_str)
 
     def test_save_json_slash_exception(self):
-        sample_dict = {"name": "bob", "date": str(time_str)}
+
         file_named = "tes/t_1.json"
         json_data = []
         for _ in range(10):
