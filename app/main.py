@@ -37,28 +37,19 @@ app = FastAPI(
 )
 logger.info("API App inititated")
 
-
+four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # ToDo router
 app.include_router(
-    todo.router,
-    prefix="/api/v1/todo",
-    tags=["todo"],
-    responses={404: {"description": "Not found"}},
+    todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
 )
 # User router
 app.include_router(
-    users.router,
-    prefix="/api/v1/users",
-    tags=["users"],
-    responses={404: {"description": "Not found"}},
+    users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
 )
 # Converter router
 app.include_router(
-    tools.router,
-    prefix="/api/v1/tools",
-    tags=["tools"],
-    responses={404: {"description": "Not found"}},
+    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
 )
 
 # Silly router
@@ -66,7 +57,7 @@ app.include_router(
     silly_users.router,
     prefix="/api/v1/silly-users",
     tags=["silly users"],
-    responses={404: {"description": "Not found"}},
+    responses=four_zero_four,
 )
 
 # Health router
@@ -74,13 +65,13 @@ app.include_router(
     health.router,
     prefix="/api/health",
     tags=["system-health"],
-    responses={404: {"description": "Not found"}},
+    responses=four_zero_four,
 )
 
 """
 for future use
 app.include_router(socket.router,prefix="/api/v1/websocket",
-tags=["websocket"],responses={404: {"description": "Not found"}},)
+tags=["websocket"],responses=four_zero_four,)
 """
 
 # startup events
