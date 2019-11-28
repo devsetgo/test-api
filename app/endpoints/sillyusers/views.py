@@ -2,7 +2,8 @@
 import asyncio
 import time
 
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from fastapi import APIRouter
+from fastapi import Query
 from loguru import logger
 
 from endpoints.sillyusers.gen_user import user_test_info

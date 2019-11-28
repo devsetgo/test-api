@@ -1,18 +1,8 @@
 # -*- coding: utf-8 -*-
-import datetime
-import json
-import os
-import sys
-import time
 import unittest
-from pathlib import Path
-from unittest import mock
 
-import pytest
-import requests
-import requests_mock
-
-from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.pass_lib import encrypt_pass
+from com_lib.pass_lib import verify_pass
 
 
 class Test(unittest.TestCase):

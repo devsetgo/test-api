@@ -3,18 +3,17 @@
 ToDo api endpoints
 """
 import asyncio
-import os
-import random
 import uuid
-from datetime import date, datetime, time, timedelta
+from datetime import datetime
 
-import databases
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from fastapi import APIRouter
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
 
-from db_setup import database, todos
+from db_setup import database
+from db_setup import todos
 from endpoints.todo.models import TodoCreate
-from settings import SQLALCHEMY_DATABASE_URI
 
 router = APIRouter()
 # time variables

@@ -1,29 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
-import json
-import os
-import sys
-import time
 import unittest
-from pathlib import Path
-from unittest import mock
 
-import pytest
-import requests
-import requests_mock
-from loguru import logger
-from requests.exceptions import Timeout
 from starlette.testclient import TestClient
 
 from app.main import app
-from com_lib.file_functions import (
-    create_sample_files,
-    get_data_directory_list,
-    open_csv,
-    open_json,
-    save_csv,
-    save_json,
-)
+from com_lib.file_functions import save_json
 
 client = TestClient(app)
 

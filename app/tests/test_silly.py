@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime
-import os
-import sys
-import time
 import unittest
-from unittest import mock
 
-import pytest
-import requests
-import requests_mock
-from requests.exceptions import Timeout
 from starlette.testclient import TestClient
 
 from app.main import app

@@ -2,7 +2,7 @@ aiosqlite==0.10.0
 alembic==1.2.1 # Change from 1.1.0
 asyncpg==0.18.3
 databases==0.2.5
-fastapi[all]==0.41.0 # Change from 0.38.1
+fastapi[all]==0.44.0 # Change from 0.38.1
 gunicorn==19.9.0
 loguru==0.3.2
 passlib[bcrypt] # do not change from this

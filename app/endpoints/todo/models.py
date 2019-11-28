@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-import json
-import uuid
-from datetime import datetime, timedelta
-from typing import List, Optional, Set, Union
+from datetime import datetime
+from typing import Optional
 
-from pydantic import UUID1, BaseModel, Json, Schema
+from pydantic import BaseModel
 
 
 class ToDoBase(BaseModel):

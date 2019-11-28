@@ -1,21 +1,11 @@
 # -*- coding: utf-8 -*-
-import asyncio
 import json
-import time
 
-from fastapi import (
-    APIRouter,
-    FastAPI,
-    File,
-    Form,
-    Header,
-    HTTPException,
-    Path,
-    Query,
-    UploadFile,
-)
+from fastapi import APIRouter
+from fastapi import File
+from fastapi import HTTPException
+from fastapi import UploadFile
 from loguru import logger
-from starlette.responses import Response
 from xmltodict import parse as xml_parse
 from xmltodict import unparse as xml_unparse
 
@@ -63,7 +53,7 @@ async def convert_xml(myfile: UploadFile = File(...),) -> dict:
         logger.critical(f"error: {e}")
         err = str(e)
         # when error occurs output http exception
-        if err.startswith("syntax error") == True or e is not None:
+        if err.startswith("syntax error") is True or e is not None:
             error_exception = f"The syntax of the object is not valid. Error: {e}"
             raise HTTPException(status_code=400, detail=error_exception)
 
@@ -109,6 +99,6 @@ async def convert_json(myfile: UploadFile = File(...),) -> str:
         logger.critical(f"error: {e}")
         err = str(e)
         # when error occurs output http exception
-        if err.startswith("Extra data") == True or e is not None:
+        if err.startswith("Extra data") is True or e is not None:
             error_exception = f"The syntax of the object is not valid. Error: {e}"
             raise HTTPException(status_code=400, detail=error_exception)

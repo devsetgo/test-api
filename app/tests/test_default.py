@@ -1,20 +1,9 @@
 # -*- coding: utf-8 -*-
-import datetime
-import logging
-import os
-import sys
-import time
 import unittest
-from unittest import mock
 
-import pytest
-import requests
-import requests_mock
-from _pytest.logging import caplog
-from requests.exceptions import Timeout
 from starlette.testclient import TestClient
 
-from app.main import app, shutdown_event, startup_event
+from app.main import app
 
 client = TestClient(app)
 

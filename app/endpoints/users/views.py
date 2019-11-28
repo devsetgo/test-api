@@ -3,22 +3,20 @@
 doc string
 """
 import asyncio
-import os
-import random
 import uuid
-from datetime import date, datetime, time, timedelta
-from typing import Dict
 
-import databases
-from fastapi import APIRouter, FastAPI, Form, Header, HTTPException, Path, Query
+from fastapi import APIRouter
+from fastapi import Form
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
-from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
 
-from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.pass_lib import encrypt_pass
+from com_lib.pass_lib import verify_pass
 from com_lib.simple_functions import get_current_datetime
-from db_setup import database, users
+from db_setup import database
+from db_setup import users
 from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
-from endpoints.users.models import UserDeactivate, UserList, UserPwd, UserUpdate
 
 router = APIRouter()
 
@@ -328,7 +326,8 @@ async def create_user(
     ),
 ) -> dict:
     """
-    POST/Create a new User. user_name (unique), firstName, lastName, and password are required. All other fields are optional.
+    POST/Create a new User. user_name (unique), firstName, lastName,
+    and password are required. All other fields are optional.
 
     Arguments:
         user {UserCreate} -- [description]
