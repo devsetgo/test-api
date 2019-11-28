@@ -59,7 +59,7 @@ class HealthChecks:
             system_info = get_processes()
             result: dict = {
                 "current_datetime": str(datetime.datetime.now()),
-                # "note": "this is filter to only return, python, gunicorn, 
+                # "note": "this is filter to only return, python, gunicorn,
                 # uvicorn, hypercorn, and daphne pids for security",
                 "running_processes": system_info,
             }
