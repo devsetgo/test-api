@@ -3,23 +3,9 @@ import csv
 import json
 import os
 import random
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import (
-    Any,
-    Dict,
-    Generic,
-    Iterable,
-    List,
-    Mapping,
-    Optional,
-    Sequence,
-    Sized,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import List
 
 from loguru import logger
 
@@ -178,7 +164,7 @@ def save_csv(filename: str, data: list):
 # expectation is for file to be quote minimal and skipping initial spaces is a good thing
 # modify as needed
 def open_csv(filename: str, delimit: str = None):
-    if delimit == None:
+    if delimit is None:
         delimit = ","
     # add extension to file name
     file_name: str = f"{filename}"

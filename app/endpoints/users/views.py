@@ -3,31 +3,31 @@
 doc string
 """
 import asyncio
-import os
-import random
 import uuid
-from datetime import date, datetime, time, timedelta
-from typing import Dict
 
-import databases
-from fastapi import APIRouter, FastAPI, Form, Header, HTTPException, Path, Query
+from fastapi import APIRouter
+from fastapi import Form
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
-from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
 
-from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.pass_lib import encrypt_pass
+from com_lib.pass_lib import verify_pass
 from com_lib.simple_functions import get_current_datetime
-from db_setup import database, users
+from db_setup import database
+from db_setup import users
 from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
-from endpoints.users.models import UserDeactivate, UserList, UserPwd, UserUpdate
 
 router = APIRouter()
+
+title = "Delay in Seconds"
 
 
 @router.get("/list", tags=["users"])
 async def user_list(
     delay: int = Query(
         None,
-        title="Delay",
+        title=title,
         description="Seconds to delay (max 121)",
         ge=1,
         le=121,
@@ -132,13 +132,7 @@ async def user_list(
     },
 )
 async def users_list_count(
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
     is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
     """
@@ -173,13 +167,7 @@ async def users_list_count(
 @router.get("/{userId}", tags=["users"], response_description="Get user information")
 async def get_user_id(
     user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=121, alias="delay",),
 ) -> dict:
     """
     User information for requested UUID
@@ -235,16 +223,10 @@ async def get_user_id(
         500: {"description": "Mommy!"},
     },
 )
-async def deactivatee_user_id(
+async def deactivate_user_id(
     *,
-    user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    user_id: str = Path(..., title="The user id to be deactivated", alias="userId"),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
     Deactivate a specific user UUID
@@ -283,7 +265,7 @@ async def deactivatee_user_id(
     },
 )
 async def delete_user_id(
-    *, user_id: str = Path(..., title="The user id to be searched for", alias="userId")
+    *, user_id: str = Path(..., title="The user id to be deleted", alias="userId")
 ) -> dict:
     """
     Delete a user by UUID
@@ -319,16 +301,11 @@ async def delete_user_id(
 async def create_user(
     *,
     user: UserCreate,
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
-    POST/Create a new User. user_name (unique), firstName, lastName, and password are required. All other fields are optional.
+    POST/Create a new User. user_name (unique), firstName, lastName,
+    and password are required. All other fields are optional.
 
     Arguments:
         user {UserCreate} -- [description]

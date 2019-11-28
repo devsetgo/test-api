@@ -1,31 +1,21 @@
 # -*- coding: utf-8 -*-
-import datetime
-import json
-import os
-import sys
-import time
 import unittest
-from pathlib import Path
-from unittest import mock
 
-import pytest
-import requests
-import requests_mock
-from loguru import logger
-from requests.exceptions import Timeout
 from starlette.testclient import TestClient
 
-from app.com_lib.file_functions import open_json, save_json
+from app.com_lib.file_functions import open_json
 from app.main import app
 
 client = TestClient(app)
 
 directory_to__files: str = "data"
 
+test_data_users = "test_data_users.json"
+
 
 class Test(unittest.TestCase):
     def test_user_password(self):
-        user_id = open_json("test_data_users.json")
+        user_id = open_json(test_data_users)
         test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}
         url = f"/api/v1/users/check-pwd/"
 
@@ -77,7 +67,7 @@ class Test(unittest.TestCase):
         assert response.status_code == 422
 
     def test_users_id(self):
-        user_id = open_json("test_data_users.json")
+        user_id = open_json(test_data_users)
         uid = user_id["userId"]
 
         response = client.get(f"/api/v1/users/{uid}")
@@ -86,13 +76,13 @@ class Test(unittest.TestCase):
         assert response.json() is not None
 
     def test_users_id_delay(self):
-        user_id = open_json("test_data_users.json")
+        user_id = open_json(test_data_users)
 
         response = client.get(f"/api/v1/users/{user_id['userId']}?delay=1")
         assert response.status_code == 200
 
     def test_users_put_deactivate(self):
-        user_id = open_json("test_data_users.json")
+        user_id = open_json(test_data_users)
 
         response = client.put(f"/api/v1/users/deactivate/{user_id['userId']}?delay=1")
         assert response.status_code == 200

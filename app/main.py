@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
-import databases
 import pyjokes
 import uvicorn
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from fastapi import FastAPI
+from fastapi import Query
 from loguru import logger
-from starlette.responses import PlainTextResponse, RedirectResponse
+from starlette.responses import RedirectResponse
 
 from com_lib.logging_config import config_logging
-from db_setup import connect_db, create_db, database, disconnect_db
+from db_setup import create_db
+from db_setup import database
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
 from health import views as health
-from settings import (
-    APP_VERSION,
-    HOST_DOMAIN,
-    LICENSE_LINK,
-    LICENSE_TYPE,
-    OWNER,
-    RELEASE_ENV,
-    WEBSITE,
-)
+from settings import APP_VERSION
+from settings import HOST_DOMAIN
+from settings import LICENSE_LINK
+from settings import LICENSE_TYPE
+from settings import OWNER
+from settings import RELEASE_ENV
+from settings import WEBSITE
 
 # config logging start
 config_logging()
@@ -38,28 +37,19 @@ app = FastAPI(
 )
 logger.info("API App inititated")
 
-
+four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # ToDo router
 app.include_router(
-    todo.router,
-    prefix="/api/v1/todo",
-    tags=["todo"],
-    responses={404: {"description": "Not found"}},
+    todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
 )
 # User router
 app.include_router(
-    users.router,
-    prefix="/api/v1/users",
-    tags=["users"],
-    responses={404: {"description": "Not found"}},
+    users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
 )
 # Converter router
 app.include_router(
-    tools.router,
-    prefix="/api/v1/tools",
-    tags=["tools"],
-    responses={404: {"description": "Not found"}},
+    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
 )
 
 # Silly router
@@ -67,7 +57,7 @@ app.include_router(
     silly_users.router,
     prefix="/api/v1/silly-users",
     tags=["silly users"],
-    responses={404: {"description": "Not found"}},
+    responses=four_zero_four,
 )
 
 # Health router
@@ -75,11 +65,14 @@ app.include_router(
     health.router,
     prefix="/api/health",
     tags=["system-health"],
-    responses={404: {"description": "Not found"}},
+    responses=four_zero_four,
 )
 
-# app.include_router(socket.router,prefix="/api/v1/websocket",tags=["websocket"],responses={404: {"description": "Not found"}},)
-
+"""
+for future use
+app.include_router(socket.router,prefix="/api/v1/websocket",
+tags=["websocket"],responses=four_zero_four,)
+"""
 
 # startup events
 @app.on_event("startup")
@@ -174,7 +167,8 @@ async def info():
     API information endpoint
 
     Returns:
-        [json] -- [description] app version, environment running in (dev/prd), Doc/Redoc link, Lincense information, and support information
+        [json] -- [description] app version, environment running in (dev/prd),
+        Doc/Redoc link, Lincense information, and support information
     """
     if RELEASE_ENV.lower() == "dev":
         main_url = "http://localhost:5000"

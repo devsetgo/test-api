@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-import asyncio
 import datetime
-import time
 
-from cpuinfo import get_cpu_info, get_cpu_info_json
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from cpuinfo import get_cpu_info
+from fastapi import APIRouter
 from loguru import logger
 
-from health.checks import get_platform, get_processes
+from health.checks import get_processes
 
 router = APIRouter()
 
@@ -61,7 +59,8 @@ class HealthChecks:
             system_info = get_processes()
             result: dict = {
                 "current_datetime": str(datetime.datetime.now()),
-                # "note": "this is filter to only return, python, gunicorn, uvicorn, hypercorn, and daphne pids for security",
+                # "note": "this is filter to only return, python, gunicorn,
+                # uvicorn, hypercorn, and daphne pids for security",
                 "running_processes": system_info,
             }
             logger.info(f"GET processes")

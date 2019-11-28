@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-import json
-import uuid
-from datetime import datetime, timedelta
-from typing import List, Optional, Set, Union
+from typing import Optional
 
-from pydantic import UUID1, BaseModel, Json, Schema, SecretStr
+from pydantic import BaseModel
+from pydantic import SecretStr
 
 
 # Shared properties

@@ -1,28 +1,19 @@
 # -*- coding: utf-8 -*-
 import datetime
-import os
-import time
 import unittest
 
 import pytest
 
-from com_lib.file_functions import (
-    create_sample_files,
-    get_data_directory_list,
-    open_csv,
-    open_json,
-    open_text,
-    save_csv,
-    save_json,
-    save_text,
-)
+from com_lib.file_functions import save_csv
+from com_lib.file_functions import save_json
+from com_lib.file_functions import save_text
 
 time_str = datetime.datetime.now()
 
 
 class Test(unittest.TestCase):
     def test_save_json(self):
-        sample_dict = {"name": "bob", "date": str(time_str)}
+
         file_named = "test_1.json"
         json_data = []
         for _ in range(10):
@@ -112,7 +103,7 @@ class Test(unittest.TestCase):
             assert save_text(file_named, sample_str)
 
     def test_save_json_slash_exception(self):
-        sample_dict = {"name": "bob", "date": str(time_str)}
+
         file_named = "tes/t_1.json"
         json_data = []
         for _ in range(10):

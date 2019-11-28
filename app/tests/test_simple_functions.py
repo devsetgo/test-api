@@ -2,12 +2,7 @@
 # import json
 # import csv
 import datetime
-import os
-import time
 import unittest
-from unittest import mock
-
-import pytest
 
 from com_lib.simple_functions import get_current_datetime
 

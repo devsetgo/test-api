@@ -3,22 +3,23 @@
 ToDo api endpoints
 """
 import asyncio
-import os
-import random
 import uuid
-from datetime import date, datetime, time, timedelta
+from datetime import datetime
 
-import databases
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Path, Query
+from fastapi import APIRouter
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
 
-from db_setup import database, todos
+from db_setup import database
+from db_setup import todos
 from endpoints.todo.models import TodoCreate
-from settings import SQLALCHEMY_DATABASE_URI
 
 router = APIRouter()
 # time variables
 currentTime = datetime.now()
+
+title = "Delay in Seconds"
 
 
 @router.get("/list", tags=["todo"])
@@ -52,7 +53,7 @@ async def todo_list(
         return result
 
     except Exception as e:
-        logger.error(f"Error: {e}")
+        logger.error(f"List Error: {e}")
 
 
 @router.get(
@@ -65,13 +66,7 @@ async def todo_list(
     },
 )
 async def todos_list_count(
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
     isComplete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
@@ -90,19 +85,13 @@ async def todos_list_count(
         result = {"count": len(x)}
         return result
     except Exception as e:
-        logger.info("Error: {error}", error=e)
+        logger.info("Count Error: {error}", error=e)
 
 
 @router.get("/{todoId}", tags=["todo"], response_description="Get todo information")
 async def get_todo_id(
     todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
     # sleep if delay option is used
@@ -114,7 +103,7 @@ async def get_todo_id(
         result = await database.fetch_one(query)
         return result
     except Exception as e:
-        logger.info("Error: {error}", error=e)
+        logger.critical("ID Error: {error}", error=e)
 
 
 @router.put(
@@ -128,16 +117,10 @@ async def get_todo_id(
         500: {"description": "Mommy!"},
     },
 )
-async def deactivatee_todo_id(
+async def deactivate_todo_id(
     *,
     todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
     todoInformation = {"isComplete": True, "dateComplete": currentTime}
@@ -153,7 +136,7 @@ async def deactivatee_todo_id(
         result = await get_todo_id(todoId)
         return result
     except Exception as e:
-        logger.info("Error: {error}", error=e)
+        logger.critical("Deactivate Error: {error}", error=e)
 
 
 @router.delete(
@@ -178,7 +161,7 @@ async def delete_todo_id(
         result = {"status": f"{todoId} deleted"}
         return result
     except Exception as e:
-        logger.info("Error: {error}", error=e)
+        logger.critical("Delete Error: {error}", error=e)
 
 
 @router.post(
@@ -195,13 +178,7 @@ async def delete_todo_id(
 async def create_todo(
     *,
     todo: TodoCreate,
-    delay: int = Query(
-        None,
-        title="The number of items in the list to return (min of 1 and max 10)",
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
     value = todo.dict()
@@ -230,4 +207,4 @@ async def create_todo(
         result = {"todoId": todoInformation["todoId"]}
         return result
     except Exception as e:
-        logger.info(f"Error: {e}")
+        logger.critical(f"Create Error: {e}")
