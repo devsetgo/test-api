@@ -23,17 +23,17 @@ database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
 def create_db():
     metadata.create_all(engine)
-    logger.info("Create: {info}", info="Creating tables")
+    logger.info(f"Creating tables")
 
 
 async def connect_db():
     await database.connect()
-    logger.info("Create: {info}", info="connecting to database")
+    logger.info(f"connecting to database")
 
 
 async def disconnect_db():
     await database.disconnect()
-    logger.info("Create: {info}", info="disconnecting database")
+    logger.info(f"disconnecting from database")
 
 
 users = Table(

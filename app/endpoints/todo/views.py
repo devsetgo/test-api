@@ -19,6 +19,7 @@ router = APIRouter()
 # time variables
 currentTime = datetime.now()
 
+title = "The number of items in the list to return (min of 1 and max 10)"
 
 @router.get("/list", tags=["todo"])
 async def todo_list(
@@ -66,7 +67,7 @@ async def todo_list(
 async def todos_list_count(
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title=title,
         ge=1,
         le=10,
         alias="delay",
@@ -97,7 +98,7 @@ async def get_todo_id(
     todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title=title,
         ge=1,
         le=10,
         alias="delay",
@@ -132,7 +133,7 @@ async def deactivatee_todo_id(
     todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title=title,
         ge=1,
         le=10,
         alias="delay",
@@ -196,7 +197,7 @@ async def create_todo(
     todo: TodoCreate,
     delay: int = Query(
         None,
-        title="The number of items in the list to return (min of 1 and max 10)",
+        title=title,
         ge=1,
         le=10,
         alias="delay",
