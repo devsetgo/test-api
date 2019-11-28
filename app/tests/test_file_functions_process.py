@@ -43,12 +43,12 @@ class Test(unittest.TestCase):
             assert open_json(file_named)
 
     def test_open_json_exception_slash_win(self):
-        file_named = "\this_is_not_right"
+        file_named = "\this_is_not_right_json"
         with pytest.raises(Exception):
             assert open_json(file_named)
 
     def test_open_json_exception_slash_linux(self):
-        file_named = "//this_is_not_right"
+        file_named = "//this_is_not_right_json"
         with pytest.raises(Exception):
             assert open_json(file_named)
 
@@ -68,12 +68,12 @@ class Test(unittest.TestCase):
             assert open_csv(file_named)
 
     def test_open_csv_exception_slash_win(self):
-        file_named = "\this_is_not_right"
+        file_named = "\this_is_not_right_csv"
         with pytest.raises(Exception):
             assert open_csv(file_named)
 
     def test_open_csv_exception_slash_linux(self):
-        file_named = "//this_is_not_right"
+        file_named = "//this_is_not_right_csv"
         with pytest.raises(Exception):
             assert open_csv(file_named)
 
@@ -93,12 +93,12 @@ class Test(unittest.TestCase):
             assert open_text(file_named)
 
     def test_open_txt_exception_slash_win(self):
-        file_named = "\this_is_not_right"
+        file_named = "\this_is_not_right_txt"
         with pytest.raises(Exception):
             assert open_text(file_named)
 
     def test_open_txt_exception_slash_linux(self):
-        file_named = "//this_is_not_right"
+        file_named = "//this_is_not_right_txt"
         with pytest.raises(Exception):
             assert open_text(file_named)
 
