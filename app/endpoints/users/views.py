@@ -223,9 +223,9 @@ async def get_user_id(
         500: {"description": "Mommy!"},
     },
 )
-async def deactivatee_user_id(
+async def deactivate_user_id(
     *,
-    user_id: str = Path(..., title="The user id to be searched for", alias="userId"),
+    user_id: str = Path(..., title="The user id to be deactivated", alias="userId"),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
@@ -265,7 +265,7 @@ async def deactivatee_user_id(
     },
 )
 async def delete_user_id(
-    *, user_id: str = Path(..., title="The user id to be searched for", alias="userId")
+    *, user_id: str = Path(..., title="The user id to be deleted", alias="userId")
 ) -> dict:
     """
     Delete a user by UUID
