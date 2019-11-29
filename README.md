@@ -97,17 +97,17 @@ Pre-Commit & Hooks
 - todos
     - [x] GET ***/api/v1/todo/list***
     - [x] GET ***/api/v1/todo/list/count***
-    - [x] GET ***/api/v1/todo/list/{todoId}***
-    - [x] DELETE ***/api/v1/todo/list/{todoId}***
-    - [x] PUT ***/api/v1/todo/list/{todoId}***
+    - [x] GET ***/api/v1/todo/list/{todo_id}***
+    - [x] DELETE ***/api/v1/todo/list/{todo_id}***
+    - [x] PUT ***/api/v1/todo/list/{todo_id}***
     - [x] POST ***/api/v1/todo/create/***
 
 - users
     - [x] GET ***/api/v1/users/list***
     - [x] GET ***/api/v1/users/list/count***
-    - [x] GET ***/api/v1/users/list/{todoId}***
-    - [x] DELETE ***/api/v1/users/list/{todoId}***
-    - [x] PUT ***/api/v1/users/list/{todoId}***
+    - [x] GET ***/api/v1/users/list/{user_id}***
+    - [x] DELETE ***/api/v1/users/list/{user_id}***
+    - [x] PUT ***/api/v1/users/list/{user_id}***
     - [x] POST ***/api/v1/users/create/***
     - [x] POST ***/api/v1/users/check-pwd/***
 
