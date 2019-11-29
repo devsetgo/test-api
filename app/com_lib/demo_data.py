@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 import uuid
 from datetime import datetime, timedelta
@@ -18,10 +19,11 @@ NUMBER_USERS = 10
 # time variables
 currentTime = datetime.now()
 
+
 def create_data():
 
     logger.info(f"creating demo data")
-    user_count =  count_users().result()
+    user_count = count_users().result()
     task_count = count_tasks().result()
 
     if int(user_count) == 0:
@@ -44,6 +46,7 @@ async def count_users():
     logger.info(f"number of users in DB: {result}")
     return result
 
+
 @unsync
 async def count_tasks():
     query = todos.select()
@@ -62,7 +65,6 @@ def create_users(create_users: int):
         user_id = new_user["user_id"]
 
 
-
 def create_tasks(create_tasks: int):
 
     for _ in range(0, create_tasks):
@@ -70,7 +72,7 @@ def create_tasks(create_tasks: int):
             "todo_id": str(uuid.uuid1()),
             "title": silly.thing(),
             "description": silly.sentence(),
-            "date_due": currentTime + timedelta(days=random.randint(1,180)),
+            "date_due": currentTime + timedelta(days=random.randint(1, 180)),
             "is_complete": bool(random.getrandbits(1)),
             "date_create": currentTime,
             "date_update": currentTime,
