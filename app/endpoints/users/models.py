@@ -38,6 +38,7 @@ class UserCreate(UserBase):
     address: Optional[str] = None
     city: Optional[str] = None
     country: Optional[str] = None
+    phone: Optional[str] = None
     postal: Optional[str] = None
     email: Optional[str] = None
     website: Optional[str] = None

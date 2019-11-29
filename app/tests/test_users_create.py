@@ -26,6 +26,7 @@ class Test(unittest.TestCase):
             "address": "string",
             "city": "string",
             "country": "string",
+            "phone": "string",
             "postal": "string",
             "email": "string",
             "website": "string",

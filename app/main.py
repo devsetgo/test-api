@@ -6,6 +6,7 @@ from fastapi import Query
 from loguru import logger
 from starlette.responses import RedirectResponse
 
+from com_lib.demo_data import create_data
 from com_lib.logging_config import config_logging
 from db_setup import create_db
 from db_setup import database
@@ -15,6 +16,7 @@ from endpoints.tools import views as tools
 from endpoints.users import views as users
 from health import views as health
 from settings import APP_VERSION
+from settings import CREATE_SAMPLE_DATA
 from settings import HOST_DOMAIN
 from settings import LICENSE_LINK
 from settings import LICENSE_TYPE
@@ -24,10 +26,10 @@ from settings import WEBSITE
 
 # config logging start
 config_logging()
-logger.info("API Logging inititated")
+logger.info("API Logging initiated")
 # database start
 create_db()
-logger.info("API database inititated")
+logger.info("API database initiated")
 # fastapi start
 app = FastAPI(
     title="Test API",
@@ -35,7 +37,7 @@ app = FastAPI(
     version=APP_VERSION,
     openapi_url="/openapi.json",
 )
-logger.info("API App inititated")
+logger.info("API App initiated")
 
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
@@ -78,20 +80,25 @@ tags=["websocket"],responses=four_zero_four,)
 @app.on_event("startup")
 async def startup_event():
 
-    # initiate log with statement
-    if RELEASE_ENV.lower() == "dev":
-        logger.debug("Inititating logging for API")
-        logger.info("API inititated in Development environment")
-    else:
-        logger.info("API inititated in Production environment")
-
     try:
         await database.connect()
-        logger.info("Connecting to database")
+        logger.info(f"Connecting to database")
 
     except Exception as e:
         logger.info(f"Error: {e}")
         logger.trace(f"tracing: {e}")
+
+    # initiate log with statement
+    if RELEASE_ENV.lower() == "dev":
+        logger.debug(f"Initiating logging for API")
+        logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
+
+        if CREATE_SAMPLE_DATA == "True":
+            create_data()
+            logger.info("Create Data")
+
+    else:
+        logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
 
 @app.on_event("shutdown")

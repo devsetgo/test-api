@@ -38,22 +38,17 @@ async def todo_list(
     if delay is not None:
         await asyncio.sleep(delay)
 
-    try:
-        # await database.connect()
-        # Fetch multiple rows
-        if is_complete is not None:
-            query = todos.select().where(todos.c.is_complete == is_complete)
-            x = await database.fetch_all(query)
-        else:
-            query = todos.select()
-            x = await database.fetch_all(query)
+    # Fetch multiple rows
+    if is_complete is not None:
+        query = todos.select().where(todos.c.is_complete == is_complete)
+        x = await database.fetch_all(query)
+    else:
+        query = todos.select()
+        x = await database.fetch_all(query)
 
-        logger.info(f"todo list accessed")
-        result = x
-        return result
-
-    except Exception as e:
-        logger.critical(f"List Error: {e}")
+    logger.info(f"todo list accessed")
+    result = x
+    return result
 
 
 @router.get(
@@ -73,19 +68,16 @@ async def todos_list_count(
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
-    try:
-        # Fetch multiple rows
-        if is_complete is not None:
-            query = todos.select().where(todos.c.is_complete == is_complete)
-            x = await database.fetch_all(query)
-        else:
-            query = todos.select()
-            x = await database.fetch_all(query)
+    # Fetch multiple rows
+    if is_complete is not None:
+        query = todos.select().where(todos.c.is_complete == is_complete)
+        x = await database.fetch_all(query)
+    else:
+        query = todos.select()
+        x = await database.fetch_all(query)
 
-        result = {"count": len(x)}
-        return result
-    except Exception as e:
-        logger.critical(f"Count Error: {e}")
+    result = {"count": len(x)}
+    return result
 
 
 @router.get("/{todo_id}", tags=["todo"], response_description="Get todo information")
@@ -97,13 +89,10 @@ async def get_todo_id(
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
-    try:
-        # Fetch single row
-        query = todos.select().where(todos.c.todo_id == todo_id)
-        result = await database.fetch_one(query)
-        return result
-    except Exception as e:
-        logger.critical(f"ID Error: {e}")
+    # Fetch single row
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
+    return result
 
 
 @router.put(
@@ -123,20 +112,17 @@ async def deactivate_todo_id(
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
-    todo_information = {"is_complete": True, "dateComplete": currentTime}
+    todo_information = {"is_complete": True, "date_complete": currentTime}
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
 
-    try:
-        # Fetch single row
-        query = todos.update().where(todos.c.todo_id == todo_id)
-        values = todo_information
-        await database.execute(query, values)
-        result = await get_todo_id(todo_id)
-        return result
-    except Exception as e:
-        logger.critical(f"Deactivate Error: {e}")
+    # Fetch single row
+    query = todos.update().where(todos.c.todo_id == todo_id)
+    values = todo_information
+    await database.execute(query, values)
+    result = await get_todo_id(todo_id)
+    return result
 
 
 @router.delete(
@@ -154,14 +140,11 @@ async def delete_todo_id(
     *, todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id")
 ) -> dict:
 
-    try:
-        # delete id
-        query = todos.delete().where(todos.c.todo_id == todo_id)
-        await database.execute(query)
-        result = {"status": f"{todo_id} deleted"}
-        return result
-    except Exception as e:
-        logger.critical("Delete Error: {error}", error=e)
+    # delete id
+    query = todos.delete().where(todos.c.todo_id == todo_id)
+    await database.execute(query)
+    result = {"status": f"{todo_id} deleted"}
+    return result
 
 
 @router.post(
@@ -200,11 +183,8 @@ async def create_todo(
     if delay is not None:
         asyncio.sleep(delay)
 
-    try:
-        query = todos.insert()
-        values = todo_information
-        await database.execute(query, values)
-        result = {"todo_id": todo_information["todo_id"]}
-        return result
-    except Exception as e:
-        logger.critical(f"Create Error: {e}")
+    query = todos.insert()
+    values = todo_information
+    await database.execute(query, values)
+    result = {"todo_id": todo_information["todo_id"]}
+    return result
