@@ -25,10 +25,10 @@ def user_test_info():
     website = f"https://www.{silly.domain()}"
 
     result = {
-        "userId": set_id,
+        "user_id": set_id,
         "user_name": username,
-        "firstName": first_name,
-        "lastName": last_name,
+        "first_name": first_name,
+        "last_name": last_name,
         "password": password,
         "title": title,
         "company": company,

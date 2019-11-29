@@ -31,7 +31,7 @@ async def todo_list(
         le=10,
         alias="delay",
     ),
-    isComplete: bool = Query(None, title="by completion status", alias="complete"),
+    is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
     # sleep if delay option is used
@@ -41,8 +41,8 @@ async def todo_list(
     try:
         # await database.connect()
         # Fetch multiple rows
-        if isComplete is not None:
-            query = todos.select().where(todos.c.isComplete == isComplete)
+        if is_complete is not None:
+            query = todos.select().where(todos.c.is_complete == is_complete)
             x = await database.fetch_all(query)
         else:
             query = todos.select()
@@ -53,7 +53,7 @@ async def todo_list(
         return result
 
     except Exception as e:
-        logger.error(f"List Error: {e}")
+        logger.critical(f"List Error: {e}")
 
 
 @router.get(
@@ -67,7 +67,7 @@ async def todo_list(
 )
 async def todos_list_count(
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
-    isComplete: bool = Query(None, title="by completion status", alias="complete"),
+    is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
     # sleep if delay option is used
@@ -75,8 +75,8 @@ async def todos_list_count(
         asyncio.sleep(delay)
     try:
         # Fetch multiple rows
-        if isComplete is not None:
-            query = todos.select().where(todos.c.isComplete == isComplete)
+        if is_complete is not None:
+            query = todos.select().where(todos.c.is_complete == is_complete)
             x = await database.fetch_all(query)
         else:
             query = todos.select()
@@ -85,12 +85,12 @@ async def todos_list_count(
         result = {"count": len(x)}
         return result
     except Exception as e:
-        logger.info("Count Error: {error}", error=e)
+        logger.critical(f"Count Error: {e}")
 
 
-@router.get("/{todoId}", tags=["todo"], response_description="Get todo information")
+@router.get("/{todo_id}", tags=["todo"], response_description="Get todo information")
 async def get_todo_id(
-    todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
+    todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
@@ -99,19 +99,19 @@ async def get_todo_id(
         asyncio.sleep(delay)
     try:
         # Fetch single row
-        query = todos.select().where(todos.c.todoId == todoId)
+        query = todos.select().where(todos.c.todo_id == todo_id)
         result = await database.fetch_one(query)
         return result
     except Exception as e:
-        logger.critical("ID Error: {error}", error=e)
+        logger.critical(f"ID Error: {e}")
 
 
 @router.put(
-    "/complete/{todoId}",
+    "/complete/{todo_id}",
     tags=["todo"],
     response_description="The created item",
     responses={
-        302: {"description": "Incorect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
         405: {"description": "Method not allowed"},
         500: {"description": "Mommy!"},
@@ -119,46 +119,46 @@ async def get_todo_id(
 )
 async def deactivate_todo_id(
     *,
-    todoId: str = Path(..., title="The ToDo id to be searched for", alias="todoId"),
+    todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
 
-    todoInformation = {"isComplete": True, "dateComplete": currentTime}
+    todo_information = {"is_complete": True, "dateComplete": currentTime}
     # sleep if delay option is used
     if delay is not None:
         asyncio.sleep(delay)
 
     try:
         # Fetch single row
-        query = todos.update().where(todos.c.todoId == todoId)
-        values = todoInformation
+        query = todos.update().where(todos.c.todo_id == todo_id)
+        values = todo_information
         await database.execute(query, values)
-        result = await get_todo_id(todoId)
+        result = await get_todo_id(todo_id)
         return result
     except Exception as e:
-        logger.critical("Deactivate Error: {error}", error=e)
+        logger.critical(f"Deactivate Error: {e}")
 
 
 @router.delete(
-    "/{todoId}",
+    "/{todo_id}",
     tags=["todo"],
     response_description="The deleted item",
     responses={
-        302: {"description": "Incorect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
         405: {"description": "Method not allowed"},
         500: {"description": "Mommy!"},
     },
 )
 async def delete_todo_id(
-    *, todoId: str = Path(..., title="The todo id to be searched for", alias="todoId")
+    *, todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id")
 ) -> dict:
 
     try:
         # delete id
-        query = todos.delete().where(todos.c.todoId == todoId)
+        query = todos.delete().where(todos.c.todo_id == todo_id)
         await database.execute(query)
-        result = {"status": f"{todoId} deleted"}
+        result = {"status": f"{todo_id} deleted"}
         return result
     except Exception as e:
         logger.critical("Delete Error: {error}", error=e)
@@ -169,7 +169,7 @@ async def delete_todo_id(
     tags=["todo"],
     response_description="The created ToDo",
     responses={
-        302: {"description": "Incorect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
         405: {"description": "Method not allowed"},
         500: {"description": "Mommy!"},
@@ -183,17 +183,17 @@ async def create_todo(
 
     value = todo.dict()
     # dictionary to append to todo_full_list
-    todoInformation = {
-        "todoId": str(uuid.uuid1()),
+    todo_information = {
+        "todo_id": str(uuid.uuid1()),
         "title": value["title"],
         "description": value["description"],
-        "dateDue": value["dateDue"],
-        "isComplete": False,
-        "dateCreate": currentTime,
-        "dateUpdate": currentTime,
-        "userId": value["userId"],
+        "date_due": value["date_due"],
+        "is_complete": False,
+        "date_create": currentTime,
+        "date_update": currentTime,
+        "user_id": value["user_id"],
         # ,'checklist': []
-        "dateComplete": None,
+        "date_complete": None,
     }
 
     # sleep if delay option is used
@@ -202,9 +202,9 @@ async def create_todo(
 
     try:
         query = todos.insert()
-        values = todoInformation
+        values = todo_information
         await database.execute(query, values)
-        result = {"todoId": todoInformation["todoId"]}
+        result = {"todo_id": todo_information["todo_id"]}
         return result
     except Exception as e:
         logger.critical(f"Create Error: {e}")

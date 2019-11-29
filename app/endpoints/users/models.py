@@ -8,8 +8,8 @@ from pydantic import SecretStr
 # Shared properties
 class UserBase(BaseModel):
     user_name: str
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     password: str
     title: Optional[str] = None
     company: Optional[str] = None
@@ -30,8 +30,8 @@ class UserBaseInDB(UserBase):
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     user_name: str
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     password: str
     title: Optional[str] = None
     company: Optional[str] = None
@@ -56,8 +56,8 @@ class UserDeactivate(UserBaseInDB):
 
 # Properties to receive via API on update
 class UserUpdate(UserBaseInDB):
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     title: Optional[str] = None
     company: Optional[str] = None
     address: Optional[str] = None
@@ -70,8 +70,8 @@ class UserUpdate(UserBaseInDB):
 
 
 class UserList(UserBaseInDB):
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     title: Optional[str] = None
     company: Optional[str] = None
     address: Optional[str] = None
@@ -81,4 +81,4 @@ class UserList(UserBaseInDB):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-    isActive: bool = True
+    is_active: bool = True
