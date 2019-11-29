@@ -9,13 +9,8 @@ from typing import List
 
 from loguru import logger
 
-from com_lib.logging_config import config_logging
-
-# config_logging()
-
 # Directory Path
 directory_to__files: str = "data"
-
 
 def delete_file(file_name: str):
 
