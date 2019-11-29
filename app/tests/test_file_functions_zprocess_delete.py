@@ -51,7 +51,6 @@ class Test(unittest.TestCase):
             result = delete_file(file_named)
             assert result is None
 
-
     def test_delete_json_notfound_error(self):
         file_named = "error_file.json"
         with pytest.raises(FileNotFoundError):

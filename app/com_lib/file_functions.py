@@ -12,6 +12,7 @@ from loguru import logger
 # Directory Path
 directory_to__files: str = "data"
 
+
 def delete_file(file_name: str):
 
     if isinstance(file_name, str) is not True:
