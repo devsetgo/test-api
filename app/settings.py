@@ -20,12 +20,12 @@ LICENSE_LINK = config(
 )
 
 # Demo Data
-CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA")  # , default=True)
+CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=True)
 
 
 # Application Configurations
 HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
-RELEASE_ENV = config("RELEASE_ENV", default="dev")
+RELEASE_ENV = config("RELEASE_ENV", default="prd")
 SQLALCHEMY_DATABASE_URI = config(
     "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
 )
