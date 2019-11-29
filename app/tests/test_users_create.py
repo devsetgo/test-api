@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         test_data = {
             "user_name": user_name,
             # "firstName": "string",
-            "lastName": "string",
+            "last_name": "string",
             "password": test_password,
             "title": "string",
             "company": "string",
@@ -47,7 +47,7 @@ class Test(unittest.TestCase):
         data = response.json()
 
         user_data = {
-            "userId": data["userId"],
+            "user_id": data["user_id"],
             "user_name": data["user_name"],
             "password": test_user["password"],
         }

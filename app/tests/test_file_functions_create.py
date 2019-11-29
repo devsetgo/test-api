@@ -50,8 +50,10 @@ class Test(unittest.TestCase):
         sample_str = "not a list"
         file_named = "test_1_error.csv"
 
-        with pytest.raises(Exception):
-            assert save_csv(file_named, sample_str)
+        with pytest.raises(TypeError):
+            # assert save_csv(file_named, sample_str)
+            result = save_csv(file_named, sample_str)
+            assert result is None
 
     def test_save_text(self):
         sample_html = """
@@ -76,8 +78,10 @@ class Test(unittest.TestCase):
         sample_list = ["not a str"]
         file_named = "test_1_error.txt"
 
-        with pytest.raises(Exception):
-            assert save_text(file_named, sample_list)
+        with pytest.raises(TypeError):
+            # assert save_text(file_named, sample_list)
+            result = save_text(file_named, sample_list)
+            assert result is None
 
     def test_save_csv_slash_exception(self):
         csv_data = []
@@ -92,15 +96,19 @@ class Test(unittest.TestCase):
             count += 1
             csv_data.append(sample_dict)
 
-        with pytest.raises(Exception):
-            assert save_csv(file_named, csv_data)
+        with pytest.raises(TypeError):
+            # assert save_csv(file_named, csv_data)
+            result = save_csv(file_named, csv_data)
+            assert result is None
 
     def test_save_text_slash_exception(self):
         sample_str = "not a list"
         file_named = r"te/st_1_error.txt"
 
-        with pytest.raises(Exception):
-            assert save_text(file_named, sample_str)
+        with pytest.raises(TypeError):
+            # assert save_text(file_named, sample_str)
+            result = save_text(file_named, sample_str)
+            assert result is None
 
     def test_save_json_slash_exception(self):
 
@@ -110,5 +118,7 @@ class Test(unittest.TestCase):
             sample_dict = {"name": "bob", "date": str(time_str)}
             json_data.append(sample_dict)
 
-        with pytest.raises(Exception):
-            assert save_json(file_named, json_data)
+        with pytest.raises(TypeError):
+            # assert save_json(file_named, json_data)
+            result = save_json(file_named, json_data)
+            assert result is None

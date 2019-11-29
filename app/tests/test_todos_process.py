@@ -42,23 +42,23 @@ class Test(unittest.TestCase):
     def test_todos_id(self):
         todo_id = open_json(test_data_todos)
 
-        response = client.get(f"/api/v1/todo/{todo_id['todoId']}")
+        response = client.get(f"/api/v1/todo/{todo_id['todo_id']}")
         assert response.status_code == 200
 
     def test_todos_id_delay(self):
         todo_id = open_json(test_data_todos)
 
-        response = client.get(f"/api/v1/todo/{todo_id['todoId']}?delay=1")
+        response = client.get(f"/api/v1/todo/{todo_id['todo_id']}?delay=1")
         assert response.status_code == 200
 
     def test_todos_put_complete_delay(self):
         todo_id = open_json(test_data_todos)
 
-        response = client.put(f"/api/v1/todo/complete/{todo_id['todoId']}?delay=1")
+        response = client.put(f"/api/v1/todo/complete/{todo_id['todo_id']}?delay=1")
         assert response.status_code == 200
 
     def test_todos_delete_delay(self):
         todo_id = open_json(test_data_todos)
 
-        response = client.delete(f"/api/v1/todo/{todo_id['todoId']}?delay=1")
+        response = client.delete(f"/api/v1/todo/{todo_id['todo_id']}?delay=1")
         assert response.status_code == 200
