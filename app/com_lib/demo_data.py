@@ -13,9 +13,11 @@ from db_setup import todos
 from db_setup import users
 from endpoints.sillyusers.gen_user import user_test_info
 from unsync import unsync
+from settings import NUMBER_USERS, NUMBER_TASKS
+import time, asyncio
 
-NUMBER_TASKS = 10
-NUMBER_USERS = 10
+number_of_tasks = NUMBER_TASKS
+number_of_users = NUMBER_USERS
 # time variables
 currentTime = datetime.now()
 
@@ -27,12 +29,12 @@ def create_data():
     task_count = count_tasks().result()
 
     if int(user_count) == 0:
-        create_users(int(NUMBER_USERS))
+        create_users(int(number_of_users))
     else:
         logger.info(f"existing data, sample users will not be created")
 
     if int(task_count) == 0:
-        create_tasks(int(NUMBER_TASKS))
+        create_tasks(int(number_of_tasks))
     else:
         logger.info(f"existing data, sample tasks will not be created")
 
@@ -60,7 +62,9 @@ async def count_tasks():
 def create_users(create_users: int):
 
     for _ in range(0, create_users):
+        time.sleep(0.01)
         new_user = user_test_info()
+
         db_user_call(new_user)
         user_id = new_user["user_id"]
 
@@ -68,6 +72,7 @@ def create_users(create_users: int):
 def create_tasks(create_tasks: int):
 
     for _ in range(0, create_tasks):
+        time.sleep(0.01)
         todo_information = {
             "todo_id": str(uuid.uuid1()),
             "title": silly.thing(),

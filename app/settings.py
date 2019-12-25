@@ -20,8 +20,9 @@ LICENSE_LINK = config(
 )
 
 # Demo Data
-CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=True)
-
+CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=False)
+NUMBER_TASKS = config("NUMBER_TASKS", default=100)
+NUMBER_USERS = config("NUMBER_USERS", default=100)
 
 # Application Configurations
 HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
