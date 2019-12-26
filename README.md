@@ -49,8 +49,35 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   Development: pip3 install -r requirements/dev.txt
   ~~~~
 
-- Run it
+Setup: Copy .env_sample to .env and set configuration as desired.
+~~~~
+# Application information
+APP_VERSION='19.11.28'
+OWNER='Your Name'
+WEBSITE='https://your.domain.com/support'
 
+# Demo settings
+CREATE_SAMPLE_DATA = False
+
+# Cofigurations
+HOST_DOMAIN='https://your.domain.com'
+#prd for production or 'dev' for development
+RELEASE_ENV='dev'
+SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
+SECRET_KEY='your-secret-key'
+
+# Loguru settings
+LOGURU_RETENTION='10 days'
+LOGURU_ROTATION='100 MB'
+
+# Leave intact for license
+CREATED_BY='Mike Ryan'
+LICENSE_TYPE='MIT'
+LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
+
+~~~~
+
+Start the app
 ~~~~
 UVICORN
     Development:

@@ -19,11 +19,16 @@ LICENSE_LINK = config(
     "LICENSE_LINK", default="https://github.com/devsetgo/starlette-SRTDashboard"
 )
 
+# Demo Data
+CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=False)
+NUMBER_TASKS = config("NUMBER_TASKS", default=100)
+NUMBER_USERS = config("NUMBER_USERS", default=100)
+
 # Application Configurations
 HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
 RELEASE_ENV = config("RELEASE_ENV", default="prd")
 SQLALCHEMY_DATABASE_URI = config(
-    "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/test-api.db"
+    "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
 )
 
 # Loguru settings

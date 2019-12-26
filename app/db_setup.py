@@ -50,6 +50,7 @@ users = Table(
     Column("city", String(length=200)),
     Column("country", String(length=200)),
     Column("postal", String(length=50)),
+    Column("phone", String(length=50)),
     Column("email", String(length=200), unique=True, nullable=False),
     Column("website", String(length=150)),
     Column("password", String(length=50)),

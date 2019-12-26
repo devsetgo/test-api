@@ -31,7 +31,6 @@ def delete_file(file_name: str):
     else:
         directory = "text"
 
-    # try:
     file_directory = f"{directory_to__files}/{directory}"
     directory_path = Path.cwd().joinpath(file_directory)
     file_path = f"{directory_path}/{file_name}"
@@ -42,12 +41,6 @@ def delete_file(file_name: str):
     os.remove(file_path)
     logger.info(f"file {file_name} deleted from file path: {file_path}")
     return "complete"
-    # except FileNotFoundError as e:
-    #     logger.critical(f"file not found error: {e}")
-    # except TypeError as e:
-    #     logger.critical(
-    #         f"type error: file name {f}.{file_type} is created an error: {e}"
-    #     )
 
 
 # get list of files in directory
