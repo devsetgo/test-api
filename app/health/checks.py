@@ -6,7 +6,8 @@ import sys
 import psutil
 
 # TODO: Make a status that gets app uptime
-# BODY: how to get uptime of app, not running os. Such as dockerimage or how long the code has been running.
+# BODY: how to get uptime of app, not running os.
+# Such as dockerimage or how long the code has been running.
 
 
 def get_platform() -> dict:
