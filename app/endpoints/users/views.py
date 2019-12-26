@@ -52,9 +52,11 @@ async def user_list(
 
     Keyword Arguments:
         delay {int} -- [description] 0 seconds default, maximum is 122
-        qty {int} -- [description] 100 returned results is default, maximum is 500
+        qty {int} -- [description] 100 returned results is default,
+        maximum is 500
         offset {int} -- [description] 0 seconds default
-        Active {bool} -- [description] no default as not required, must be Active=true or false if used
+        Active {bool} -- [description] no default as not required,
+        must be Active=true or false if used
 
     Returns:
         dict -- [description]
@@ -140,7 +142,8 @@ async def users_list_count(
 
     Keyword Arguments:
         delay {int} -- [description] 0 seconds default, maximum is 122
-        Active {bool} -- [description] no default as not required, must be Active=true or false if used
+        Active {bool} -- [description] no default as not required,
+        must be Active=true or false if used
 
     Returns:
         dict -- [description]

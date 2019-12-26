@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 import random
+import time
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 
-from fastapi import BackgroundTasks
 import silly
 from loguru import logger
-from starlette.testclient import TestClient
+from unsync import unsync
 
 from db_setup import database
 from db_setup import todos
 from db_setup import users
 from endpoints.sillyusers.gen_user import user_test_info
-from unsync import unsync
-from settings import NUMBER_USERS, NUMBER_TASKS
-import time, asyncio
+from settings import NUMBER_TASKS
+from settings import NUMBER_USERS
 
 number_of_tasks = NUMBER_TASKS
 number_of_users = NUMBER_USERS
@@ -66,7 +66,7 @@ def create_users(create_users: int):
         new_user = user_test_info()
 
         db_user_call(new_user)
-        user_id = new_user["user_id"]
+        # user_id = new_user["user_id"]
 
 
 def create_tasks(create_tasks: int):
@@ -111,7 +111,7 @@ async def db_todo_call(todo_information: dict):
     try:
         query = todos.insert()
         values = todo_information
-        db_call = await database.execute(query, values)
+        await database.execute(query, values)
         result = {"todo_id": todo_information["todo_id"]}
         logger.info(f"db todo call: {result}")
         return result

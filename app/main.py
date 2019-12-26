@@ -23,8 +23,6 @@ from settings import LICENSE_TYPE
 from settings import OWNER
 from settings import RELEASE_ENV
 from settings import WEBSITE
-from settings import CREATE_SAMPLE_DATA
-from com_lib.demo_data import create_data
 
 # config logging start
 config_logging()
@@ -102,7 +100,7 @@ async def startup_event():
     else:
         logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
-    if CREATE_SAMPLE_DATA == True:
+    if CREATE_SAMPLE_DATA is True:
         create_data()
 
 
@@ -156,7 +154,8 @@ async def joke(
 
     Keyword Arguments:
         qty {int} -- [description] max of 10 random jokes can be returened
-        delay {int} -- [description] delay in API response (sleep) and can be 121 seconds
+        delay {int} -- [description] delay in API response (sleep) and
+        can be 121 seconds
 
     Returns:
         [json] -- [description] a list of jokes
