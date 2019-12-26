@@ -39,18 +39,24 @@ class Test(unittest.TestCase):
 
     def test_delete_type_error(self):
         file_named = ["test_sample.csv"]
-        with pytest.raises(Exception):
-            assert delete_file(file_named)
+        with pytest.raises(TypeError):
+            # assert delete_file(file_named)
+            result = delete_file(file_named)
+            assert result is None
 
     def test_delete_csv_notfound_error(self):
         file_named = "error_file.csv"
-        with pytest.raises(Exception):
-            assert delete_file(file_named)
+        with pytest.raises(FileNotFoundError):
+            # assert delete_file(file_named)
+            result = delete_file(file_named)
+            assert result is None
 
     def test_delete_json_notfound_error(self):
         file_named = "error_file.json"
-        with pytest.raises(Exception):
-            assert delete_file(file_named)
+        with pytest.raises(FileNotFoundError):
+            # assert delete_file(file_named)
+            result = delete_file(file_named)
+            assert result is None
 
     def test_delete_text_notfound_error(self):
         file_named = "error_file.txt"
@@ -60,9 +66,13 @@ class Test(unittest.TestCase):
     def test_delete_no_slash_error(self):
         file_named = r"\error_file.csv"
         with pytest.raises(Exception):
-            assert delete_file(file_named)
+            # assert delete_file(file_named)
+            result = delete_file(file_named)
+            assert result is None
 
     def test_delete_no_slash_two_error(self):
         file_named = r"/error_file.csv"
         with pytest.raises(Exception):
-            assert delete_file(file_named)
+            # assert delete_file(file_named)
+            result = delete_file(file_named)
+            assert result is None

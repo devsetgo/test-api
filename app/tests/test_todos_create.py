@@ -17,9 +17,9 @@ class Test(unittest.TestCase):
     def test_todos_post_exception(self):
         test_data = {
             # "title": "Test",
-            "userId": "123",
+            "user_id": "123",
             "description": "test",
-            "dateDue": "2019-08-22T23:51:28.873Z",
+            "date_due": "2019-08-22T23:51:28.873Z",
         }
         url = f"/api/v1/todo/create/"
 
@@ -30,9 +30,9 @@ class Test(unittest.TestCase):
         file_name = "test_data_todos.json"
         test_data = {
             "title": "Test",
-            "userId": "123",
+            "user_id": "123",
             "description": "test",
-            "dateDue": "2019-08-22T23:51:28.873Z",
+            "date_due": "2019-08-22T23:51:28.873Z",
         }
         url = f"/api/v1/todo/create/?delay=1"
 

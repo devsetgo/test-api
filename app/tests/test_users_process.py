@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
         test_offset_2 = response.json()
         test_user_2 = test_offset_2["users"][0]
         assert response.status_code == 200
-        assert test_user_1["userId"] == test_user_2["userId"]
+        assert test_user_1["user_id"] == test_user_2["user_id"]
 
     def test_users_list_param_none(self):
 
@@ -68,7 +68,7 @@ class Test(unittest.TestCase):
 
     def test_users_id(self):
         user_id = open_json(test_data_users)
-        uid = user_id["userId"]
+        uid = user_id["user_id"]
 
         response = client.get(f"/api/v1/users/{uid}")
         state = response.status_code
@@ -78,11 +78,11 @@ class Test(unittest.TestCase):
     def test_users_id_delay(self):
         user_id = open_json(test_data_users)
 
-        response = client.get(f"/api/v1/users/{user_id['userId']}?delay=1")
+        response = client.get(f"/api/v1/users/{user_id['user_id']}?delay=1")
         assert response.status_code == 200
 
     def test_users_put_deactivate(self):
         user_id = open_json(test_data_users)
 
-        response = client.put(f"/api/v1/users/deactivate/{user_id['userId']}?delay=1")
+        response = client.put(f"/api/v1/users/deactivate/{user_id['user_id']}?delay=1")
         assert response.status_code == 200

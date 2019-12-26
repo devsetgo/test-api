@@ -9,57 +9,50 @@ from typing import List
 
 from loguru import logger
 
-from com_lib.logging_config import config_logging
-
-config_logging()
-
 # Directory Path
 directory_to__files: str = "data"
 
 
 def delete_file(file_name: str):
-    try:
-        if isinstance(file_name, str) is not True:
-            raise TypeError(f"{file_name} is not a valid string")
 
-        elif "/" in file_name or "\\" in file_name:
-            raise TypeError(f"{file_name} cannot contain \\ or /")
+    if isinstance(file_name, str) is not True:
+        raise TypeError(f"{file_name} is not a valid string")
 
-        f, file_type = file_name.split(".")
+    elif "/" in file_name or "\\" in file_name:
+        raise TypeError(f"{file_name} cannot contain \\ or /")
 
-        if file_type == "csv":
-            directory = file_type
-        elif file_type == "json":
-            directory = file_type
-        else:
-            directory = "text"
+    file_named, file_type = file_name.split(".")
+    logger.info(f"file {file_named} and file type {file_type}")
 
-        file_directory = f"{directory_to__files}/{directory}"
-        directory_path = Path.cwd().joinpath(file_directory)
-        file_path = f"{directory_path}/{file_name}"
-        os.remove(file_path)
-        logger.info(f"file {file_name} deleted from file path: {file_path}")
-        return "complete"
-    except FileNotFoundError as e:
-        logger.error(f"file not found error: {e}")
-    except TypeError as e:
-        logger.error(f"type error: file name {f}.{file_type} is created an error: {e}")
+    if file_type == "csv":
+        directory = file_type
+    elif file_type == "json":
+        directory = file_type
+    else:
+        directory = "text"
+
+    file_directory = f"{directory_to__files}/{directory}"
+    directory_path = Path.cwd().joinpath(file_directory)
+    file_path = f"{directory_path}/{file_name}"
+
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"file not found error: {file_name}")
+
+    os.remove(file_path)
+    logger.info(f"file {file_name} deleted from file path: {file_path}")
+    return "complete"
 
 
 # get list of files in directory
 def get_data_directory_list(directory: str):
 
-    try:
-        if isinstance(directory, str) is not True:
-            raise TypeError(f"{directory} is not a valid string")
+    if isinstance(directory, str) is not True:
+        raise TypeError(f"{directory} is not a valid string")
 
-        file_directory = f"{directory_to__files}/{directory}"
-        directory_path = Path.cwd().joinpath(file_directory)
-        file_list: list = os.listdir(directory_path)
-        return file_list
-    except TypeError as e:
-        # log error if
-        logger.critical(e)
+    file_directory = f"{directory_to__files}/{directory}"
+    directory_path = Path.cwd().joinpath(file_directory)
+    file_list: list = os.listdir(directory_path)
+    return file_list
 
 
 # Json File Processing
@@ -68,24 +61,21 @@ def save_json(filename: str, data):
     file_name = f"{filename}"
     file_directory = f"{directory_to__files}/json"
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
-    try:
-        if isinstance(data, (list, dict)) is not True:
-            raise TypeError(
-                f"{data} must be a list or a dictionary instead of type {type(data)}"
-            )
-        elif "/" in file_name or "\\" in file_name:
-            raise TypeError(f"{file_name} cannot contain \\ or /")
 
-        # open/create file
-        with open(file_save, "w+") as write_file:
-            # write data to file
-            json.dump(data, write_file)
+    if isinstance(data, (list, dict)) is not True:
+        raise TypeError(
+            f"{data} must be a list or a dictionary instead of type {type(data)}"
+        )
+    elif "/" in file_name or "\\" in file_name:
+        raise TypeError(f"{file_name} cannot contain \\ or /")
 
-        logger.info(f"File Create: {file_name}")
-        return "complete"
-    except TypeError as e:
-        # log error if
-        logger.critical(e)
+    # open/create file
+    with open(file_save, "w+") as write_file:
+        # write data to file
+        json.dump(data, write_file)
+
+    logger.info(f"File Create: {file_name}")
+    return "complete"
 
 
 # TODO: figure out a method of appending an existing json file
@@ -100,6 +90,9 @@ def open_json(filename: str):
     # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
     # Try/Except block
+    if not os.path.isfile(file_save):
+        raise FileNotFoundError(f"file not found error: {file_save}")
+
     try:
         if isinstance(filename, str) is not True:
             raise TypeError(f"{file_name} is not a valid string")
@@ -128,25 +121,21 @@ def save_csv(filename: str, data: list):
     # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
 
-    try:
-        if isinstance(data, list) is not True:
-            raise TypeError(f"{data} is not a valid string")
-        elif "/" in file_name or "\\" in file_name:
-            raise TypeError(f"{file_name} cannot contain \\ or /")
-        # open/create file
-        with open(file_save, "w+", encoding="utf-8", newline="") as write_file:
-            # write data to file
-            file_writer = csv.writer(
-                write_file, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL
-            )
-            for row in data:
-                file_writer.writerow(row)
+    if isinstance(data, list) is not True:
+        raise TypeError(f"{data} is not a valid string")
+    elif "/" in file_name or "\\" in file_name:
+        raise TypeError(f"{file_name} cannot contain \\ or /")
+    # open/create file
+    with open(file_save, "w+", encoding="utf-8", newline="") as write_file:
+        # write data to file
+        file_writer = csv.writer(
+            write_file, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL
+        )
+        for row in data:
+            file_writer.writerow(row)
 
-        logger.info(f"File Create: {file_name}")
-        return "complete"
-    except TypeError as e:
-        # log error if
-        logger.critical(e)
+    logger.info(f"File Create: {file_name}")
+    return "complete"
 
 
 # TODO: figure out a method of appending an existing json file
@@ -171,29 +160,29 @@ def open_csv(filename: str, delimit: str = None):
     file_directory: str = f"{directory_to__files}/csv"
     # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
-    # Try/Except block
-    try:
-        # open file
-        data = []
-        with open(file_save) as read_file:
-            # load file into data variable
-            csv_data = csv.DictReader(
-                read_file,
-                delimiter=delimit,
-                quoting=csv.QUOTE_MINIMAL,
-                skipinitialspace=True,
-            )
 
-            # convert list to JSON object
-            title = csv_data.fieldnames
-            # iterate through each row to create dictionary/json object
-            for row in csv_data:
-                data.extend([{title[i]: row[title[i]] for i in range(len(title))}])
-            logger.info(f"File Opened: {file_name}")
-        return data
-    except FileNotFoundError as e:
-        # log error if
-        logger.critical(e)
+    if not os.path.isfile(file_save):
+        raise FileNotFoundError(f"file not found error: {file_save}")
+
+    # Try/Except block
+    # open file
+    data = []
+    with open(file_save) as read_file:
+        # load file into data variable
+        csv_data = csv.DictReader(
+            read_file,
+            delimiter=delimit,
+            quoting=csv.QUOTE_MINIMAL,
+            skipinitialspace=True,
+        )
+
+        # convert list to JSON object
+        title = csv_data.fieldnames
+        # iterate through each row to create dictionary/json object
+        for row in csv_data:
+            data.extend([{title[i]: row[title[i]] for i in range(len(title))}])
+        logger.info(f"File Opened: {file_name}")
+    return data
 
 
 def create_sample_files(filename: str, sample_size: int):
@@ -285,22 +274,19 @@ def save_text(filename: str, data: str) -> str:
     # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
 
-    try:
-        if isinstance(data, str) is not True:
-            raise TypeError(f"{file_name} is not a valid string")
+    if isinstance(data, str) is not True:
+        raise TypeError(f"{file_name} is not a valid string")
 
-        elif "/" in file_name or "\\" in file_name:
-            raise TypeError(f"{file_name} cannot contain \\ or /")
+    elif "/" in file_name or "\\" in file_name:
+        raise TypeError(f"{file_name} cannot contain \\ or /")
 
-        # open/create file
-        f = open(file_save, "w+", encoding="utf-8")
-        # write data to file
-        f.write(data)
-        f.close()
-        logger.info(f"File Create: {file_name}")
-        return "complete"
-    except TypeError as e:
-        logger.error(f"type error: file name {file_name} is created an error: {e}")
+    # open/create file
+    f = open(file_save, "w+", encoding="utf-8")
+    # write data to file
+    f.write(data)
+    f.close()
+    logger.info(f"File Create: {file_name}")
+    return "complete"
 
 
 def open_text(filename: str) -> str:
@@ -318,22 +304,18 @@ def open_text(filename: str) -> str:
     file_directory: str = f"{directory_to__files}/text"
     # create file in filepath
     file_save = Path.cwd().joinpath(file_directory).joinpath(file_name)
-    # Try/Except block
-    try:
-        if isinstance(filename, str) is not True:
-            raise TypeError(f"{file_name} is not a valid string")
+    if not os.path.isfile(file_save):
+        raise FileNotFoundError(f"file not found error: {file_save}")
 
-        elif "/" in filename or "\\" in filename:
-            raise TypeError(f"{file_name} cannot contain \\ or /")
-        # open/create file
-        f = open(file_save, "r", encoding="utf-8")
-        # write data to file
-        data = f.read()
+    if isinstance(filename, str) is not True:
+        raise TypeError(f"{file_name} is not a valid string")
 
-        logger.info(f"File Create: {file_name}")
-        return data
-    except FileNotFoundError as e:
-        # log error if
-        logger.critical(e)
-    except TypeError as e:
-        logger.error(f"type error: file name {file_name} is created an error: {e}")
+    elif "/" in filename or "\\" in filename:
+        raise TypeError(f"{file_name} cannot contain \\ or /")
+    # open/create file
+    f = open(file_save, "r", encoding="utf-8")
+    # write data to file
+    data = f.read()
+
+    logger.info(f"File Create: {file_name}")
+    return data

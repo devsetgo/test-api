@@ -49,8 +49,35 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   Development: pip3 install -r requirements/dev.txt
   ~~~~
 
-- Run it
+Setup: Copy .env_sample to .env and set configuration as desired.
+~~~~
+# Application information
+APP_VERSION='19.11.28'
+OWNER='Your Name'
+WEBSITE='https://your.domain.com/support'
 
+# Demo settings
+CREATE_SAMPLE_DATA = False
+
+# Cofigurations
+HOST_DOMAIN='https://your.domain.com'
+#prd for production or 'dev' for development
+RELEASE_ENV='dev'
+SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
+SECRET_KEY='your-secret-key'
+
+# Loguru settings
+LOGURU_RETENTION='10 days'
+LOGURU_ROTATION='100 MB'
+
+# Leave intact for license
+CREATED_BY='Mike Ryan'
+LICENSE_TYPE='MIT'
+LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
+
+~~~~
+
+Start the app
 ~~~~
 UVICORN
     Development:
@@ -97,17 +124,17 @@ Pre-Commit & Hooks
 - todos
     - [x] GET ***/api/v1/todo/list***
     - [x] GET ***/api/v1/todo/list/count***
-    - [x] GET ***/api/v1/todo/list/{todoId}***
-    - [x] DELETE ***/api/v1/todo/list/{todoId}***
-    - [x] PUT ***/api/v1/todo/list/{todoId}***
+    - [x] GET ***/api/v1/todo/list/{todo_id}***
+    - [x] DELETE ***/api/v1/todo/list/{todo_id}***
+    - [x] PUT ***/api/v1/todo/list/{todo_id}***
     - [x] POST ***/api/v1/todo/create/***
 
 - users
     - [x] GET ***/api/v1/users/list***
     - [x] GET ***/api/v1/users/list/count***
-    - [x] GET ***/api/v1/users/list/{todoId}***
-    - [x] DELETE ***/api/v1/users/list/{todoId}***
-    - [x] PUT ***/api/v1/users/list/{todoId}***
+    - [x] GET ***/api/v1/users/list/{user_id}***
+    - [x] DELETE ***/api/v1/users/list/{user_id}***
+    - [x] PUT ***/api/v1/users/list/{user_id}***
     - [x] POST ***/api/v1/users/create/***
     - [x] POST ***/api/v1/users/check-pwd/***
 
