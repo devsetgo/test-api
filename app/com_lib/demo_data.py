@@ -66,7 +66,7 @@ def create_users(create_users: int):
         new_user = user_test_info()
 
         db_user_call(new_user)
-        user_id = new_user["user_id"]
+        # user_id = new_user["user_id"]
 
 
 def create_tasks(create_tasks: int):
@@ -111,7 +111,7 @@ async def db_todo_call(todo_information: dict):
     try:
         query = todos.insert()
         values = todo_information
-        db_call = await database.execute(query, values)
+        await database.execute(query, values)
         result = {"todo_id": todo_information["todo_id"]}
         logger.info(f"db todo call: {result}")
         return result

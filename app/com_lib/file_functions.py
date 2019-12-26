@@ -150,7 +150,8 @@ def save_csv(filename: str, data: list):
 # CSV Open file
 # pass file name and optional delimiter (default is ',')
 # Output is dictionary/json
-# expectation is for file to be quote minimal and skipping initial spaces is a good thing
+# expectation is for file to be quote minimal and
+# skipping initial spaces is a good thing
 # modify as needed
 def open_csv(filename: str, delimit: str = None):
     if delimit is None:
@@ -259,7 +260,8 @@ def gen_datetime(min_year: int = None, max_year: int = None):
 # CSV Save new file
 def save_text(filename: str, data: str) -> str:
     """
-    Save text to file. Input is the name of the file (x.txt, x.html, etc..) and the data to be written to file.
+    Save text to file. Input is the name of the file (x.txt, x.html, etc..)
+     and the data to be written to file.
 
     Arguments:
         filename {str} -- [description]

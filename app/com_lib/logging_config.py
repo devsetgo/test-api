@@ -19,4 +19,5 @@ def config_logging():
         compression="zip",
     )
 
-    # TODO: Determine threshold of logging speed. Getting intermittent file locking and unable to proceed
+    # TODO: Determine threshold of logging speed. Getting intermittent file locking
+    #  and unable to proceed
