@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-doc string
+User routes to perform actions
+list users
+list user count
+user create
+user profile
+user update profile
+user password verify
+user update password
+user delete
+user deactivate
+user unlock
+
 """
 import asyncio
 import uuid
