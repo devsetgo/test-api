@@ -10,7 +10,7 @@ import multiprocessing
 # ip and port to bind
 bind = "0.0.0.0:5000"
 # max number of pending connections
-backlog = 2048
+# backlog = 2048
 # define number of workers by cores times two plus one
 # edit if you want to set a specific/limited amount of workers
 workers = multiprocessing.cpu_count() * 2 + 1
