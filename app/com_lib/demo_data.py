@@ -64,9 +64,7 @@ def create_users(create_users: int):
     for _ in range(0, create_users):
         time.sleep(0.01)
         new_user = user_test_info()
-
         db_user_call(new_user)
-        # user_id = new_user["user_id"]
 
 
 def create_tasks(create_tasks: int):
@@ -82,7 +80,6 @@ def create_tasks(create_tasks: int):
             "date_create": currentTime,
             "date_update": currentTime,
             "user_id": str(uuid.uuid4()),
-            # ,'checklist': []
             "date_complete": None,
         }
 
