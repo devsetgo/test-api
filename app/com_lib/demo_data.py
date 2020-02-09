@@ -98,7 +98,7 @@ async def db_user_call(new_user: dict):
 
         result = {
             "user_id": new_user["user_id"],
-            # "user_name": new_user["user_name"],
+            
         }
         logger.info(f"db user call: {result}")
         return result
