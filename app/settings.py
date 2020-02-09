@@ -8,15 +8,15 @@ environment variables.
 from starlette.config import Config
 import os
 from loguru import logger
+
 # get environment variables
 config = Config(".env")
-USE_ENV =  config('USE_ENV', default=False)
+USE_ENV = config("USE_ENV", default="dotenv")
 
-if USE_ENV == True:
+if USE_ENV.lower() == "dotenv":
     logger.info(f"USE_ENV set to {USE_ENV}. Using .env file for external configuration")
     # Application information
     APP_VERSION = config("APP_VERSION", default="1.0.0")
-    logger.debug(APP_VERSION)
     OWNER = config("OWNER", default="Mike Ryan")
     WEBSITE = config("WEBSITE", default="https://devsetgo.com")
     LICENSE_TYPE = config("LICENSE_TYPE", default="MIT")
@@ -45,7 +45,9 @@ if USE_ENV == True:
     ALGORITHM = config("ALGORITHM", default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
 else:
-    logger.info(f"USE_ENV set to {USE_ENV}. Using os environmental settings for external configuration")
+    logger.info(
+        f"USE_ENV set to {USE_ENV}. Using os environmental settings for external configuration"
+    )
     # Application information
     APP_VERSION = os.environ["APP_VERSION"]
     OWNER = os.environ["OWNER"]

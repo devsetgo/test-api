@@ -12,11 +12,10 @@ services:
     - "5000"
     volumes:
     - .:/code
-
-    # if using jwilder/nginx-proxy
     environment:
       # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
-      USE_ENV: 'False'
+      # option: dotenv, docker
+      USE_ENV: 'docker'
       # Application information
       APP_VERSION: '19.11.28'
       OWNER: 'Your Name'
