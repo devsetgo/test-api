@@ -15,30 +15,30 @@ services:
     environment:
       # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
       # option: dotenv, docker
-      USE_ENV: 'docker'
+      USE_ENV: docker
       # Application information
-      APP_VERSION: '19.11.28'
+      APP_VERSION: '20.03.08'
       OWNER: 'Your Name'
-      WEBSITE: 'https://your.domain.com/support'
+      WEBSITE: https://your.domain.com/support
       # Demo settings
-      CREATE_SAMPLE_DATA: 'True'
+      CREATE_SAMPLE_DATA: True
       NUMBER_TASKS: 1000
       NUMBER_USERS: 1000
       # Cofigurations
-      HOST_DOMAIN: 'https://your.domain.com'
-      #prd for production or 'dev' for development
-      RELEASE_ENV: 'dev'
-      SQLALCHEMY_DATABASE_URI: 'sqlite:///sqlite_db/api.db'
+      HOST_DOMAIN: https://your.domain.com
+      #prd for production or dev for development
+      RELEASE_ENV: dev
+      SQLALCHEMY_DATABASE_URI: sqlite:///sqlite_db/api.db
       SECRET_KEY: 'a-secret-key'
       ALGORITHM: "HS256"
       ACCESS_TOKEN_EXPIRE_MINUTES: 10080
       # Loguru settings
-      LOGURU_RETENTION: '10 days'
-      LOGURU_ROTATION: '100 MB'
+      LOGURU_RETENTION: 10 days
+      LOGURU_ROTATION: 100 MB
       # Leave intact for license
       CREATED_BY: 'Mike Ryan'
       LICENSE_TYPE: 'MIT'
-      LICENSE_LINK: 'https://github.com/devsetgo/test-api/blob/master/LICENSE'
+      LICENSE_LINK: https://github.com/devsetgo/test-api/blob/master/LICENSE
 
     #if using traefik
     labels:

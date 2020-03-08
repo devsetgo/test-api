@@ -4,7 +4,7 @@ import datetime
 from cpuinfo import get_cpu_info
 from fastapi import APIRouter
 from loguru import logger
-
+from fastapi.responses import ORJSONResponse
 from health.checks import get_processes
 
 router = APIRouter()
@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 class HealthChecks:
-    @router.get("/", tags=["system-health"])
+    @router.get("/status", tags=["system-health"], response_class=ORJSONResponse)
     async def health_main() -> dict:
         """
         GET status, uptime, and current datetime
@@ -26,7 +26,7 @@ class HealthChecks:
         return result
 
     @router.get("/system-info", tags=["system-health"])
-    async def health_details() -> dict:
+    async def health_status() -> dict:
         """
         GET Request for CPU and process data
 
