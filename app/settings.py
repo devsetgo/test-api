@@ -11,7 +11,7 @@ from loguru import logger
 
 # get environment variables
 config = Config(".env")
-USE_ENV = config("USE_ENV", default="docker")
+USE_ENV = config("USE_ENV", default="dotenv")
 
 if USE_ENV.lower() == "dotenv":
     logger.info(f"USE_ENV set to {USE_ENV}. Using .env file for external configuration")
