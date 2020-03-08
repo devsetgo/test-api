@@ -11,7 +11,7 @@ from loguru import logger
 
 # get environment variables
 config = Config(".env")
-USE_ENV = config("USE_ENV", default="dotenv")
+USE_ENV = config("USE_ENV")
 
 if USE_ENV.lower() == "dotenv":
     logger.info(f"USE_ENV set to {USE_ENV}. Using .env file for external configuration")
@@ -46,7 +46,8 @@ if USE_ENV.lower() == "dotenv":
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
 else:
     logger.info(
-        f"USE_ENV set to {USE_ENV}. Using os environmental settings for external configuration"
+        f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
+             external configuration"
     )
     # Application information
     APP_VERSION = os.environ["APP_VERSION"]
