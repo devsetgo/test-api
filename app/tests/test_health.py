@@ -13,7 +13,8 @@ directory_to__files: str = "data"
 
 class Test(unittest.TestCase):
     def test_health_status(self):
-        response = client.get(f"/api/health/")
+
+        response = client.get(f"/api/health/status")
         assert response.status_code == 200
 
     def test_health_system_info(self):

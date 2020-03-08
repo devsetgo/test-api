@@ -51,7 +51,6 @@ class Test(unittest.TestCase):
         file_named = "test_1_error.csv"
 
         with pytest.raises(TypeError):
-            # assert save_csv(file_named, sample_str)
             result = save_csv(file_named, sample_str)
             assert result is None
 
@@ -79,7 +78,6 @@ class Test(unittest.TestCase):
         file_named = "test_1_error.txt"
 
         with pytest.raises(TypeError):
-            # assert save_text(file_named, sample_list)
             result = save_text(file_named, sample_list)
             assert result is None
 
@@ -97,7 +95,6 @@ class Test(unittest.TestCase):
             csv_data.append(sample_dict)
 
         with pytest.raises(TypeError):
-            # assert save_csv(file_named, csv_data)
             result = save_csv(file_named, csv_data)
             assert result is None
 
@@ -106,7 +103,6 @@ class Test(unittest.TestCase):
         file_named = r"te/st_1_error.txt"
 
         with pytest.raises(TypeError):
-            # assert save_text(file_named, sample_str)
             result = save_text(file_named, sample_str)
             assert result is None
 
@@ -119,6 +115,5 @@ class Test(unittest.TestCase):
             json_data.append(sample_dict)
 
         with pytest.raises(TypeError):
-            # assert save_json(file_named, json_data)
             result = save_json(file_named, json_data)
             assert result is None
