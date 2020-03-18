@@ -17,7 +17,7 @@ def config_logging():
         rotation=LOGURU_ROTATION,
         retention=LOGURU_RETENTION,
         compression="zip",
+        serialize=True
     )
 
-    # TODO: Determine threshold of logging speed. Getting intermittent file locking
-    #  and unable to proceed
+    
