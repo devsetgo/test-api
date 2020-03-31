@@ -14,13 +14,12 @@ bind = "0.0.0.0:5000"
 # define number of workers by cores times two plus one
 # edit if you want to set a specific/limited amount of workers
 workers = multiprocessing.cpu_count() * 2 + 1
-
 # set worker class to uvicorn
 worker_class = "uvicorn.workers.UvicornWorker"
 
 # loglevel - The granularity of log output
 # A string of "debug", "info", "warning", "error", "critical"
-loglevel = "info"
+loglevel = "warning"
 
 """
 A dictionary containing headers and values that the front-end proxy
