@@ -1,28 +1,26 @@
-aiofiles==0.4.0 # Change from none
+aiofiles==0.4.0
 aiosqlite==0.11.0
-alembic==1.4.1
+alembic==1.4.2 # Change from 1.4.1
 asyncpg==0.20.1
 databases==0.2.6
-email-validator==1.0.5 # Change from none
-fastapi==0.52.0
-fastapi==0.52.0 # Change from none
+email-validator==1.0.5
+fastapi==0.53.2 # Change from 0.52.0
 fastapi-login==1.2.1
-graphene==2.1.8 # Change from none
+graphene==2.1.8
 gunicorn==20.0.4
-itsdangerous==1.1.0 # Change from none
-jinja2==2.11.1 # Change from none
+itsdangerous==1.1.0
+jinja2==2.11.1
 loguru==0.4.1
-orjson==2.5.2 # Change from 2.5.1
-orjson==2.5.2 # Change from none
+orjson==2.6.2 # Change from 2.5.2
 passlib[bcrypt]==1.7.2 # Change from 1.7.2
 psutil==5.7.0
 py-cpuinfo==5.0.0
 pyjokes==0.6.0
-python-multipart==0.0.5 # Change from none
-pyyaml==5.3 # Change from none
+python-multipart==0.0.5
+pyyaml==5.3.1 # Change from 5.3
 silly==1.1.0
-sqlalchemy==1.3.13
+sqlalchemy==1.3.15 # Change from 1.3.13
 textblob==0.15.3
 unsync==1.2.1
-uvicorn==0.11.3 # Change from nonexmltodict==0.12.0
+uvicorn==0.11.3
 xmltodict==0.12.0
