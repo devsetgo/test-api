@@ -39,11 +39,12 @@ if USE_ENV.lower() == "dotenv":
     # Loguru settings
     LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
-
+    LOGURU_LOGGING_LEVEL = config("LOGURU_LOGGING_LEVEL", default="WARNING")
     # Access Token Settings
     SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
     ALGORITHM = config("ALGORITHM", default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
+    
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
@@ -68,7 +69,7 @@ else:
     # Loguru settings
     LOGURU_RETENTION = os.environ["LOGURU_RETENTION"]
     LOGURU_ROTATION = os.environ["LOGURU_ROTATION"]
-
+    LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
     # Access Token Settings
     SECRET_KEY = os.environ["SECRET_KEY"]
     ALGORITHM = os.environ["ALGORITHM"]
