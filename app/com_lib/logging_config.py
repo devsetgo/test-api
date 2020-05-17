@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import json
+import logging
+import sys
+from pathlib import Path
+
 from loguru import logger
 from loguru._defaults import LOGURU_FORMAT
-from settings import LOGURU_RETENTION
-from settings import LOGURU_ROTATION
-from settings import LOGURU_LOGGING_LEVEL
-import logging, sys
+
+from settings import LOGURU_LOGGING_LEVEL, LOGURU_RETENTION, LOGURU_ROTATION
 
 
 def config_logging():
@@ -23,6 +24,7 @@ def config_logging():
         compression="zip",
         serialize=True,
     )
+
     class InterceptHandler(logging.Handler):
         def emit(self, record):
             # Retrieve context where the logging call occurred, this happens to be in the 6th frame upward
@@ -30,6 +32,7 @@ def config_logging():
             logger_opt.log(record.levelno, record.getMessage())
 
     logging.basicConfig(handlers=[InterceptHandler()], level=LOGURU_LOGGING_LEVEL)
+
 
 def request_parser(request_data):
     client_host = request_data.client.host
