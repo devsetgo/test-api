@@ -2,19 +2,15 @@
 import random
 import time
 import uuid
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import silly
 from loguru import logger
 from unsync import unsync
 
-from db_setup import database
-from db_setup import todos
-from db_setup import users
+from com_lib.db_setup import database, todos, users
 from endpoints.sillyusers.gen_user import user_test_info
-from settings import NUMBER_TASKS
-from settings import NUMBER_USERS
+from settings import NUMBER_TASKS, NUMBER_USERS
 
 number_of_tasks = NUMBER_TASKS
 number_of_users = NUMBER_USERS
