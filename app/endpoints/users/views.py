@@ -16,25 +16,19 @@ user unlock
 import asyncio
 import uuid
 
-from fastapi import APIRouter
-from fastapi import Form
-from fastapi import Path
-from fastapi import Query
+from fastapi import APIRouter, Form, Path, Query
 from loguru import logger
 
-from com_lib.pass_lib import encrypt_pass
-from com_lib.pass_lib import verify_pass
+from com_lib.pass_lib import encrypt_pass, verify_pass
 from com_lib.simple_functions import get_current_datetime
-from db_setup import database
-from db_setup import users
-from endpoints.users.models import UserCreate  # , UserUpdate,User, UserInDB
+from com_lib.db_setup import database, users
+from endpoints.users.models import UserCreate
 
 router = APIRouter()
 
 title = "Delay in Seconds"
 
 
-@router.get("/list", tags=["users"])
 async def user_list(
     delay: int = Query(
         None,
