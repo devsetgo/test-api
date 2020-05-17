@@ -5,9 +5,10 @@ For local development, use a .env file to set
 environment variables.
 """
 
-from starlette.config import Config
 import os
+
 from loguru import logger
+from starlette.config import Config
 
 # get environment variables
 config = Config(".env")
@@ -35,7 +36,8 @@ if USE_ENV.lower() == "dotenv":
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
-
+    # Sendgrid
+    SENDGRID_API_KEY = config("SENDGRID_API_KEY", default="none")
     # Loguru settings
     LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
@@ -44,7 +46,7 @@ if USE_ENV.lower() == "dotenv":
     SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
     ALGORITHM = config("ALGORITHM", default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
-    
+
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
