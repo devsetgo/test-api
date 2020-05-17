@@ -1,28 +1,30 @@
 # -*- coding: utf-8 -*-
 import pyjokes
 import uvicorn
-from fastapi import FastAPI
-from fastapi import Query
+from fastapi import FastAPI, Query
 from loguru import logger
 from starlette.responses import RedirectResponse
 
 from com_lib.demo_data import create_data
 from com_lib.logging_config import config_logging
-from db_setup import create_db
-from db_setup import database
+from com_lib.db_setup import create_db, database
+from endpoints.email_service import views as email_service
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
-from health import views as health
-from settings import APP_VERSION
-from settings import CREATE_SAMPLE_DATA
-from settings import HOST_DOMAIN
-from settings import LICENSE_LINK
-from settings import LICENSE_TYPE
-from settings import OWNER
-from settings import RELEASE_ENV
-from settings import WEBSITE
+from endpoints.health import views as health
+from settings import (
+    APP_VERSION,
+    CREATE_SAMPLE_DATA,
+    HOST_DOMAIN,
+    LICENSE_LINK,
+    LICENSE_TYPE,
+    OWNER,
+    RELEASE_ENV,
+    WEBSITE,
+)
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 # config logging start
 config_logging()
@@ -38,9 +40,12 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 logger.info("API App initiated")
+app.add_middleware(PrometheusMiddleware)
+
 
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
+
 # ToDo router
 app.include_router(
     todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
@@ -52,6 +57,13 @@ app.include_router(
 # Converter router
 app.include_router(
     tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
+)
+# email_service
+app.include_router(
+    email_service.router,
+    prefix="/api/v1/email",
+    tags=["email"],
+    responses=four_zero_four,
 )
 
 # Silly router
@@ -196,6 +208,9 @@ async def info():
         "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
     }
     return result
+
+
+app.add_route("/api/health/metrics", handle_metrics)
 
 
 if __name__ == "__main__":
