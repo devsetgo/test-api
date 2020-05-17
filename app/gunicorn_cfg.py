@@ -6,7 +6,9 @@ https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py
 """
 
 import multiprocessing
+
 from settings import LOGURU_LOGGING_LEVEL
+
 # ip and port to bind
 bind = "0.0.0.0:5000"
 # max number of pending connections
