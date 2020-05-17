@@ -2,14 +2,17 @@
 
 import databases
 from loguru import logger
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import Date
-from sqlalchemy import DateTime
-from sqlalchemy import MetaData
-from sqlalchemy import String
-from sqlalchemy import Table
-from sqlalchemy import create_engine
+from sqlalchemy import (
+    Boolean,
+    JSON,
+    Column,
+    Date,
+    DateTime,
+    MetaData,
+    String,
+    Table,
+    create_engine,
+)
 from sqlalchemy.pool import QueuePool
 
 from settings import SQLALCHEMY_DATABASE_URI
@@ -61,6 +64,13 @@ users = Table(
     Column("is_superuser", Boolean(), default=True),
 )
 
+email_service = Table(
+    "email_service",
+    metadata,
+    Column("email_id", String, primary_key=True),
+    Column("sent", Boolean(), default=False),
+    Column("email_content", JSON()),
+)
 
 todos = Table(
     "todos",
