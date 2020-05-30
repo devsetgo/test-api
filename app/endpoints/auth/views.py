@@ -58,7 +58,7 @@ async def user_list(
     """
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     if qty is None:
         qty: int = 100

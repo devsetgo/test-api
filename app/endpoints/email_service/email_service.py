@@ -10,32 +10,32 @@ import settings
 # def reply_email():
 
 
+def send_email(
+    to_email: list, subject: str, message_body: str, cc: list = None, bcc: list = None
+):
 
-
-def send_email(to_email: list,  subject: str, message_body: str, cc:list=None, bcc:list=None):
-
-    if isinstance(to_email,list) is False:
-        err: str =  "'To' field must be a list"
+    if isinstance(to_email, list) is False:
+        err: str = "'To' field must be a list"
         logger.error(err)
         raise ValueError(err)
 
-    if isinstance(subject,str) is False:
-        err: str =  "'Subject' field must be a string"
+    if isinstance(subject, str) is False:
+        err: str = "'Subject' field must be a string"
         logger.error(err)
         raise ValueError(err)
 
-    if isinstance(message_body,str) is False:
-        err: str =  "'message_body' field must be a str"
+    if isinstance(message_body, str) is False:
+        err: str = "'message_body' field must be a str"
         logger.error(err)
         raise ValueError(err)
 
-    if isinstance(cc,list) is False:
-        err: str =  "'cc' field must be a list"
+    if isinstance(cc, list) is False:
+        err: str = "'cc' field must be a list"
         logger.error(err)
         raise ValueError(err)
 
-    if isinstance(cc,list) is False:
-        err: str =  "'cc' field must be a list"
+    if isinstance(cc, list) is False:
+        err: str = "'cc' field must be a list"
         logger.error(err)
         raise ValueError(err)
 
@@ -47,11 +47,9 @@ def send_email(to_email: list,  subject: str, message_body: str, cc:list=None, b
                 # TODO convert to a list of dicts for function
                 # TODO define list of dicts to have optional name and provide validation
                 "to": [{"email": to_email}],
-                 
                 # "bcc": [{"email": "sam.doe@example.com", "name": "Sam Doe"}],
                 # "cc": [{"email": "jane.doe@example.com", "name": "Jane Doe"}],
                 "subject": subject,
-                
             },
         ],
         "content": [{"type": "text/html", "value": message_body}],
@@ -68,8 +66,7 @@ def send_email(to_email: list,  subject: str, message_body: str, cc:list=None, b
     return result
 
 
-
-# SendGrud data reference from 
+# SendGrud data reference from
 # https://github.com/sendgrid/sendgrid-python/blob/master/examples/mail/mail.py#L27
 #
 # data = {

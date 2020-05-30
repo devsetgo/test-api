@@ -29,6 +29,7 @@ router = APIRouter()
 title = "Delay in Seconds"
 
 
+@router.get("/list", tags=["users"])
 async def user_list(
     delay: int = Query(
         None,
@@ -68,7 +69,7 @@ async def user_list(
     """
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     if qty is None:
         qty: int = 100
@@ -155,7 +156,7 @@ async def users_list_count(
     """
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         # Fetch multiple rows
@@ -190,7 +191,7 @@ async def get_user_id(
     """
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         # Fetch single row
@@ -250,7 +251,7 @@ async def deactivate_user_id(
     user_information = {"is_active": False, "date_updated": get_current_datetime()}
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         # Fetch single row
@@ -351,7 +352,7 @@ async def create_user(
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     try:
         query = users.insert()

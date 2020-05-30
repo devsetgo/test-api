@@ -28,7 +28,7 @@ class ReferenceDataBase(BaseModel):
 
 class NewCommBase(BaseModel):
     """
-    Communication Required 
+    Communication Required
     """
 
     sender: EmailStr = Field(
@@ -41,7 +41,7 @@ class NewCommBase(BaseModel):
 
 class ReplyCommBase(BaseModel):
     """
-    Communication Required 
+    Communication Required
     """
 
     sender: EmailStr = Field(
