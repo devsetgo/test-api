@@ -19,9 +19,9 @@ import uuid
 from fastapi import APIRouter, Form, Path, Query
 from loguru import logger
 
+from com_lib.db_setup import database, users
 from com_lib.pass_lib import encrypt_pass, verify_pass
 from com_lib.simple_functions import get_current_datetime
-from com_lib.db_setup import database, users
 from endpoints.users.models import UserCreate
 
 router = APIRouter()
@@ -51,6 +51,13 @@ async def user_list(
         None, title="Offset", description="Offset increment", ge=0, alias="offset"
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
+    first_name: str = Query(None, title="by name", alias="firstname"),
+    last_name: str = Query(None, title="by name", alias="lastname"),
+    title: str = Query(None, title="by name", alias="title"),
+    company: str = Query(None, title="by name", alias="company"),
+    city: str = Query(None, title="by name", alias="city"),
+    country: str = Query(None, title="by name", alias="country"),
+    postal: str = Query(None, title="by name", alias="postal"),
 ) -> dict:
 
     """
@@ -66,7 +73,9 @@ async def user_list(
 
     Returns:
         dict -- [description]
+
     """
+    criteria = []
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
@@ -77,30 +86,49 @@ async def user_list(
     if offset is None:
         offset: int = 0
 
-    # Fetch multiple rows
+    if first_name is not None:
+        criteria.append((users.c.first_name, first_name))
+
+    if last_name is not None:
+        criteria.append((users.c.last_name, last_name))
+
+    if title is not None:
+        criteria.append((users.c.title,title))
+
+    if company is not None:
+        criteria.append((users.c.company,company))
+
+    if city is not None:
+        criteria.append((users.c.city, city))
+
+    if country is not None:
+        criteria.append((users.c.country, country))
+
+    if postal is not None:
+        criteria.append((users.c.postal, postal))
+
     if is_active is not None:
-        query = (
-            users.select()
-            .where(users.c.is_active == is_active)
-            .order_by(users.c.date_create)
-            .limit(qty)
-            .offset(offset)
-        )
-        db_result = await database.fetch_all(query)
+        criteria.append((users.c.is_active, is_active))
 
-        count_query = (
-            users.select()
-            .where(users.c.is_active == is_active)
-            .order_by(users.c.date_create)
-        )
-        total_count = await database.fetch_all(count_query)
 
-    else:
+    query = users.select().order_by(users.c.date_create).limit(qty).offset(offset)
+    count_query = (users.select().order_by(users.c.date_create))
 
-        query = users.select().order_by(users.c.date_create).limit(qty).offset(offset)
-        db_result = await database.fetch_all(query)
-        count_query = users.select().order_by(users.c.date_create)
-        total_count = await database.fetch_all(count_query)
+    for crit in criteria:
+        col, val = crit
+        query = query.where(col == val)
+        count_query = count_query.where(col == val)
+
+    db_result = await database.fetch_all(query)
+    total_count = await database.fetch_all(count_query)
+
+    # else:
+
+    #     query = users.select().order_by(users.c.date_create).limit(qty).offset(offset)
+    #     db_result = await database.fetch_all(query)
+    #     count_query = users.select().order_by(users.c.date_create)
+    #     total_count = await database.fetch_all(count_query)
+
 
     result_set = []
     for r in db_result:
@@ -112,6 +140,9 @@ async def user_list(
             "last_name": r["last_name"],
             "company": r["company"],
             "title": r["title"],
+            "city": r['city'],
+            "country": r['country'],
+            "postal": r['postal'],
             "is_active": r["is_active"],
         }
         result_set.append(user_data)
