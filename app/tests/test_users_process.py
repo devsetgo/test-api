@@ -11,6 +11,7 @@ client = TestClient(app)
 directory_to__files: str = "data"
 
 test_data_users = "test_data_users.json"
+test_data_test_user = "test_data_test_user.json"
 
 
 class Test(unittest.TestCase):
@@ -59,6 +60,20 @@ class Test(unittest.TestCase):
     def test_users_list_options(self):
 
         response = client.get(f"/api/v1/users/list?delay=1&qty=2&active=true")
+        assert response.status_code == 200
+
+    def test_users_list_param_all(self):
+        data = open_json(test_data_test_user)
+        a = data["first_name"]
+        b = data["last_name"]
+        c = data["title"]
+        d = data["company"]
+        e = data["city"]
+        f = data["country"]
+        g = data["postal"]
+        response = client.get(
+            f"/api/v1/users/list?active=true&firstname={a}&lastname={b}&title={c}&company={d}&city={e}&country={f}&postal={g}"
+        )
         assert response.status_code == 200
 
     def test_users_error_delay(self):
