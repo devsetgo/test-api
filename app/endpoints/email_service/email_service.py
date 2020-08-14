@@ -2,10 +2,10 @@
 
 import logging
 
-import sendgrid
 from loguru import logger
-import settings
 
+import sendgrid
+import settings
 
 # def reply_email():
 

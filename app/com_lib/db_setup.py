@@ -3,8 +3,8 @@
 import databases
 from loguru import logger
 from sqlalchemy import (
-    Boolean,
     JSON,
+    Boolean,
     Column,
     Date,
     DateTime,
@@ -13,6 +13,7 @@ from sqlalchemy import (
     Table,
     create_engine,
 )
+from sqlalchemy.orm import relationship
 from sqlalchemy.pool import QueuePool
 
 from settings import SQLALCHEMY_DATABASE_URI
@@ -86,3 +87,18 @@ todos = Table(
     Column("user_id", String(length=100)),
 )
 # Foreign key Column('userId', None, ForeignKey('users.userId')),
+
+groups = Table(
+    "groups",
+    metadata,
+    Column("id", String, primary_key=True),
+    Column("name", String(length=50)),
+    # relationship("groups_item")
+)
+groups_item = Table(
+    "groups_item",
+    metadata,
+    Column("id", String, primary_key=True),
+    Column("name", String(length=50)),
+    # Column('group_Id', None, ForeignKey('groups.id')),
+)

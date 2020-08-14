@@ -93,10 +93,10 @@ async def user_list(
         criteria.append((users.c.last_name, last_name))
 
     if title is not None:
-        criteria.append((users.c.title,title))
+        criteria.append((users.c.title, title))
 
     if company is not None:
-        criteria.append((users.c.company,company))
+        criteria.append((users.c.company, company))
 
     if city is not None:
         criteria.append((users.c.city, city))
@@ -110,9 +110,8 @@ async def user_list(
     if is_active is not None:
         criteria.append((users.c.is_active, is_active))
 
-
     query = users.select().order_by(users.c.date_create).limit(qty).offset(offset)
-    count_query = (users.select().order_by(users.c.date_create))
+    count_query = users.select().order_by(users.c.date_create)
 
     for crit in criteria:
         col, val = crit
@@ -129,7 +128,6 @@ async def user_list(
     #     count_query = users.select().order_by(users.c.date_create)
     #     total_count = await database.fetch_all(count_query)
 
-
     result_set = []
     for r in db_result:
         # iterate through data and return simplified data set
@@ -140,9 +138,9 @@ async def user_list(
             "last_name": r["last_name"],
             "company": r["company"],
             "title": r["title"],
-            "city": r['city'],
-            "country": r['country'],
-            "postal": r['postal'],
+            "city": r["city"],
+            "country": r["country"],
+            "postal": r["postal"],
             "is_active": r["is_active"],
         }
         result_set.append(user_data)

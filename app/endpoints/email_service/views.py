@@ -2,11 +2,17 @@
 import json
 import uuid
 from datetime import datetime
+
 from fastapi import APIRouter, HTTPException, Path, Query, status
-from loguru import logger
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
-from endpoints.email_service.models import NewEmail, ReplyEmail, PostMessageError
+from loguru import logger
+
+from endpoints.email_service.models import (
+    NewEmail,
+    PostMessageError,
+    ReplyEmail,
+)
 
 router = APIRouter()
 
