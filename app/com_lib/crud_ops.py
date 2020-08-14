@@ -4,6 +4,7 @@ database simple functions. Pass query and where needed values and get result bac
 """
 
 import logging
+
 from loguru import logger
 from sqlalchemy.sql import text
 
