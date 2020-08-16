@@ -7,33 +7,52 @@ import logging
 
 from loguru import logger
 from sqlalchemy.sql import text
+from sqlalchemy.sql.expression import true
 
 from com_lib.db_setup import database
 
 
 async def fetch_one_db(query):
-
-    result = await database.fetch_one(query)
-    logger.debug(str(result))
-    return result
+    try:
+        result = await database.fetch_one(query)
+        logger.debug(str(result))
+        return result
+    except Exception as e:
+        logger.critical(f"error: {e}")
+        return e
 
 
 async def fetch_all_db(query):
-
-    result = await database.fetch_all(query)
-    logger.debug(str(result))
-    return result
+    try:
+        result = await database.fetch_all(query)
+        logger.debug(str(result))
+        return result
+    except Exception as e:
+        logger.critical(f"error: {e}")
+        return e
 
 
 async def execute_one_db(query, values: dict):
 
-    result = await database.execute(query, values)
-    logger.debug(str(result))
-    return result
+    try:
+        await database.execute(query, values)
+        result = "complete"
+        logger.debug(str(result))
+        return result
+    except Exception as e:
+        logger.critical(f"error: {e}")
+        logger.debug(query)
+        logger.debug(values)
+        return e
 
 
 async def execute_many_db(query, values: dict):
+    try:
+        result = await database.execute_many(query, values)
+        logger.debug(str(result))
 
-    result = await database.execute_many(query, values)
-    logger.debug(str(result))
-    return result
+    except Exception as e:
+        logger.critical(f"error: {e}")
+        logger.debug(query)
+        logger.debug(values)
+        return e

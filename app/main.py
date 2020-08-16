@@ -14,6 +14,7 @@ from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
+from endpoints.groups import views as groups
 from settings import (
     APP_VERSION,
     CREATE_SAMPLE_DATA,
@@ -45,7 +46,10 @@ app.add_middleware(PrometheusMiddleware)
 
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
-
+# Group router
+app.include_router(
+    groups.router, prefix="/api/v1/groups", tags=["groups"], responses=four_zero_four,
+)
 # ToDo router
 app.include_router(
     todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,

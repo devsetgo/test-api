@@ -4,6 +4,7 @@ import databases
 from loguru import logger
 from sqlalchemy import (
     JSON,
+    ForeignKey,
     Boolean,
     Column,
     Date,
@@ -92,13 +93,22 @@ groups = Table(
     "groups",
     metadata,
     Column("id", String, primary_key=True),
-    Column("name", String(length=50)),
-    # relationship("groups_item")
+    Column("name", String(length=50), unique=True, nullable=False),
+    Column("description", String(length=250)),
+    Column("group_type", String(length=50)),
+    Column("is_active", Boolean(), default=False),
+    Column("date_create", DateTime()),
+    Column("date_update", DateTime()),
 )
 groups_item = Table(
     "groups_item",
     metadata,
     Column("id", String, primary_key=True),
-    Column("name", String(length=50)),
-    # Column('group_Id', None, ForeignKey('groups.id')),
+    Column("user", String(length=50)),
+    Column(
+        "group_Id",
+        String,
+        ForeignKey("groups.id", onupdate="CASCADE", ondelete="CASCADE"),
+        nullable=False,
+    ),
 )

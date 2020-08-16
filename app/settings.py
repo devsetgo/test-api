@@ -27,8 +27,9 @@ if USE_ENV.lower() == "dotenv":
 
     # Demo Data
     CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=False)
-    NUMBER_TASKS = config("NUMBER_TASKS", default=100)
-    NUMBER_USERS = config("NUMBER_USERS", default=100)
+    NUMBER_TASKS = config("NUMBER_TASKS", default=0)
+    NUMBER_USERS = config("NUMBER_USERS", default=0)
+    NUMBER_GROUPS = config("NUMBER_GROUPS", default=0)
 
     # Application Configurations
     HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
@@ -63,6 +64,7 @@ else:
     CREATE_SAMPLE_DATA = os.environ["CREATE_SAMPLE_DATA"]
     NUMBER_TASKS = os.environ["NUMBER_TASKS"]
     NUMBER_USERS = os.environ["NUMBER_USERS"]
+    NUMBER_GROUPS = os.environ["NUMBER_USERS"]
 
     # Application Configurations
     HOST_DOMAIN = os.environ["HOST_DOMAIN"]

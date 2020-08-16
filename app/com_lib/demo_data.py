@@ -8,12 +8,13 @@ import silly
 from loguru import logger
 from unsync import unsync
 
-from com_lib.db_setup import database, todos, users
+from com_lib.db_setup import database, todos, users, groups, groups_item
 from endpoints.sillyusers.gen_user import user_test_info
-from settings import NUMBER_TASKS, NUMBER_USERS
+from settings import NUMBER_TASKS, NUMBER_USERS, NUMBER_GROUPS
 
 number_of_tasks = NUMBER_TASKS
 number_of_users = NUMBER_USERS
+number_of_groups = NUMBER_GROUPS
 # time variables
 currentTime = datetime.now()
 
@@ -23,6 +24,7 @@ def create_data():
     logger.info(f"creating demo data")
     user_count = count_users().result()
     task_count = count_tasks().result()
+    group_count = count_groups().result()
 
     if int(user_count) == 0:
         create_users(int(number_of_users))
@@ -33,6 +35,21 @@ def create_data():
         create_tasks(int(number_of_tasks))
     else:
         logger.info(f"existing data, sample tasks will not be created")
+
+    if int(group_count) == 0:
+        create_users(int(number_of_users))
+    else:
+        logger.info(f"existing data, sample users will not be created")
+
+
+@unsync
+async def count_groups():
+    query = groups.select()
+    count = await database.fetch_all(query)
+
+    result = len(count)
+    logger.info(f"number of users in DB: {result}")
+    return result
 
 
 @unsync
@@ -55,17 +72,25 @@ async def count_tasks():
     return result
 
 
-def create_users(create_users: int):
+def create_users(qty: int):
 
-    for _ in range(0, create_users):
+    for _ in range(0, qty):
         time.sleep(0.01)
         new_user = user_test_info()
         db_user_call(new_user)
 
 
-def create_tasks(create_tasks: int):
+def create_groups(qty: int):
 
-    for _ in range(0, create_tasks):
+    for _ in range(0, qty):
+        time.sleep(0.01)
+        new_user = user_test_info()
+        db_user_call(new_user)
+
+
+def create_tasks(qty: int):
+
+    for _ in range(0, qty):
         time.sleep(0.01)
         todo_information = {
             "todo_id": str(uuid.uuid1()),
