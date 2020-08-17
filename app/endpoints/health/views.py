@@ -5,9 +5,9 @@ from cpuinfo import get_cpu_info
 from fastapi import APIRouter
 from fastapi.responses import ORJSONResponse
 from loguru import logger
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from endpoints.health.checks import get_processes
-from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 router = APIRouter()
 

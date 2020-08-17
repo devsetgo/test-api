@@ -32,7 +32,7 @@ async def fetch_all_db(query):
         return e
 
 
-async def execute_one_db(query, values: dict):
+async def execute_one_db(query, values: dict = None):
 
     try:
         await database.execute(query, values)

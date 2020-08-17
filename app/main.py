@@ -4,17 +4,18 @@ import uvicorn
 from fastapi import FastAPI, Query
 from loguru import logger
 from starlette.responses import RedirectResponse
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from com_lib.db_setup import create_db, database
 from com_lib.demo_data import create_data
 from com_lib.logging_config import config_logging
 from endpoints.email_service import views as email_service
+from endpoints.groups import views as groups
 from endpoints.health import views as health
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
-from endpoints.groups import views as groups
 from settings import (
     APP_VERSION,
     CREATE_SAMPLE_DATA,
@@ -25,7 +26,6 @@ from settings import (
     RELEASE_ENV,
     WEBSITE,
 )
-from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 # config logging start
 config_logging()

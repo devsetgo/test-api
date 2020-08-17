@@ -22,7 +22,7 @@ def config_logging():
         retention=LOGURU_RETENTION,
         level=LOGURU_LOGGING_LEVEL,
         compression="zip",
-        serialize=True,
+        serialize=False,
     )
 
     class InterceptHandler(logging.Handler):

@@ -13,20 +13,36 @@ user deactivate
 user unlock
 
 """
+from endpoints.groups.validation import check_unique_name,check_id_exists,check_user_exists
 import asyncio
 import uuid
 from datetime import datetime
+
 from fastapi import APIRouter, Form, Path, Query, status
-from fastapi.responses import ORJSONResponse, JSONResponse
+from fastapi.responses import JSONResponse, ORJSONResponse
 from fastapi.routing import run_endpoint_function
 from loguru import logger
 from sqlalchemy.sql.expression import false
-
-from com_lib.crud_ops import fetch_one_db, fetch_all_db, execute_one_db, execute_many_db
+from sqlalchemy import and_
+from com_lib.crud_ops import (
+    execute_many_db,
+    execute_one_db,
+    fetch_all_db,
+    fetch_one_db,
+)
 from com_lib.db_setup import database, groups, groups_item
 from com_lib.pass_lib import encrypt_pass, verify_pass
 from com_lib.simple_functions import get_current_datetime
-from endpoints.groups.models import GroupCreate, GroupsBase, GroupItemBase, GroupsOut,GroupTypeEnum
+from endpoints.groups.models import (
+    GroupCreate,
+    GroupItemBase,
+    GroupsBase,
+    GroupsOut,
+    GroupTypeEnum,
+    GroupUser,
+    GroupDeactivate,
+    GroupItemDelete,
+)
 
 router = APIRouter()
 
@@ -56,7 +72,7 @@ async def group_list(
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
     group_type: GroupTypeEnum = Query(
-        None, title="groupType", description="Type of group",alias="groupType"
+        None, title="groupType", description="Type of group", alias="groupType"
     ),
 ) -> dict:
 
@@ -90,7 +106,7 @@ async def group_list(
         criteria.append((groups.c.is_active, is_active))
 
     query = groups.select().order_by(groups.c.date_create).limit(qty).offset(offset)
-    count_query = groups.select().order_by(groups.c.date_create)
+    count_query = groups.select()
 
     for crit in criteria:
         col, val = crit
@@ -99,23 +115,6 @@ async def group_list(
 
     db_result = await database.fetch_all(query)
     total_count = await database.fetch_all(count_query)
-
-    # result_set = []
-    # for r in db_result:
-    #     # iterate through data and return simplified data set
-    #     user_data = {
-    #         "user_id": r["user_id"],
-    #         "user_name": r["user_name"],
-    #         "first_name": r["first_name"],
-    #         "last_name": r["last_name"],
-    #         "company": r["company"],
-    #         "title": r["title"],
-    #         "city": r["city"],
-    #         "country": r["country"],
-    #         "postal": r["postal"],
-    #         "is_active": r["is_active"],
-    #     }
-    #     result_set.append(user_data)
 
     result = {
         "parameters": {
@@ -131,9 +130,77 @@ async def group_list(
     return result
 
 
+@router.put(
+    "/deactivate/",
+    tags=["groups"],
+    response_description="The created item",
+    response_class=ORJSONResponse,
+    status_code=201,
+    responses={
+        # 302: {"description": "Incorrect URL, redirecting"},
+        400: {"description": "Bad Request"},
+        422: {"description": "Validation Error"},
+        404: {"description": "Operation forbidden"},
+        405: {"description": "Method not allowed"},
+        500: {"description": "All lines are busy, try again later."},
+    },
+)
+async def deactivate_group(
+    *,
+    group: GroupDeactivate,
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+) -> dict:
+    """
+    POST/Create a new User. user_name (unique), firstName, lastName,
+    and password are required. All other fields are optional.
+
+    Arguments:
+        user {UserCreate} -- [description]
+
+    Keyword Arguments:
+        delay {int} -- [description] 0 seconds default, maximum is 122
+
+    Returns:
+        dict -- [user_id: uuid, user_name: user_name]
+    """
+
+    # sleep if delay option is used
+    if delay is not None:
+        logger.info(f"adding a delay of {delay} seconds")
+        await asyncio.sleep(delay)
+
+    try:
+        
+        group_data = {
+            "id": group.id,
+            "is_active": group.is_active,
+            "date_update": datetime.now(),
+        }
+        logger.debug(group_data)
+        # create group
+        query = groups.update()
+        group_result = await execute_one_db(query=query, values=group_data)
+
+        if "error" in group_result:
+            error: dict = group_result
+            logger.critical(error)
+            return JSONResponse(status_code=400, content=error)
+
+        # data result
+        full_result: dict = group_result
+        logger.debug(full_result)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
+    except Exception as e:
+        error: dict = {"error": str(e)}
+        logger.debug(e)
+        logger.critical(type(e))
+        logger.critical(f"Critical Error: {e}")
+        return JSONResponse(status_code=400, content=error)
+
+
 @router.post(
     "/create/",
-    tags=["users"],
+    tags=["groups"],
     response_description="The created item",
     response_class=ORJSONResponse,
     status_code=201,
@@ -171,20 +238,22 @@ async def create_group(
         await asyncio.sleep(delay)
 
     # approval or notification
-    if group.group_type != "approval" or group.group_type != "notification":
-        error: dict = {"error":f"Group Type '{group.name}' is not 'approval' or 'notification'"}
+    group_type_check: list = ["approval","notification"]
+    if group.group_type not in group_type_check:
+        error: dict = {
+            "error": f"Group Type '{group.group_type}' is not 'approval' or 'notification'"
+        }
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
         b
     check_name = str(group.name)
-    duplicate = await check_unique(check_name)
+    duplicate = await check_unique_name(check_name)
 
     try:
         if duplicate == False:
-            error: dict = {"error":f"Group Name '{group.name}' is a duplicate"}
+            error: dict = {"error": f"Group Name '{group.name}' is a duplicate"}
             logger.warning(error)
             return JSONResponse(status_code=400, content=error)
-            
 
         group_id = uuid.uuid4()
         group_data = {
@@ -202,7 +271,7 @@ async def create_group(
         group_result = await execute_one_db(query=query, values=group_data)
 
         if "error" in group_result:
-            error:dict = group_result
+            error: dict = group_result
             logger.critical(error)
             return JSONResponse(status_code=400, content=error)
 
@@ -224,14 +293,172 @@ async def create_group(
         return JSONResponse(status_code=400, content=error)
 
 
-async def check_unique(name: str) -> bool:
-    query = groups.select().where(groups.c.name == name)
-    result = await fetch_one_db(query=query)
-    logger.debug(result)
-    if result is not None:
-        logger.debug("duplicate value")
-        return False
-    else:
-        logger.debug("no duplicate value")
-        return True
-    # return False
+
+@router.get("/group/{group_id}", tags=["groups"])
+async def group_list(
+    group_id: str,
+    delay: int = Query(
+        None,
+        title=title,
+        description="Seconds to delay (max 121)",
+        ge=1,
+        le=121,
+        alias="delay",
+    ),
+) -> dict:
+
+    """
+    list of users
+
+    Keyword Arguments:
+        delay {int} -- [description] 0 seconds default, maximum is 122
+        qty {int} -- [description] 100 returned results is default,
+        maximum is 500
+        offset {int} -- [description] 0 seconds default
+        Active {bool} -- [description] no default as not required,
+        must be Active=true or false if used
+
+    Returns:
+        dict -- [description]
+
+    """
+    
+    # sleep if delay option is used
+    if delay is not None:
+        await asyncio.sleep(delay)
+
+    query = groups_item.select().where(groups_item.c.group_id == group_id)
+    db_result = await fetch_all_db(query=query)
+
+    users_list:list=[]
+    for r in db_result:
+        logger.debug(r)
+        user_data: dict ={"id": r['id'],"user":r['user']}
+        users_list.append(user_data)
+    result = {"group_id":group_id,"count":len(users_list),'users':users_list}
+    return result
+
+
+@router.post(
+    "/user/create",
+    tags=["groups"],
+    response_description="The created item",
+    response_class=ORJSONResponse,
+    status_code=201,
+    responses={
+        # 302: {"description": "Incorrect URL, redirecting"},
+        400: {"description": "Bad Request"},
+        422: {"description": "Validation Error"},
+        # 404: {"description": "Operation forbidden"},
+        # 405: {"description": "Method not allowed"},
+        500: {"description": "All lines are busy, try again later."},
+    },
+)
+async def create_group_user(
+    *,
+    group: GroupUser,
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+) -> dict:
+    """
+    POST/Create a new User. user_name (unique), firstName, lastName,
+    and password are required. All other fields are optional.
+
+    Arguments:
+        user {UserCreate} -- [description]
+
+    Keyword Arguments:
+        delay {int} -- [description] 0 seconds default, maximum is 122
+
+    Returns:
+        dict -- [user_id: uuid, user_name: user_name]
+    """
+
+    # sleep if delay option is used
+    if delay is not None:
+        logger.info(f"adding a delay of {delay} seconds")
+        await asyncio.sleep(delay)
+
+
+    check_id = str(group.group_id)
+    group_id_exists = await check_id_exists(id=check_id)
+    
+    if group_id_exists == False:
+        error: dict = {"error": f"Group ID '{check_id}' does not exist"}
+        logger.warning(error)
+        return JSONResponse(status_code=400, content=error)
+
+    check_user = str(group.user)
+    exist_user = await check_user_exists(user=check_user,group_id=check_id)
+    
+    if exist_user == True:
+        error: dict = {"error": f"User ID '{check_id}' already in group"}
+        logger.warning(error)
+        return JSONResponse(status_code=400, content=error)
+
+
+
+    try:
+
+        user_id = str(uuid.uuid4())
+        group_data = {"id": user_id, "user": group.user, "group_id": group.group_id}
+        logger.debug(group_data)
+        # create group
+        query = groups_item.insert()
+        group_result = await execute_one_db(query=query, values=group_data)
+
+        if "error" in group_result:
+            error: dict = group_result
+            logger.critical(error)
+            return JSONResponse(status_code=400, content=error)
+
+        # data result
+        full_result: dict = group_data
+        # full_result: dict = {"id": str(user_id), "data": group_result}
+        logger.debug(full_result)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
+    except Exception as e:
+        error: dict = {"error": str(e)}
+        logger.debug(e)
+        logger.critical(type(e))
+        logger.critical(f"Critical Error: {e}")
+        return JSONResponse(status_code=400, content=error)
+    except ValueError as e:
+        error: dict = {"error": e}
+        logger.debug(e)
+        logger.critical(type(e))
+        logger.critical(f"Critical Error: {e}")
+        return JSONResponse(status_code=400, content=error)
+
+@router.delete(
+    "/user",
+    tags=["groups"],
+    response_description="The deleted item",
+    responses={
+        302: {"description": "Incorrect URL, redirecting"},
+        404: {"description": "Operation forbidden"},
+        405: {"description": "Method not allowed"},
+        500: {"description": "Mommy!"},
+    },
+)
+async def delete_group_item_user_id(
+    *, user: GroupItemDelete
+) -> dict:
+    """
+    Delete a user by UUID
+
+    Keyword Arguments:
+        user_id {str} -- [description] UUID of user_id property required
+
+    Returns:
+        dict -- [result: user UUID deleted]
+    """
+
+    try:
+        # delete id
+        query = groups_item.delete().where(groups_item.c.id == user.id)
+        await execute_one_db(query)
+        result = {"status": f"{user.id} deleted"}
+        return result
+
+    except Exception as e:
+        logger.error(f"Critical Error: {e}")

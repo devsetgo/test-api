@@ -2,9 +2,9 @@
 
 import logging
 
+import sendgrid
 from loguru import logger
 
-import sendgrid
 import settings
 
 # def reply_email():
