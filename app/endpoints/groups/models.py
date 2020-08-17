@@ -11,6 +11,7 @@ class GroupTypeEnum(str, Enum):
     approval = "approval"
     notification = "notification"
 
+
 class GroupsBase(BaseModel):
     name: str = Field(
         ...,
@@ -38,6 +39,7 @@ class GroupsBase(BaseModel):
         example="approval",
     )
 
+
 class GroupItemBase(BaseModel):
     user: str = Field(
         None,
@@ -48,10 +50,12 @@ class GroupItemBase(BaseModel):
         example="abc123",
     )
 
+
 class GroupCreate(GroupsBase):
     # id: UUID = Field(default_factory=uuid4)
     # users: List[GroupItemBase]
     is_active: bool = Field(default=False)
+
 
 class GroupDeactivate(BaseModel):
     id: str = Field(
@@ -62,6 +66,7 @@ class GroupDeactivate(BaseModel):
     )
     is_active: bool = Field(default=False)
 
+
 class GroupItemDelete(BaseModel):
     id: str = Field(
         ...,
@@ -70,9 +75,11 @@ class GroupItemDelete(BaseModel):
         example="UUID-OF-THE-USER-TO-DELETE",
     )
 
+
 class GroupsOut(BaseModel):
     GroupsBase
     GroupItemBase
+
 
 class GroupUser(BaseModel):
     # {'id':'id','user':'user','group_Id':'group_Id'}

@@ -13,7 +13,11 @@ user deactivate
 user unlock
 
 """
-from endpoints.groups.validation import check_unique_name,check_id_exists,check_user_exists
+from endpoints.groups.validation import (
+    check_unique_name,
+    check_id_exists,
+    check_user_exists,
+)
 import asyncio
 import uuid
 from datetime import datetime
@@ -170,7 +174,7 @@ async def deactivate_group(
         await asyncio.sleep(delay)
 
     try:
-        
+
         group_data = {
             "id": group.id,
             "is_active": group.is_active,
@@ -199,7 +203,7 @@ async def deactivate_group(
 
 
 @router.post(
-    "/create/",
+    "/create",
     tags=["groups"],
     response_description="The created item",
     response_class=ORJSONResponse,
@@ -238,7 +242,7 @@ async def create_group(
         await asyncio.sleep(delay)
 
     # approval or notification
-    group_type_check: list = ["approval","notification"]
+    group_type_check: list = ["approval", "notification"]
     if group.group_type not in group_type_check:
         error: dict = {
             "error": f"Group Type '{group.group_type}' is not 'approval' or 'notification'"
@@ -293,7 +297,6 @@ async def create_group(
         return JSONResponse(status_code=400, content=error)
 
 
-
 @router.get("/group/{group_id}", tags=["groups"])
 async def group_list(
     group_id: str,
@@ -322,7 +325,7 @@ async def group_list(
         dict -- [description]
 
     """
-    
+
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
@@ -330,12 +333,12 @@ async def group_list(
     query = groups_item.select().where(groups_item.c.group_id == group_id)
     db_result = await fetch_all_db(query=query)
 
-    users_list:list=[]
+    users_list: list = []
     for r in db_result:
         logger.debug(r)
-        user_data: dict ={"id": r['id'],"user":r['user']}
+        user_data: dict = {"id": r["id"], "user": r["user"]}
         users_list.append(user_data)
-    result = {"group_id":group_id,"count":len(users_list),'users':users_list}
+    result = {"group_id": group_id, "count": len(users_list), "users": users_list}
     return result
 
 
@@ -378,24 +381,21 @@ async def create_group_user(
         logger.info(f"adding a delay of {delay} seconds")
         await asyncio.sleep(delay)
 
-
     check_id = str(group.group_id)
     group_id_exists = await check_id_exists(id=check_id)
-    
+
     if group_id_exists == False:
         error: dict = {"error": f"Group ID '{check_id}' does not exist"}
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
 
     check_user = str(group.user)
-    exist_user = await check_user_exists(user=check_user,group_id=check_id)
-    
+    exist_user = await check_user_exists(user=check_user, group_id=check_id)
+
     if exist_user == True:
         error: dict = {"error": f"User ID '{check_id}' already in group"}
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
-
-
 
     try:
 
@@ -429,6 +429,7 @@ async def create_group_user(
         logger.critical(f"Critical Error: {e}")
         return JSONResponse(status_code=400, content=error)
 
+
 @router.delete(
     "/user",
     tags=["groups"],
@@ -440,9 +441,7 @@ async def create_group_user(
         500: {"description": "Mommy!"},
     },
 )
-async def delete_group_item_user_id(
-    *, user: GroupItemDelete
-) -> dict:
+async def delete_group_item_user_id(*, user: GroupItemDelete) -> dict:
     """
     Delete a user by UUID
 

@@ -42,6 +42,7 @@ def create_data():
         logger.info(f"existing data, sample groups will not be created")
         logger.warning(f"DEMO DATA INITIALIZATION IS TRUE")
 
+
 @unsync
 async def count_groups():
     query = groups.select()
@@ -72,8 +73,6 @@ async def count_tasks():
     return result
 
 
-
-
 def create_users(qty: int):
 
     for _ in range(0, qty):
@@ -98,12 +97,14 @@ def create_groups(qty: int):
         db_group_call(group_information)
         g_count += 1
 
+
 def group_user_creator():
     group_information = {
         "id": str(uuid.uuid4()),
         "user": f"test{secrets.token_hex(4)}",
     }
     db_group_user_call(group_information)
+
 
 def group_creator():
     group_information = {
@@ -165,6 +166,7 @@ async def db_todo_call(todo_information: dict):
     except Exception as e:
         logger.critical(f"Create Error: {e}")
 
+
 @unsync
 async def db_group_call(group_information: dict):
     try:
@@ -176,6 +178,7 @@ async def db_group_call(group_information: dict):
         return result
     except Exception as e:
         logger.critical(f"Create Error: {e}")
+
 
 @unsync
 async def db_group_user_call(group_user_information: dict):

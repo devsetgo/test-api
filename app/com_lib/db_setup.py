@@ -106,7 +106,7 @@ groups_item = Table(
     metadata,
     Column("id", String, primary_key=True),
     Column("user", String(length=50)),
-    Column("group_id", String,nullable=False),
+    Column("group_id", String, nullable=False),
     # Column(
     #     "group_id",
     #     String,
