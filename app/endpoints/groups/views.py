@@ -135,7 +135,7 @@ async def group_list(
 
 
 @router.put(
-    "/deactivate/",
+    "/deactivate",
     tags=["groups"],
     response_description="The created item",
     response_class=ORJSONResponse,
@@ -144,8 +144,8 @@ async def group_list(
         # 302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
-        404: {"description": "Operation forbidden"},
-        405: {"description": "Method not allowed"},
+        404: {"description": "Not Found"},
+        # 405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
@@ -173,16 +173,22 @@ async def deactivate_group(
         logger.info(f"adding a delay of {delay} seconds")
         await asyncio.sleep(delay)
 
+    id_exists = await check_id_exists(group.id)
+
+    if id_exists == False:
+        error: dict = {"error": f"Group ID: '{group.id}' not found"}
+        logger.warning(error)
+        return JSONResponse(status_code=404, content=error)
     try:
 
         group_data = {
-            "id": group.id,
+            # "id": group.id,
             "is_active": group.is_active,
             "date_update": datetime.now(),
         }
         logger.debug(group_data)
         # create group
-        query = groups.update()
+        query = groups.update().where(groups.c.id == group.id)
         group_result = await execute_one_db(query=query, values=group_data)
 
         if "error" in group_result:
@@ -191,7 +197,7 @@ async def deactivate_group(
             return JSONResponse(status_code=400, content=error)
 
         # data result
-        full_result: dict = group_result
+        full_result: dict = {"id": group.id, "status": group_result}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
@@ -285,12 +291,6 @@ async def create_group(
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
         error: dict = {"error": str(e)}
-        logger.debug(e)
-        logger.critical(type(e))
-        logger.critical(f"Critical Error: {e}")
-        return JSONResponse(status_code=400, content=error)
-    except ValueError as e:
-        error: dict = {"error": e}
         logger.debug(e)
         logger.critical(type(e))
         logger.critical(f"Critical Error: {e}")
