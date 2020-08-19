@@ -3,7 +3,7 @@ import unittest
 import secrets
 from starlette.testclient import TestClient
 
-from app.com_lib.file_functions import save_json,open_json
+from app.com_lib.file_functions import save_json, open_json
 from app.main import app
 
 client = TestClient(app)
@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
 
     # get id not found
     def test_groups_get_group_not_found(self):
-        group_id = open_json("test_data_group.json")
+        # group_id = open_json("test_data_group.json")
         url = f"/api/v1/groups/group/bob"
 
         response = client.get(url)
