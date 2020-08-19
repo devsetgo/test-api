@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
 
         response = client.get(url)
         assert response.status_code == 200
-        
+
     def test_groups_get_list(self):
 
         url = f"/api/v1/groups/list"

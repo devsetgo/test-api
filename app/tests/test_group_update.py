@@ -9,7 +9,9 @@ from app.main import app
 client = TestClient(app)
 directory_to__files: str = "data"
 
-base_url = '/api/v1/groups/deactivate?delay=1'
+base_url = "/api/v1/groups/deactivate?delay=1"
+
+
 class Test(unittest.TestCase):
     # test delay
     def test_groups_put_error_delay(self):
@@ -40,14 +42,14 @@ class Test(unittest.TestCase):
         }
         response = client.put(url, json=test_data)
         assert response.status_code == 422
+
     # test deactivate
     def test_groups_put_valid(self):
         group_id = open_json("test_data_group.json")
         url = f"{base_url}"
         test_data = {
-            "id": group_id['id'],
+            "id": group_id["id"],
             "is_active": False,
         }
         response = client.put(url, json=test_data)
         assert response.status_code == 201
-    

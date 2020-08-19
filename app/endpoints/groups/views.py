@@ -329,7 +329,12 @@ async def group_list(
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
-
+    # check if ID exists
+    id_exists = await check_id_exists(group_id)
+    if id_exists == False:
+        error: dict = {"error": f"Group ID: '{group_id}' not found"}
+        logger.warning(error)
+        return JSONResponse(status_code=404, content=error)
     query = groups_item.select().where(groups_item.c.group_id == group_id)
     db_result = await fetch_all_db(query=query)
 
