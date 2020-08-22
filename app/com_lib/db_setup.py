@@ -2,19 +2,15 @@
 
 import databases
 from loguru import logger
-from sqlalchemy import (
-    JSON,
-    Boolean,
-    Column,
-    Date,
-    DateTime,
-    ForeignKey,
-    MetaData,
-    String,
-    Table,
-    create_engine,
-)
-from sqlalchemy.orm import relationship
+from sqlalchemy import JSON
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import Date
+from sqlalchemy import DateTime
+from sqlalchemy import MetaData
+from sqlalchemy import String
+from sqlalchemy import Table
+from sqlalchemy import create_engine
 from sqlalchemy.pool import QueuePool
 
 from settings import SQLALCHEMY_DATABASE_URI

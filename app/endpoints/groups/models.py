@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from enum import Enum, IntEnum
-from typing import List, Optional
-from uuid import UUID, uuid4
+from enum import Enum
 
-from pydantic import BaseModel, Field, SecretStr
+from pydantic import BaseModel
+from pydantic import Field
 
 
 # Shared properties
@@ -73,6 +72,7 @@ class GroupItemDelete(BaseModel):
         alias="id",
         title="The ID of the User",
         example="UUID-OF-THE-USER-TO-DELETE",
+        min_length=1,
     )
 
 

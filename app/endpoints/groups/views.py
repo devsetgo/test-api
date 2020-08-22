@@ -13,40 +13,31 @@ user deactivate
 user unlock
 
 """
-from endpoints.groups.validation import (
-    check_unique_name,
-    check_id_exists,
-    check_user_exists,
-)
 import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Form, Path, Query, status
-from fastapi.responses import JSONResponse, ORJSONResponse
-from fastapi.routing import run_endpoint_function
+from fastapi import APIRouter
+from fastapi import Query
+from fastapi import status
+from fastapi.responses import JSONResponse
+from fastapi.responses import ORJSONResponse
 from loguru import logger
-from sqlalchemy.sql.expression import false
-from sqlalchemy import and_
-from com_lib.crud_ops import (
-    execute_many_db,
-    execute_one_db,
-    fetch_all_db,
-    fetch_one_db,
-)
-from com_lib.db_setup import database, groups, groups_item
-from com_lib.pass_lib import encrypt_pass, verify_pass
-from com_lib.simple_functions import get_current_datetime
-from endpoints.groups.models import (
-    GroupCreate,
-    GroupItemBase,
-    GroupsBase,
-    GroupsOut,
-    GroupTypeEnum,
-    GroupUser,
-    GroupDeactivate,
-    GroupItemDelete,
-)
+
+from com_lib.crud_ops import execute_one_db
+from com_lib.crud_ops import fetch_all_db
+from com_lib.db_setup import database
+from com_lib.db_setup import groups
+from com_lib.db_setup import groups_item
+from endpoints.groups.models import GroupCreate
+from endpoints.groups.models import GroupDeactivate
+from endpoints.groups.models import GroupItemDelete
+from endpoints.groups.models import GroupTypeEnum
+from endpoints.groups.models import GroupUser
+from endpoints.groups.validation import check_id_exists
+from endpoints.groups.validation import check_unique_name
+from endpoints.groups.validation import check_user_exists
+from endpoints.groups.validation import check_user_id_exists
 
 router = APIRouter()
 
@@ -365,7 +356,14 @@ async def group_list(
 async def create_group_user(
     *,
     group: GroupUser,
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        description="Seconds to delay (max 121)",
+        ge=1,
+        le=121,
+        alias="delay",
+    ),
 ) -> dict:
     """
     POST/Create a new User. user_name (unique), firstName, lastName,
@@ -392,7 +390,7 @@ async def create_group_user(
     if group_id_exists == False:
         error: dict = {"error": f"Group ID '{check_id}' does not exist"}
         logger.warning(error)
-        return JSONResponse(status_code=400, content=error)
+        return JSONResponse(status_code=404, content=error)
 
     check_user = str(group.user)
     exist_user = await check_user_exists(user=check_user, group_id=check_id)
@@ -436,17 +434,28 @@ async def create_group_user(
 
 
 @router.delete(
-    "/user",
+    "/user/delete",
     tags=["groups"],
     response_description="The deleted item",
     responses={
         302: {"description": "Incorrect URL, redirecting"},
-        404: {"description": "Operation forbidden"},
-        405: {"description": "Method not allowed"},
+        404: {"description": "Not Found"},
+        # 405: {"description": "Method not allowed"},
         500: {"description": "Mommy!"},
     },
 )
-async def delete_group_item_user_id(*, user: GroupItemDelete) -> dict:
+async def delete_group_item_user_id(
+    *,
+    user: GroupItemDelete,
+    delay: int = Query(
+        None,
+        title=title,
+        description="Seconds to delay (max 121)",
+        ge=1,
+        le=121,
+        alias="delay",
+    ),
+) -> dict:
     """
     Delete a user by UUID
 
@@ -456,13 +465,28 @@ async def delete_group_item_user_id(*, user: GroupItemDelete) -> dict:
     Returns:
         dict -- [result: user UUID deleted]
     """
+    # sleep if delay option is used
+    if delay is not None:
+        logger.info(f"adding a delay of {delay} seconds")
+        await asyncio.sleep(delay)
+
+    check_id = str(user.id)
+    group_id_exists = await check_user_id_exists(id=check_id)
+
+    if group_id_exists == False:
+        error: dict = {"error": f"Group ID '{check_id}' does not exist"}
+        logger.warning(error)
+        return JSONResponse(status_code=404, content=error)
 
     try:
         # delete id
+        logger.critical(str(user.id))
         query = groups_item.delete().where(groups_item.c.id == user.id)
         await execute_one_db(query)
         result = {"status": f"{user.id} deleted"}
-        return result
+        return JSONResponse(status_code=200, content=result)
 
     except Exception as e:
         logger.error(f"Critical Error: {e}")
+        error: dict = {"error": f"{e}"}
+        return JSONResponse(status_code=500, content=error)

@@ -6,10 +6,13 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
 
-from com_lib.db_setup import database, todos
+from com_lib.db_setup import database
+from com_lib.db_setup import todos
 from endpoints.todo.models import TodoCreate
 
 router = APIRouter()

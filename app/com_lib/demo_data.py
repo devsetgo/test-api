@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
 import random
+import secrets
 import time
 import uuid
-from datetime import datetime, timedelta
-import secrets
+from datetime import datetime
+from datetime import timedelta
+
 import silly
 from loguru import logger
 from unsync import unsync
 
-from com_lib.db_setup import database, groups, groups_item, todos, users
+from com_lib.db_setup import database
+from com_lib.db_setup import groups
+from com_lib.db_setup import groups_item
+from com_lib.db_setup import todos
+from com_lib.db_setup import users
 from endpoints.sillyusers.gen_user import user_test_info
-from settings import NUMBER_GROUPS, NUMBER_TASKS, NUMBER_USERS
+from settings import NUMBER_GROUPS
+from settings import NUMBER_TASKS
+from settings import NUMBER_USERS
 
 number_of_tasks = NUMBER_TASKS
 number_of_users = NUMBER_USERS

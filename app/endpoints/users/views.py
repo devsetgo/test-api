@@ -16,11 +16,16 @@ user unlock
 import asyncio
 import uuid
 
-from fastapi import APIRouter, Form, Path, Query
+from fastapi import APIRouter
+from fastapi import Form
+from fastapi import Path
+from fastapi import Query
 from loguru import logger
 
-from com_lib.db_setup import database, users
-from com_lib.pass_lib import encrypt_pass, verify_pass
+from com_lib.db_setup import database
+from com_lib.db_setup import users
+from com_lib.pass_lib import encrypt_pass
+from com_lib.pass_lib import verify_pass
 from com_lib.simple_functions import get_current_datetime
 from endpoints.users.models import UserCreate
 

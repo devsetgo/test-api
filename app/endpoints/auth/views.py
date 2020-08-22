@@ -6,14 +6,12 @@ auth users
 
 """
 import asyncio
-import uuid
 
-from fastapi import APIRouter, Form, Path, Query
-from loguru import logger
+from fastapi import APIRouter
+from fastapi import Query
 
-from com_lib.pass_lib import encrypt_pass, verify_pass
-from com_lib.simple_functions import get_current_datetime
-from db_setup import database, users
+from db_setup import database
+from db_setup import users
 
 router = APIRouter()
 

@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-import json
 import logging
-import sys
 from pathlib import Path
 
 from loguru import logger
-from loguru._defaults import LOGURU_FORMAT
 
-from settings import LOGURU_LOGGING_LEVEL, LOGURU_RETENTION, LOGURU_ROTATION
+from settings import LOGURU_LOGGING_LEVEL
+from settings import LOGURU_RETENTION
+from settings import LOGURU_ROTATION
 
 
 def config_logging():

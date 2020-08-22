@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from typing import List, Optional
+from typing import List
 
-from pydantic import BaseModel, ByteSize, EmailStr, Field
+from pydantic import BaseModel
+from pydantic import EmailStr
+from pydantic import Field
 
 
 class PostMessageError(BaseModel):

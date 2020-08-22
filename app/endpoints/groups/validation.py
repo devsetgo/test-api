@@ -3,15 +3,12 @@
 Crud functions to check if users, groups or ids exist for validation
 """
 
-from com_lib.crud_ops import (
-    execute_many_db,
-    execute_one_db,
-    fetch_all_db,
-    fetch_one_db,
-)
-from com_lib.db_setup import database, groups, groups_item
 from loguru import logger
 from sqlalchemy import and_
+
+from com_lib.crud_ops import fetch_one_db
+from com_lib.db_setup import groups
+from com_lib.db_setup import groups_item
 
 
 async def check_unique_name(name: str) -> bool:
@@ -50,3 +47,15 @@ async def check_user_exists(group_id: str, user: str) -> bool:
     else:
         logger.debug(f"ID: {user} not in group")
         return False
+
+
+async def check_user_id_exists(id: str) -> bool:
+    query = groups_item.select().where(groups_item.c.id == id)
+    result = await fetch_one_db(query=query)
+    logger.debug(result)
+    if result is None:
+        logger.warning(f"Group ID: {id} does not exists")
+        return False
+    else:
+        logger.critical(f"Group ID: {id} exists")
+        return True

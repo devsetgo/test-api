@@ -3,11 +3,8 @@
 database simple functions. Pass query and where needed values and get result back
 """
 
-import logging
 
 from loguru import logger
-from sqlalchemy.sql import text
-from sqlalchemy.sql.expression import true
 
 from com_lib.db_setup import database
 
