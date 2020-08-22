@@ -17,6 +17,7 @@ router = APIRouter()
 
 title = "Delay in Seconds"
 
+
 @router.get("/list", tags=["users"])
 async def user_list(
     delay: int = Query(
