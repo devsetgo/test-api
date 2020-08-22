@@ -5,9 +5,10 @@ For local development, use a .env file to set
 environment variables.
 """
 
-from starlette.config import Config
 import os
+
 from loguru import logger
+from starlette.config import Config
 
 # get environment variables
 config = Config(".env")
@@ -26,8 +27,9 @@ if USE_ENV.lower() == "dotenv":
 
     # Demo Data
     CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=False)
-    NUMBER_TASKS = config("NUMBER_TASKS", default=100)
-    NUMBER_USERS = config("NUMBER_USERS", default=100)
+    NUMBER_TASKS = config("NUMBER_TASKS", default=0)
+    NUMBER_USERS = config("NUMBER_USERS", default=0)
+    NUMBER_GROUPS = config("NUMBER_GROUPS", default=0)
 
     # Application Configurations
     HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
@@ -35,15 +37,17 @@ if USE_ENV.lower() == "dotenv":
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
-
+    # Sendgrid
+    SENDGRID_API_KEY = config("SENDGRID_API_KEY", default="none")
     # Loguru settings
     LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
-
+    LOGURU_LOGGING_LEVEL = config("LOGURU_LOGGING_LEVEL", default="WARNING")
     # Access Token Settings
     SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
     ALGORITHM = config("ALGORITHM", default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
+
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
@@ -60,6 +64,7 @@ else:
     CREATE_SAMPLE_DATA = os.environ["CREATE_SAMPLE_DATA"]
     NUMBER_TASKS = os.environ["NUMBER_TASKS"]
     NUMBER_USERS = os.environ["NUMBER_USERS"]
+    NUMBER_GROUPS = os.environ["NUMBER_USERS"]
 
     # Application Configurations
     HOST_DOMAIN = os.environ["HOST_DOMAIN"]
@@ -68,7 +73,7 @@ else:
     # Loguru settings
     LOGURU_RETENTION = os.environ["LOGURU_RETENTION"]
     LOGURU_ROTATION = os.environ["LOGURU_ROTATION"]
-
+    LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
     # Access Token Settings
     SECRET_KEY = os.environ["SECRET_KEY"]
     ALGORITHM = os.environ["ALGORITHM"]

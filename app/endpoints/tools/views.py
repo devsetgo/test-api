@@ -12,6 +12,17 @@ from xmltodict import unparse as xml_unparse
 router = APIRouter()
 
 
+@router.post("/pypi")
+async def check_pypi(my_file: UploadFile = File(...)):
+    contents = await my_file.read()
+
+    data = contents.decode("utf-8")
+
+    result = []
+    print(data)
+    return [data]
+
+
 @router.post("/xml-json")
 async def convert_xml(myfile: UploadFile = File(...),) -> dict:
     """

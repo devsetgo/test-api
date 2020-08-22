@@ -40,5 +40,6 @@ def user_test_info():
         "phone": phone,
         "website": website,
         "description": description,
+        "is_active": random.choice([True, False]),
     }
     return result

@@ -11,8 +11,8 @@ from fastapi import Path
 from fastapi import Query
 from loguru import logger
 
-from db_setup import database
-from db_setup import todos
+from com_lib.db_setup import database
+from com_lib.db_setup import todos
 from endpoints.todo.models import TodoCreate
 
 router = APIRouter()

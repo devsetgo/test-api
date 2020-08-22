@@ -56,8 +56,9 @@ class Test(unittest.TestCase):
         save_json("test_data_users.json", user_data)
 
     def test_users_post_two(self):
-        test_user = user_test_info()
-        url = f"/api/v1/users/create/?delay=1"
+        for _ in range(2):
+            test_user = user_test_info()
+            url = f"/api/v1/users/create/?delay=1"
 
-        response = client.post(url, json=test_user)
-        assert response.status_code == 200
+            response = client.post(url, json=test_user)
+            assert response.status_code == 200

@@ -3,7 +3,7 @@ import unittest
 
 from starlette.testclient import TestClient
 
-from app.health.checks import get_platform
+from app.endpoints.health.checks import get_platform
 from app.main import app
 
 client = TestClient(app)
