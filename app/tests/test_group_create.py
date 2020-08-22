@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-import unittest
+import random
 import secrets
+import unittest
+
 from starlette.testclient import TestClient
 
 from app.com_lib.file_functions import save_json
@@ -46,12 +48,12 @@ class Test(unittest.TestCase):
 
     def test_groups_post_two(self):
         count = 10
-        for _ in range(2):
+        for _ in range(20):
             test_data = {
                 "name": f"test{secrets.token_hex(4)}",
                 "description": "test group",
                 "group_type": "notification",
-                "is_active": False,
+                "is_active": random.choice([True, False]),
             }
             url = f"/api/v1/groups/create"
             count += 10
@@ -68,18 +70,5 @@ class Test(unittest.TestCase):
         }
         url = f"/api/v1/groups/create"
         response = client.post(url, json=test_data)
-        response = client.post(url, json=test_data)
-        assert response.status_code == 400
-
-    def test_groups_post(self):
-        test_data = {
-            "name": f"test{secrets.token_hex(4)}",
-            "description": "test group",
-            "group_type": "test",
-            "is_active": True,
-        }
-        save_json("test_data_test_user.json", test_data)
-        url = f"/api/v1/groups/create?delay=1"
-
         response = client.post(url, json=test_data)
         assert response.status_code == 400

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
-import secrets
+
 from starlette.testclient import TestClient
 
-from app.com_lib.file_functions import save_json, open_json
+from app.com_lib.file_functions import open_json
 from app.main import app
 
 client = TestClient(app)
