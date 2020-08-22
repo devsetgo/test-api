@@ -16,7 +16,7 @@ from sqlalchemy.pool import QueuePool
 from settings import SQLALCHEMY_DATABASE_URI
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=10, pool_size=100
+    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=20, pool_size=200
 )
 metadata = MetaData()
 database = databases.Database(SQLALCHEMY_DATABASE_URI)
@@ -24,17 +24,17 @@ database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
 def create_db():
     metadata.create_all(engine)
-    logger.info(f"Creating tables")
+    logger.info("Creating tables")
 
 
 async def connect_db():
     await database.connect()
-    logger.info(f"connecting to database")
+    logger.info("connecting to database")
 
 
 async def disconnect_db():
     await database.disconnect()
-    logger.info(f"disconnecting from database")
+    logger.info("disconnecting from database")
 
 
 users = Table(

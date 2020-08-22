@@ -46,7 +46,7 @@ async def todo_list(
         query = todos.select()
         x = await database.fetch_all(query)
 
-    logger.info(f"todo list accessed")
+    logger.info("todo list accessed")
     result = x
     return result
 

@@ -28,27 +28,30 @@ currentTime = datetime.now()
 
 
 def create_data():
-    logger.warning(f"DEMO Data Initialization is TRUE")
-    logger.info(f"Starting process demo data")
+    logger.warning("DEMO Data Initialization is TRUE")
+    logger.info("Starting process demo data")
     user_count = count_users().result()
     task_count = count_tasks().result()
     group_count = count_groups().result()
 
     if int(user_count) == 0:
         create_users(int(number_of_users))
+        time.sleep(1)
     else:
-        logger.info(f"existing data, sample users will not be created")
+        logger.info("existing data, sample users will not be created")
 
     if int(task_count) == 0:
         create_tasks(int(number_of_tasks))
+        time.sleep(1)
     else:
-        logger.info(f"existing data, sample tasks will not be created")
+        logger.info("existing data, sample tasks will not be created")
 
     if int(group_count) == 0:
         create_groups(int(number_of_groups))
+        time.sleep(1)
     else:
-        logger.info(f"existing data, sample groups will not be created")
-        logger.warning(f"DEMO DATA INITIALIZATION IS TRUE")
+        logger.info("existing data, sample groups will not be created")
+        logger.warning("DEMO DATA INITIALIZATION IS TRUE")
 
 
 @unsync
@@ -159,7 +162,7 @@ async def db_user_call(new_user: dict):
         logger.info(f"db user call: {result}")
         return result
     except Exception as e:
-        logger.error(f"Critical Error: {e}")
+        logger.critical(f"Critical Error: {e}")
 
 
 @unsync
@@ -181,7 +184,7 @@ async def db_group_call(group_information: dict):
         query = groups.insert()
         values = group_information
         await database.execute(query, values)
-        result = {"todo_id": group_information["id"]}
+        result = {"id": group_information["id"]}
         logger.info(f"db group call: {result}")
         return result
     except Exception as e:

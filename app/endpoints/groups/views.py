@@ -166,7 +166,7 @@ async def deactivate_group(
 
     id_exists = await check_id_exists(group.id)
 
-    if id_exists == False:
+    if id_exists is False:
         error: dict = {"error": f"Group ID: '{group.id}' not found"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
@@ -194,8 +194,7 @@ async def deactivate_group(
     except Exception as e:
         error: dict = {"error": str(e)}
         logger.debug(e)
-        logger.critical(type(e))
-        logger.critical(f"Critical Error: {e}")
+        logger.critical(error)
         return JSONResponse(status_code=400, content=error)
 
 
@@ -242,7 +241,8 @@ async def create_group(
     group_type_check: list = ["approval", "notification"]
     if group.group_type not in group_type_check:
         error: dict = {
-            "error": f"Group Type '{group.group_type}' is not 'approval' or 'notification'"
+            "error": f"Group Type '{group.group_type}'\
+                 is not 'approval' or 'notification'"
         }
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
@@ -251,7 +251,7 @@ async def create_group(
     duplicate = await check_unique_name(check_name)
 
     try:
-        if duplicate == False:
+        if duplicate is False:
             error: dict = {"error": f"Group Name '{group.name}' is a duplicate"}
             logger.warning(error)
             return JSONResponse(status_code=400, content=error)
@@ -282,9 +282,7 @@ async def create_group(
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
         error: dict = {"error": str(e)}
-        logger.debug(e)
-        logger.critical(type(e))
-        logger.critical(f"Critical Error: {e}")
+        logger.critical(error)
         return JSONResponse(status_code=400, content=error)
 
 
@@ -322,7 +320,7 @@ async def group_list(
         await asyncio.sleep(delay)
     # check if ID exists
     id_exists = await check_id_exists(group_id)
-    if id_exists == False:
+    if id_exists is False:
         error: dict = {"error": f"Group ID: '{group_id}' not found"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
@@ -387,7 +385,7 @@ async def create_group_user(
     check_id = str(group.group_id)
     group_id_exists = await check_id_exists(id=check_id)
 
-    if group_id_exists == False:
+    if group_id_exists is False:
         error: dict = {"error": f"Group ID '{check_id}' does not exist"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
@@ -395,7 +393,7 @@ async def create_group_user(
     check_user = str(group.user)
     exist_user = await check_user_exists(user=check_user, group_id=check_id)
 
-    if exist_user == True:
+    if exist_user is True:
         error: dict = {"error": f"User ID '{check_id}' already in group"}
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
@@ -422,13 +420,11 @@ async def create_group_user(
     except Exception as e:
         error: dict = {"error": str(e)}
         logger.debug(e)
-        logger.critical(type(e))
         logger.critical(f"Critical Error: {e}")
         return JSONResponse(status_code=400, content=error)
     except ValueError as e:
         error: dict = {"error": e}
         logger.debug(e)
-        logger.critical(type(e))
         logger.critical(f"Critical Error: {e}")
         return JSONResponse(status_code=400, content=error)
 
@@ -473,20 +469,20 @@ async def delete_group_item_user_id(
     check_id = str(user.id)
     group_id_exists = await check_user_id_exists(id=check_id)
 
-    if group_id_exists == False:
+    if group_id_exists is False:
         error: dict = {"error": f"Group ID '{check_id}' does not exist"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
 
     try:
         # delete id
-        logger.critical(str(user.id))
+        logger.debug(str(user.id))
         query = groups_item.delete().where(groups_item.c.id == user.id)
         await execute_one_db(query)
         result = {"status": f"{user.id} deleted"}
         return JSONResponse(status_code=200, content=result)
 
     except Exception as e:
-        logger.error(f"Critical Error: {e}")
         error: dict = {"error": f"{e}"}
+        logger.error(error)
         return JSONResponse(status_code=500, content=error)
