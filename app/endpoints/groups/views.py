@@ -246,7 +246,7 @@ async def create_group(
         }
         logger.warning(error)
         return JSONResponse(status_code=400, content=error)
-        b
+        
     check_name = str(group.name)
     duplicate = await check_unique_name(check_name)
 
