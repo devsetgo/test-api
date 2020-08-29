@@ -19,6 +19,7 @@ from endpoints.health import views as health
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
+from endpoints.textblob import views as textblob
 from endpoints.users import views as users
 from settings import APP_VERSION
 from settings import CREATE_SAMPLE_DATA
@@ -65,10 +66,7 @@ app.include_router(
 app.include_router(
     users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
 )
-# Converter router
-app.include_router(
-    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
-)
+
 # email_service
 app.include_router(
     email_service.router,
@@ -84,7 +82,17 @@ app.include_router(
     tags=["silly users"],
     responses=four_zero_four,
 )
-
+# Tools router
+app.include_router(
+    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
+)
+# Text router
+app.include_router(
+    textblob.router,
+    prefix="/api/v1/textblob",
+    tags=["textblob"],
+    responses=four_zero_four,
+)
 # Health router
 app.include_router(
     health.router,
