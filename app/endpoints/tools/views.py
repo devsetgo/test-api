@@ -12,17 +12,6 @@ from xmltodict import unparse as xml_unparse
 router = APIRouter()
 
 
-@router.post("/pypi")
-async def check_pypi(my_file: UploadFile = File(...)):
-    contents = await my_file.read()
-
-    data = contents.decode("utf-8")
-
-    result = []
-    print(data)
-    return [data]
-
-
 @router.post("/xml-json")
 async def convert_xml(myfile: UploadFile = File(...),) -> dict:
     """
@@ -57,7 +46,7 @@ async def convert_xml(myfile: UploadFile = File(...),) -> dict:
         result = xml_parse(
             contents, encoding="utf-8", process_namespaces=True, xml_attribs=True
         )
-        logger.info(f"file converted to JSON")
+        logger.info("file converted to JSON")
         return result
 
     except Exception as e:
@@ -103,7 +92,7 @@ async def convert_json(myfile: UploadFile = File(...),) -> str:
         new_dict = json.loads(content.decode("utf8"))
         # xml to json conversion with xmltodict
         result = xml_unparse(new_dict, pretty=True)
-        logger.info(f"file converted to JSON")
+        logger.info("file converted to JSON")
         return result
 
     except Exception as e:

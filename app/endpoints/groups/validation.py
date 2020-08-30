@@ -31,7 +31,7 @@ async def check_id_exists(id: str) -> bool:
         logger.warning(f"Group ID: {id} does not exists")
         return False
     else:
-        logger.critical(f"Group ID: {id} exists")
+        logger.info(f"Group ID: {id} found")
         return True
 
 

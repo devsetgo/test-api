@@ -45,7 +45,7 @@ async def health_status() -> dict:
             "current_datetime": str(datetime.datetime.now()),
             "system_info": system_info,
         }
-        logger.info(f"GET system info")
+        logger.info("GET system info")
         return result
         # TODO: make more specific Exception
         # BODY: Exception is generic and should be more specific or removed.
@@ -69,7 +69,7 @@ async def health_processes() -> dict:
             # uvicorn, hypercorn, and daphne pids for security",
             "running_processes": system_info,
         }
-        logger.info(f"GET processes")
+        logger.info("GET processes")
         return result
     except Exception as e:
         logger.error(f"Error: {e}")

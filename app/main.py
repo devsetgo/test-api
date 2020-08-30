@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pyjokes
 import uvicorn
 from fastapi import FastAPI
@@ -18,6 +19,7 @@ from endpoints.health import views as health
 from endpoints.sillyusers import views as silly_users
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
+from endpoints.textblob import views as textblob
 from endpoints.users import views as users
 from settings import APP_VERSION
 from settings import CREATE_SAMPLE_DATA
@@ -26,7 +28,9 @@ from settings import LICENSE_LINK
 from settings import LICENSE_TYPE
 from settings import OWNER
 from settings import RELEASE_ENV
-from settings import WEBSITE
+from settings import WEBSITE, HTTPS_ON
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 # config logging start
 config_logging()
@@ -42,9 +46,12 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 logger.info("API App initiated")
+# Add general middelware
+# Add prometheus
 app.add_middleware(PrometheusMiddleware)
-
-
+# Add GZip
+app.add_middleware(GZipMiddleware, minimum_size=500)
+# 404
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # Group router
@@ -59,10 +66,7 @@ app.include_router(
 app.include_router(
     users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
 )
-# Converter router
-app.include_router(
-    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
-)
+
 # email_service
 app.include_router(
     email_service.router,
@@ -78,7 +82,17 @@ app.include_router(
     tags=["silly users"],
     responses=four_zero_four,
 )
-
+# Tools router
+app.include_router(
+    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
+)
+# Text router
+app.include_router(
+    textblob.router,
+    prefix="/api/v1/textblob",
+    tags=["textblob"],
+    responses=four_zero_four,
+)
 # Health router
 app.include_router(
     health.router,
@@ -93,13 +107,15 @@ app.include_router(socket.router,prefix="/api/v1/websocket",
 tags=["websocket"],responses=four_zero_four,)
 """
 
-# startup events
+
 @app.on_event("startup")
 async def startup_event():
-
+    """
+    Startup events for application
+    """
     try:
         await database.connect()
-        logger.info(f"Connecting to database")
+        logger.info("Connecting to database")
 
     except Exception as e:
         logger.info(f"Error: {e}")
@@ -107,18 +123,25 @@ async def startup_event():
 
     # initiate log with statement
     if RELEASE_ENV.lower() == "dev":
-        logger.debug(f"Initiating logging for API")
+        logger.debug("Initiating logging for API")
         logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
         if CREATE_SAMPLE_DATA == "True":
             create_data()
             logger.info("Create Data")
-
     else:
         logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
-    if CREATE_SAMPLE_DATA is True:
+    if CREATE_SAMPLE_DATA == "True":
         create_data()
+
+    if HTTPS_ON == "True":
+        app.add_middleware(HTTPSRedirectMiddleware)
+        logger.warning(
+            f"HTTPS is set to {HTTPS_ON} and will required HTTPS connections"
+        )
+
+    app.add_route("/api/health/metrics", handle_metrics)
 
 
 @app.on_event("shutdown")
@@ -213,9 +236,6 @@ async def info():
         "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
     }
     return result
-
-
-app.add_route("/api/health/metrics", handle_metrics)
 
 
 if __name__ == "__main__":

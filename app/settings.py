@@ -6,13 +6,16 @@ environment variables.
 """
 
 import os
-
+import secrets
 from loguru import logger
 from starlette.config import Config
 
 # get environment variables
 config = Config(".env")
 USE_ENV = config("USE_ENV", default="docker")
+
+SECRET_KEY = secrets.token_urlsafe(64)
+
 
 if USE_ENV.lower() == "dotenv":
     logger.info(f"USE_ENV set to {USE_ENV}. Using .env file for external configuration")
@@ -34,6 +37,7 @@ if USE_ENV.lower() == "dotenv":
     # Application Configurations
     HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
     RELEASE_ENV = config("RELEASE_ENV", default="prd")
+    HTTPS_ON = config("HTTPS_ON", default=True)
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
@@ -44,7 +48,7 @@ if USE_ENV.lower() == "dotenv":
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
     LOGURU_LOGGING_LEVEL = config("LOGURU_LOGGING_LEVEL", default="WARNING")
     # Access Token Settings
-    SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
+
     ALGORITHM = config("ALGORITHM", default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
 
@@ -69,12 +73,12 @@ else:
     # Application Configurations
     HOST_DOMAIN = os.environ["HOST_DOMAIN"]
     RELEASE_ENV = os.environ["RELEASE_ENV"]
-    SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"]
+    HTTPS_ON = os.environ["HTTPS_ON"]
+    # SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"]
     # Loguru settings
     LOGURU_RETENTION = os.environ["LOGURU_RETENTION"]
     LOGURU_ROTATION = os.environ["LOGURU_ROTATION"]
     LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
     # Access Token Settings
-    SECRET_KEY = os.environ["SECRET_KEY"]
     ALGORITHM = os.environ["ALGORITHM"]
     ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]

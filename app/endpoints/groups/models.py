@@ -18,7 +18,7 @@ class GroupsBase(BaseModel):
         title="The unique name for the group",
         min_length=1,
         max_length=50,
-        regex="^\w+$",
+        regex="^\\w+$",
         example="AlphaNumericOnly",
     )
     description: str = Field(

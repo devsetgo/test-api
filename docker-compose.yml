@@ -28,6 +28,8 @@ services:
       HOST_DOMAIN: https://your.domain.com
       #prd for production or dev for development
       RELEASE_ENV: dev
+      # Turn HTTPS Middleware on (True) or off (False)
+      HTTPS_ON: True
       SQLALCHEMY_DATABASE_URI: sqlite:///sqlite_db/api.db
       SECRET_KEY: 'a-secret-key'
       ALGORITHM: "HS256"
