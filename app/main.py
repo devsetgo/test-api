@@ -28,7 +28,7 @@ from settings import LICENSE_LINK
 from settings import LICENSE_TYPE
 from settings import OWNER
 from settings import RELEASE_ENV
-from settings import WEBSITE, HTTPS_ON
+from settings import WEBSITE, HTTPS_ON, ADD_DEFAULT_GROUP
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
@@ -140,6 +140,9 @@ async def startup_event():
         logger.warning(
             f"HTTPS is set to {HTTPS_ON} and will required HTTPS connections"
         )
+    if ADD_DEFAULT_GROUP == "True":
+        logger.warning(f"Adding Default group")
+        await groups.add_default(add_default=ADD_DEFAULT_GROUP)
 
     app.add_route("/api/health/metrics", handle_metrics)
 

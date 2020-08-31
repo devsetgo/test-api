@@ -16,7 +16,7 @@ user unlock
 import asyncio
 import uuid
 from datetime import datetime
-
+import time
 from fastapi import APIRouter
 from fastapi import Query
 from fastapi import status
@@ -25,7 +25,7 @@ from fastapi.responses import ORJSONResponse
 from loguru import logger
 
 from com_lib.crud_ops import execute_one_db
-from com_lib.crud_ops import fetch_all_db
+from com_lib.crud_ops import fetch_all_db,fetch_one_db
 from com_lib.db_setup import database
 from com_lib.db_setup import groups
 from com_lib.db_setup import groups_item
@@ -42,6 +42,37 @@ from endpoints.groups.validation import check_user_id_exists
 router = APIRouter()
 
 title = "Delay in Seconds"
+
+
+async def add_default(add_default: str):
+    # check if default is true
+    if add_default == "True":
+        # check if default exists
+        default_exists = await check_unique_name(name="default")
+        # if does not exist
+        if default_exists == True:
+
+            group_id = uuid.uuid4()
+            group_data = {
+                "id": str(group_id),
+                "name": "default",
+                "is_active": True,
+                "description": "Default group",
+                "group_type": "approval",
+                "date_create": datetime.now(),
+                "date_update": datetime.now(),
+            }
+            logger.warning(f'Creating group {group_data}')
+            # create group
+            query = groups.insert()
+            group_result = await execute_one_db(query=query, values=group_data)
+            time.sleep(1)
+            user_id = str(uuid.uuid4())
+            user_data = {"id": user_id, "user": "admin", "group_id": str(group_id)}
+            logger.warning(f'Creating group {user_data}')
+            # create group
+            query = groups_item.insert()
+            group_result = await execute_one_db(query=query, values=user_data)
 
 
 @router.get("/list", tags=["groups"])
@@ -286,9 +317,21 @@ async def create_group(
         return JSONResponse(status_code=400, content=error)
 
 
-@router.get("/group/{group_id}", tags=["groups"])
+@router.get("/group", tags=["groups"])
 async def group_list(
-    group_id: str,
+    
+    group_id: str = Query(
+        None,
+        title="Group ID",
+        description="Get by the Group UUID",
+        alias="groupId",
+    ),
+    group_name: str = Query(
+        None,
+        title="Group Name",
+        description="Get by the Group Name",
+        alias="groupName",
+    ),
     delay: int = Query(
         None,
         title=title,
@@ -318,22 +361,49 @@ async def group_list(
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
-    # check if ID exists
-    id_exists = await check_id_exists(group_id)
-    if id_exists is False:
-        error: dict = {"error": f"Group ID: '{group_id}' not found"}
+    
+    # if search by ID
+    # if search by ID
+    if group_id is not None:
+
+        id_exists = await check_id_exists(group_id)
+        if id_exists is False:
+            error: dict = {"error": f"Group ID: '{group_id}' not found"}
+            logger.warning(error)
+            return JSONResponse(status_code=404, content=error)
+        
+    # elif search by name
+    elif group_name is not None:
+        
+        name_exists = await check_unique_name(group_name)
+        if name_exists is True:
+            error: dict = {"error": f"Group Name: '{group_name}' not found"}
+            logger.warning(error)
+            return JSONResponse(status_code=404, content=error)
+        
+        
+        query = groups.select().where(groups.c.name == group_name)
+        name_result = await fetch_one_db(query=query)
+        group_id = name_result['id']
+    # else at least one needs to be selected
+    else:
+        error: dict = {"error": f"groupId or groupName must be used"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
+
+    
     query = groups_item.select().where(groups_item.c.group_id == group_id)
     db_result = await fetch_all_db(query=query)
 
     users_list: list = []
+    user_dict: dict = []
     for r in db_result:
         logger.debug(r)
         user_data: dict = {"id": r["id"], "user": r["user"]}
-        users_list.append(user_data)
-    result = {"group_id": group_id, "count": len(users_list), "users": users_list}
-    return result
+        user_dict.append(user_data)
+        users_list.append(r["user"])
+    result = {"group_id": group_id, "count": len(users_list), "users": users_list,"user_info": user_dict}
+    return JSONResponse(status_code=200, content=result)
 
 
 @router.post(

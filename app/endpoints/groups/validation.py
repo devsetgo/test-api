@@ -16,7 +16,7 @@ async def check_unique_name(name: str) -> bool:
     result = await fetch_one_db(query=query)
     logger.debug(result)
     if result is not None:
-        logger.debug("duplicate value")
+        logger.debug(f"existing name {name}")
         return False
     else:
         logger.debug("no duplicate value")
