@@ -10,7 +10,8 @@ client = TestClient(app)
 
 directory_to__files: str = "data"
 
-base_url: str =  'api/v1/textblob'
+base_url: str = "api/v1/textblob"
+
 
 class Test(unittest.TestCase):
     # text endpoint
@@ -44,7 +45,6 @@ class Test(unittest.TestCase):
         response = client.post(url, files=files)
         assert response.status_code == 422
 
-
     def test_sentiment_delay_error(self):
         file_directory = f"{directory_to__files}/testfiles"
         directory_path = Path.cwd().joinpath(file_directory)
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         directory_path = Path.cwd().joinpath(file_directory)
         file_path = f"{directory_path}/negative_sent.txt"
 
-        url = f"{base_url}/sentiment"
+        url = f"{base_url}/sentiment?delay=1"
         files = {"myfile": open(file_path, "r")}
         response = client.post(url, files=files)
         assert response.status_code == 201
