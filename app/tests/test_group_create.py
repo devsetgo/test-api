@@ -46,8 +46,8 @@ class Test(unittest.TestCase):
         response = client.post(url, json=test_data)
         assert response.status_code == 400
 
-    def test_groups_post_two(self):
-        count = 10
+    def test_groups_post_many(self):
+
         for _ in range(20):
             test_data = {
                 "name": f"test{secrets.token_hex(4)}",
@@ -56,7 +56,7 @@ class Test(unittest.TestCase):
                 "is_active": random.choice([True, False]),
             }
             url = f"/api/v1/groups/create"
-            count += 10
+
             response = client.post(url, json=test_data)
             assert response.status_code == 201
 

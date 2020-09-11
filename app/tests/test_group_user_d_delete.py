@@ -6,7 +6,7 @@ from starlette.testclient import TestClient
 
 from app.com_lib.file_functions import open_json
 from app.main import app
-from app.tests.test_group_update import base_url
+
 
 client = TestClient(app)
 directory_to__files: str = "data"

@@ -52,7 +52,7 @@ if USE_ENV.lower() == "dotenv":
     # ALGORITHM = config("ALGORITHM", default="HS256")
     # ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
     ADD_DEFAULT_GROUP = config("ADD_DEFAULT_GROUP", default="True")
-    
+
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\

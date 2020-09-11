@@ -25,7 +25,7 @@ from fastapi.responses import ORJSONResponse
 from loguru import logger
 
 from com_lib.crud_ops import execute_one_db
-from com_lib.crud_ops import fetch_all_db,fetch_one_db
+from com_lib.crud_ops import fetch_all_db, fetch_one_db
 from com_lib.db_setup import database
 from com_lib.db_setup import groups
 from com_lib.db_setup import groups_item
@@ -62,14 +62,14 @@ async def add_default(add_default: str):
                 "date_create": datetime.now(),
                 "date_update": datetime.now(),
             }
-            logger.warning(f'Creating group {group_data}')
+            logger.warning(f"Creating group {group_data}")
             # create group
             query = groups.insert()
             group_result = await execute_one_db(query=query, values=group_data)
             time.sleep(1)
             user_id = str(uuid.uuid4())
             user_data = {"id": user_id, "user": "admin", "group_id": str(group_id)}
-            logger.warning(f'Creating group {user_data}')
+            logger.warning(f"Creating group {user_data}")
             # create group
             query = groups_item.insert()
             group_result = await execute_one_db(query=query, values=user_data)
@@ -319,12 +319,8 @@ async def create_group(
 
 @router.get("/group", tags=["groups"])
 async def group_list(
-    
     group_id: str = Query(
-        None,
-        title="Group ID",
-        description="Get by the Group UUID",
-        alias="groupId",
+        None, title="Group ID", description="Get by the Group UUID", alias="groupId",
     ),
     group_name: str = Query(
         None,
@@ -361,7 +357,7 @@ async def group_list(
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
-    
+
     # if search by ID
     # if search by ID
     if group_id is not None:
@@ -371,27 +367,25 @@ async def group_list(
             error: dict = {"error": f"Group ID: '{group_id}' not found"}
             logger.warning(error)
             return JSONResponse(status_code=404, content=error)
-        
+
     # elif search by name
     elif group_name is not None:
-        
+
         name_exists = await check_unique_name(group_name)
         if name_exists is True:
             error: dict = {"error": f"Group Name: '{group_name}' not found"}
             logger.warning(error)
             return JSONResponse(status_code=404, content=error)
-        
-        
+
         query = groups.select().where(groups.c.name == group_name)
         name_result = await fetch_one_db(query=query)
-        group_id = name_result['id']
+        group_id = name_result["id"]
     # else at least one needs to be selected
     else:
         error: dict = {"error": f"groupId or groupName must be used"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
 
-    
     query = groups_item.select().where(groups_item.c.group_id == group_id)
     db_result = await fetch_all_db(query=query)
 
@@ -402,7 +396,12 @@ async def group_list(
         user_data: dict = {"id": r["id"], "user": r["user"]}
         user_dict.append(user_data)
         users_list.append(r["user"])
-    result = {"group_id": group_id, "count": len(users_list), "users": users_list,"user_info": user_dict}
+    result = {
+        "group_id": group_id,
+        "count": len(users_list),
+        "users": users_list,
+        "user_info": user_dict,
+    }
     return JSONResponse(status_code=200, content=result)
 
 

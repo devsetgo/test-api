@@ -58,6 +58,13 @@ four_zero_four = {404: {"description": "Not found"}}
 app.include_router(
     groups.router, prefix="/api/v1/groups", tags=["groups"], responses=four_zero_four,
 )
+# Text router
+app.include_router(
+    textblob.router,
+    prefix="/api/v1/textblob",
+    tags=["textblob"],
+    responses=four_zero_four,
+)
 # ToDo router
 app.include_router(
     todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
@@ -86,13 +93,7 @@ app.include_router(
 app.include_router(
     tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
 )
-# Text router
-app.include_router(
-    textblob.router,
-    prefix="/api/v1/textblob",
-    tags=["textblob"],
-    responses=four_zero_four,
-)
+
 # Health router
 app.include_router(
     health.router,

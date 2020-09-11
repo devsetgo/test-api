@@ -7,6 +7,7 @@ from fastapi import File
 from fastapi import UploadFile, File
 from loguru import logger
 
+from fastapi.responses import JSONResponse
 from fastapi.responses import ORJSONResponse
 from fastapi import UploadFile
 from fastapi import Query
@@ -51,6 +52,12 @@ async def spell_check(
     file_text = await myfile.read()
     tb = TextBlob(file_text.decode("utf-8"))
     original_text = file_text.decode("utf-8")
+    logger.debug(f"file text size {len(original_text)}")
+
+    if len(original_text) == 0:
+        error: dict = {"error": f"The file is empty or unreadable"}
+        logger.warning(error)
+        return ORJSONResponse(status_code=400, content=error)
 
     data: dict = {
         "original": original_text,
@@ -98,6 +105,11 @@ async def sentiment_check(
     file_text = await myfile.read()
     tb = TextBlob(file_text.decode("utf-8"))
     original_text = file_text.decode("utf-8")
+
+    if len(original_text) == 0:
+        error: dict = {"error": f"The file is empty or unreadable"}
+        logger.warning(error)
+        return ORJSONResponse(status_code=400, content=error)
 
     data: dict = {
         "original": original_text,

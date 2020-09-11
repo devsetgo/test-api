@@ -415,14 +415,14 @@ async def create_user(
 )
 async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> dict:
     """
-        Check password function
+    Check password function
 
-        Keyword Arguments:
-            user_name {str} -- [description] existing user_name required
-            password {str} -- [description] password required
+    Keyword Arguments:
+        user_name {str} -- [description] existing user_name required
+        password {str} -- [description] password required
 
-        Returns:
-            [Dict] -- [result: bool]
+    Returns:
+        [Dict] -- [result: bool]
     """
     try:
         # Fetch single row
