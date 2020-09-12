@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import secrets
 import unittest
-import pytest
+
 from starlette.testclient import TestClient
 
 from app.com_lib.file_functions import open_json

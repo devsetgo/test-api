@@ -48,7 +48,7 @@ async def spell_check(
     logger.debug(f"file text size {len(original_text)}")
 
     if len(original_text) == 0:
-        error: dict = {"error": f"The file is empty or unreadable"}
+        error: dict = {"error": "The file is empty or unreadable"}
         logger.warning(error)
         return ORJSONResponse(status_code=400, content=error)
 
@@ -100,7 +100,7 @@ async def sentiment_check(
     original_text = file_text.decode("utf-8")
 
     if len(original_text) == 0:
-        error: dict = {"error": f"The file is empty or unreadable"}
+        error: dict = {"error": "The file is empty or unreadable"}
         logger.warning(error)
         return ORJSONResponse(status_code=400, content=error)
 

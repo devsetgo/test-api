@@ -29,7 +29,7 @@ database = databases.Database(SQLALCHEMY_DATABASE_URI)
 
 def create_db():
     metadata.create_all(engine)
-    logger.info(f"Creating tables")
+    logger.info("Creating tables")
 
 
 async def connect_db():

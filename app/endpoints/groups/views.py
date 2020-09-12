@@ -23,10 +23,8 @@ from loguru import logger
 
 from com_lib.crud_ops import execute_one_db, fetch_all_db, fetch_one_db
 from com_lib.db_setup import database, groups, groups_item
-
 from endpoints.groups.models import (
     GroupCreate,
-    GroupDeactivate,
     GroupItemDelete,
     GroupTypeEnum,
     GroupUser,
@@ -70,21 +68,6 @@ async def group_list(
     ),
 ) -> dict:
 
-    """
-    list of users
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
-        qty {int} -- [description] 100 returned results is default,
-        maximum is 500
-        offset {int} -- [description] 0 seconds default
-        Active {bool} -- [description] no default as not required,
-        must be Active=true or false if used
-
-    Returns:
-        dict -- [description]
-
-    """
     criteria = []
     # sleep if delay option is used
     if delay is not None:
@@ -98,6 +81,9 @@ async def group_list(
 
     if is_active is not None:
         criteria.append((groups.c.is_active, is_active))
+
+    if group_type is not None:
+        criteria.append((groups.c.group_type, group_type))
 
     query = groups.select().order_by(groups.c.date_create).limit(qty).offset(offset)
     count_query = groups.select()
@@ -124,10 +110,69 @@ async def group_list(
     return result
 
 
+@router.get("/list/count", tags=["groups"])
+async def group_list_count(
+    delay: int = Query(
+        None,
+        title=title,
+        description="Seconds to delay (max 121)",
+        ge=1,
+        le=121,
+        alias="delay",
+    ),
+    is_active: bool = Query(None, title="by active status", alias="active"),
+    group_type: GroupTypeEnum = Query(
+        None, title="groupType", description="Type of group", alias="groupType"
+    ),
+) -> dict:
+    """[summary]
+
+    Args:
+        delay (int, optional): [description]. Defaults to Query( None, title=title,
+        description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
+        is_active (bool, optional): [description]. Defaults to Query(None,
+        title="by active status", alias="active").
+        group_type (GroupTypeEnum, optional): [description]. Defaults to Query( None,
+        title="groupType", description="Type of group", alias="groupType" ).
+
+    Returns:
+        dict: [count of groups]
+    """
+    criteria = []
+    # sleep if delay option is used
+    if delay is not None:
+        await asyncio.sleep(delay)
+
+    if is_active is not None:
+        criteria.append((groups.c.is_active, is_active))
+
+    if group_type is not None:
+        criteria.append((groups.c.group_type, group_type))
+
+    query = groups.select().order_by(groups.c.date_create)
+    count_query = groups.select()
+
+    for crit in criteria:
+        col, val = crit
+        query = query.where(col == val)
+        count_query = count_query.where(col == val)
+
+    total_count = await database.fetch_all(count_query)
+
+    result = {
+        "parameters": {
+            "total_count": len(total_count),
+            "filter": is_active,
+            "delay": delay,
+        },
+    }
+    return result
+
+
 @router.put(
     "/deactivate",
     tags=["groups"],
-    response_description="The created item",
+    response_description="Activated ID",
     response_class=ORJSONResponse,
     status_code=201,
     responses={
@@ -135,13 +180,13 @@ async def group_list(
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
         404: {"description": "Not Found"},
-        # 405: {"description": "Method not allowed"},
+        405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
 async def deactivate_group(
     *,
-    group: GroupDeactivate,
+    id: str = Query(None, title="group id", alias="id",),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
     """
@@ -163,31 +208,107 @@ async def deactivate_group(
         logger.info(f"adding a delay of {delay} seconds")
         await asyncio.sleep(delay)
 
-    id_exists = await check_id_exists(group.id)
+    id_exists = await check_id_exists(id)
 
     if id_exists is False:
-        error: dict = {"error": f"Group ID: '{group.id}' not found"}
+        error: dict = {"error": f"Group ID: '{id}' not found"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
+
     try:
 
         group_data = {
             # "id": group.id,
-            "is_active": group.is_active,
+            "is_active": False,
             "date_update": datetime.now(),
         }
         logger.debug(group_data)
         # create group
-        query = groups.update().where(groups.c.id == group.id)
+        query = groups.update().where(groups.c.id == id)
         group_result = await execute_one_db(query=query, values=group_data)
+        logger.debug(str(group_result))
 
-        if "error" in group_result:
-            error: dict = group_result
-            logger.critical(error)
-            return JSONResponse(status_code=400, content=error)
+        # if "error" in group_result:
+        #     error: dict = group_result
+        #     logger.critical(error)
+        #     return JSONResponse(status_code=400, content=error)
 
         # data result
-        full_result: dict = {"id": group.id, "status": group_result}
+        full_result: dict = {"id": id, "status": "active"}
+        logger.debug(full_result)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
+    except Exception as e:
+        error: dict = {"error": str(e)}
+        logger.debug(e)
+        logger.critical(error)
+        return JSONResponse(status_code=400, content=error)
+
+
+@router.put(
+    "/activate",
+    tags=["groups"],
+    response_description="Activated ID",
+    response_class=ORJSONResponse,
+    status_code=201,
+    responses={
+        # 302: {"description": "Incorrect URL, redirecting"},
+        400: {"description": "Bad Request"},
+        422: {"description": "Validation Error"},
+        404: {"description": "Not Found"},
+        405: {"description": "Method not allowed"},
+        500: {"description": "All lines are busy, try again later."},
+    },
+)
+async def activate_group(
+    *,
+    id: str = Query(None, title="group id", alias="id",),
+    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+) -> dict:
+    """
+    POST/Create a new User. user_name (unique), firstName, lastName,
+    and password are required. All other fields are optional.
+
+    Arguments:
+        user {UserCreate} -- [description]
+
+    Keyword Arguments:
+        delay {int} -- [description] 0 seconds default, maximum is 122
+
+    Returns:
+        dict -- [user_id: uuid, user_name: user_name]
+    """
+
+    # sleep if delay option is used
+    if delay is not None:
+        logger.info(f"adding a delay of {delay} seconds")
+        await asyncio.sleep(delay)
+
+    id_exists = await check_id_exists(id)
+
+    if id_exists is False:
+        error: dict = {"error": f"Group ID: '{id}' not found"}
+        logger.warning(error)
+        return JSONResponse(status_code=404, content=error)
+
+    try:
+
+        group_data = {
+            # "id": group.id,
+            "is_active": True,
+            "date_update": datetime.now(),
+        }
+        logger.debug(group_data)
+        # create group
+        query = groups.update().where(groups.c.id == id)
+        group_result = await execute_one_db(query=query, values=group_data)
+        logger.debug(str(group_result))
+        # if "error" in group_result:
+        #     error: dict = group_result
+        #     logger.critical(error)
+        #     return JSONResponse(status_code=400, content=error)
+
+        # data result
+        full_result: dict = {"id": id, "status": "active"}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
@@ -270,10 +391,10 @@ async def create_group(
         query = groups.insert()
         group_result = await execute_one_db(query=query, values=group_data)
 
-        if "error" in group_result:
-            error: dict = group_result
-            logger.critical(error)
-            return JSONResponse(status_code=400, content=error)
+        # if "error" in group_result:
+        #     error: dict = group_result
+        #     logger.critical(error)
+        #     return JSONResponse(status_code=400, content=error)
 
         # data result
         full_result: dict = {"id": str(group_id), "data": group_result}
@@ -286,7 +407,7 @@ async def create_group(
 
 
 @router.get("/group", tags=["groups"])
-async def group_list(
+async def group_id(
     group_id: str = Query(
         None, title="Group ID", description="Get by the Group UUID", alias="groupId",
     ),
@@ -350,7 +471,7 @@ async def group_list(
         group_id = name_result["id"]
     # else at least one needs to be selected
     else:
-        error: dict = {"error": f"groupId or groupName must be used"}
+        error: dict = {"error": "groupId or groupName must be used"}
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
 
@@ -443,11 +564,11 @@ async def create_group_user(
         # create group
         query = groups_item.insert()
         group_result = await execute_one_db(query=query, values=group_data)
-
-        if "error" in group_result:
-            error: dict = group_result
-            logger.critical(error)
-            return JSONResponse(status_code=400, content=error)
+        logger.debug(str(group_result))
+        # if "error" in group_result:
+        #     error: dict = group_result
+        #     logger.critical(error)
+        #     return JSONResponse(status_code=400, content=error)
 
         # data result
         full_result: dict = group_data
@@ -459,11 +580,6 @@ async def create_group_user(
         logger.debug(e)
         logger.critical(f"Critical Error: {e}")
         return JSONResponse(status_code=400, content=error)
-    # except ValueError as e:
-    #     error: dict = {"error": e}
-    #     logger.debug(e)
-    #     logger.critical(f"Critical Error: {e}")
-    #     return JSONResponse(status_code=400, content=error)
 
 
 @router.delete(

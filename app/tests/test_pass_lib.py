@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-import pytest
+
 from com_lib.pass_lib import encrypt_pass, verify_pass
 
 

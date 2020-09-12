@@ -10,10 +10,9 @@ from starlette.responses import RedirectResponse
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from com_lib.db_setup import create_db, database
-from com_lib.demo_data import create_data
 from com_lib.default_data import add_default_group
+from com_lib.demo_data import create_data
 from com_lib.logging_config import config_logging
-from endpoints.email_service import views as email_service
 from endpoints.groups import views as groups
 from endpoints.health import views as health
 from endpoints.sillyusers import views as silly_users
@@ -142,7 +141,7 @@ async def startup_event():
             f"HTTPS is set to {HTTPS_ON} and will required HTTPS connections"
         )
     if ADD_DEFAULT_GROUP == "True":
-        logger.warning(f"Adding Default group")
+        logger.warning("Adding Default group")
         await add_default_group(add_default=ADD_DEFAULT_GROUP)
 
     app.add_route("/api/health/metrics", handle_metrics)

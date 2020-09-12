@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from pathlib import Path
-import pytest
+
 from starlette.testclient import TestClient
 
 from app.main import app

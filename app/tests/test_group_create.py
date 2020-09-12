@@ -2,7 +2,7 @@
 import random
 import secrets
 import unittest
-import pytest
+
 from starlette.testclient import TestClient
 
 from app.com_lib.file_functions import save_json
