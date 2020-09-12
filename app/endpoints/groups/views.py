@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-User routes to perform actions
-list users
-list user count
-user create
-user profile
-user update profile
-user password verify
-user update password
-user delete
-user deactivate
-user unlock
-
+Group Routes
+List Groups
+Count Groups
+Activate Groups
+Deactivate Groups
+Create Group
+Get Group
+Add User to Group
+Remove User to Group
 """
 import asyncio
 import uuid
