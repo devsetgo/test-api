@@ -67,7 +67,25 @@ async def group_list(
         None, title="groupType", description="Type of group", alias="groupType"
     ),
 ) -> dict:
+    """[summary]
+    Get list of all groups and associated information
 
+    Args:
+        delay (int, optional): [description]. Defaults to Query( None, title=title,
+         description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
+        qty (int, optional): [description]. Defaults to Query( None, title="Quanity",
+         description="Records to return (max 500)", ge=1, le=500, alias="qty", ).
+        offset (int, optional): [description]. Defaults to Query( None, title="Offset",
+         description="Offset increment", ge=0, alias="offset" ).
+        is_active (bool, optional): [description]. Defaults to Query(None,
+         title="by active status", alias="active").
+        group_type (GroupTypeEnum, optional): [description]. Defaults to Query( None,
+         title="groupType", description="Type of group", alias="groupType" ).
+
+    Returns:
+        dict: [description]
+        GroupId, Name, Description, active state, dates created & updated
+    """
     criteria = []
     # sleep if delay option is used
     if delay is not None:
@@ -126,17 +144,18 @@ async def group_list_count(
     ),
 ) -> dict:
     """[summary]
-
+    Get a count of groups
     Args:
-        delay (int, optional): [description]. Defaults to Query( None, title=title,
-        description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
+        delay (int, optional): [description]. Defaults to Query( None,
+         title=title, description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
         is_active (bool, optional): [description]. Defaults to Query(None,
-        title="by active status", alias="active").
+         title="by active status", alias="active").
         group_type (GroupTypeEnum, optional): [description]. Defaults to Query( None,
-        title="groupType", description="Type of group", alias="groupType" ).
+         title="groupType", description="Type of group", alias="groupType" ).
 
     Returns:
-        dict: [count of groups]
+        dict: [description]
+        count based on filters
     """
     criteria = []
     # sleep if delay option is used
@@ -189,18 +208,17 @@ async def deactivate_group(
     id: str = Query(None, title="group id", alias="id",),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
-    """
-    POST/Create a new User. user_name (unique), firstName, lastName,
-    and password are required. All other fields are optional.
-
-    Arguments:
-        user {UserCreate} -- [description]
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+    """[summary]
+    Deactivate a group by ID
+    Args:
+        id (str, optional): [description]. Defaults to Query(None,
+         title="group id", alias="id",).
+        delay (int, optional): [description]. Defaults to Query(None,
+         title=title, ge=1, le=10, alias="delay",).
 
     Returns:
-        dict -- [user_id: uuid, user_name: user_name]
+        dict: [description]
+        response if deactivated
     """
 
     # sleep if delay option is used
@@ -264,20 +282,19 @@ async def activate_group(
     id: str = Query(None, title="group id", alias="id",),
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
-    """
-    POST/Create a new User. user_name (unique), firstName, lastName,
-    and password are required. All other fields are optional.
+    """[summary]
+    Activate Group by ID
 
-    Arguments:
-        user {UserCreate} -- [description]
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+    Args:
+        id (str, optional): [description]. Defaults to Query(None,
+         title="group id", alias="id",).
+        delay (int, optional): [description]. Defaults to Query(None,
+         title=title, ge=1, le=10, alias="delay",).
 
     Returns:
-        dict -- [user_id: uuid, user_name: user_name]
+        dict: [description]
+        response if activated
     """
-
     # sleep if delay option is used
     if delay is not None:
         logger.info(f"adding a delay of {delay} seconds")
@@ -338,20 +355,17 @@ async def create_group(
     group: GroupCreate,
     delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
 ) -> dict:
-    """
-    POST/Create a new User. user_name (unique), firstName, lastName,
-    and password are required. All other fields are optional.
-
-    Arguments:
-        user {UserCreate} -- [description]
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+    """[summary]
+    Create a new group
+    Args:
+        group (GroupCreate): [description]
+        delay (int, optional): [description]. Defaults to Query(None,
+         title=title, ge=1, le=10, alias="delay",).
 
     Returns:
-        dict -- [user_id: uuid, user_name: user_name]
+        dict: [description]
+        Group data
     """
-
     # sleep if delay option is used
     if delay is not None:
         logger.info(f"adding a delay of {delay} seconds")
@@ -426,23 +440,20 @@ async def group_id(
         alias="delay",
     ),
 ) -> dict:
-
-    """
-    list of users
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
-        qty {int} -- [description] 100 returned results is default,
-        maximum is 500
-        offset {int} -- [description] 0 seconds default
-        Active {bool} -- [description] no default as not required,
-        must be Active=true or false if used
+    """[summary]
+    Get individual group data, including users
+    Args:
+        group_id (str, optional): [description]. Defaults to Query( None,
+         title="Group ID", description="Get by the Group UUID", alias="groupId", ).
+        group_name (str, optional): [description]. Defaults to Query( None,
+         title="Group Name", description="Get by the Group Name", alias="groupName", ).
+        delay (int, optional): [description]. Defaults to Query( None,
+         title=title, description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
 
     Returns:
-        dict -- [description]
-
+        dict: [description]
+        Group data and associated users
     """
-
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
@@ -521,20 +532,17 @@ async def create_group_user(
         alias="delay",
     ),
 ) -> dict:
-    """
-    POST/Create a new User. user_name (unique), firstName, lastName,
-    and password are required. All other fields are optional.
-
-    Arguments:
-        user {UserCreate} -- [description]
-
-    Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+    """[summary]
+    Add a user to a group
+    Args:
+        group (GroupUser): [description]
+        delay (int, optional): [description]. Defaults to Query( None,
+         title=title, description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
 
     Returns:
-        dict -- [user_id: uuid, user_name: user_name]
+        dict: [description]
+        Confirmation of user being added
     """
-
     # sleep if delay option is used
     if delay is not None:
         logger.info(f"adding a delay of {delay} seconds")
@@ -605,14 +613,16 @@ async def delete_group_item_user_id(
         alias="delay",
     ),
 ) -> dict:
-    """
-    Delete a user by UUID
-
-    Keyword Arguments:
-        user_id {str} -- [description] UUID of user_id property required
+    """[summary]
+    Remove User from Group
+    Args:
+        user (GroupItemDelete): [description]
+        delay (int, optional): [description]. Defaults to Query( None,
+         title=title, description="Seconds to delay (max 121)", ge=1, le=121, alias="delay", ).
 
     Returns:
-        dict -- [result: user UUID deleted]
+        dict: [description]
+        Confirmation of removal
     """
     # sleep if delay option is used
     if delay is not None:
