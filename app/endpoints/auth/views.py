@@ -7,11 +7,8 @@ auth users
 """
 import asyncio
 
-from fastapi import APIRouter
-from fastapi import Query
-
-from db_setup import database
-from db_setup import users
+from db_setup import database, users
+from fastapi import APIRouter, Query
 
 router = APIRouter()
 

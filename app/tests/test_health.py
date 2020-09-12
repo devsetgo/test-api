@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-
+import pytest
 from starlette.testclient import TestClient
 
 from app.endpoints.health.checks import get_platform

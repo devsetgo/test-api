@@ -7,6 +7,7 @@ environment variables.
 
 import os
 import secrets
+
 from loguru import logger
 from starlette.config import Config
 

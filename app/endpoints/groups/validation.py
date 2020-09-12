@@ -7,8 +7,7 @@ from loguru import logger
 from sqlalchemy import and_
 
 from com_lib.crud_ops import fetch_one_db
-from com_lib.db_setup import groups
-from com_lib.db_setup import groups_item
+from com_lib.db_setup import groups, groups_item
 
 
 async def check_unique_name(name: str) -> bool:

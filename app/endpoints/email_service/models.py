@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import List
 
-from pydantic import BaseModel
-from pydantic import EmailStr
-from pydantic import Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 class PostMessageError(BaseModel):

@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
-import json
 import asyncio
 
-from fastapi import APIRouter
-from fastapi import File
-from fastapi import UploadFile, File
-from loguru import logger
-
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, File, Query, UploadFile
 from fastapi.responses import ORJSONResponse
-from fastapi import UploadFile
-from fastapi import Query
+from loguru import logger
 from textblob import TextBlob
 
 router = APIRouter()

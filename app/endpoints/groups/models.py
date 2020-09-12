@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from enum import Enum
 
-from pydantic import BaseModel
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 
 # Shared properties

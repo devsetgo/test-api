@@ -16,63 +16,31 @@ user unlock
 import asyncio
 import uuid
 from datetime import datetime
-import time
-from fastapi import APIRouter
-from fastapi import Query
-from fastapi import status
-from fastapi.responses import JSONResponse
-from fastapi.responses import ORJSONResponse
+
+from fastapi import APIRouter, Query, status
+from fastapi.responses import JSONResponse, ORJSONResponse
 from loguru import logger
 
-from com_lib.crud_ops import execute_one_db
-from com_lib.crud_ops import fetch_all_db, fetch_one_db
-from com_lib.db_setup import database
-from com_lib.db_setup import groups
-from com_lib.db_setup import groups_item
-from endpoints.groups.models import GroupCreate
-from endpoints.groups.models import GroupDeactivate
-from endpoints.groups.models import GroupItemDelete
-from endpoints.groups.models import GroupTypeEnum
-from endpoints.groups.models import GroupUser
-from endpoints.groups.validation import check_id_exists
-from endpoints.groups.validation import check_unique_name
-from endpoints.groups.validation import check_user_exists
-from endpoints.groups.validation import check_user_id_exists
+from com_lib.crud_ops import execute_one_db, fetch_all_db, fetch_one_db
+from com_lib.db_setup import database, groups, groups_item
+
+from endpoints.groups.models import (
+    GroupCreate,
+    GroupDeactivate,
+    GroupItemDelete,
+    GroupTypeEnum,
+    GroupUser,
+)
+from endpoints.groups.validation import (
+    check_id_exists,
+    check_unique_name,
+    check_user_exists,
+    check_user_id_exists,
+)
 
 router = APIRouter()
 
 title = "Delay in Seconds"
-
-
-async def add_default(add_default: str):
-    # check if default is true
-    if add_default == "True":
-        # check if default exists
-        default_exists = await check_unique_name(name="default")
-        # if does not exist
-        if default_exists == True:
-
-            group_id = uuid.uuid4()
-            group_data = {
-                "id": str(group_id),
-                "name": "default",
-                "is_active": True,
-                "description": "Default group",
-                "group_type": "approval",
-                "date_create": datetime.now(),
-                "date_update": datetime.now(),
-            }
-            logger.warning(f"Creating group {group_data}")
-            # create group
-            query = groups.insert()
-            group_result = await execute_one_db(query=query, values=group_data)
-            time.sleep(1)
-            user_id = str(uuid.uuid4())
-            user_data = {"id": user_id, "user": "admin", "group_id": str(group_id)}
-            logger.warning(f"Creating group {user_data}")
-            # create group
-            query = groups_item.insert()
-            group_result = await execute_one_db(query=query, values=user_data)
 
 
 @router.get("/list", tags=["groups"])
@@ -491,11 +459,11 @@ async def create_group_user(
         logger.debug(e)
         logger.critical(f"Critical Error: {e}")
         return JSONResponse(status_code=400, content=error)
-    except ValueError as e:
-        error: dict = {"error": e}
-        logger.debug(e)
-        logger.critical(f"Critical Error: {e}")
-        return JSONResponse(status_code=400, content=error)
+    # except ValueError as e:
+    #     error: dict = {"error": e}
+    #     logger.debug(e)
+    #     logger.critical(f"Critical Error: {e}")
+    #     return JSONResponse(status_code=400, content=error)
 
 
 @router.delete(
