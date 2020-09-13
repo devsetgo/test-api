@@ -75,13 +75,6 @@ app.include_router(
     users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
 )
 
-# email_service
-# app.include_router(
-#     email_service.router,
-#     prefix="/api/v1/email",
-#     tags=["email"],
-#     responses=four_zero_four,
-# )
 # Silly router
 app.include_router(
     silly_users.router,
@@ -100,12 +93,6 @@ app.include_router(
     tags=["system-health"],
     responses=four_zero_four,
 )
-
-"""
-for future use
-app.include_router(socket.router,prefix="/api/v1/websocket",
-tags=["websocket"],responses=four_zero_four,)
-"""
 
 
 @app.on_event("startup")
