@@ -6,23 +6,20 @@ COPY . /app
 WORKDIR /app
 # ENV Variables
 # Application information
-ENV APP_VERSION='20.03.08'
+ENV APP_VERSION='20.09.13'
 ENV OWNER='Your Name'
 ENV WEBSITE='https://your.domain.com/support'
 # Demo settings
 ENV CREATE_SAMPLE_DATA=True
-ENV NUMBER_TASKS=1000
-ENV NUMBER_USERS=1000
+ENV NUMBER_TASKS=100
+ENV NUMBER_USERS=100
 # Cofigurations
 ENV HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
-ENV RELEASE_ENV='dev'
+ENV RELEASE_ENV='prd'
 ENV HTTPS_ON = 'False'
-ENV ADD_DEFAULT_GROUP="False"
+ENV ADD_DEFAULT_GROUP='False'
 ENV SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
-ENV SECRET_KEY='JMA14aye00GHXsfoPU3TfaEqFI0y809BvjkZjL5NIzbK8PtBjFqxiJv4orZdGOBJ'
-ENV ALGORITHM="HS256"
-ENV ACCESS_TOKEN_EXPIRE_MINUTES=10080
 # Loguru settings
 ENV LOGURU_RETENTION='10 days'
 ENV LOGURU_ROTATION='100 MB'
