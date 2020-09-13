@@ -3,8 +3,7 @@
 Group Routes
 List Groups
 Count Groups
-Activate Groups
-Deactivate Groups
+State of Group
 Create Group
 Get Group
 Add User to Group
@@ -186,9 +185,9 @@ async def group_list_count(
 
 
 @router.put(
-    "/deactivate",
+    "/state",
     tags=["groups"],
-    response_description="Activated ID",
+    response_description="ID Modified",
     response_class=ORJSONResponse,
     status_code=201,
     responses={
@@ -200,97 +199,34 @@ async def group_list_count(
         500: {"description": "All lines are busy, try again later."},
     },
 )
-async def deactivate_group(
+async def group_state(
     *,
-    id: str = Query(None, title="group id", alias="id",),
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    id: str = Query(..., title="group id", description="Group UUID", alias="id",),
+    state: bool = Query(
+        ..., title="active state", description="true or false of state", alias="state",
+    ),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+        description="integer delay value for simulating delays",
+    ),
 ) -> dict:
     """[summary]
-    Deactivate a group by ID
+        Active or Deactivate a Group ID
     Args:
-        id (str, optional): [description]. Defaults to Query(None,
-         title="group id", alias="id",).
-        delay (int, optional): [description]. Defaults to Query(None,
-         title=title, ge=1, le=10, alias="delay",).
+        id (str, optional): [description]. Defaults to
+         Query(..., title="group id", description="Group UUID", alias="id",).
+        state (bool, optional): [description]. Defaults to
+         Query( ..., title="active state", description="true or false of state", alias="state", ).
+        delay (int, optional): [description]. Defaults to
+         Query( None, title=title, ge=1, le=10, alias="delay",
+          description="integer delay value for simulating delays", ).
 
     Returns:
-        dict: [description]
-        response if deactivated
-    """
-
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"adding a delay of {delay} seconds")
-        await asyncio.sleep(delay)
-
-    id_exists = await check_id_exists(id)
-
-    if id_exists is False:
-        error: dict = {"error": f"Group ID: '{id}' not found"}
-        logger.warning(error)
-        return JSONResponse(status_code=404, content=error)
-
-    try:
-
-        group_data = {
-            # "id": group.id,
-            "is_active": False,
-            "date_update": datetime.now(),
-        }
-        logger.debug(group_data)
-        # create group
-        query = groups.update().where(groups.c.id == id)
-        group_result = await execute_one_db(query=query, values=group_data)
-        logger.debug(str(group_result))
-
-        # if "error" in group_result:
-        #     error: dict = group_result
-        #     logger.critical(error)
-        #     return JSONResponse(status_code=400, content=error)
-
-        # data result
-        full_result: dict = {"id": id, "status": "active"}
-        logger.debug(full_result)
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
-    except Exception as e:
-        error: dict = {"error": str(e)}
-        logger.debug(e)
-        logger.critical(error)
-        return JSONResponse(status_code=400, content=error)
-
-
-@router.put(
-    "/activate",
-    tags=["groups"],
-    response_description="Activated ID",
-    response_class=ORJSONResponse,
-    status_code=201,
-    responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
-        400: {"description": "Bad Request"},
-        422: {"description": "Validation Error"},
-        404: {"description": "Not Found"},
-        405: {"description": "Method not allowed"},
-        500: {"description": "All lines are busy, try again later."},
-    },
-)
-async def activate_group(
-    *,
-    id: str = Query(None, title="group id", alias="id",),
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
-) -> dict:
-    """[summary]
-    Activate Group by ID
-
-    Args:
-        id (str, optional): [description]. Defaults to Query(None,
-         title="group id", alias="id",).
-        delay (int, optional): [description]. Defaults to Query(None,
-         title=title, ge=1, le=10, alias="delay",).
-
-    Returns:
-        dict: [description]
-        response if activated
+        dict: [id, state]
     """
     # sleep if delay option is used
     if delay is not None:
@@ -307,8 +243,7 @@ async def activate_group(
     try:
 
         group_data = {
-            # "id": group.id,
-            "is_active": True,
+            "is_active": state,
             "date_update": datetime.now(),
         }
         logger.debug(group_data)
@@ -316,13 +251,14 @@ async def activate_group(
         query = groups.update().where(groups.c.id == id)
         group_result = await execute_one_db(query=query, values=group_data)
         logger.debug(str(group_result))
+
         # if "error" in group_result:
         #     error: dict = group_result
         #     logger.critical(error)
         #     return JSONResponse(status_code=400, content=error)
 
         # data result
-        full_result: dict = {"id": id, "status": "active"}
+        full_result: dict = {"id": id, "status": state}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
