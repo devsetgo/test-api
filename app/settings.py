@@ -42,8 +42,7 @@ if USE_ENV.lower() == "dotenv":
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
-    # Sendgrid
-    SENDGRID_API_KEY = config("SENDGRID_API_KEY", default="none")
+
     # Loguru settings
     LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
@@ -115,10 +114,3 @@ else:
     LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
     if LOGURU_LOGGING_LEVEL is None:
         LOGURU_LOGGING_LEVEL = "INFO"
-    # Access Token Settings
-    # ALGORITHM = os.environ["ALGORITHM"]
-    # if x is None:
-    #     x = "example"
-    # ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
-    # if x is None:
-    #     x = "example"
