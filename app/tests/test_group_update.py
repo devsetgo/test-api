@@ -15,19 +15,27 @@ base_url: str = "/api/v1/groups"
 
 class Test(unittest.TestCase):
 
+    # State 422
+    def test_groups_get_state_not_set(self):
+        # group_id = open_json("test_data_group_user.json")
+        g_id: str = secrets.token_hex(10)  # group_id['id']
+        url = f"{base_url}/state?id={g_id}"
+        response = client.put(url)
+        assert response.status_code == 422
+
     # Update Activate delay error
     def test_groups_get_activate_error_delay(self):
         group_id = open_json("test_data_group.json")
         g_id: str = group_id["id"]
-        url = f"{base_url}/activate?id={g_id}&delay=122"
+        url = f"{base_url}/state?id={g_id}&delay=122&isActive=true"
         response = client.put(url)
         assert response.status_code == 422
 
     # deactivate 404
     def test_groups_get_activate_not_found(self):
-        group_id = open_json("test_data_group.json")
+        # group_id = open_json("test_data_group_user.json")
         g_id: str = secrets.token_hex(10)  # group_id['id']
-        url = f"{base_url}/activate?id={g_id}&delay=1"
+        url = f"{base_url}/state?id={g_id}&delay=1&isActive=true"
         response = client.put(url)
         assert response.status_code == 404
 
@@ -35,7 +43,7 @@ class Test(unittest.TestCase):
     def test_groups_get_activate(self):
         group_id = open_json("test_data_group.json")
         g_id: str = group_id["id"]
-        url = f"{base_url}/activate?id={g_id}"
+        url = f"{base_url}/state?id={g_id}&isActive=true"
         response = client.put(url)
         assert response.status_code == 201
 
@@ -43,22 +51,22 @@ class Test(unittest.TestCase):
     def test_groups_get_deactivate_error_delay(self):
         group_id = open_json("test_data_group.json")
         g_id: str = group_id["id"]
-        url = f"{base_url}/deactivate?id={g_id}&delay=122"
+        url = f"{base_url}/state?id={g_id}&delay=122&isActive=false"
         response = client.put(url)
         assert response.status_code == 422
 
     # deactivate 404
     def test_groups_get_deactivate_not_found(self):
-        group_id = open_json("test_data_group.json")
+        # group_id = open_json("test_data_group_user.json")
         g_id: str = secrets.token_hex(10)  # group_id['id']
-        url = f"{base_url}/deactivate?id={g_id}&delay=1"
+        url = f"{base_url}/state?id={g_id}&delay=1&isActive=false"
         response = client.put(url)
         assert response.status_code == 404
 
-    # deactivate
+    # state
     def test_groups_get_deactivate(self):
         group_id = open_json("test_data_group.json")
         g_id: str = group_id["id"]
-        url = f"{base_url}/deactivate?id={g_id}"
+        url = f"{base_url}/state?id={g_id}&isActive=false"
         response = client.put(url)
         assert response.status_code == 201
