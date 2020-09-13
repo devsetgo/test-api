@@ -202,8 +202,11 @@ async def group_list_count(
 async def group_state(
     *,
     id: str = Query(..., title="group id", description="Group UUID", alias="id",),
-    state: bool = Query(
-        ..., title="active state", description="true or false of state", alias="state",
+    is_active: bool = Query(
+        None,
+        title="active status",
+        description="true or false of status",
+        alias="isActive",
     ),
     delay: int = Query(
         None,
@@ -232,6 +235,10 @@ async def group_state(
     if delay is not None:
         logger.info(f"adding a delay of {delay} seconds")
         await asyncio.sleep(delay)
+    if is_active is None:
+        error: dict = {"error": f"isActive must be true or false and cannot be empty"}
+        logger.warning(error)
+        return JSONResponse(status_code=422, content=error)
 
     id_exists = await check_id_exists(id)
 
@@ -243,7 +250,7 @@ async def group_state(
     try:
 
         group_data = {
-            "is_active": state,
+            "is_active": is_active,
             "date_update": datetime.now(),
         }
         logger.debug(group_data)
@@ -258,7 +265,7 @@ async def group_state(
         #     return JSONResponse(status_code=400, content=error)
 
         # data result
-        full_result: dict = {"id": id, "status": state}
+        full_result: dict = {"id": id, "status": is_active}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
