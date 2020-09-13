@@ -41,3 +41,40 @@ class Test(unittest.TestCase):
 
         response = client.get(url)
         assert response.status_code == 200
+
+    def test_groups_get_list_count(self):
+
+        url = f"/api/v1/groups/list/count"
+        response = client.get(url)
+        assert response.status_code == 200
+
+    def test_groups_get_list_count_error_delay(self):
+
+        url = f"/api/v1/groups/list/count?delay=122"
+        response = client.get(url)
+        assert response.status_code == 422
+
+    def test_groups_get_list_count_all_options(self):
+
+        group_type: list = ["approval", "notification"]
+        active_state: list = ["true", "false"]
+        for g in group_type:
+            for a in active_state:
+                url = f"/api/v1/groups/list/count?delay=1&active={a}&groupType={g}"
+
+                response = client.get(url)
+                assert response.status_code == 200
+
+    def test_groups_get_list_count_invalid_group(self):
+
+        url = f"/api/v1/groups/list/count?groupType=bob"
+
+        response = client.get(url)
+        assert response.status_code == 422
+
+    def test_groups_get_list_count_invalid_group(self):
+
+        url = f"/api/v1/groups/list/?groupType=bob"
+
+        response = client.get(url)
+        assert response.status_code == 422

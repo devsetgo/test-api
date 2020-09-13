@@ -38,8 +38,8 @@ async def execute_one_db(query, values: dict = None):
         return result
     except Exception as e:
         logger.critical(f"error: {e}")
-        logger.debug(query)
-        logger.debug(values)
+        logger.debug(str(query))
+        logger.debug(str(values))
         return e
 
 
@@ -50,6 +50,6 @@ async def execute_many_db(query, values: dict):
 
     except Exception as e:
         logger.critical(f"error: {e}")
-        logger.debug(query)
-        logger.debug(values)
+        logger.debug(str(query))
+        logger.debug(str(values))
         return e

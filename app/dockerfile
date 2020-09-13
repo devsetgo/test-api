@@ -17,6 +17,8 @@ ENV NUMBER_USERS=1000
 ENV HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 ENV RELEASE_ENV='dev'
+ENV HTTPS_ON = 'False'
+ENV ADD_DEFAULT_GROUP="False"
 ENV SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 ENV SECRET_KEY='JMA14aye00GHXsfoPU3TfaEqFI0y809BvjkZjL5NIzbK8PtBjFqxiJv4orZdGOBJ'
 ENV ALGORITHM="HS256"

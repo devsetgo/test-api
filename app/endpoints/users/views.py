@@ -16,16 +16,11 @@ user unlock
 import asyncio
 import uuid
 
-from fastapi import APIRouter
-from fastapi import Form
-from fastapi import Path
-from fastapi import Query
+from fastapi import APIRouter, Form, Path, Query
 from loguru import logger
 
-from com_lib.db_setup import database
-from com_lib.db_setup import users
-from com_lib.pass_lib import encrypt_pass
-from com_lib.pass_lib import verify_pass
+from com_lib.db_setup import database, users
+from com_lib.pass_lib import encrypt_pass, verify_pass
 from com_lib.simple_functions import get_current_datetime
 from endpoints.users.models import UserCreate
 
@@ -415,14 +410,14 @@ async def create_user(
 )
 async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> dict:
     """
-        Check password function
+    Check password function
 
-        Keyword Arguments:
-            user_name {str} -- [description] existing user_name required
-            password {str} -- [description] password required
+    Keyword Arguments:
+        user_name {str} -- [description] existing user_name required
+        password {str} -- [description] password required
 
-        Returns:
-            [Dict] -- [result: bool]
+    Returns:
+        [Dict] -- [result: bool]
     """
     try:
         # Fetch single row

@@ -2,11 +2,11 @@
 set -e
 set -x
 
-rm logfile/app_log.log
+# rm logfile/app_log.log
 echo "log cleared"
 
 # delete db
-rm sqlite_db/api.db
+# rm sqlite_db/api.db
 echo "db removed"
 # run isort recursively
 # isort -rc .

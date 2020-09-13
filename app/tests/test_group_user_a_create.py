@@ -4,8 +4,7 @@ import uuid
 
 from starlette.testclient import TestClient
 
-from app.com_lib.file_functions import open_json
-from app.com_lib.file_functions import save_json
+from app.com_lib.file_functions import open_json, save_json
 from app.main import app
 
 client = TestClient(app)

@@ -21,3 +21,7 @@ class Test(unittest.TestCase):
     def test_information(self):
         response = client.get("/information")
         assert response.status_code == 200
+
+    def test_metrics(self):
+        response = client.get("/api/health/metrics")
+        assert response.status_code == 200
