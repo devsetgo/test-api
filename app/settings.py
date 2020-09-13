@@ -5,13 +5,18 @@ For local development, use a .env file to set
 environment variables.
 """
 
-from starlette.config import Config
 import os
+import secrets
+
 from loguru import logger
+from starlette.config import Config
 
 # get environment variables
 config = Config(".env")
 USE_ENV = config("USE_ENV", default="docker")
+
+SECRET_KEY = secrets.token_urlsafe(64)
+
 
 if USE_ENV.lower() == "dotenv":
     logger.info(f"USE_ENV set to {USE_ENV}. Using .env file for external configuration")
@@ -26,12 +31,14 @@ if USE_ENV.lower() == "dotenv":
 
     # Demo Data
     CREATE_SAMPLE_DATA = config("CREATE_SAMPLE_DATA", default=False)
-    NUMBER_TASKS = config("NUMBER_TASKS", default=100)
-    NUMBER_USERS = config("NUMBER_USERS", default=100)
+    NUMBER_TASKS = config("NUMBER_TASKS", default=0)
+    NUMBER_USERS = config("NUMBER_USERS", default=0)
+    NUMBER_GROUPS = config("NUMBER_GROUPS", default=0)
 
     # Application Configurations
     HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
     RELEASE_ENV = config("RELEASE_ENV", default="prd")
+    HTTPS_ON = config("HTTPS_ON", default=True)
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
@@ -39,11 +46,9 @@ if USE_ENV.lower() == "dotenv":
     # Loguru settings
     LOGURU_RETENTION = config("LOGURU_RETENTION", default="10 days")
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
+    LOGURU_LOGGING_LEVEL = config("LOGURU_LOGGING_LEVEL", default="WARNING")
+    ADD_DEFAULT_GROUP = config("ADD_DEFAULT_GROUP", default="True")
 
-    # Access Token Settings
-    SECRET_KEY = config("SECRET_KEY", default="secret-key-1234567890")
-    ALGORITHM = config("ALGORITHM", default="HS256")
-    ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", default=10080)
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
@@ -51,25 +56,72 @@ else:
     )
     # Application information
     APP_VERSION = os.environ["APP_VERSION"]
+    logger.critical(APP_VERSION)
+    if APP_VERSION is None:
+        APP_VERSION = "0.0.1"
+
     OWNER = os.environ["OWNER"]
+    if OWNER is None:
+        OWNER = "example"
+
     WEBSITE = os.environ["WEBSITE"]
+    if WEBSITE is None:
+        WEBSITE = "http://www.example.com"
+
     LICENSE_TYPE = os.environ["LICENSE_TYPE"]
+    if LICENSE_TYPE is None:
+        LICENSE_TYPE = "MIT"
+
     LICENSE_LINK = os.environ["LICENSE_LINK"]
+    if LICENSE_LINK is None:
+        LICENSE_LINK = "http://www.example.com"
 
     # Demo Data
     CREATE_SAMPLE_DATA = os.environ["CREATE_SAMPLE_DATA"]
+    if CREATE_SAMPLE_DATA is None:
+        CREATE_SAMPLE_DATA = "False"
+
     NUMBER_TASKS = os.environ["NUMBER_TASKS"]
+    if NUMBER_TASKS is None:
+        NUMBER_TASKS = 10
     NUMBER_USERS = os.environ["NUMBER_USERS"]
+    if NUMBER_USERS is None:
+        NUMBER_USERS = 10
+
+    NUMBER_GROUPS = os.environ["NUMBER_USERS"]
+    if NUMBER_GROUPS is None:
+        NUMBER_GROUPS = 10
 
     # Application Configurations
     HOST_DOMAIN = os.environ["HOST_DOMAIN"]
+    if HOST_DOMAIN is None:
+        HOST_DOMAIN = "https://example.com"
+
     RELEASE_ENV = os.environ["RELEASE_ENV"]
+    if RELEASE_ENV is None:
+        RELEASE_ENV = "prd"
+
+    HTTPS_ON = os.environ["HTTPS_ON"]
+    if HTTPS_ON is None:
+        HTTPS_ON = True
+
+    ADD_DEFAULT_GROUP = os.environ["ADD_DEFAULT_GROUP"]
+    if ADD_DEFAULT_GROUP is None:
+        ADD_DEFAULT_GROUP = "False"
+
     SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"]
+    if SQLALCHEMY_DATABASE_URI is None:
+        SQLALCHEMY_DATABASE_URI = "sqlite:///sqlite_db/api.db"
+
     # Loguru settings
     LOGURU_RETENTION = os.environ["LOGURU_RETENTION"]
-    LOGURU_ROTATION = os.environ["LOGURU_ROTATION"]
+    if LOGURU_RETENTION is None:
+        LOGURU_RETENTION = "10 days"
 
-    # Access Token Settings
-    SECRET_KEY = os.environ["SECRET_KEY"]
-    ALGORITHM = os.environ["ALGORITHM"]
-    ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
+    LOGURU_ROTATION = os.environ["LOGURU_ROTATION"]
+    if LOGURU_ROTATION is None:
+        LOGURU_ROTATION = "100 MB"
+
+    LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
+    if LOGURU_LOGGING_LEVEL is None:
+        LOGURU_LOGGING_LEVEL = "INFO"

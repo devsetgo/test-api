@@ -2,6 +2,12 @@
 set -e
 set -x
 
+# rm logfile/app_log.log
+echo "log cleared"
+
+# delete db
+# rm sqlite_db/api.db
+echo "db removed"
 # run isort recursively
 # isort -rc .
 
@@ -15,11 +21,11 @@ python3 -m pytest
 # create coverage-badge
 coverage-badge -o ../coverage.svg -f
 
+# delete db
+# rm sqlite_db/api.db
+# echo "db removed"
 # generate flake8 report
 flake8 --tee . > flake8_report/report.txt
 
-# delete db
-rm sqlite_db/api.db
-echo "db removed"
 
 

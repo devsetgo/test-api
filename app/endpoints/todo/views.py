@@ -6,13 +6,10 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter
-from fastapi import Path
-from fastapi import Query
+from fastapi import APIRouter, Path, Query
 from loguru import logger
 
-from db_setup import database
-from db_setup import todos
+from com_lib.db_setup import database, todos
 from endpoints.todo.models import TodoCreate
 
 router = APIRouter()
@@ -46,7 +43,7 @@ async def todo_list(
         query = todos.select()
         x = await database.fetch_all(query)
 
-    logger.info(f"todo list accessed")
+    logger.info("todo list accessed")
     result = x
     return result
 

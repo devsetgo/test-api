@@ -1,28 +1,37 @@
 # -*- coding: utf-8 -*-
+
 import pyjokes
 import uvicorn
-from fastapi import FastAPI
-from fastapi import Query
+from fastapi import FastAPI, Query
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from loguru import logger
 from starlette.responses import RedirectResponse
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
+from com_lib.db_setup import create_db, database
+from com_lib.default_data import add_default_group
 from com_lib.demo_data import create_data
 from com_lib.logging_config import config_logging
-from db_setup import create_db
-from db_setup import database
+from endpoints.groups import views as groups
+from endpoints.health import views as health
 from endpoints.sillyusers import views as silly_users
+from endpoints.textblob import views as textblob
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
-from health import views as health
-from settings import APP_VERSION
-from settings import CREATE_SAMPLE_DATA
-from settings import HOST_DOMAIN
-from settings import LICENSE_LINK
-from settings import LICENSE_TYPE
-from settings import OWNER
-from settings import RELEASE_ENV
-from settings import WEBSITE
+from settings import (
+    ADD_DEFAULT_GROUP,
+    APP_VERSION,
+    CREATE_SAMPLE_DATA,
+    HOST_DOMAIN,
+    HTTPS_ON,
+    LICENSE_LINK,
+    LICENSE_TYPE,
+    OWNER,
+    RELEASE_ENV,
+    WEBSITE,
+)
 
 # config logging start
 config_logging()
@@ -38,9 +47,25 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 logger.info("API App initiated")
-
+# Add general middelware
+# Add prometheus
+app.add_middleware(PrometheusMiddleware)
+# Add GZip
+app.add_middleware(GZipMiddleware, minimum_size=500)
+# 404
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
+# Group router
+app.include_router(
+    groups.router, prefix="/api/v1/groups", tags=["groups"], responses=four_zero_four,
+)
+# Text router
+app.include_router(
+    textblob.router,
+    prefix="/api/v1/textblob",
+    tags=["textblob"],
+    responses=four_zero_four,
+)
 # ToDo router
 app.include_router(
     todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
@@ -48,10 +73,6 @@ app.include_router(
 # User router
 app.include_router(
     users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
-)
-# Converter router
-app.include_router(
-    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
 )
 
 # Silly router
@@ -61,7 +82,10 @@ app.include_router(
     tags=["silly users"],
     responses=four_zero_four,
 )
-
+# Tools router
+app.include_router(
+    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
+)
 # Health router
 app.include_router(
     health.router,
@@ -70,19 +94,15 @@ app.include_router(
     responses=four_zero_four,
 )
 
-"""
-for future use
-app.include_router(socket.router,prefix="/api/v1/websocket",
-tags=["websocket"],responses=four_zero_four,)
-"""
 
-# startup events
 @app.on_event("startup")
 async def startup_event():
-
+    """
+    Startup events for application
+    """
     try:
         await database.connect()
-        logger.info(f"Connecting to database")
+        logger.info("Connecting to database")
 
     except Exception as e:
         logger.info(f"Error: {e}")
@@ -90,18 +110,28 @@ async def startup_event():
 
     # initiate log with statement
     if RELEASE_ENV.lower() == "dev":
-        logger.debug(f"Initiating logging for API")
+        logger.debug("Initiating logging for API")
         logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
         if CREATE_SAMPLE_DATA == "True":
             create_data()
             logger.info("Create Data")
-
     else:
         logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
 
-    if CREATE_SAMPLE_DATA is True:
+    if CREATE_SAMPLE_DATA == "True":
         create_data()
+
+    if HTTPS_ON == "True":
+        app.add_middleware(HTTPSRedirectMiddleware)
+        logger.warning(
+            f"HTTPS is set to {HTTPS_ON} and will required HTTPS connections"
+        )
+    if ADD_DEFAULT_GROUP == "True":
+        logger.warning("Adding Default group")
+        await add_default_group(add_default=ADD_DEFAULT_GROUP)
+
+    app.add_route("/api/health/metrics", handle_metrics)
 
 
 @app.on_event("shutdown")

@@ -12,6 +12,8 @@ class Test(unittest.TestCase):
             "test_data_test_user.json",
             "test_data_todos.json",
             "test_data_users.json",
+            "test_data_group.json",
+            "test_data_group_user.json",
         ]
         for f in files:
             delete_file(f)

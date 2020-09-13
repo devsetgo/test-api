@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-from fastapi import APIRouter
-from fastapi import File
-from fastapi import HTTPException
-from fastapi import UploadFile
+from fastapi import APIRouter, File, HTTPException, UploadFile
 from loguru import logger
 from xmltodict import parse as xml_parse
 from xmltodict import unparse as xml_unparse
@@ -46,7 +43,7 @@ async def convert_xml(myfile: UploadFile = File(...),) -> dict:
         result = xml_parse(
             contents, encoding="utf-8", process_namespaces=True, xml_attribs=True
         )
-        logger.info(f"file converted to JSON")
+        logger.info("file converted to JSON")
         return result
 
     except Exception as e:
@@ -92,7 +89,7 @@ async def convert_json(myfile: UploadFile = File(...),) -> str:
         new_dict = json.loads(content.decode("utf8"))
         # xml to json conversion with xmltodict
         result = xml_unparse(new_dict, pretty=True)
-        logger.info(f"file converted to JSON")
+        logger.info("file converted to JSON")
         return result
 
     except Exception as e:
