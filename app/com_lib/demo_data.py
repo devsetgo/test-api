@@ -33,7 +33,7 @@ def create_data():
         time.sleep(1)
     else:
         logger.info("existing data, sample users will not be created")
-
+    
     if int(task_count) == 0:
         create_tasks(int(number_of_tasks))
         time.sleep(1)

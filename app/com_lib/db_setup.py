@@ -20,7 +20,7 @@ from sqlalchemy.pool import QueuePool
 from settings import SQLALCHEMY_DATABASE_URI
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=20, pool_size=200
+    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=40, pool_size=200
 )
 
 metadata = MetaData()
