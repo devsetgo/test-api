@@ -108,6 +108,7 @@ groups_item = Table(
     Column("id", String, primary_key=True),
     Column("user", String(length=50)),
     Column("group_id", String, nullable=False),
+    Column("date_create", DateTime()),
     # Column(
     #     "group_id",
     #     String,
