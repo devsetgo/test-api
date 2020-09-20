@@ -42,6 +42,13 @@ class Test(unittest.TestCase):
         response = client.get(url)
         assert response.status_code == 200
 
+    def test_groups_get_list_name(self):
+
+        url = f"/api/v1/groups/list?groupName=test"
+
+        response = client.get(url)
+        assert response.status_code == 200
+
     def test_groups_get_list_count(self):
 
         url = f"/api/v1/groups/list/count"
