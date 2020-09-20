@@ -132,6 +132,7 @@ async def startup_event():
         await add_default_group(add_default=ADD_DEFAULT_GROUP)
 
     app.add_route("/api/health/metrics", handle_metrics)
+    logger.info("prometheus route added")
 
 
 @app.on_event("shutdown")

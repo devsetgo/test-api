@@ -62,6 +62,12 @@ async def group_list(
     group_type: GroupTypeEnum = Query(
         None, title="groupType", description="Type of group", alias="groupType"
     ),
+    group_name: str = Query(
+        None,
+        title="Group Name",
+        description="Get by the Group Name",
+        alias="groupName",
+    ),
 ) -> dict:
     """[summary]
     Get list of all groups and associated information
@@ -94,17 +100,26 @@ async def group_list(
         offset: int = 0
 
     if is_active is not None:
-        criteria.append((groups.c.is_active, is_active))
+        criteria.append((groups.c.is_active, is_active, "equal"))
 
     if group_type is not None:
-        criteria.append((groups.c.group_type, group_type))
+        criteria.append((groups.c.group_type, group_type, "equal"))
+
+    if group_name is not None:
+        criteria.append((groups.c.name, group_name, "ilike"))
 
     query = groups.select().order_by(groups.c.date_create).limit(qty).offset(offset)
     count_query = groups.select()
 
     for crit in criteria:
-        col, val = crit
-        query = query.where(col == val)
+        col, val, compare_type = crit
+
+        if compare_type == "ilike":
+            query = query.where(col.ilike(f"%{val}%"))
+
+        else:
+            query = query.where(col == val)
+
         count_query = count_query.where(col == val)
 
     db_result = await database.fetch_all(query)
@@ -399,7 +414,6 @@ async def group_id(
         await asyncio.sleep(delay)
 
     # if search by ID
-    # if search by ID
     if group_id is not None:
 
         id_exists = await check_id_exists(group_id)
@@ -433,7 +447,11 @@ async def group_id(
     user_dict: dict = []
     for r in db_result:
         logger.debug(r)
-        user_data: dict = {"id": r["id"], "user": r["user"]}
+        user_data: dict = {
+            "id": r["id"],
+            "user": r["user"],
+            "date_created": str(r["date_create"]),
+        }
         user_dict.append(user_data)
         users_list.append(r["user"])
     result = {

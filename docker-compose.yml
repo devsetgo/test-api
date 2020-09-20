@@ -37,6 +37,8 @@ services:
       # Loguru settings
       LOGURU_RETENTION: 10 days
       LOGURU_ROTATION: 100 MB
+      # Gunicorn Workers - Set to 0 for CPUs x 2 + 1
+      WORKERS: 0
       # Leave intact for license
       CREATED_BY: 'Mike Ryan'
       LICENSE_TYPE: 'MIT'

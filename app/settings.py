@@ -48,7 +48,7 @@ if USE_ENV.lower() == "dotenv":
     LOGURU_ROTATION = config("LOGURU_ROTATION", default="10 MB")
     LOGURU_LOGGING_LEVEL = config("LOGURU_LOGGING_LEVEL", default="WARNING")
     ADD_DEFAULT_GROUP = config("ADD_DEFAULT_GROUP", default="True")
-
+    WORKERS = config("WORKERS", default=0)
 else:
     logger.info(
         f"USE_ENV set to {USE_ENV}. Using os environmental settings for\
@@ -125,3 +125,6 @@ else:
     LOGURU_LOGGING_LEVEL = os.environ["LOGURU_LOGGING_LEVEL"]
     if LOGURU_LOGGING_LEVEL is None:
         LOGURU_LOGGING_LEVEL = "INFO"
+    WORKERS = os.environ["WORKERS"]
+    if WORKERS is None or WORKERS is 0:
+        WORKERS = 0

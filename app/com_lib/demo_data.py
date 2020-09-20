@@ -9,6 +9,7 @@ import silly
 from loguru import logger
 from unsync import unsync
 
+from com_lib.file_functions import save_json
 from com_lib.db_setup import database, groups, groups_item, todos, users
 from endpoints.sillyusers.gen_user import user_test_info
 from settings import NUMBER_GROUPS, NUMBER_TASKS, NUMBER_USERS
@@ -42,6 +43,7 @@ def create_data():
     if int(group_count) == 0:
         create_groups(int(number_of_groups))
         time.sleep(1)
+        create_standard_groups()
     else:
         logger.info("existing data, sample groups will not be created")
         logger.warning("DEMO DATA INITIALIZATION IS TRUE")
@@ -89,8 +91,10 @@ def create_groups(qty: int):
 
     g_count = 0
     for _ in range(0, qty):
+        time.sleep(0.01)
+        id: str = str(uuid.uuid4())
         group_information = {
-            "id": str(uuid.uuid4()),
+            "id": id,
             "name": f"test{g_count}",
             "is_active": random.choice([True, False]),
             "description": "This is a test",
@@ -99,28 +103,314 @@ def create_groups(qty: int):
             "date_update": datetime.now(),
         }
         db_group_call(group_information)
+        time.sleep(0.01)
+
+        for _ in range(random.randint(2, 10)):
+            time.sleep(0.01)
+            group_user_creator(group_id=id)
         g_count += 1
 
 
-def group_user_creator():
+def group_user_creator(group_id: str):
     group_information = {
         "id": str(uuid.uuid4()),
+        "group_id": group_id,
         "user": f"test{secrets.token_hex(4)}",
+        "date_create": datetime.now(),
     }
     db_group_user_call(group_information)
 
 
-def group_creator():
+# def group_creator():
+#     group_information = {
+#         "id": str(uuid.uuid4()),
+#         "name": f"test{secrets.token_hex(4)}",
+#         "is_active": random.choice([True, False]),
+#         "description": "This is a test",
+#         "group_type": random.choice(["approval", "notification"]),
+#         "date_create": datetime.now(),
+#         "date_update": datetime.now(),
+#     }
+#     db_group_call(group_information)
+
+
+def create_standard_groups():
+    groups: list = [
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup1",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup2",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup3",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup4",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup5",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "approvalgroup6",
+            "is_active": True,
+            "description": "This is an example group",
+            "group_type": "approval",
+            "date_create": datetime.now(),
+            "date_update": datetime.now(),
+        },
+    ]
+    users: list = [
+        "Jerry",
+        "Sarah",
+        "Juan",
+        "Jack",
+        "Angela",
+        "Jesse",
+        "Beverly",
+        "Linda",
+        "Jason",
+        "Jordan",
+        "Ethan",
+        "Karen",
+        "Jennifer",
+        "Sean",
+        "Joseph",
+        "Kimberly",
+        "Samuel",
+        "Dorothy",
+        "Raymond",
+        "Olivia",
+        "Carolyn",
+        "Cheryl",
+        "Jeffrey",
+        "Rachel",
+        "Judy",
+        "Larry",
+        "Zachary",
+        "Pamela",
+        "Walter",
+        "Deborah",
+        "Billy",
+        "Kevin",
+        "Katherine",
+        "Kenneth",
+        "Janice",
+        "Roy",
+        "Kathleen",
+        "Nancy",
+        "Eugene",
+        "Daniel",
+        "Marie",
+        "Gabriel",
+        "Diana",
+        "Jonathan",
+        "Dennis",
+        "Emma",
+        "Laura",
+        "Rose",
+        "Patrick",
+        "Scott",
+        "Sandra",
+        "Gregory",
+        "Thomas",
+        "Roger",
+        "Helen",
+        "Debra",
+        "Jessica",
+        "Bobby",
+        "Lawrence",
+        "Joshua",
+        "Natalie",
+        "Matthew",
+        "George",
+        "Austin",
+        "Ryan",
+        "Julie",
+        "Barbara",
+        "Benjamin",
+        "Theresa",
+        "Harold",
+        "Richard",
+        "Alexander",
+        "Joyce",
+        "Danielle",
+        "Anthony",
+        "Ashley",
+        "Ronald",
+        "Stephen",
+        "Mary",
+        "Adam",
+        "Johnny",
+        "Lisa",
+        "Nicholas",
+        "Dylan",
+        "Nathan",
+        "William",
+        "Steven",
+        "Brandon",
+        "Charlotte",
+        "Jean",
+        "Heather",
+        "Brittany",
+        "Gloria",
+        "Amanda",
+        "Teresa",
+        "Judith",
+        "Logan",
+        "Shirley",
+        "Philip",
+        "Jose",
+        "Nicole",
+        "Noah",
+        "Randy",
+        "Vincent",
+        "Amber",
+        "Sara",
+        "Michelle",
+        "Gary",
+        "Cynthia",
+        "Arthur",
+        "Paul",
+        "James",
+        "Tyler",
+        "Henry",
+        "Bruce",
+        "Denise",
+        "Doris",
+        "Christina",
+        "Julia",
+        "Amy",
+        "Joan",
+        "Madison",
+        "David",
+        "Melissa",
+        "Albert",
+        "Brenda",
+        "Eric",
+        "Robert",
+        "Russell",
+        "Alan",
+        "Timothy",
+        "Isabella",
+        "Charles",
+        "Victoria",
+        "Maria",
+        "Willie",
+        "Stephanie",
+        "John",
+        "Louis",
+        "Mark",
+        "Donna",
+        "Gerald",
+        "Catherine",
+        "Anna",
+        "Peter",
+        "Marilyn",
+        "Sophia",
+        "Kayla",
+        "Martha",
+        "Justin",
+        "Joe",
+        "Abigail",
+        "Alice",
+        "Frank",
+        "Rebecca",
+        "Betty",
+        "Andrea",
+        "Aaron",
+        "Virginia",
+        "Wayne",
+        "Ralph",
+        "Ruth",
+        "Alexis",
+        "Douglas",
+        "Jacqueline",
+        "Christopher",
+        "Carl",
+        "Lauren",
+        "Bryan",
+        "Christine",
+        "Ann",
+        "Elizabeth",
+        "Frances",
+        "Evelyn",
+        "Bradley",
+        "Brian",
+        "Jeremy",
+        "Sharon",
+        "Diane",
+        "Margaret",
+        "Hannah",
+        "Keith",
+        "Carol",
+        "Jacob",
+        "Kyle",
+        "Christian",
+        "Emily",
+        "Kathryn",
+        "Edward",
+        "Terry",
+        "Michael",
+        "Megan",
+        "Kelly",
+        "Patricia",
+        "Samantha",
+        "Janet",
+        "Grace",
+        "Andrew",
+        "Susan",
+        "Donald",
+    ]
+    for g in groups:
+        time.sleep(0.01)
+        db_group_call(g)
+        time.sleep(0.01)
+        for _ in range(random.randint(1, 5)):
+            create_standard_group_user(
+                group_id=g["id"], name=users[random.randint(0, len(users) - 1)]
+            )
+
+
+def create_standard_group_user(group_id: str, name: str):
     group_information = {
         "id": str(uuid.uuid4()),
-        "name": f"test{secrets.token_hex(4)}",
-        "is_active": random.choice([True, False]),
-        "description": "This is a test",
-        "group_type": random.choice(["approval", "notification"]),
+        "group_id": group_id,
+        "user": name,
         "date_create": datetime.now(),
-        "date_update": datetime.now(),
     }
-    db_group_call(group_information)
+    db_group_user_call(group_information)
 
 
 def create_tasks(qty: int):
