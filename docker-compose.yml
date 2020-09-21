@@ -6,8 +6,7 @@ version: '3'
 services:
   test-api:
     # build: ./app
-    image: ta:1
-    # image: mikeryan56/test-api:latest
+    image: mikeryan56/test-api:latest
     ports:
     - "5000"
     volumes:
@@ -17,7 +16,7 @@ services:
       # option: dotenv, docker
       USE_ENV: docker
       # Application information
-      APP_VERSION: '20.03.08'
+      APP_VERSION: '20.09.21'
       OWNER: 'Your Name'
       WEBSITE: https://your.domain.com/support
       # Demo settings
@@ -43,17 +42,17 @@ services:
       LICENSE_LINK: https://github.com/devsetgo/test-api/blob/master/LICENSE
 
     #if using traefik
-    # labels:
-    # - "traefik.enable=true" # <== Enable traefik to proxy this container
-    # - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
-    # - "traefik.http.routers.ta-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-    # - "traefik.http.routers.ta-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
-    # - "traefik.http.routers.ta-web-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
-    # - "traefik.http.routers.ta-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-    # - "traefik.http.routers.ta-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+    labels:
+    - "traefik.enable=true" # <== Enable traefik to proxy this container
+    - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
+    - "traefik.http.routers.ta-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+    - "traefik.http.routers.ta-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
+    - "traefik.http.routers.ta-web-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
+    - "traefik.http.routers.ta-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+    - "traefik.http.routers.ta-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
     
-    # networks:
-    #   - web
+    networks:
+      - web
 networks:
   web:
     external: true
