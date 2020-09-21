@@ -8,28 +8,67 @@ from settings import LOGURU_LOGGING_LEVEL, LOGURU_RETENTION, LOGURU_ROTATION
 
 
 def config_logging():
-
+    # remove default logger
+    logger.remove()
+    # set file path
     log_path = Path.cwd().joinpath("logfile").joinpath("app_log.log")
+    # add new configuration
     logger.add(
-        log_path,
-        format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",
-        enqueue=True,
-        backtrace=False,
-        rotation=LOGURU_ROTATION,
-        retention=LOGURU_RETENTION,
-        level=LOGURU_LOGGING_LEVEL,
-        compression="zip",
-        serialize=False,
+        log_path,  # log file path
+        level=LOGURU_LOGGING_LEVEL,  # logging level
+        format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",  # format of log
+        enqueue=True,  # set to true for async or multiprocessing logging
+        backtrace=False,  # turn to false if in production to prevent data leaking
+        rotation=LOGURU_ROTATION,  # file size to rotate
+        retention=LOGURU_RETENTION,  # how long a the logging data persists
+        compression="zip",  # log rotation compression
+        serialize=False,  # if you want it JSON style, set to true. But also change the format
     )
 
+    # intercept standard logging
     class InterceptHandler(logging.Handler):
         def emit(self, record):
-            # Retrieve context where the logging call occurred, this happens to be in
-            #  the 6th frame upward
-            logger_opt = logger.opt(depth=6, exception=record.exc_info)
-            logger_opt.log(record.levelno, record.getMessage())
+            # Get corresponding Loguru level if it exists
+            try:
+                level = logger.level(record.levelname).name
+            except ValueError:
+                level = record.levelno
+
+            # Find caller from where originated the logged message
+            frame, depth = logging.currentframe(), 2
+            while frame.f_code.co_filename == logging.__file__:
+                frame = frame.f_back
+                depth += 1
+
+            logger.opt(depth=depth, exception=record.exc_info).log(
+                level, record.getMessage()
+            )
 
     logging.basicConfig(handlers=[InterceptHandler()], level=LOGURU_LOGGING_LEVEL)
+
+    # logger.remove()
+    # log_path = Path.cwd().joinpath("logfile").joinpath("app_log.log")
+    # # logger.remove()
+    # logger.add(
+    #     log_path,
+    #     format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",
+    #     enqueue=True,
+    #     backtrace=False,
+    #     rotation=LOGURU_ROTATION,
+    #     retention=LOGURU_RETENTION,
+    #     level=LOGURU_LOGGING_LEVEL,
+    #     compression="zip",
+    #     serialize=False,
+    # )
+
+    # class InterceptHandler(logging.Handler):
+    #     def emit(self, record):
+    #         # Retrieve context where the logging call occurred, this happens to be in
+    #         #  the 6th frame upward
+    #         logger_opt = logger.opt(depth=6, exception=record.exc_info)
+    #         logger_opt.log(record.levelno, record.getMessage())
+
+    # logging.basicConfig(handlers=[InterceptHandler()], level=LOGURU_LOGGING_LEVEL)
 
 
 def request_parser(request_data):

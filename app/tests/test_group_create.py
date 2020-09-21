@@ -27,6 +27,20 @@ class Test(unittest.TestCase):
         response = client.post(url, json=test_data)
         assert response.status_code == 422
 
+    def test_groups_post_error_type(self):
+
+        test_data = {
+            "name": f"test{secrets.token_hex(1)}",
+            "description": f"test group {secrets.token_hex(2)}",
+            "group_type": secrets.token_hex(1),
+            "is_active": True,
+        }
+
+        url = f"/api/v1/groups/create"
+
+        response = client.post(url, json=test_data)
+        assert response.status_code == 400
+
     def test_groups_post(self):
         test_data = {
             "name": f"test{secrets.token_hex(4)}",

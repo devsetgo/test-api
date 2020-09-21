@@ -7,7 +7,9 @@ https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py
 
 import multiprocessing
 
-from settings import LOGURU_LOGGING_LEVEL
+from loguru import logger
+
+from settings import LOGURU_LOGGING_LEVEL, WORKERS
 
 # ip and port to bind
 bind = "0.0.0.0:5000"
@@ -15,14 +17,17 @@ bind = "0.0.0.0:5000"
 # backlog = 2048
 # define number of workers by cores times two plus one
 # edit if you want to set a specific/limited amount of workers
-workers = multiprocessing.cpu_count() * 2 + 1
-workers = 1
+
+if WORKERS == 0 or WORKERS is None:
+    workers = multiprocessing.cpu_count() * 2 + 1
+else:
+    workers = int(WORKERS)
 # set worker class to uvicorn
 worker_class = "uvicorn.workers.UvicornWorker"
 
 # loglevel - The granularity of log output
 # A string of "debug", "info", "warning", "error", "critical"
-loglevel = LOGURU_LOGGING_LEVEL
+loglevel = LOGURU_LOGGING_LEVEL.lower()
 
 """
 A dictionary containing headers and values that the front-end proxy

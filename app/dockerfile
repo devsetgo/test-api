@@ -1,6 +1,6 @@
-FROM python:3.7-slim-buster
-RUN apt-get update && apt-get -y install gcc
-MAINTAINER Mike Ryan "mikeryan56@gmail.com"
+# Created and maintained by github.com/devsetgo
+FROM python:3.8-slim-buster
+RUN apt-get update && apt-get -y install build-essential
 EXPOSE 5000
 COPY . /app
 WORKDIR /app
@@ -26,6 +26,8 @@ ENV LOGURU_RETENTION='10 days'
 ENV LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
 ENV LOGURU_LOGGING_LEVEL='INFO'
+# Gunicorn Workers - Set to 0 for CPUs x 2 + 1
+ENV WORKERS=0
 # Leave intact for license
 ENV CREATED_BY='Mike Ryan'
 ENV LICENSE_TYPE='MIT'
