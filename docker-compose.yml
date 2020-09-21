@@ -47,7 +47,7 @@ services:
     - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
     - "traefik.http.routers.ta-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
     - "traefik.http.routers.ta-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
-    - "traefik.http.routers.ta-web-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
+    - "traefik.http.routers.ta-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
     - "traefik.http.routers.ta-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
     - "traefik.http.routers.ta-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
     
