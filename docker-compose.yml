@@ -6,7 +6,6 @@ version: '3'
 services:
   test-api:
     # build: ./app
-    # image: mikeryan56/test-api:test
     image: mikeryan56/test-api:latest
     ports:
     - "5000"
@@ -17,28 +16,26 @@ services:
       # option: dotenv, docker
       USE_ENV: docker
       # Application information
-      APP_VERSION: '20.03.08'
+      APP_VERSION: '20.09.21'
       OWNER: 'Your Name'
       WEBSITE: https://your.domain.com/support
       # Demo settings
-      CREATE_SAMPLE_DATA: True
-      NUMBER_TASKS: 1000
-      NUMBER_USERS: 1000
+      CREATE_SAMPLE_DATA: 'False'
+      NUMBER_TASKS: 10
+      NUMBER_USERS: 10
+      NUMBER_GROUPS: 10
       # Cofigurations
       HOST_DOMAIN: https://your.domain.com
       #prd for production or dev for development
       RELEASE_ENV: dev
       # Turn HTTPS Middleware on (True) or off (False)
-      HTTPS_ON: True
+      HTTPS_ON: 'False'
       SQLALCHEMY_DATABASE_URI: sqlite:///sqlite_db/api.db
-      SECRET_KEY: 'a-secret-key'
-      ALGORITHM: "HS256"
-      ACCESS_TOKEN_EXPIRE_MINUTES: 10080
       # Loguru settings
       LOGURU_RETENTION: 10 days
       LOGURU_ROTATION: 100 MB
       # Gunicorn Workers - Set to 0 for CPUs x 2 + 1
-      WORKERS: 0
+      WORKERS: 2
       # Leave intact for license
       CREATED_BY: 'Mike Ryan'
       LICENSE_TYPE: 'MIT'
@@ -46,22 +43,16 @@ services:
 
     #if using traefik
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.test-api.rule=Host(`test-api.devsetgo.com`)"
-    - "traefik.http.routers.test-api.entrypoints=websecure"
-    - "traefik.http.routers.test-api.tls.certresolver=mytlschallenge"
-    # networks:
-    #   - web
-    # restart:
-    #   - "always"
-    # healthcheck:
-    #   test: curl --fail -s http://localhost:5000/ || exit 1
-    #   interval: 1m30s
-    #   timeout: 10s
-    #   retries: 3
-  # deploy:
-  #    replicas: 2
-  #    resources:
-  #      limits:
-  #        cpus: "2"
-  #        memory: 100M
+    - "traefik.enable=true" # <== Enable traefik to proxy this container
+    - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
+    - "traefik.http.routers.ta-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+    - "traefik.http.routers.ta-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
+    - "traefik.http.routers.ta-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
+    - "traefik.http.routers.ta-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+    - "traefik.http.routers.ta-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+    
+    networks:
+      - web
+networks:
+  web:
+    external: true

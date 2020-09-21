@@ -1,4 +1,4 @@
-test-api.db
+*.db
 env/
 htmlcov/
 .env_sample
@@ -10,6 +10,7 @@ coverage.xml
 settings.json
 scratch_pad/
 .vscode
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
