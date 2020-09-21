@@ -21,7 +21,7 @@ services:
       OWNER: 'Your Name'
       WEBSITE: https://your.domain.com/support
       # Demo settings
-      CREATE_SAMPLE_DATA: True
+      CREATE_SAMPLE_DATA: 'True'
       NUMBER_TASKS: 1000
       NUMBER_USERS: 1000
       # Cofigurations
@@ -29,11 +29,8 @@ services:
       #prd for production or dev for development
       RELEASE_ENV: dev
       # Turn HTTPS Middleware on (True) or off (False)
-      HTTPS_ON: True
+      HTTPS_ON: 'True'
       SQLALCHEMY_DATABASE_URI: sqlite:///sqlite_db/api.db
-      SECRET_KEY: 'a-secret-key'
-      ALGORITHM: "HS256"
-      ACCESS_TOKEN_EXPIRE_MINUTES: 10080
       # Loguru settings
       LOGURU_RETENTION: 10 days
       LOGURU_ROTATION: 100 MB
@@ -46,22 +43,16 @@ services:
 
     #if using traefik
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.test-api.rule=Host(`test-api.devsetgo.com`)"
-    - "traefik.http.routers.test-api.entrypoints=websecure"
-    - "traefik.http.routers.test-api.tls.certresolver=mytlschallenge"
-    # networks:
-    #   - web
-    # restart:
-    #   - "always"
-    # healthcheck:
-    #   test: curl --fail -s http://localhost:5000/ || exit 1
-    #   interval: 1m30s
-    #   timeout: 10s
-    #   retries: 3
-  # deploy:
-  #    replicas: 2
-  #    resources:
-  #      limits:
-  #        cpus: "2"
-  #        memory: 100M
+    - "traefik.enable=true" # <== Enable traefik to proxy this container
+    - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
+    - "traefik.http.routers.ta-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+    - "traefik.http.routers.ta-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
+    - "traefik.http.routers.ta-web-secured.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name for the https rule 
+    - "traefik.http.routers.ta-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+    - "traefik.http.routers.ta-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+    
+    networks:
+      - web
+networks:
+  web:
+    external: true
