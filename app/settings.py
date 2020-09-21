@@ -126,5 +126,5 @@ else:
     if LOGURU_LOGGING_LEVEL is None:
         LOGURU_LOGGING_LEVEL = "INFO"
     WORKERS = os.environ["WORKERS"]
-    if WORKERS is None or WORKERS is 0:
+    if WORKERS is None or WORKERS == 0:
         WORKERS = 0
