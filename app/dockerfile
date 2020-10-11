@@ -10,10 +10,10 @@ ENV APP_VERSION='20.09.13'
 ENV OWNER='Your Name'
 ENV WEBSITE='https://your.domain.com/support'
 # Demo settings
-ENV CREATE_SAMPLE_DATA=True
-ENV NUMBER_TASKS=100
-ENV NUMBER_USERS=100
-ENV NUMBER_GROUPS=100
+ENV CREATE_SAMPLE_DATA='False'
+ENV NUMBER_TASKS=10
+ENV NUMBER_USERS=10
+ENV NUMBER_GROUPS=10
 # Cofigurations
 ENV HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
