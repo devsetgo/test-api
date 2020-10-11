@@ -18,6 +18,6 @@ jobs:
       - uses: tiangolo/latest-changes@main
         with:
           token: ${{ secrets.RELEASE_NOTES }}
-          latest_changes_file: latest-changes.md
+          latest_changes_file: ./latest-changes.md
           latest_changes_header: '## Merged PRs\n\n'
           debug_logs: true
