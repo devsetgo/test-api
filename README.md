@@ -208,9 +208,3 @@ Pre-Commit & Hooks
 - Tutorials/Documentation
   - [ ] Basic Overview
   - [ ] Explantion of functions
-
-
-
-
-### Latest Changes - Latest Changes
-
