@@ -20,11 +20,11 @@ SonarCloud:
 
 # Test-API a FASTAPI Example
 
-A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
+A test/pseudo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
 
 
 ### Note
-- This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)
+- This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (ubuntu tested) and I think Mac OS (I don't use a Mac)
 - ~~This should be just consider a **beta version** api at this time.~~
 
 ## Create Environment
@@ -207,4 +207,4 @@ Pre-Commit & Hooks
 
 - Tutorials/Documentation
   - [ ] Basic Overview
-  - [ ] Explantion of functions
+  - [ ] Explanation of functions
