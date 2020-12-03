@@ -5,7 +5,7 @@ asyncpg==0.21.0
 databases==0.4.1
 email-validator==1.1.2
 fastapi-login==1.5.1 # from 1.5.0
-fastapi[all]==0.61.2
+fastapi[all]==0.62.0
 graphene==2.1.8
 gunicorn==20.0.4
 itsdangerous==1.1.0
