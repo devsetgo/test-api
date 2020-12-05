@@ -3,4 +3,4 @@ set -e
 set -x
 
 # run dev
-git rebase origin/release-candidate 
+git rebase origin/main
