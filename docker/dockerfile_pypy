@@ -1,9 +1,13 @@
 # Created and maintained by github.com/devsetgo
-FROM python:3.8-slim-buster
+FROM pypy:3.7-slim-buster
 RUN apt-get update && apt-get -y install build-essential
 EXPOSE 5000
-COPY . /app
+RUN pwd
+COPY /app /app
 WORKDIR /app
+RUN useradd -m -r user && \
+    chown -R user /app
+USER user
 # ENV Variables
 # Application information
 ENV APP_VERSION='20.09.13'
@@ -34,4 +38,4 @@ ENV LICENSE_TYPE='MIT'
 ENV LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 
 RUN pip install -r requirements.txt
-CMD ["gunicorn",  "-c", "gunicorn_cfg.py", "main:app"]
+CMD ["gunicorn",  "-c", "gunicorn_cfg_pypy.py", "main:app"]
