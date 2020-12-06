@@ -2,7 +2,7 @@ name: Docker RC
 on:
   push:
     branches:
-    - release-candidate
+    - main
 jobs:
   build:
     runs-on: ubuntu-18.04

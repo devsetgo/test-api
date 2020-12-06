@@ -2,7 +2,7 @@ name: Latest Changes
 on:
   pull_request_target:
     branches:
-      - release-candidate
+      - main
     types:
       - closed
 jobs:
@@ -10,7 +10,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
