@@ -201,6 +201,9 @@ Pre-Commit & Hooks
 - [ ] Validate userId in ToDo's
 - [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
+- PyPy Support
+    - [ ] Add PyPy Support
+        - Currently there are several issues preventing PyPy support. OrJSON and AsyncPG do not support PyPy. This will require figuring out alternative libraries.
 - Docker
   - [X] Docker-Compose example
     - Configuraton for Traefik (default) and [Jwilder/Nginx-Proxy](https://github.com/jwilder/nginx-proxy) & [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
