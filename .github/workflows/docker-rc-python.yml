@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@main
       with:
-        ref: release-candidate
+        ref: dev
     - name: docker-build
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
