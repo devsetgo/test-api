@@ -1,8 +1,10 @@
 Python:
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+
 
 CI/CD Pipeline:
 [![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
@@ -201,6 +203,9 @@ Pre-Commit & Hooks
 - [ ] Validate userId in ToDo's
 - [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
+- PyPy Support
+    - [ ] Add PyPy Support
+        - Currently there are several issues preventing PyPy support. OrJSON and AsyncPG do not support PyPy. This will require figuring out alternative libraries.
 - Docker
   - [X] Docker-Compose example
     - Configuraton for Traefik (default) and [Jwilder/Nginx-Proxy](https://github.com/jwilder/nginx-proxy) & [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)

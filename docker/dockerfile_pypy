@@ -1,13 +1,10 @@
 # Created and maintained by github.com/devsetgo
 FROM pypy:3.7-slim-buster
-RUN apt-get update && apt-get -y install build-essential
+RUN apt-get update && apt-get -y install build-essential gcc
 EXPOSE 5000
 RUN pwd
 COPY /app /app
 WORKDIR /app
-RUN useradd -m -r user && \
-    chown -R user /app
-USER user
 # ENV Variables
 # Application information
 ENV APP_VERSION='20.09.13'
@@ -31,11 +28,15 @@ ENV LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
 ENV LOGURU_LOGGING_LEVEL='INFO'
 # Gunicorn Workers - Set to 0 for CPUs x 2 + 1
-ENV WORKERS=0
+ENV WORKERS=2
 # Leave intact for license
 ENV CREATED_BY='Mike Ryan'
 ENV LICENSE_TYPE='MIT'
 ENV LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 
-RUN pip install -r requirements.txt
+RUN pip install --upgrade setuptools pip wheel
+RUN pip install -r requirements/pypy_prod.txt
+RUN useradd -m -r testapi && \
+    chown -R testapi /app
+USER testapi
 CMD ["gunicorn",  "-c", "gunicorn_cfg_pypy.py", "main:app"]
