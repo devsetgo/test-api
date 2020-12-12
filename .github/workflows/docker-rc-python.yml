@@ -15,7 +15,6 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        cd app
         ls -l
         echo 'Docker Login'
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
