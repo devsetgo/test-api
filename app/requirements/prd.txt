@@ -8,7 +8,7 @@ fastapi[all]==0.62.0
 graphene==2.1.8
 gunicorn==20.0.4
 loguru==0.5.3 # from 0.5.2
-orjson==3.4.0
+orjson==3.4.6
 passlib[bcrypt]==1.7.4
 psutil==5.7.3
 py-cpuinfo==7.0.0
