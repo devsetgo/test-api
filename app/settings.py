@@ -38,7 +38,8 @@ if USE_ENV.lower() == "dotenv":
     # Application Configurations
     HOST_DOMAIN = config("HOST_DOMAIN", default="https://devsetgo.com")
     RELEASE_ENV = config("RELEASE_ENV", default="prd")
-    HTTPS_ON = config("HTTPS_ON", default=True)
+    HTTPS_ON = config("HTTPS_ON", default="True")
+    PROMETHEUS_ON=config("PROMETHEUS_ON",default="False")
     SQLALCHEMY_DATABASE_URI = config(
         "SQLALCHEMY_DATABASE_URI", default="sqlite:///sqlite_db/api.db"
     )
@@ -105,6 +106,10 @@ else:
     if HTTPS_ON is None:
         HTTPS_ON = True
 
+    PROMETHEUS_ON=os.environ["PROMETHEUS_ON"]
+    if PROMETHEUS_ON is None:
+        PROMETHEUS_ON = False
+        
     ADD_DEFAULT_GROUP = os.environ["ADD_DEFAULT_GROUP"]
     if ADD_DEFAULT_GROUP is None:
         ADD_DEFAULT_GROUP = "False"
