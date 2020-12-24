@@ -16,7 +16,7 @@ services:
       # option: dotenv, docker
       USE_ENV: docker
       # Application information
-      APP_VERSION: '20.09.21'
+      APP_VERSION: '20.12.21'
       OWNER: 'Your Name'
       WEBSITE: https://your.domain.com/support
       # Demo settings
@@ -36,13 +36,7 @@ services:
       LOGURU_ROTATION: 100 MB
       # Gunicorn Workers - Set to 0 for CPUs x 2 + 1
       WORKERS: 2
-      GUNICORN_WORKER_CLASS: "uvicorn.workers.UvicornWorker"
-      # Leave intact for license
-      CREATED_BY: 'Mike Ryan'
-      LICENSE_TYPE: 'MIT'
-      LICENSE_LINK: https://github.com/devsetgo/test-api/blob/master/LICENSE
 
-    #if using traefik
     labels:
     - "traefik.enable=true" # <== Enable traefik to proxy this container
     - "traefik.http.routers.ta-web.rule=Host(`test-api.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
