@@ -35,10 +35,10 @@ A dictionary containing headers and values that the front-end proxy
 These tell Gunicorn to set wsgi.url_scheme to https,
  so your application can tell that the request is secure.
 """
-secure_scheme_headers = {
-    "X-FORWARDED-PROTOCOL": "ssl",
-    "X-FORWARDED-PROTO": "https",
-    "X-FORWARDED-SSL": "on",
-}
-# ips that are allowed to forward
-FORWARDED_ALLOW_IPS = "127.0.0.1", "0.0.0.0"
+# secure_scheme_headers = {
+#     "X-FORWARDED-PROTOCOL": "ssl",
+#     "X-FORWARDED-PROTO": "https",
+#     "X-FORWARDED-SSL": "on",
+# }
+# # ips that are allowed to forward
+# FORWARDED_ALLOW_IPS = "127.0.0.1", "0.0.0.0"
