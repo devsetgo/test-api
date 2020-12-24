@@ -31,6 +31,7 @@ from settings import (
     OWNER,
     RELEASE_ENV,
     WEBSITE,
+    PROMETHEUS_ON
 )
 
 # config logging start
@@ -131,8 +132,9 @@ async def startup_event():
         logger.warning("Adding Default group")
         await add_default_group(add_default=ADD_DEFAULT_GROUP)
 
-    app.add_route("/api/health/metrics", handle_metrics)
-    logger.info("prometheus route added")
+    if PROMETHEUS_ON=="TRUE":    
+        app.add_route("/api/health/metrics", handle_metrics)
+        logger.info("prometheus route added")
 
 
 @app.on_event("shutdown")
