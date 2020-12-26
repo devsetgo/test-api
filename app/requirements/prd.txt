@@ -10,7 +10,7 @@ gunicorn==20.0.4
 loguru==0.5.3
 orjson==3.4.6
 passlib[bcrypt]==1.7.4
-psutil==5.8.0 # from 5.7.3
+psutil==5.8.0
 py-cpuinfo==7.0.0
 pyjokes==0.6.0
 python-dotenv==0.15.0
