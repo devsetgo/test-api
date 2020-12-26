@@ -9,14 +9,10 @@ import silly
 from loguru import logger
 from unsync import unsync
 
-from com_lib.file_functions import save_json
 from com_lib.db_setup import database, groups, groups_item, todos, users
 from endpoints.sillyusers.gen_user import user_test_info
-from settings import NUMBER_GROUPS, NUMBER_TASKS, NUMBER_USERS
+from settings import config
 
-number_of_tasks = NUMBER_TASKS
-number_of_users = NUMBER_USERS
-number_of_groups = NUMBER_GROUPS
 # time variables
 currentTime = datetime.now()
 
@@ -29,19 +25,19 @@ def create_data():
     group_count = count_groups().result()
 
     if int(user_count) == 0:
-        create_users(int(number_of_users))
+        create_users(int(config.number_users))
         time.sleep(1)
     else:
         logger.info("existing data, sample users will not be created")
 
     if int(task_count) == 0:
-        create_tasks(int(number_of_tasks))
+        create_tasks(int(config.number_tasks))
         time.sleep(1)
     else:
         logger.info("existing data, sample tasks will not be created")
 
     if int(group_count) == 0:
-        create_groups(int(number_of_groups))
+        create_groups(int(config.number_groups))
         time.sleep(1)
         create_standard_groups()
     else:

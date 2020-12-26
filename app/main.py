@@ -20,19 +20,7 @@ from endpoints.textblob import views as textblob
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
-from settings import (
-    ADD_DEFAULT_GROUP,
-    APP_VERSION,
-    CREATE_SAMPLE_DATA,
-    HOST_DOMAIN,
-    HTTPS_ON,
-    LICENSE_LINK,
-    LICENSE_TYPE,
-    OWNER,
-    RELEASE_ENV,
-    WEBSITE,
-    PROMETHEUS_ON,
-)
+from settings import config
 
 # config logging start
 config_logging()
@@ -44,7 +32,7 @@ logger.info("API database initiated")
 app = FastAPI(
     title="Test API",
     description="Checklist APIs",
-    version=APP_VERSION,
+    version=config.app_version,
     openapi_url="/openapi.json",
 )
 logger.info("API App initiated")
@@ -110,29 +98,29 @@ async def startup_event():
         logger.trace(f"tracing: {e}")
 
     # initiate log with statement
-    if RELEASE_ENV.lower() == "dev":
-        logger.debug("Initiating logging for API")
-        logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
+    if config.release_env.lower() == "dev":
+        logger.debug("initiating logging for api")
+        logger.info(f"api initiated release_env: {config.release_env}")
 
-        if CREATE_SAMPLE_DATA == "True":
+        if config.create_sample_data == True:
             create_data()
-            logger.info("Create Data")
+            logger.info("create data")
     else:
-        logger.info(f"API initiated Release_ENV: {RELEASE_ENV}")
+        logger.info(f"api initiated release_env: {config.release_env}")
 
-    if CREATE_SAMPLE_DATA == "True":
+    if config.create_sample_data == True:
         create_data()
 
-    if HTTPS_ON == "True":
+    if config.https_on == True:
         app.add_middleware(HTTPSRedirectMiddleware)
         logger.warning(
-            f"HTTPS is set to {HTTPS_ON} and will required HTTPS connections"
+            f"https is set to {config.https_on} and will required https connections"
         )
-    if ADD_DEFAULT_GROUP == "True":
-        logger.warning("Adding Default group")
-        await add_default_group(add_default=ADD_DEFAULT_GROUP)
+    if config.add_default_group == True:
+        logger.warning("adding default group")
+        await add_default_group(add_default=config.add_default_group)
 
-    if PROMETHEUS_ON == "TRUE":
+    if config.prometheus_on == True:
         app.add_route("/api/health/metrics", handle_metrics)
         logger.info("prometheus route added")
 
@@ -205,8 +193,8 @@ async def joke(
     return results
 
 
-@app.get("/information")
-async def info():
+@app.get("/info")
+async def information():
     """
     API information endpoint
 
@@ -214,19 +202,22 @@ async def info():
         [json] -- [description] app version, environment running in (dev/prd),
         Doc/Redoc link, Lincense information, and support information
     """
-    if RELEASE_ENV.lower() == "dev":
+    if config.release_env.lower() == "dev":
         main_url = "http://localhost:5000"
     else:
-        main_url = HOST_DOMAIN
+        main_url = config.host_domain
 
     openapi_url = f"{main_url}/docs"
     redoc_url = f"{main_url}/redoc"
     result = {
-        "App Version": APP_VERSION,
-        "Environment": RELEASE_ENV,
-        "Docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "License": {"Type": LICENSE_TYPE, "License Link": LICENSE_LINK},
-        "Application_Information": {"Owner": OWNER, "Support Site": WEBSITE},
+        "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
+        "app version": config.app_version,
+        "environment": config.release_env,
+        "license": {"type": config.license_type, "license link": config.license_link,},
+        "application_information": {
+            "owner": config.owner,
+            "support site": config.website,
+        },
     }
     return result
 
