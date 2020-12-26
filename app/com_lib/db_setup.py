@@ -2,7 +2,7 @@
 """
 Database configuration and schema
 """
-import databases
+from databases import Database
 from loguru import logger
 from sqlalchemy import (
     JSON,
@@ -17,14 +17,14 @@ from sqlalchemy import (
 )
 from sqlalchemy.pool import QueuePool
 
-from settings import SQLALCHEMY_DATABASE_URI
+from settings import config
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, poolclass=QueuePool, max_overflow=40, pool_size=200
+    config.sqlalchemy_database_uri, poolclass=QueuePool, max_overflow=40, pool_size=200,
 )
 
 metadata = MetaData()
-database = databases.Database(SQLALCHEMY_DATABASE_URI)
+database = Database(config.sqlalchemy_database_uri)
 
 
 def create_db():
@@ -34,7 +34,7 @@ def create_db():
 
 async def connect_db():
     await database.connect()
-    logger.info(f"connecting to database {SQLALCHEMY_DATABASE_URI}")
+    logger.info(f"connecting to database {config.sqlalchemy_database_uri}")
 
 
 async def disconnect_db():
