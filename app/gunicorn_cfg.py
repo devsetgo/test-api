@@ -31,7 +31,6 @@ worker_class = "uvicorn.workers.UvicornH11Worker"
 loglevel = str(config.loguru_logging_level.lower())
 
 
-
 """
 A dictionary containing headers and values that the front-end proxy
  uses to indicate HTTPS requests.

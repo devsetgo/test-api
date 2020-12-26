@@ -6,6 +6,7 @@ from app.settings import config
 
 client = TestClient(main.app)
 
+
 def test_settings():
     assert config.app_version != None
     assert config.owner != None
@@ -25,4 +26,3 @@ def test_settings():
     assert config.loguru_retention != None
     assert config.loguru_rotation != None
     assert config.workers != None
-

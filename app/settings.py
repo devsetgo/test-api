@@ -9,8 +9,9 @@ environment variables.
 import secrets
 from datetime import datetime
 from functools import lru_cache
+
 # from starlette.config import Config
-from pydantic import BaseSettings,AnyUrl
+from pydantic import BaseSettings, AnyUrl
 
 # from loguru import logger
 
@@ -29,9 +30,9 @@ class Settings(BaseSettings):
     release_env: str = "prd"
     https_on: bool = True
     prometheus_on: bool = True
-    database_type:str = "sqlite"
-    db_name:str= "sqlite_db/api.db"
-    sqlalchemy_database_uri: str ="sqlite:///sqlite_db/api.db"
+    database_type: str = "sqlite"
+    db_name: str = "sqlite_db/api.db"
+    sqlalchemy_database_uri: str = "sqlite:///sqlite_db/api.db"
     add_default_group: bool = True
     workers: int = 2
     secret_key: str = str(secrets.token_urlsafe(4))
@@ -52,9 +53,11 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
 
+
 @lru_cache()
 def get_settings():
     return Settings()
+
 
 config = get_settings()
 # config = Settings()

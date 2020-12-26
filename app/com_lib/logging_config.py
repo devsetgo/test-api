@@ -15,7 +15,7 @@ def config_logging():
     # add new configuration
     logger.add(
         log_path,  # log file path
-        level=config.loguru_logging_level.upper(), # logging level
+        level=config.loguru_logging_level.upper(),  # logging level
         format="{time:yyyy-mm-dd at hh:mm:ss} | {level} | {message}",  # format of log
         enqueue=True,  # set to true for async or multiprocessing logging
         backtrace=False,  # turn to false if in production to prevent data leaking
