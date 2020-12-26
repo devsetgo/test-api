@@ -76,7 +76,7 @@ async def health_processes() -> dict:
 
 
 # from functools import lru_cache
-from settings import Settings
+from settings import config
 
 # @lru_cache()
 # def get_settings():
@@ -101,7 +101,7 @@ async def info():
     # redoc_url = f"{main_url}/redoc"
     result = {
         # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "configuraton": Settings(),
+        "configuraton": config.dict(),
         # "app version": settings.app_version,
         # "environment": settings.release_env,
         # "license": {"type": settings.license_type, "license link": settings.license_link},
