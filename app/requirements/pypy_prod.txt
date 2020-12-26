@@ -4,7 +4,7 @@ alembic==1.4.3
 asyncpg==0.21.0
 databases==0.4.1
 email-validator==1.1.2
-fastapi-login==1.5.1 # from 1.5.0
+fastapi-login==1.5.2 # from 1.5.0
 fastapi==0.62.0
 requests >=2.24.0,<3.0.0
 aiofiles >=0.5.0,<0.6.0
@@ -26,7 +26,7 @@ jinja2==2.11.2
 loguru==0.5.3 # from 0.5.2
 #orjson==3.4.0
 passlib[bcrypt]==1.7.4
-psutil==5.7.3
+psutil==5.8.0
 py-cpuinfo==7.0.0
 pyjokes==0.6.0
 python-multipart==0.0.5
