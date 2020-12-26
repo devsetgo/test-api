@@ -66,7 +66,7 @@ HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 RELEASE_ENV='dev'
 SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
-SECRET_KEY='your-secret-key'
+
 
 # Loguru settings
 LOGURU_RETENTION='10 days'
