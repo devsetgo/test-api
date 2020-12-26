@@ -26,7 +26,7 @@ jinja2==2.11.2
 loguru==0.5.3 # from 0.5.2
 #orjson==3.4.0
 passlib[bcrypt]==1.7.4
-psutil==5.7.3
+psutil==5.8.0
 py-cpuinfo==7.0.0
 pyjokes==0.6.0
 python-multipart==0.0.5
