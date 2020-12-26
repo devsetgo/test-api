@@ -7,7 +7,6 @@ https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py
 
 import multiprocessing
 
-
 from settings import config
 
 # ip and port to bind

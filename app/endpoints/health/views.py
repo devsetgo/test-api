@@ -8,6 +8,7 @@ from loguru import logger
 from starlette_exporter import handle_metrics
 
 from endpoints.health.checks import get_processes
+from settings import config
 
 router = APIRouter()
 
@@ -73,14 +74,6 @@ async def health_processes() -> dict:
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
-
-
-# from functools import lru_cache
-from settings import config
-
-# @lru_cache()
-# def get_settings():
-#     return settings.Settings()
 
 
 @router.get("/configuration")

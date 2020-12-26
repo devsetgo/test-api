@@ -11,7 +11,7 @@ from datetime import datetime
 from functools import lru_cache
 
 # from starlette.config import Config
-from pydantic import BaseSettings, AnyUrl
+from pydantic import AnyUrl, BaseSettings
 
 # from loguru import logger
 
