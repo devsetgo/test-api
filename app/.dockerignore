@@ -5,12 +5,15 @@ htmlcov/
 coverage.xml
 .coverage
 .github
+*.log
+.env
+flake8_report/
 
 # ignore project files
 settings.json
 scratch_pad/
 .vscode
-
+tests/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

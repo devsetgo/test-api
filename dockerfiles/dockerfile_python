@@ -11,23 +11,23 @@ ENV APP_VERSION='20.12.11'
 ENV OWNER='Your Name'
 ENV WEBSITE='https://your.domain.com/support'
 # Demo settings
-ENV CREATE_SAMPLE_DATA='False'
-ENV NUMBER_TASKS=10
-ENV NUMBER_USERS=10
-ENV NUMBER_GROUPS=10
+ENV CREATE_SAMPLE_DATA=False
+ENV NUMBER_TASKS=100
+ENV NUMBER_USERS=100
+ENV NUMBER_GROUPS=100
 # Cofigurations
 ENV HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 ENV RELEASE_ENV='prd'
-ENV HTTPS_ON = 'False'
-ENV ADD_DEFAULT_GROUP='False'
+ENV HTTPS_ON=False
+ENV ADD_DEFAULT_GROUP=False
 ENV SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 # Loguru settings
 ENV LOGURU_RETENTION='10 days'
 ENV LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
 ENV LOGURU_LOGGING_LEVEL='INFO'
-# Gunicorn Workers - Set to 0 for CPUs x 2 + 1
+# Workers - Set to 1 or more (max = CPUs x 2 + 1)
 ENV WORKERS=2
 # Leave intact for license
 ENV CREATED_BY='Mike Ryan'
@@ -39,4 +39,6 @@ RUN pip install -r requirements.txt
 RUN useradd -m -r testapi && \
     chown -R testapi /app
 USER testapi
-CMD ["gunicorn",  "-c", "gunicorn_cfg.py", "main:app"]
+# CMD ["gunicorn",  "-c", "gunicorn_cfg.py", "main:app"]
+# CMD ["uvicorn", "main:app", "--port", "5000", "--workers", $((WORKERS)), "--log-level", ${LOGURU_LOGGING_LEVEL,,}]
+CMD ["./scripts/prd_run.sh"]

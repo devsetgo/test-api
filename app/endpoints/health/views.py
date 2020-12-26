@@ -73,3 +73,38 @@ async def health_processes() -> dict:
         return result
     except Exception as e:
         logger.error(f"Error: {e}")
+
+
+# from functools import lru_cache
+from settings import Settings
+
+# @lru_cache()
+# def get_settings():
+#     return settings.Settings()
+
+
+@router.get("/configuration")
+async def info():
+    """
+    API information endpoint
+
+    Returns:
+        [json] -- [description] app version, environment running in (dev/prd),
+        Doc/Redoc link, Lincense information, and support information
+    """
+    # if config.release_env.lower() == "dev":
+    #     main_url = "http://localhost:5000"
+    # else:
+    #     main_url = config.host_domain
+
+    # openapi_url = f"{main_url}/docs"
+    # redoc_url = f"{main_url}/redoc"
+    result = {
+        # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
+        "configuraton": Settings(),
+        # "app version": settings.app_version,
+        # "environment": settings.release_env,
+        # "license": {"type": settings.license_type, "license link": settings.license_link},
+        # "application_information": {"owner": settings.owner, "support site": settings.website},
+    }
+    return result

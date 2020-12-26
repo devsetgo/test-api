@@ -4,7 +4,7 @@ from pathlib import Path
 
 from loguru import logger
 
-from settings import LOGURU_LOGGING_LEVEL, LOGURU_RETENTION, LOGURU_ROTATION
+from settings import config
 
 
 def config_logging():
@@ -15,14 +15,14 @@ def config_logging():
     # add new configuration
     logger.add(
         log_path,  # log file path
-        level=LOGURU_LOGGING_LEVEL,  # logging level
-        format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",  # format of log
+        level=config.loguru_logging_level.upper(),  # logging level
+        format="{time:yyyy-mm-dd at hh:mm:ss} | {level} | {message}",  # format of log
         enqueue=True,  # set to true for async or multiprocessing logging
         backtrace=False,  # turn to false if in production to prevent data leaking
-        rotation=LOGURU_ROTATION,  # file size to rotate
-        retention=LOGURU_RETENTION,  # how long a the logging data persists
+        rotation=config.loguru_rotation,  # file size to rotate
+        retention=config.loguru_retention,  # how long a the logging data persists
         compression="zip",  # log rotation compression
-        serialize=False,  # if you want it JSON style, set to true. But also change the format
+        serialize=False,  # if you want it json style, set to true. but also change the format
     )
 
     # intercept standard logging
@@ -44,7 +44,9 @@ def config_logging():
                 level, record.getMessage()
             )
 
-    logging.basicConfig(handlers=[InterceptHandler()], level=LOGURU_LOGGING_LEVEL)
+    logging.basicConfig(
+        handlers=[InterceptHandler()], level=config.loguru_logging_level.upper()
+    )
 
     # logger.remove()
     # log_path = Path.cwd().joinpath("logfile").joinpath("app_log.log")
