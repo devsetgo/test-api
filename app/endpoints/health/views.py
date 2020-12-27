@@ -8,6 +8,7 @@ from loguru import logger
 from starlette_exporter import handle_metrics
 
 from endpoints.health.checks import get_processes
+from settings import config
 
 router = APIRouter()
 
@@ -75,14 +76,6 @@ async def health_processes() -> dict:
         logger.error(f"Error: {e}")
 
 
-# from functools import lru_cache
-from settings import Settings
-
-# @lru_cache()
-# def get_settings():
-#     return settings.Settings()
-
-
 @router.get("/configuration")
 async def info():
     """
@@ -101,7 +94,7 @@ async def info():
     # redoc_url = f"{main_url}/redoc"
     result = {
         # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "configuraton": Settings(),
+        "configuraton": config.dict(),
         # "app version": settings.app_version,
         # "environment": settings.release_env,
         # "license": {"type": settings.license_type, "license link": settings.license_link},
