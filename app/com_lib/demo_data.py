@@ -25,7 +25,7 @@ def create_data():
     group_count = count_groups().result()
 
     if int(user_count) == 0:
-        create_users(int(config.number_users))
+        create_users(config.number_users)
         time.sleep(1)
     else:
         logger.info("existing data, sample users will not be created")
@@ -78,7 +78,7 @@ async def count_tasks():
 def create_users(qty: int):
 
     for _ in range(0, qty):
-        time.sleep(0.01)
+        time.sleep(0.05)
         new_user = user_test_info()
         db_user_call(new_user)
 
@@ -87,11 +87,11 @@ def create_groups(qty: int):
 
     g_count = 0
     for _ in range(0, qty):
-        time.sleep(0.01)
+        time.sleep(0.05)
         id: str = str(uuid.uuid4())
         group_information = {
             "id": id,
-            "name": f"test{g_count}",
+            "name": f"test{secrets.token_hex(2)}",
             "is_active": random.choice([True, False]),
             "description": "This is a test",
             "group_type": random.choice(["approval", "notification"]),
@@ -102,7 +102,7 @@ def create_groups(qty: int):
         time.sleep(0.01)
 
         for _ in range(random.randint(2, 10)):
-            time.sleep(0.01)
+            time.sleep(0.05)
             group_user_creator(group_id=id)
         g_count += 1
 

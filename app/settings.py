@@ -28,23 +28,23 @@ class Settings(BaseSettings):
     # application configurations
     host_domain: AnyUrl = "https://test-api.devsetgo.com"
     release_env: str = "prd"
-    https_on: bool = True
+    https_on: bool = False
     prometheus_on: bool = True
     database_type: str = "sqlite"
     db_name: str = "sqlite_db/api.db"
     sqlalchemy_database_uri: str = "sqlite:///sqlite_db/api.db"
-    add_default_group: bool = True
+    add_default_group: bool = False
     workers: int = 2
     secret_key: str = str(secrets.token_urlsafe(4))
     # demo data
-    create_sample_data: bool = True
-    number_tasks: int = 100
-    number_users: int = 100
-    number_groups: int = 100
+    create_sample_data: bool = False
+    number_tasks: int = 1
+    number_users: int = 1
+    number_groups: int = 1
     # loguru settings
     loguru_retention: str = "10 days"
     loguru_rotation: str = "100 MB"
-    loguru_logging_level: str = "DEBUG"
+    loguru_logging_level: str = "INFO"
     # Config info
     spew: bool = False
     updated: datetime = datetime.utcnow()

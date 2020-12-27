@@ -19,7 +19,7 @@ services:
       # Application information
       TITLE: 'Test API'
       DESCRIPTION: 'Checklist APIs'
-      APP_VERSION: '20.09.21'
+      APP_VERSION: '20.12.26'
       OWNER: 'Your Name'
       WEBSITE: https://your.domain.com/support
       # Demo settings
