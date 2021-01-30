@@ -1,5 +1,5 @@
 # aiofiles==0.6.0
-aiosqlite==0.16.0
+aiosqlite==0.16.1
 alembic==1.5.2
 asyncpg==0.21.0
 databases==0.4.1
