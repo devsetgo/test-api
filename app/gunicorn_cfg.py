@@ -7,7 +7,7 @@ https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py
 
 import multiprocessing
 
-from settings import config
+from settings import config as conf
 
 # ip and port to bind
 bind = "0.0.0.0:5000"
@@ -16,10 +16,10 @@ bind = "0.0.0.0:5000"
 # define number of workers by cores times two plus one
 # edit if you want to set a specific/limited amount of workers
 
-if config.workers == 0 or config.workers is None:
+if conf.workers == 0 or conf.workers is None:
     workers = multiprocessing.cpu_count() * 2 + 1
 else:
-    workers = config.workers
+    workers = conf.workers
 
 # set worker class to uvicorn
 # worker_class = "uvicorn.workers.uvicornworker"
@@ -27,7 +27,7 @@ worker_class = "uvicorn.workers.UvicornH11Worker"
 
 # loglevel - the granularity of log output
 # a string of "debug", "info", "warning", "error", "critical"
-loglevel = str(config.loguru_logging_level.lower())
+loglevel = str(conf.loguru_logging_level.lower())
 
 
 """
