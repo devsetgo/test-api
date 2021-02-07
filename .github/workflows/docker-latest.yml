@@ -19,6 +19,6 @@ jobs:
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         CAL_VER=$(date '+%Y-%m-%d')
         echo 'Docker Build'
-        docker build -t mikeryan56/test-api:$CAL_VER-python38  -t mikeryan56/test-api:latest -f docker/dockerfile_python .
+        docker build -t mikeryan56/test-api:$CAL_VER-python38  -t mikeryan56/test-api:latest -f dockerfiles/dockerfile_python .
         docker push mikeryan56/test-api:$CAL_VER-python38
-        docker push mikeryan56/test-api
+        docker push mikeryan56/test-api:latest
