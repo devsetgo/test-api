@@ -17,14 +17,17 @@ from sqlalchemy import (
 )
 from sqlalchemy.pool import QueuePool
 
-from settings import config
+from settings import config_settings
 
 engine = create_engine(
-    config.sqlalchemy_database_uri, poolclass=QueuePool, max_overflow=40, pool_size=200,
+    config_settings.sqlalchemy_database_uri,
+    poolclass=QueuePool,
+    max_overflow=40,
+    pool_size=200,
 )
 
 metadata = MetaData()
-database = Database(config.sqlalchemy_database_uri)
+database = Database(config_settings.sqlalchemy_database_uri)
 
 
 def create_db():
@@ -34,7 +37,7 @@ def create_db():
 
 async def connect_db():
     await database.connect()
-    logger.info(f"connecting to database {config.sqlalchemy_database_uri}")
+    logger.info(f"connecting to database {config_settings.sqlalchemy_database_uri}")
 
 
 async def disconnect_db():
