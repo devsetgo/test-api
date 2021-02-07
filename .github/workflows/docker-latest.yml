@@ -1,7 +1,7 @@
-name: Docker Latest
+name: Publish Docker image
 on:
   release:
-    types: [created]
+    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
