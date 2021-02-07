@@ -1,5 +1,6 @@
 # Release Notes
 
+* working on docker image push. PR [#184](https://github.com/devsetgo/test-api/pull/184) by [@devsetgo](https://github.com/devsetgo).
 * Bump orjson from 3.4.7 to 3.4.8 in /app/requirements. PR [#181](https://github.com/devsetgo/test-api/pull/181) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pre-commit from 2.10.0 to 2.10.1 in /app/requirements. PR [#182](https://github.com/devsetgo/test-api/pull/182) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump autopep8 from 1.5.4 to 1.5.5 in /app/requirements. PR [#183](https://github.com/devsetgo/test-api/pull/183) by [@dependabot[bot]](https://github.com/apps/dependabot).
