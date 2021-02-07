@@ -11,7 +11,7 @@ from unsync import unsync
 
 from com_lib.db_setup import database, groups, groups_item, todos, users
 from endpoints.sillyusers.gen_user import user_test_info
-from settings import config
+from settings import config_settings
 
 # time variables
 currentTime = datetime.now()
@@ -25,19 +25,19 @@ def create_data():
     group_count = count_groups().result()
 
     if int(user_count) == 0:
-        create_users(config.number_users)
+        create_users(config_settings.number_users)
         time.sleep(1)
     else:
         logger.info("existing data, sample users will not be created")
 
     if int(task_count) == 0:
-        create_tasks(int(config.number_tasks))
+        create_tasks(int(config_settings.number_tasks))
         time.sleep(1)
     else:
         logger.info("existing data, sample tasks will not be created")
 
     if int(group_count) == 0:
-        create_groups(int(config.number_groups))
+        create_groups(int(config_settings.number_groups))
         time.sleep(1)
         create_standard_groups()
     else:

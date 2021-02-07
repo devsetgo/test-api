@@ -8,7 +8,7 @@ from loguru import logger
 from starlette_exporter import handle_metrics
 
 from endpoints.health.checks import get_processes
-from settings import config
+from settings import config_settings
 
 router = APIRouter()
 
@@ -85,16 +85,16 @@ async def info():
         [json] -- [description] app version, environment running in (dev/prd),
         Doc/Redoc link, Lincense information, and support information
     """
-    # if config.release_env.lower() == "dev":
+    # if config_settingsrelease_env.lower() == "dev":
     #     main_url = "http://localhost:5000"
     # else:
-    #     main_url = config.host_domain
+    #     main_url = config_settingshost_domain
 
     # openapi_url = f"{main_url}/docs"
     # redoc_url = f"{main_url}/redoc"
     result = {
         # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "configuraton": config.dict(),
+        "configuraton": config_settings.dict(),
         # "app version": settings.app_version,
         # "environment": settings.release_env,
         # "license": {"type": settings.license_type, "license link": settings.license_link},

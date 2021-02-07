@@ -58,7 +58,13 @@ async def todo_list(
     },
 )
 async def todos_list_count(
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+    ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
@@ -80,7 +86,13 @@ async def todos_list_count(
 @router.get("/{todo_id}", tags=["todo"], response_description="Get todo information")
 async def get_todo_id(
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+    ),
 ) -> dict:
 
     # sleep if delay option is used
@@ -106,7 +118,13 @@ async def get_todo_id(
 async def deactivate_todo_id(
     *,
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+    ),
 ) -> dict:
 
     todo_information = {"is_complete": True, "date_complete": currentTime}
@@ -158,7 +176,13 @@ async def delete_todo_id(
 async def create_todo(
     *,
     todo: TodoCreate,
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+    ),
 ) -> dict:
 
     value = todo.dict()

@@ -20,7 +20,7 @@ from endpoints.textblob import views as textblob
 from endpoints.todo import views as todo
 from endpoints.tools import views as tools
 from endpoints.users import views as users
-from settings import config
+from settings import config_settings
 
 # config logging start
 config_logging()
@@ -32,7 +32,7 @@ logger.info("API database initiated")
 app = FastAPI(
     title="Test API",
     description="Checklist APIs",
-    version=config.app_version,
+    version=config_settings.app_version,
     openapi_url="/openapi.json",
 )
 logger.info("API App initiated")
@@ -46,7 +46,10 @@ four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # Group router
 app.include_router(
-    groups.router, prefix="/api/v1/groups", tags=["groups"], responses=four_zero_four,
+    groups.router,
+    prefix="/api/v1/groups",
+    tags=["groups"],
+    responses=four_zero_four,
 )
 # Text router
 app.include_router(
@@ -57,11 +60,17 @@ app.include_router(
 )
 # ToDo router
 app.include_router(
-    todo.router, prefix="/api/v1/todo", tags=["todo"], responses=four_zero_four,
+    todo.router,
+    prefix="/api/v1/todo",
+    tags=["todo"],
+    responses=four_zero_four,
 )
 # User router
 app.include_router(
-    users.router, prefix="/api/v1/users", tags=["users"], responses=four_zero_four,
+    users.router,
+    prefix="/api/v1/users",
+    tags=["users"],
+    responses=four_zero_four,
 )
 
 # Silly router
@@ -73,7 +82,10 @@ app.include_router(
 )
 # Tools router
 app.include_router(
-    tools.router, prefix="/api/v1/tools", tags=["tools"], responses=four_zero_four,
+    tools.router,
+    prefix="/api/v1/tools",
+    tags=["tools"],
+    responses=four_zero_four,
 )
 # Health router
 app.include_router(
@@ -98,29 +110,29 @@ async def startup_event():
         logger.trace(f"tracing: {e}")
 
     # initiate log with statement
-    if config.release_env.lower() == "dev":
+    if config_settings.release_env.lower() == "dev":
         logger.debug("initiating logging for api")
-        logger.info(f"api initiated release_env: {config.release_env}")
+        logger.info(f"api initiated release_env: {config_settings.release_env}")
 
-        if config.create_sample_data == True:
+        if config_settings.create_sample_data == True:
             create_data()
             logger.info("create data")
     else:
-        logger.info(f"api initiated release_env: {config.release_env}")
+        logger.info(f"api initiated release_env: {config_settings.release_env}")
 
-    if config.create_sample_data == True:
+    if config_settings.create_sample_data == True:
         create_data()
 
-    if config.https_on == True:
+    if config_settings.https_on == True:
         app.add_middleware(HTTPSRedirectMiddleware)
         logger.warning(
-            f"https is set to {config.https_on} and will required https connections"
+            f"https is set to {config_settings.https_on} and will required https connections"
         )
-    if config.add_default_group == True:
+    if config_settings.add_default_group == True:
         logger.warning("adding default group")
-        await add_default_group(add_default=config.add_default_group)
+        await add_default_group(add_default=config_settings.add_default_group)
 
-    if config.prometheus_on == True:
+    if config_settings.prometheus_on == True:
         app.add_route("/api/health/metrics", handle_metrics)
         logger.info("prometheus route added")
 
@@ -202,21 +214,24 @@ async def information():
         [json] -- [description] app version, environment running in (dev/prd),
         Doc/Redoc link, Lincense information, and support information
     """
-    if config.release_env.lower() == "dev":
+    if config_settings.release_env.lower() == "dev":
         main_url = "http://localhost:5000"
     else:
-        main_url = config.host_domain
+        main_url = config_settings.host_domain
 
     openapi_url = f"{main_url}/docs"
     redoc_url = f"{main_url}/redoc"
     result = {
         "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "app version": config.app_version,
-        "environment": config.release_env,
-        "license": {"type": config.license_type, "license link": config.license_link,},
+        "app version": config_settings.app_version,
+        "environment": config_settings.release_env,
+        "license": {
+            "type": config_settings.license_type,
+            "license link": config_settings.license_link,
+        },
         "application_information": {
-            "owner": config.owner,
-            "support site": config.website,
+            "owner": config_settings.owner,
+            "support site": config_settings.website,
         },
     }
     return result

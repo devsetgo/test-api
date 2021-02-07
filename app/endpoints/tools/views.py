@@ -10,7 +10,9 @@ router = APIRouter()
 
 
 @router.post("/xml-json")
-async def convert_xml(myfile: UploadFile = File(...),) -> dict:
+async def convert_xml(
+    myfile: UploadFile = File(...),
+) -> dict:
     """
     convert xml document to json
 
@@ -56,7 +58,9 @@ async def convert_xml(myfile: UploadFile = File(...),) -> dict:
 
 
 @router.post("/json-xml")
-async def convert_json(myfile: UploadFile = File(...),) -> str:
+async def convert_json(
+    myfile: UploadFile = File(...),
+) -> str:
     """
     convert json document to xml
 

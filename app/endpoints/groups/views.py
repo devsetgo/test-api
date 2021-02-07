@@ -216,7 +216,12 @@ async def group_list_count(
 )
 async def group_state(
     *,
-    id: str = Query(..., title="group id", description="Group UUID", alias="id",),
+    id: str = Query(
+        ...,
+        title="group id",
+        description="Group UUID",
+        alias="id",
+    ),
     is_active: bool = Query(
         None,
         title="active status",
@@ -308,7 +313,13 @@ async def group_state(
 async def create_group(
     *,
     group: GroupCreate,
-    delay: int = Query(None, title=title, ge=1, le=10, alias="delay",),
+    delay: int = Query(
+        None,
+        title=title,
+        ge=1,
+        le=10,
+        alias="delay",
+    ),
 ) -> dict:
     """[summary]
     Create a new group
@@ -378,7 +389,10 @@ async def create_group(
 @router.get("/group", tags=["groups"])
 async def group_id(
     group_id: str = Query(
-        None, title="Group ID", description="Get by the Group UUID", alias="groupId",
+        None,
+        title="Group ID",
+        description="Get by the Group UUID",
+        alias="groupId",
     ),
     group_name: str = Query(
         None,
