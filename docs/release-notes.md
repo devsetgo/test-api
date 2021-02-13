@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump asyncpg from 0.21.0 to 0.22.0 in /app/requirements. PR [#186](https://github.com/devsetgo/test-api/pull/186) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * fix of symlink. PR [#185](https://github.com/devsetgo/test-api/pull/185) by [@devsetgo](https://github.com/devsetgo).
 * working on docker image push. PR [#184](https://github.com/devsetgo/test-api/pull/184) by [@devsetgo](https://github.com/devsetgo).
 * Bump orjson from 3.4.7 to 3.4.8 in /app/requirements. PR [#181](https://github.com/devsetgo/test-api/pull/181) by [@dependabot[bot]](https://github.com/apps/dependabot).
