@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from pathlib import Path
+from pathlib import Path, PurePath,PurePosixPath
 
 from loguru import logger
 
@@ -11,20 +11,24 @@ def config_logging():
     # remove default logger
     logger.remove()
     # set file path
-    log_path = Path.cwd().joinpath("logfile").joinpath("app_log.log")
+    cwd = Path.cwd()
+    p = cwd.parent
+    log_path = p.joinpath("logging").joinpath("log.log")
+    # log_path = p.joinpath("logfile").joinpath("log.log")
     # add new configuration
     logger.add(
         log_path,  # log file path
         level=config_settings.loguru_logging_level.upper(),  # logging level
-        format="{time:yyyy-mm-dd at hh:mm:ss} | {level} | {message}",  # format of log
+        format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",  # format of log
         enqueue=True,  # set to true for async or multiprocessing logging
         backtrace=False,  # turn to false if in production to prevent data leaking
         rotation=config_settings.loguru_rotation,  # file size to rotate
         retention=config_settings.loguru_retention,  # how long a the logging data persists
         compression="zip",  # log rotation compression
         serialize=False,  # if you want it json style, set to true. but also change the format
+        
     )
-
+    
     # intercept standard logging
     class InterceptHandler(logging.Handler):
         def emit(self, record):
@@ -49,29 +53,6 @@ def config_logging():
         level=config_settings.loguru_logging_level.upper(),
     )
 
-    # logger.remove()
-    # log_path = Path.cwd().joinpath("logfile").joinpath("app_log.log")
-    # # logger.remove()
-    # logger.add(
-    #     log_path,
-    #     format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}",
-    #     enqueue=True,
-    #     backtrace=False,
-    #     rotation=LOGURU_ROTATION,
-    #     retention=LOGURU_RETENTION,
-    #     level=LOGURU_LOGGING_LEVEL,
-    #     compression="zip",
-    #     serialize=False,
-    # )
-
-    # class InterceptHandler(logging.Handler):
-    #     def emit(self, record):
-    #         # Retrieve context where the logging call occurred, this happens to be in
-    #         #  the 6th frame upward
-    #         logger_opt = logger.opt(depth=6, exception=record.exc_info)
-    #         logger_opt.log(record.levelno, record.getMessage())
-
-    # logging.basicConfig(handlers=[InterceptHandler()], level=LOGURU_LOGGING_LEVEL)
 
 
 def request_parser(request_data):
