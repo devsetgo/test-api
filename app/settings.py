@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     sqlalchemy_database_uri: str = "sqlite:///sqlite_db/api.db"
     add_default_group: bool = False
     workers: int = 2
-    secret_key: str = str(secrets.token_urlsafe(4))
+    secret_key: str = str(secrets.token_urlsafe(256))
     # demo data
     create_sample_data: bool = False
     number_tasks: int = 1
@@ -46,7 +46,6 @@ class Settings(BaseSettings):
     loguru_rotation: str = "100 MB"
     loguru_logging_level: str = "INFO"
     # Config info
-    spew: bool = False
     updated: datetime = datetime.utcnow()
 
     class Config:

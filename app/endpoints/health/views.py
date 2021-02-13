@@ -85,19 +85,18 @@ async def info():
         [json] -- [description] app version, environment running in (dev/prd),
         Doc/Redoc link, Lincense information, and support information
     """
-    # if config_settingsrelease_env.lower() == "dev":
-    #     main_url = "http://localhost:5000"
-    # else:
-    #     main_url = config_settingshost_domain
+    configuration:dict=config_settings.dict()
 
-    # openapi_url = f"{main_url}/docs"
-    # redoc_url = f"{main_url}/redoc"
+    # remove sensitive data
+    exclude_config:list=['sqlalchemy_database_uri','db_name','database_type','secret_key','create_sample_data','number_tasks','number_users','number_groups']
+    logger.debug(f"excluding {exclude_config}")
+    for e in exclude_config:
+        if e in configuration:
+            configuration.pop(e)
+
     result = {
         # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
-        "configuraton": config_settings.dict(),
-        # "app version": settings.app_version,
-        # "environment": settings.release_env,
-        # "license": {"type": settings.license_type, "license link": settings.license_link},
-        # "application_information": {"owner": settings.owner, "support site": settings.website},
+        "configuraton": configuration,
+        
     }
     return result
