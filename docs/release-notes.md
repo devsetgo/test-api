@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump fastapi-login from 1.5.2 to 1.5.3 in /app/requirements. PR [#187](https://github.com/devsetgo/test-api/pull/187) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.6.0 to 2.6.2 in /app/requirements. PR [#188](https://github.com/devsetgo/test-api/pull/188) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump asyncpg from 0.21.0 to 0.22.0 in /app/requirements. PR [#186](https://github.com/devsetgo/test-api/pull/186) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * fix of symlink. PR [#185](https://github.com/devsetgo/test-api/pull/185) by [@devsetgo](https://github.com/devsetgo).
