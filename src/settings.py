@@ -12,12 +12,10 @@ from functools import lru_cache
 
 # from starlette.config import Config
 from pydantic import AnyUrl, BaseSettings
-
-# from loguru import logger
+from loguru import logger
 
 
 class Settings(BaseSettings):
-    # use_env = "dotenv"
     title: str = "Test API"
     description: str = "Example API to learn from."
     app_version: str = "1.0.0"
@@ -28,7 +26,7 @@ class Settings(BaseSettings):
     # application configurations
     host_domain: AnyUrl = "https://test-api.devsetgo.com"
     release_env: str = "prd"
-    https_on: bool = False
+    https_on: bool = True
     prometheus_on: bool = True
     database_type: str = "sqlite"
     db_name: str = "sqlite_db/api.db"
@@ -38,9 +36,9 @@ class Settings(BaseSettings):
     secret_key: str = str(secrets.token_urlsafe(256))
     # demo data
     create_sample_data: bool = False
-    number_tasks: int = 1
-    number_users: int = 1
-    number_groups: int = 1
+    number_tasks: int = 10
+    number_users: int = 10
+    number_groups: int = 10
     # loguru settings
     loguru_retention: str = "10 days"
     loguru_rotation: str = "100 MB"
@@ -59,4 +57,3 @@ def get_settings():
 
 
 config_settings = get_settings()
-# config = Settings()

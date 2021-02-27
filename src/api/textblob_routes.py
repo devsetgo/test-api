@@ -17,11 +17,11 @@ title = "Delay in Seconds"
     response_class=ORJSONResponse,
     status_code=201,
     responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
         404: {"description": "Not Found"},
-        # 405: {"description": "Method not allowed"},
+        405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
@@ -70,11 +70,11 @@ async def spell_check(
     response_class=ORJSONResponse,
     status_code=201,
     responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
         404: {"description": "Not Found"},
-        # 405: {"description": "Method not allowed"},
+        405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
@@ -111,5 +111,4 @@ async def sentiment_check(
             "subjectivity": tb.sentiment.subjectivity,
         },
     }
-    # return data
     return ORJSONResponse(status_code=201, content=data)

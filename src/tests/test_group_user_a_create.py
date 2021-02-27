@@ -24,24 +24,6 @@ class Test(unittest.TestCase):
         response = client.post(url, json=test_data)
         assert response.status_code == 422
 
-    def test_groups_post_user(self):
-        group_id = open_json("test_data_group.json")
-        test_data = {
-            "group_id": group_id["id"],
-            "user": "abc123",
-        }
-        save_json("test_data_test_group_user.json", test_data)
-        url = f"/api/v1/groups/user/create?delay=1"
-
-        response = client.post(url, json=test_data)
-        assert response.status_code == 201
-        data = response.json()
-
-        # save_json("test_data_group_user.json", data)
-        # duplicate
-        response = client.post(url, json=test_data)
-        assert response.status_code == 400
-
     def test_groups_post_two_user(self):
         count = 1
         group_id = open_json("test_data_group.json")

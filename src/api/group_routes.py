@@ -35,7 +35,8 @@ from crud.group_crud import (
 router = APIRouter()
 
 title = "Delay in Seconds"
-delay_description:str='Seconds to delay (max 121)'
+delay_description: str = "Seconds to delay (max 121)"
+
 
 @router.get("/list", tags=["groups"])
 async def group_list(

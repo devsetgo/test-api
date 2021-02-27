@@ -11,7 +11,7 @@ from src.main import app
 client = TestClient(app)
 directory_to__files: str = "data"
 
-# api/v1/groups/list?delay=1&qty=10&offset=1&active=true&groupType=approval
+
 class Test(unittest.TestCase):
     def test_groups_post_error(self):
 
@@ -83,6 +83,6 @@ class Test(unittest.TestCase):
             "is_active": False,
         }
         url = f"/api/v1/groups/create"
-        response = client.post(url, json=test_data)
+        client.post(url, json=test_data)
         response = client.post(url, json=test_data)
         assert response.status_code == 400

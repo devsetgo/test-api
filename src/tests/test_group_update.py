@@ -17,8 +17,8 @@ class Test(unittest.TestCase):
 
     # State 422
     def test_groups_get_state_not_set(self):
-        # group_id = open_json("test_data_group_user.json")
-        g_id: str = secrets.token_hex(10)  # group_id['id']
+
+        g_id: str = secrets.token_hex(10)
         url = f"{base_url}/state?id={g_id}"
         response = client.put(url)
         assert response.status_code == 422
@@ -33,8 +33,8 @@ class Test(unittest.TestCase):
 
     # deactivate 404
     def test_groups_get_activate_not_found(self):
-        # group_id = open_json("test_data_group_user.json")
-        g_id: str = secrets.token_hex(10)  # group_id['id']
+
+        g_id: str = secrets.token_hex(10)
         url = f"{base_url}/state?id={g_id}&delay=1&isActive=true"
         response = client.put(url)
         assert response.status_code == 404
@@ -57,8 +57,8 @@ class Test(unittest.TestCase):
 
     # deactivate 404
     def test_groups_get_deactivate_not_found(self):
-        # group_id = open_json("test_data_group_user.json")
-        g_id: str = secrets.token_hex(10)  # group_id['id']
+
+        g_id: str = secrets.token_hex(10)
         url = f"{base_url}/state?id={g_id}&delay=1&isActive=false"
         response = client.put(url)
         assert response.status_code == 404

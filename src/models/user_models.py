@@ -22,7 +22,7 @@ class UserBase(BaseModel):
 
 
 class UserBaseInDB(UserBase):
-    user_id: str = None
+    # user_id: str = None
     user_name: str
 
 

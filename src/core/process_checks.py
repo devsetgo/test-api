@@ -2,7 +2,7 @@
 import multiprocessing
 import platform
 import sys
-
+from loguru import logger
 import psutil
 
 # TODO: Make a status that gets app uptime
@@ -49,7 +49,7 @@ def get_platform() -> dict:
     return result
 
 
-def get_processes() -> dict:
+def get_processes() -> list:
     """
     Get running processes and filter by python processes
 
@@ -64,5 +64,5 @@ def get_processes() -> dict:
         if p.info["name"] in process_check:
             result.append(p.info)
 
-    print(result)
+    logger.debug(result)
     return result

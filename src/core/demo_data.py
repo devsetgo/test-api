@@ -85,7 +85,6 @@ def create_users(qty: int):
 
 def create_groups(qty: int):
 
-    g_count = 0
     for _ in range(0, qty):
         time.sleep(0.05)
         id: str = str(uuid.uuid4())
@@ -117,17 +116,7 @@ def group_user_creator(group_id: str):
     db_group_user_call(group_information)
 
 
-# def group_creator():
-#     group_information = {
-#         "id": str(uuid.uuid4()),
-#         "name": f"test{secrets.token_hex(4)}",
-#         "is_active": random.choice([True, False]),
-#         "description": "This is a test",
-#         "group_type": random.choice(["approval", "notification"]),
-#         "date_create": datetime.now(),
-#         "date_update": datetime.now(),
-#     }
-#     db_group_call(group_information)
+_GROUP_DESCRIPTION: str = "This is an example group"
 
 
 def create_standard_groups():
@@ -136,7 +125,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup1",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),
@@ -145,7 +134,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup2",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),
@@ -154,7 +143,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup3",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),
@@ -163,7 +152,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup4",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),
@@ -172,7 +161,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup5",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),
@@ -181,7 +170,7 @@ def create_standard_groups():
             "id": str(uuid.uuid4()),
             "name": "approvalgroup6",
             "is_active": True,
-            "description": "This is an example group",
+            "description": _GROUP_DESCRIPTION,
             "group_type": "approval",
             "date_create": datetime.now(),
             "date_update": datetime.now(),

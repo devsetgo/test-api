@@ -50,8 +50,7 @@ class GroupItemBase(BaseModel):
 
 
 class GroupCreate(GroupsBase):
-    # id: UUID = Field(default_factory=uuid4)
-    # users: List[GroupItemBase]
+
     is_active: bool = Field(default=False)
 
 
@@ -81,7 +80,7 @@ class GroupsOut(BaseModel):
 
 
 class GroupUser(BaseModel):
-    # {'id':'id','user':'user','group_Id':'group_Id'}
+
     group_id: str = Field(
         None,
         alias="group_id",

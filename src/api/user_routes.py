@@ -121,13 +121,6 @@ async def user_list(
     db_result = await database.fetch_all(query)
     total_count = await database.fetch_all(count_query)
 
-    # else:
-
-    #     query = users.select().order_by(users.c.date_create).limit(qty).offset(offset)
-    #     db_result = await database.fetch_all(query)
-    #     count_query = users.select().order_by(users.c.date_create)
-    #     total_count = await database.fetch_all(count_query)
-
     result_set = []
     for r in db_result:
         # iterate through data and return simplified data set
