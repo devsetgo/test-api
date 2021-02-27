@@ -3,9 +3,9 @@ import unittest
 
 from starlette.testclient import TestClient
 
-from app.core.file_functions import save_json
-from app.endpoints.sillyusers.gen_user import user_test_info
-from app.main import app
+from src.core.file_functions import save_json
+from src.core.gen_user import user_test_info
+from src.main import app
 
 client = TestClient(app)
 directory_to__files: str = "data"

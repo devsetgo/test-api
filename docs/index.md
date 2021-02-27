@@ -103,7 +103,7 @@ Create coverage badge
 ~~~~
     coverage-badge -o coverage.svg -f
 ~~~~
-As a Script from app directory
+As a Script from src directory
 ~~~~
 ./scripts/tests.sh
 ~~~~

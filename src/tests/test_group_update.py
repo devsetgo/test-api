@@ -4,8 +4,8 @@ import unittest
 
 from starlette.testclient import TestClient
 
-from app.core.file_functions import open_json
-from app.main import app
+from src.core.file_functions import open_json
+from src.main import app
 
 client = TestClient(app)
 directory_to__files: str = "data"

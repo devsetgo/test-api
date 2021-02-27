@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from app.settings import Settings
+from src.settings import Settings
 
 
 @pytest.fixture

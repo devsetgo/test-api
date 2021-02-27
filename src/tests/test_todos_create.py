@@ -4,7 +4,7 @@ import unittest
 
 from starlette.testclient import TestClient
 
-from app.main import app
+from src.main import app
 from core.file_functions import save_json
 
 client = TestClient(app)

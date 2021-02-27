@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from pathlib import Path, PurePath,PurePosixPath
+from pathlib import Path, PurePath, PurePosixPath
 
 from loguru import logger
 
@@ -26,9 +26,8 @@ def config_logging():
         retention=config_settings.loguru_retention,  # how long a the logging data persists
         compression="zip",  # log rotation compression
         serialize=False,  # if you want it json style, set to true. but also change the format
-        
     )
-    
+
     # intercept standard logging
     class InterceptHandler(logging.Handler):
         def emit(self, record):
@@ -52,7 +51,6 @@ def config_logging():
         handlers=[InterceptHandler()],
         level=config_settings.loguru_logging_level.upper(),
     )
-
 
 
 def request_parser(request_data):

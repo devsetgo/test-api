@@ -85,10 +85,19 @@ async def info():
         [json] -- [description] app version, environment running in (dev/prd),
         Doc/Redoc link, Lincense information, and support information
     """
-    configuration:dict=config_settings.dict()
+    configuration: dict = config_settings.dict()
 
     # remove sensitive data
-    exclude_config:list=['sqlalchemy_database_uri','db_name','database_type','secret_key','create_sample_data','number_tasks','number_users','number_groups']
+    exclude_config: list = [
+        "sqlalchemy_database_uri",
+        "db_name",
+        "database_type",
+        "secret_key",
+        "create_sample_data",
+        "number_tasks",
+        "number_users",
+        "number_groups",
+    ]
     logger.debug(f"excluding {exclude_config}")
     for e in exclude_config:
         if e in configuration:
@@ -97,6 +106,5 @@ async def info():
     result = {
         # "docs": {"OpenAPI": openapi_url, "ReDoc": redoc_url},
         "configuraton": configuration,
-        
     }
     return result

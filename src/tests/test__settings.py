@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from fastapi.testclient import TestClient
 
-from app import main
-from app.settings import config_settings
+from src import main
+from src.settings import config_settings
 
 client = TestClient(main.app)
 
