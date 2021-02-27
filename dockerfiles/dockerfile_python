@@ -2,8 +2,8 @@
 FROM python:3.8-slim-buster
 RUN apt-get update && apt-get -y install build-essential
 EXPOSE 5000
-COPY /app /app
-WORKDIR /app
+COPY /src /src
+WORKDIR /src
 
 # ENV Variables
 # Application information
