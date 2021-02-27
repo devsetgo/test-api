@@ -1,5 +1,6 @@
 # Release Notes
 
+* working on code coverage setting. PR [#196](https://github.com/devsetgo/test-api/pull/196) by [@devsetgo](https://github.com/devsetgo).
 * change of branch to main. PR [#195](https://github.com/devsetgo/test-api/pull/195) by [@devsetgo](https://github.com/devsetgo).
 * Working on SonarCloud configuration. PR [#194](https://github.com/devsetgo/test-api/pull/194) by [@devsetgo](https://github.com/devsetgo).
 * sonarcloud updates. PR [#193](https://github.com/devsetgo/test-api/pull/193) by [@devsetgo](https://github.com/devsetgo).
