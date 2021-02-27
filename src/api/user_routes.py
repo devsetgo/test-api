@@ -51,13 +51,13 @@ async def user_list(
         None, title="Offset", description="Offset increment", ge=0, alias="offset"
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
-    first_name: str = Query(None, title="by name", alias="firstname"),
-    last_name: str = Query(None, title="by name", alias="lastname"),
-    title: str = Query(None, title="by name", alias="title"),
-    company: str = Query(None, title="by name", alias="company"),
-    city: str = Query(None, title="by name", alias="city"),
-    country: str = Query(None, title="by name", alias="country"),
-    postal: str = Query(None, title="by name", alias="postal"),
+    first_name: str = Query(None, title="first name", alias="firstname"),
+    last_name: str = Query(None, title="last name", alias="lastname"),
+    title: str = Query(None, title="title", alias="title"),
+    company: str = Query(None, title="company", alias="company"),
+    city: str = Query(None, title="city", alias="city"),
+    country: str = Query(None, title="country", alias="country"),
+    postal: str = Query(None, title="postal code", alias="postal"),
 ) -> dict:
 
     """
