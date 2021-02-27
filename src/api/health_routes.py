@@ -77,7 +77,7 @@ async def health_processes() -> dict:
 
 
 @router.get("/configuration")
-async def info():
+async def configuration():
     """
     API information endpoint
 

@@ -27,6 +27,11 @@ class Test(unittest.TestCase):
         response = client.get(f"/api/health/processes")
         assert response.status_code == 200
 
+    def test_configuration(self):
+
+        response = client.get(f"/api/health/configuration")
+        assert response.status_code == 200
+
     def test_get_platform(self):
         result = get_platform()
         assert result is not None
