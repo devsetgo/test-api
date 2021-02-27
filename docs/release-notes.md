@@ -1,5 +1,6 @@
 # Release Notes
 
+* Working on SonarCloud configuration. PR [#194](https://github.com/devsetgo/test-api/pull/194) by [@devsetgo](https://github.com/devsetgo).
 * sonarcloud updates. PR [#193](https://github.com/devsetgo/test-api/pull/193) by [@devsetgo](https://github.com/devsetgo).
 * Cleanup of SonarCloud Issues. PR [#192](https://github.com/devsetgo/test-api/pull/192) by [@devsetgo](https://github.com/devsetgo).
 * updates for code coverage. PR [#191](https://github.com/devsetgo/test-api/pull/191) by [@devsetgo](https://github.com/devsetgo).
