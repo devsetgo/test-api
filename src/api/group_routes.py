@@ -35,14 +35,14 @@ from crud.group_crud import (
 router = APIRouter()
 
 title = "Delay in Seconds"
-
+delay_description:str='Seconds to delay (max 121)'
 
 @router.get("/list", tags=["groups"])
 async def group_list(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description=delay_description,
         ge=1,
         le=121,
         alias="delay",
@@ -144,7 +144,7 @@ async def group_list_count(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description=delay_description,
         ge=1,
         le=121,
         alias="delay",
@@ -206,7 +206,7 @@ async def group_list_count(
     response_class=ORJSONResponse,
     status_code=201,
     responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
         404: {"description": "Not Found"},
@@ -279,12 +279,6 @@ async def group_state(
         group_result = await execute_one_db(query=query, values=group_data)
         logger.debug(str(group_result))
 
-        # if "error" in group_result:
-        #     error: dict = group_result
-        #     logger.critical(error)
-        #     return JSONResponse(status_code=400, content=error)
-
-        # data result
         full_result: dict = {"id": id, "status": is_active}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
@@ -302,11 +296,11 @@ async def group_state(
     response_class=ORJSONResponse,
     status_code=201,
     responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
-        # 404: {"description": "Operation forbidden"},
-        # 405: {"description": "Method not allowed"},
+        404: {"description": "Operation forbidden"},
+        405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
@@ -371,12 +365,6 @@ async def create_group(
         query = groups.insert()
         group_result = await execute_one_db(query=query, values=group_data)
 
-        # if "error" in group_result:
-        #     error: dict = group_result
-        #     logger.critical(error)
-        #     return JSONResponse(status_code=400, content=error)
-
-        # data result
         full_result: dict = {"id": str(group_id), "data": group_result}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
@@ -403,7 +391,7 @@ async def group_id(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description=delay_description,
         ge=1,
         le=121,
         alias="delay",
@@ -458,7 +446,7 @@ async def group_id(
     db_result = await fetch_all_db(query=query)
 
     users_list: list = []
-    user_dict: dict = []
+    user_dict: list = []
     for r in db_result:
         logger.debug(r)
         user_data: dict = {
@@ -484,11 +472,11 @@ async def group_id(
     response_class=ORJSONResponse,
     status_code=201,
     responses={
-        # 302: {"description": "Incorrect URL, redirecting"},
+        302: {"description": "Incorrect URL, redirecting"},
         400: {"description": "Bad Request"},
         422: {"description": "Validation Error"},
-        # 404: {"description": "Operation forbidden"},
-        # 405: {"description": "Method not allowed"},
+        404: {"description": "Operation forbidden"},
+        405: {"description": "Method not allowed"},
         500: {"description": "All lines are busy, try again later."},
     },
 )
@@ -498,7 +486,7 @@ async def create_group_user(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description=delay_description,
         ge=1,
         le=121,
         alias="delay",
@@ -545,14 +533,8 @@ async def create_group_user(
         query = groups_item.insert()
         group_result = await execute_one_db(query=query, values=group_data)
         logger.debug(str(group_result))
-        # if "error" in group_result:
-        #     error: dict = group_result
-        #     logger.critical(error)
-        #     return JSONResponse(status_code=400, content=error)
 
-        # data result
         full_result: dict = group_data
-        # full_result: dict = {"id": str(user_id), "data": group_result}
         logger.debug(full_result)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
@@ -569,7 +551,7 @@ async def create_group_user(
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Not Found"},
-        # 405: {"description": "Method not allowed"},
+        405: {"description": "Method not allowed"},
         500: {"description": "Mommy!"},
     },
 )
@@ -579,7 +561,7 @@ async def delete_group_item_user_id(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description=delay_description,
         ge=1,
         le=121,
         alias="delay",
