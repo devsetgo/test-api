@@ -1,5 +1,6 @@
 # Release Notes
 
+* updates for code coverage. PR [#191](https://github.com/devsetgo/test-api/pull/191) by [@devsetgo](https://github.com/devsetgo).
 * Refactoring layout. PR [#190](https://github.com/devsetgo/test-api/pull/190) by [@devsetgo](https://github.com/devsetgo).
 * Bump fastapi-login from 1.5.2 to 1.5.3 in /app/requirements. PR [#187](https://github.com/devsetgo/test-api/pull/187) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.6.0 to 2.6.2 in /app/requirements. PR [#188](https://github.com/devsetgo/test-api/pull/188) by [@dependabot[bot]](https://github.com/apps/dependabot).
