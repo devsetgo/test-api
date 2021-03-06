@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump coverage from 5.4 to 5.5 in /src/requirements. PR [#198](https://github.com/devsetgo/test-api/pull/198) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump alembic from 1.5.5 to 1.5.6 in /src/requirements. PR [#197](https://github.com/devsetgo/test-api/pull/197) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.7.1 to 2.7.2 in /src/requirements. PR [#199](https://github.com/devsetgo/test-api/pull/199) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * working on code coverage setting. PR [#196](https://github.com/devsetgo/test-api/pull/196) by [@devsetgo](https://github.com/devsetgo).
