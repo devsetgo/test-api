@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump orjson from 3.5.0 to 3.5.1 in /src/requirements. PR [#201](https://github.com/devsetgo/test-api/pull/201) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pre-commit from 2.10.1 to 2.11.1 in /src/requirements. PR [#202](https://github.com/devsetgo/test-api/pull/202) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump coverage from 5.4 to 5.5 in /src/requirements. PR [#198](https://github.com/devsetgo/test-api/pull/198) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump alembic from 1.5.5 to 1.5.6 in /src/requirements. PR [#197](https://github.com/devsetgo/test-api/pull/197) by [@dependabot[bot]](https://github.com/apps/dependabot).
