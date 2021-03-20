@@ -2,7 +2,7 @@
 aiosqlite==0.17.0 # from 0.16.1
 alembic==1.5.7 # from 1.5.4
 asyncpg==0.22.0
-databases==0.4.1
+databases==0.4.2
 fastapi-login==1.5.3 # from 1.5.2
 fastapi[all]==0.63.0
 graphene==2.1.8
