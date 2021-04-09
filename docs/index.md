@@ -50,25 +50,48 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 Setup: Copy .env_sample to .env and set configuration as desired.
+~~~~bash
+$ cp .env_example .env
 ~~~~
+.env_sample file
+~~~~
+# # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
+# # option: dotenv, docker
+USE_ENV='dotenv'
+
 # Application information
-APP_VERSION='19.11.28'
+TITLE="Test API"
+DESCRIPTION="Test APIs for tools and other examples"
+APP_VERSION='One'
 OWNER='Your Name'
 WEBSITE='https://your.domain.com/support'
 
 # Demo settings
-CREATE_SAMPLE_DATA = False
+CREATE_SAMPLE_DATA=true
+NUMBER_TASKS=10
+NUMBER_USERS=10
+NUMBER_GROUPS=10
 
 # Cofigurations
 HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 RELEASE_ENV='dev'
-SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
+# Turn HTTPS Middleware on (True) or off (False)
+HTTPS_ON=false
+# Turn on Prometheus endpoint
+PROMETHEUS_ON=true
 
+# Add default group
+ADD_DEFAULT_GROUP=true
+# data base URI
+SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 # Loguru settings
 LOGURU_RETENTION='10 days'
 LOGURU_ROTATION='100 MB'
-
+# Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOGURU_LOGGING_LEVEL='DEBUG'
+# Workers - Set to 1 for CPUs x 2 + 1
+WORKERS=4
 # Leave intact for license
 CREATED_BY='Mike Ryan'
 LICENSE_TYPE='MIT'
