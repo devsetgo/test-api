@@ -3,6 +3,8 @@ Python:
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
 CI/CD Pipeline:
 [![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
@@ -32,7 +34,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 - Copy the repo
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
-  python3.7 -m venv env
+  python3.8 -m venv env
   source env/bin/activate
   cd app
   ~~~~
