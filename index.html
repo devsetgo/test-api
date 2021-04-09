@@ -1,0 +1,911 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An example test-api built with FastApi">
+      
+      
+      
+        <meta name="author" content="Mike Ryan">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.0">
+    
+    
+      
+        <title>Test-Api</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.33e2939f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#test-api-a-fastapi-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Test-Api" class="md-header__button md-logo" aria-label="Test-Api" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Test-Api
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" type="radio" name="__palette" id="__palette_1">
+          <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+          </label>
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue" type="radio" name="__palette" id="__palette_2">
+          <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+          </label>
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/devsetgo/test-api/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    devsetgo/test-api
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="." class="md-tabs__link md-tabs__link--active">
+      Introduction
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="quickstart.md" class="md-tabs__link">
+      QuickStart
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="file_functions.md" class="md-tabs__link">
+      FileFunctions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="folder_functions.md" class="md-tabs__link">
+      FolderFunctions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="regex.md" class="md-tabs__link">
+      RegExFunctions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="calendar_functions.md" class="md-tabs__link">
+      CalendarFunctions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="contribute/" class="md-tabs__link">
+      Contributing
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Test-Api" class="md-nav__button md-logo" aria-label="Test-Api" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Test-Api
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/devsetgo/test-api/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    devsetgo/test-api
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Introduction
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-environment" class="md-nav__link">
+    Create Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issuesbugs" class="md-nav__link">
+    Issues/Bugs
+  </a>
+  
+    <nav class="md-nav" aria-label="Issues/Bugs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    TODO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.md" class="md-nav__link">
+        QuickStart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file_functions.md" class="md-nav__link">
+        FileFunctions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="folder_functions.md" class="md-nav__link">
+        FolderFunctions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="regex.md" class="md-nav__link">
+        RegExFunctions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="calendar_functions.md" class="md-nav__link">
+        CalendarFunctions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contribute/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-environment" class="md-nav__link">
+    Create Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issuesbugs" class="md-nav__link">
+    Issues/Bugs
+  </a>
+  
+    <nav class="md-nav" aria-label="Issues/Bugs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    TODO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/devsetgo/test-api/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <p><img alt="image" src="https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg" title="CalVer" />
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
+<a href="https://www.python.org/downloads/release/python-360/"><img alt="Python 3.6" src="https://img.shields.io/badge/python-3.6-blue.svg" /></a>
+<a href="https://www.python.org/downloads/release/python-370/"><img alt="Python 3.7" src="https://img.shields.io/badge/python-3.7-blue.svg" /></a></p>
+<p>CI/CD Pipeline:
+<a href="https://codecov.io/gh/devsetgo/test-api"><img alt="codecov" src="https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg" /></a>
+<a href="https://github.com/devsetgo/test-api/actions"><img alt="Actions Status" src="https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg" /></a>
+<a href="https://github.com/devsetgo/test-api/actions"><img alt="Actions Status" src="https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg" /></a>
+<a href="https://github.com/devsetgo/test-api/actions"><img alt="Actions Status" src="https://github.com/devsetgo/test-api/workflows/Docker%20Latest/badge.svg" /></a></p>
+<p>SonarCloud:
+<a href="https://sonarcloud.io/dashboard?id=devsetgo_test-api"><img alt="Maintainability Rating" src="https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&amp;metric=sqale_rating" /></a>
+<a href="https://sonarcloud.io/dashboard?id=devsetgo_test-api"><img alt="Reliability Rating" src="https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&amp;metric=reliability_rating" /></a>
+<a href="https://sonarcloud.io/dashboard?id=devsetgo_test-api"><img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&amp;metric=alert_status" /></a>
+<a href="https://sonarcloud.io/dashboard?id=devsetgo_test-api"><img alt="Bugs" src="https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&amp;metric=bugs" /></a>
+<img alt="Docker Image" src="https://img.shields.io/docker/pulls/mikeryan56/test-api" /></p>
+<h1 id="test-api-a-fastapi-example">Test-API a FASTAPI Example<a class="headerlink" href="#test-api-a-fastapi-example" title="Permanent link">&para;</a></h1>
+<p>A test/psuedo API to use as sample data or test data. Inspired by <a href="http://www.fakeresponse.com/">FakeResponse.com</a>. Documentation can be found at <a href="https://devsetgo.com/projects/test-api">devsetgo.com/projects/test-api</a>.</p>
+<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
+<ul>
+<li>This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)</li>
+<li>~~This should be just consider a <strong>beta version</strong> api at this time.~~</li>
+</ul>
+<h2 id="create-environment">Create Environment<a class="headerlink" href="#create-environment" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Copy the repo
+  ~~~~
+  git clone https://github.com/devsetgo/test-api.git
+  python3.7 -m venv env
+  source env/bin/activate
+  cd app
+  ~~~~</p>
+</li>
+<li>
+<p>Notes:</p>
+<ul>
+<li>Libraries require Python 3.6 or 3.7</li>
+<li>Note: I am using <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Ubuntu via WSL</a></li>
+<li>Upgrading (adding) <a href="https://jcutrer.com/linux/upgrade-python37-ubuntu1810">Python 3.7 to Ubuntu</a> and setting it as the default for Python3</li>
+<li>Upgrading <a href="https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart">Python3 and install venv</a></li>
+<li>You may need to upgrade pip and setuptools first (pip3 install --upgrade pip setuptools)</li>
+</ul>
+</li>
+<li>Install requirements
+  ~~~~
+  Production: pip3 install -r requirements.txt
+  Development: pip3 install -r requirements/dev.txt
+  ~~~~</li>
+</ul>
+<p>Setup: Copy .env_sample to .env and set configuration as desired.</p>
+<div class="codehilite"><pre><span></span><code>$ cp .env_example .env
+</code></pre></div>
+
+<p>.env_sample file</p>
+<div class="codehilite"><pre><span></span><code># # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
+# # option: dotenv, docker
+USE_ENV=&#39;dotenv&#39;
+
+# Application information
+TITLE=&quot;Test API&quot;
+DESCRIPTION=&quot;Test APIs for tools and other examples&quot;
+APP_VERSION=&#39;One&#39;
+OWNER=&#39;Your Name&#39;
+WEBSITE=&#39;https://your.domain.com/support&#39;
+
+# Demo settings
+CREATE_SAMPLE_DATA=true
+NUMBER_TASKS=10
+NUMBER_USERS=10
+NUMBER_GROUPS=10
+
+# Cofigurations
+HOST_DOMAIN=&#39;https://your.domain.com&#39;
+#prd for production or &#39;dev&#39; for development
+RELEASE_ENV=&#39;dev&#39;
+# Turn HTTPS Middleware on (True) or off (False)
+HTTPS_ON=false
+# Turn on Prometheus endpoint
+PROMETHEUS_ON=true
+
+# Add default group
+ADD_DEFAULT_GROUP=true
+# data base URI
+SQLALCHEMY_DATABASE_URI=&#39;sqlite:///sqlite_db/api.db&#39;
+# Loguru settings
+LOGURU_RETENTION=&#39;10 days&#39;
+LOGURU_ROTATION=&#39;100 MB&#39;
+# Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOGURU_LOGGING_LEVEL=&#39;DEBUG&#39;
+# Workers - Set to 1 for CPUs x 2 + 1
+WORKERS=4
+# Leave intact for license
+CREATED_BY=&#39;Mike Ryan&#39;
+LICENSE_TYPE=&#39;MIT&#39;
+LICENSE_LINK=&#39;https://github.com/devsetgo/test-api/blob/master/LICENSE&#39;
+</code></pre></div>
+
+<p>Start the app</p>
+<div class="codehilite"><pre><span></span><code>UVICORN
+    Development:
+        uvicorn main:app --port 5000 --reload
+        python3 main.py (running Uvicorn from Code - no reload)
+
+    Production:
+        uvicorn main:app --port 5000 --workers 2
+        python3 main.py (running Uvicorn from code)
+        gunicorn -c gunicorn_cfg.py main:app
+        # Note: gunicorn is the config for the dockerfile
+
+Docker
+    Docker: docker pull mikeryan56/test-api:latest
+</code></pre></div>
+
+<p>Run Tests</p>
+<p>By commands</p>
+<div class="codehilite"><pre><span></span><code>python3 -m pytest
+</code></pre></div>
+
+<p>Create coverage badge</p>
+<div class="codehilite"><pre><span></span><code>    coverage-badge -o coverage.svg -f
+</code></pre></div>
+
+<p>As a Script from src directory</p>
+<div class="codehilite"><pre><span></span><code>./scripts/tests.sh
+</code></pre></div>
+
+<p>Pre-Commit &amp; Hooks
+    - Follow install instructionsL: <a href="https://pre-commit.com/#install">https://pre-commit.com/#install</a>
+    - pre-commit install
+    - pre-commit run -a</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>default</p>
+<ul>
+<li>[x] GET <strong><em>/</em></strong> (root) Forward to OpenAPI to <strong><em>/docs</em></strong></li>
+<li>[x] GET <strong><em>/Information</em></strong> endpoint containing basic app info</li>
+<li>[x] GET <strong><em>/joke</em></strong> <a href="https://pyjok.es/">PyJoke</a> list</li>
+</ul>
+</li>
+<li>
+<p>todos</p>
+<ul>
+<li>[x] GET <strong><em>/api/v1/todo/list</em></strong></li>
+<li>[x] GET <strong><em>/api/v1/todo/list/count</em></strong></li>
+<li>[x] GET <strong><em>/api/v1/todo/list/{todo_id}</em></strong></li>
+<li>[x] DELETE <strong><em>/api/v1/todo/list/{todo_id}</em></strong></li>
+<li>[x] PUT <strong><em>/api/v1/todo/list/{todo_id}</em></strong></li>
+<li>[x] POST <strong><em>/api/v1/todo/create/</em></strong></li>
+</ul>
+</li>
+<li>
+<p>users</p>
+<ul>
+<li>[x] GET <strong><em>/api/v1/users/list</em></strong></li>
+<li>[x] GET <strong><em>/api/v1/users/list/count</em></strong></li>
+<li>[x] GET <strong><em>/api/v1/users/list/{user_id}</em></strong></li>
+<li>[x] DELETE <strong><em>/api/v1/users/list/{user_id}</em></strong></li>
+<li>[x] PUT <strong><em>/api/v1/users/list/{user_id}</em></strong></li>
+<li>[x] POST <strong><em>/api/v1/users/create/</em></strong></li>
+<li>[x] POST <strong><em>/api/v1/users/check-pwd/</em></strong></li>
+</ul>
+</li>
+<li>
+<p>tools</p>
+<ul>
+<li>[x] POST <strong><em>/api/v1/tools/convert-to/xml</em></strong></li>
+<li>[x] POST <strong><em>/api/v1/tools/convert-to/json</em></strong></li>
+</ul>
+</li>
+<li>
+<p>silly users</p>
+<ul>
+<li>[x] GET <strong><em>/api/v1/silly-users/make-one</em></strong></li>
+<li>[x] GET <strong><em>/api/v1/silly-users/list</em></strong></li>
+</ul>
+</li>
+<li>
+<p>health</p>
+<ul>
+<li>[x] GET <strong><em>/api/health/</em></strong></li>
+<li>[x] GET <strong><em>/api/health/system-info</em></strong></li>
+<li>[x] GET <strong><em>/api/health/processes</em></strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="issuesbugs">Issues/Bugs<a class="headerlink" href="#issuesbugs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] None</li>
+</ul>
+<h3 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[X] Setup CI/CD Pipeline for test and deployment<ul>
+<li>~~[X] <a href="https://travis-ci.org">Travis-CI</a>~~ <strong><em>replaced by Github Actions</em></strong></li>
+<li>[X] <a href="https://sonarcloud.io">SonarCloud</a></li>
+<li>[x] <a href="https://github.com/features/actions">Github Actions</a> found in .github/workflow/actions<ul>
+<li>[x] tests - matrix run of Python 3.6 and 3.7<ul>
+<li>[x] CodeCove.io upload</li>
+</ul>
+</li>
+<li>[x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)</li>
+<li>[x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)</li>
+<li>[x] ensure docker build only happens after pull_request approved and merged into higher branch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[x] Make <a href="https://12factor.net/">Twelve Factor App</a> ready</li>
+</ul>
+<p><strong>Application</strong>
+- [x] Refactor by endpoint (sample, user, etc..)
+- [x] Create tests
+    - [x] Minimum of 80%
+    - [x] Exception Testing
+- [x] Extend API parameters for Users
+    - [x] Pagination
+    - [x] Number of Items per list returned (Max)
+    - [x] Additional Optional for filtering
+- [ ] Extend API parameters for ToDo
+    - [ ] Pagination
+    - [ ] Number of Items per list returned (Max)
+    - [ ] Additional Optional for filtering
+- [ ] Extend Tools API
+    - [ ] Text Conversion
+        - [x] XML to JSON (required to be valid XML)
+        - [ ] JSON to XML (required to be valid XML)
+    - [ ] Text Functions
+        - [ ] Language of text</p>
+<ul>
+<li>[x] Better organization</li>
+<li>[x] Standardize API pattern for versioning</li>
+<li>Access Controls</li>
+<li>[ ] Add Access controls and signup</li>
+<li>[ ] Add JWT/Token access</li>
+<li>[ ] Rate limiting</li>
+<li>[X] Gunicorn with Uvicorn configuration</li>
+<li>[x] Logging (using <a href="https://github.com/Delgan/loguru">Loguru</a>)</li>
+<li>[ ] Build a <a href="https://github.com/audreyr/cookiecutter">cookiecutter</a> template for future projects similar to the <a href="https://github.com/tiangolo/full-stack-fastapi-postgresql">FastAPI example</a></li>
+<li>[ ] Add code comments</li>
+<li>[ ] Work on one to many relationshipts</li>
+<li>[ ] Validate userId in ToDo's</li>
+<li>
+<p>[ ] Work on Connection Pool for SQLite and Postgres for scaling</p>
+</li>
+<li>
+<p>Docker</p>
+</li>
+<li>
+<p>[X] Docker-Compose example</p>
+<ul>
+<li>Configuraton for Traefik (default) and <a href="https://github.com/jwilder/nginx-proxy">Jwilder/Nginx-Proxy</a> &amp; <a href="https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion">JrCs/docker-letsencrypt-nginx-proxy-companion</a></li>
+</ul>
+</li>
+<li>
+<p>Tutorials/Documentation</p>
+</li>
+<li>[ ] Basic Overview</li>
+<li>[ ] Explantion of functions</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+      
+        <a href="contribute/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Contributing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2016 - 2021 Mike Ryan
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/devsetgo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d892486b.min.js"></script>
+      
+    
+  </body>
+</html>
