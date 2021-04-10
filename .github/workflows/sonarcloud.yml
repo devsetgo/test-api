@@ -27,7 +27,7 @@ jobs:
         run: |
           cd src
           cp .env_sample .env
-          ./scripts/tests.sh
+          python3 -m pytest
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
