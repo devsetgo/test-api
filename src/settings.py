@@ -5,12 +5,10 @@ For local development, use a .env file to set
 environment variables.
 """
 
-# import os
 import secrets
 from datetime import datetime
 from functools import lru_cache
 
-# from starlette.config import Config
 from pydantic import AnyUrl, BaseSettings
 from loguru import logger
 
