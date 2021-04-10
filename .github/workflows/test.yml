@@ -28,12 +28,6 @@ jobs:
         cd src
         cp .env_sample .env
         python3 -m pytest
-
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@master
       with:
