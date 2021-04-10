@@ -39,13 +39,12 @@ async def todo_list(
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
-        x = await database.fetch_all(query)
+        result = await database.fetch_all(query)
     else:
         query = todos.select()
-        x = await database.fetch_all(query)
+        result = await database.fetch_all(query)
 
     logger.info("todo list accessed")
-    result = x
     return result
 
 
@@ -76,12 +75,12 @@ async def todos_list_count(
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
-        x = await database.fetch_all(query)
+        db_result = await database.fetch_all(query)
     else:
         query = todos.select()
-        x = await database.fetch_all(query)
+        db_result = await database.fetch_all(query)
 
-    result = {"count": len(x)}
+    result = {"count": len(db_result)}
     return result
 
 
