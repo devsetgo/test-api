@@ -4,8 +4,7 @@ site_name: Test-Api
 site_name: 'Test-Api'
 site_description: 'An example test-api built with FastApi'
 site_author: 'Mike Ryan'
-# site_url: 'https://squidfunk.github.io/mkdocs-material/'
-# Repository
+
 repo_name: 'devsetgo/test-api'
 repo_url: 'https://github.com/devsetgo/test-api'
 
