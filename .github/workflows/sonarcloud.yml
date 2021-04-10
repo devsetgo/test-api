@@ -27,7 +27,6 @@ jobs:
         run: |
           cd app
           cp .env_sample .env
-          cd app
           ./scripts/tests.sh
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
