@@ -20,7 +20,7 @@ python3 -m pytest
 
 # create coverage-badge
 coverage-badge -o ../coverage.svg -f
-mv ~/test-api/src/coverage.xml ~/test-api/coverage-reports/coverage.xml
+# mv ~/test-api/src/coverage.xml ~/test-api/coverage-reports/coverage.xml
 # delete db
 # rm sqlite_db/api.db
 # echo "db removed"
