@@ -1,4 +1,4 @@
-name: SonarCloudAnalysis
+name: SonarCloud
 on:
   push:
     branches:
