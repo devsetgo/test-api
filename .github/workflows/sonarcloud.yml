@@ -25,6 +25,7 @@ jobs:
           pip install -r requirements/dev.txt
       - name: Test with pytest
         run: |
+          cd src
           cp .env_sample .env
           ./scripts/tests.sh
       - name: SonarCloud Scan
