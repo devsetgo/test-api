@@ -1,5 +1,6 @@
 # Release Notes
 
+* Dev. PR [#215](https://github.com/devsetgo/test-api/pull/215) by [@devsetgo](https://github.com/devsetgo).
 * Bump alembic from 1.5.6 to 1.5.7 in /src/requirements. PR [#200](https://github.com/devsetgo/test-api/pull/200) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump orjson from 3.5.0 to 3.5.1 in /src/requirements. PR [#201](https://github.com/devsetgo/test-api/pull/201) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pre-commit from 2.10.1 to 2.11.1 in /src/requirements. PR [#202](https://github.com/devsetgo/test-api/pull/202) by [@dependabot[bot]](https://github.com/apps/dependabot).
