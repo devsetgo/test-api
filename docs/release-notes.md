@@ -1,5 +1,6 @@
 # Release Notes
 
+* fixing path. PR [#219](https://github.com/devsetgo/test-api/pull/219) by [@devsetgo](https://github.com/devsetgo).
 * Sonar Exclusions. PR [#218](https://github.com/devsetgo/test-api/pull/218) by [@devsetgo](https://github.com/devsetgo).
 * test. PR [#217](https://github.com/devsetgo/test-api/pull/217) by [@devsetgo](https://github.com/devsetgo).
 * Bump mkdocs-material from 7.1.0 to 7.1.1 in /src/requirements. PR [#216](https://github.com/devsetgo/test-api/pull/216) by [@dependabot[bot]](https://github.com/apps/dependabot).
