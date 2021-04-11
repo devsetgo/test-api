@@ -21,7 +21,7 @@ python3 -m pytest
 # create coverage-badge
 coverage-badge -o ../coverage.svg -f
 # mv ~/test-api/src/coverage.xml ~/test-api/coverage-reports/coverage.xml
-# sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/repo/src/coverage.xml
+sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace\/src<\/source>/g" /home/mike/test-api/src/coverage.xml
 # delete db
 # rm sqlite_db/api.db
 # echo "db removed"
