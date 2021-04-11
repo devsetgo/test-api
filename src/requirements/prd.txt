@@ -1,25 +1,22 @@
-# aiofiles==0.6.0
-aiosqlite==0.17.0 # from 0.16.1
-alembic==1.5.7 # from 1.5.4
+aiosqlite==0.17.0
+alembic==1.5.8 # from 1.5.5
 asyncpg==0.22.0
-databases==0.4.1
-fastapi-login==1.5.3 # from 1.5.2
+databases==0.4.3 # from 0.4.1
+fastapi-login==1.5.3
 fastapi[all]==0.63.0
 graphene==2.1.8
-gunicorn==20.0.4
+gunicorn==20.1.0 # from 20.0.4
 loguru==0.5.3
-orjson==3.5.1 # from 3.4.8
+orjson==3.5.1 # from 3.5.0
 passlib[bcrypt]==1.7.4
 psutil==5.8.0
 py-cpuinfo==7.0.0
 pyjokes==0.6.0
-python-dotenv==0.15.0
+python-dotenv==0.17.0 # from 0.15.0
 python-multipart==0.0.5
 pyyaml==5.4.1
 silly==1.1.0
-sqlalchemy==1.3.23
 starlette-exporter==0.7.0
 textblob==0.15.3
-unsync==1.3
-uvicorn[standard]==0.13.4 # from none
+unsync==1.3.2 # from 1.3
 xmltodict==0.12.0

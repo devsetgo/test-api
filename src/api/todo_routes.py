@@ -23,9 +23,10 @@ title = "Delay in Seconds"
 async def todo_list(
     delay: int = Query(
         None,
-        title="The number of todos in the list to return (min of 1 and max 10)",
+        title=title,
+        description=title,
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
@@ -38,13 +39,12 @@ async def todo_list(
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
-        x = await database.fetch_all(query)
+        result = await database.fetch_all(query)
     else:
         query = todos.select()
-        x = await database.fetch_all(query)
+        result = await database.fetch_all(query)
 
     logger.info("todo list accessed")
-    result = x
     return result
 
 
@@ -61,8 +61,9 @@ async def todos_list_count(
     delay: int = Query(
         None,
         title=title,
+        description=title,
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
@@ -70,16 +71,16 @@ async def todos_list_count(
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
-        x = await database.fetch_all(query)
+        db_result = await database.fetch_all(query)
     else:
         query = todos.select()
-        x = await database.fetch_all(query)
+        db_result = await database.fetch_all(query)
 
-    result = {"count": len(x)}
+    result = {"count": len(db_result)}
     return result
 
 
@@ -89,15 +90,16 @@ async def get_todo_id(
     delay: int = Query(
         None,
         title=title,
+        description=title,
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ) -> dict:
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
@@ -121,8 +123,9 @@ async def deactivate_todo_id(
     delay: int = Query(
         None,
         title=title,
+        description=title,
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ) -> dict:
@@ -130,13 +133,17 @@ async def deactivate_todo_id(
     todo_information = {"is_complete": True, "date_complete": currentTime}
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     # Fetch single row
     query = todos.update().where(todos.c.todo_id == todo_id)
+    logger.debug(query)
     values = todo_information
+    logger.debug(values)
     await database.execute(query, values)
-    result = await get_todo_id(todo_id)
+    # Fetch single row
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
     return result
 
 
@@ -152,9 +159,20 @@ async def deactivate_todo_id(
     },
 )
 async def delete_todo_id(
-    *, todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id")
+    *,
+    todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id"),
+    delay: int = Query(
+        None,
+        title=title,
+        description=title,
+        ge=1,
+        le=121,
+        alias="delay",
+    ),
 ) -> dict:
-
+    # sleep if delay option is used
+    if delay is not None:
+        await asyncio.sleep(delay)
     # delete id
     query = todos.delete().where(todos.c.todo_id == todo_id)
     await database.execute(query)
@@ -179,8 +197,9 @@ async def create_todo(
     delay: int = Query(
         None,
         title=title,
+        description=title,
         ge=1,
-        le=10,
+        le=121,
         alias="delay",
     ),
 ) -> dict:
@@ -202,7 +221,7 @@ async def create_todo(
 
     # sleep if delay option is used
     if delay is not None:
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
 
     query = todos.insert()
     values = todo_information
