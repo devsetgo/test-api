@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       # - name: Override Coverage Source Path for Sonar
-      #   run: sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/repo/test-api/src/coverage.xml
+      #   run: sed -i "s/<source>\/home\/mike\/test-api\/src<\/source>/<source>\/github\/workspace\/src<\/source>/g" /home/mike/test-api/src/coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

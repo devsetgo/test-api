@@ -17,11 +17,9 @@ pre-commit run -a
 # bash scripts/test.sh --cov-report=html ${@}
 python3 -m pytest
 # python3 -m pytest -v -s
-
+# sed -i "s/<source>\/home\/mike\/test-api\/src<\/source>/<source>\/github\/workspace\/src<\/source>/g" /home/mike/test-api/src/coverage.xml
 # create coverage-badge
 coverage-badge -o ../coverage.svg -f
-# mv ~/test-api/src/coverage.xml ~/test-api/coverage-reports/coverage.xml
-sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace\/src<\/source>/g" /home/mike/test-api/src/coverage.xml
 # delete db
 # rm sqlite_db/api.db
 # echo "db removed"
