@@ -1,5 +1,6 @@
 # Release Notes
 
+* editing sonar properties. PR [#220](https://github.com/devsetgo/test-api/pull/220) by [@devsetgo](https://github.com/devsetgo).
 * fixing path. PR [#219](https://github.com/devsetgo/test-api/pull/219) by [@devsetgo](https://github.com/devsetgo).
 * Sonar Exclusions. PR [#218](https://github.com/devsetgo/test-api/pull/218) by [@devsetgo](https://github.com/devsetgo).
 * test. PR [#217](https://github.com/devsetgo/test-api/pull/217) by [@devsetgo](https://github.com/devsetgo).
