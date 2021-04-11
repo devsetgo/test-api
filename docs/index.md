@@ -1,8 +1,9 @@
 Python:
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 CI/CD Pipeline:
 [![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
@@ -32,7 +33,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 - Copy the repo
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
-  python3.7 -m venv env
+  python3.8 -m venv env
   source env/bin/activate
   cd app
   ~~~~
@@ -50,25 +51,48 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 Setup: Copy .env_sample to .env and set configuration as desired.
+~~~~bash
+$ cp .env_example .env
 ~~~~
+.env_sample file
+~~~~
+# # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
+# # option: dotenv, docker
+USE_ENV='dotenv'
+
 # Application information
-APP_VERSION='19.11.28'
+TITLE="Test API"
+DESCRIPTION="Test APIs for tools and other examples"
+APP_VERSION='One'
 OWNER='Your Name'
 WEBSITE='https://your.domain.com/support'
 
 # Demo settings
-CREATE_SAMPLE_DATA = False
+CREATE_SAMPLE_DATA=true
+NUMBER_TASKS=10
+NUMBER_USERS=10
+NUMBER_GROUPS=10
 
 # Cofigurations
 HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 RELEASE_ENV='dev'
-SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
+# Turn HTTPS Middleware on (True) or off (False)
+HTTPS_ON=false
+# Turn on Prometheus endpoint
+PROMETHEUS_ON=true
 
+# Add default group
+ADD_DEFAULT_GROUP=true
+# data base URI
+SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 # Loguru settings
 LOGURU_RETENTION='10 days'
 LOGURU_ROTATION='100 MB'
-
+# Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOGURU_LOGGING_LEVEL='DEBUG'
+# Workers - Set to 1 for CPUs x 2 + 1
+WORKERS=4
 # Leave intact for license
 CREATED_BY='Mike Ryan'
 LICENSE_TYPE='MIT'
@@ -119,6 +143,19 @@ Pre-Commit & Hooks
     - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
     - [x] GET ***/Information*** endpoint containing basic app info
     - [x] GET ***/joke*** [PyJoke](https://pyjok.es/) list
+
+- groups
+    - [x] GET ***/api/v1/groups/list***
+    - [x] GET ***/api/v1/groups/list/count***
+    - [x] PUT ***/api/v1/groups/state***
+    - [x] POST ***/api/v1/groups/create***
+    - [x] GET ***/api/v1/groups/group***
+    - [x] POST ***/api/v1/groups/user/create***
+    - [x] DELETE ***/api/v1/groups/user/delete***
+
+- textblob
+    - [x] POST ***/api/v1/textblob/sentiment***
+    - [x] POST ***/api/v1/textblob/spellcheck***
 
 - todos
     - [x] GET ***/api/v1/todo/list***

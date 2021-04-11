@@ -5,7 +5,6 @@ Python:
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
-
 CI/CD Pipeline:
 [![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
@@ -22,11 +21,11 @@ SonarCloud:
 
 # Test-API a FASTAPI Example
 
-A test/pseudo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
+A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.com](http://www.fakeresponse.com/). Documentation can be found at [devsetgo.com/projects/test-api](https://devsetgo.com/projects/test-api).
 
 
 ### Note
-- This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (ubuntu tested) and I think Mac OS (I don't use a Mac)
+- This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)
 - ~~This should be just consider a **beta version** api at this time.~~
 
 ## Create Environment
@@ -34,7 +33,7 @@ A test/pseudo API to use as sample data or test data. Inspired by [FakeResponse.
 - Copy the repo
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
-  python3.7 -m venv env
+  python3.8 -m venv env
   source env/bin/activate
   cd app
   ~~~~
@@ -52,26 +51,48 @@ A test/pseudo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 Setup: Copy .env_sample to .env and set configuration as desired.
+~~~~bash
+$ cp .env_example .env
 ~~~~
+.env_sample file
+~~~~
+# # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
+# # option: dotenv, docker
+USE_ENV='dotenv'
+
 # Application information
-APP_VERSION='19.11.28'
+TITLE="Test API"
+DESCRIPTION="Test APIs for tools and other examples"
+APP_VERSION='One'
 OWNER='Your Name'
 WEBSITE='https://your.domain.com/support'
 
 # Demo settings
-CREATE_SAMPLE_DATA = False
+CREATE_SAMPLE_DATA=true
+NUMBER_TASKS=10
+NUMBER_USERS=10
+NUMBER_GROUPS=10
 
 # Cofigurations
 HOST_DOMAIN='https://your.domain.com'
 #prd for production or 'dev' for development
 RELEASE_ENV='dev'
+# Turn HTTPS Middleware on (True) or off (False)
+HTTPS_ON=false
+# Turn on Prometheus endpoint
+PROMETHEUS_ON=true
+
+# Add default group
+ADD_DEFAULT_GROUP=true
+# data base URI
 SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
-
-
 # Loguru settings
 LOGURU_RETENTION='10 days'
 LOGURU_ROTATION='100 MB'
-
+# Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOGURU_LOGGING_LEVEL='DEBUG'
+# Workers - Set to 1 for CPUs x 2 + 1
+WORKERS=4
 # Leave intact for license
 CREATED_BY='Mike Ryan'
 LICENSE_TYPE='MIT'
@@ -122,6 +143,19 @@ Pre-Commit & Hooks
     - [x] GET ***/*** (root) Forward to OpenAPI to ***/docs***
     - [x] GET ***/Information*** endpoint containing basic app info
     - [x] GET ***/joke*** [PyJoke](https://pyjok.es/) list
+
+- groups
+    - [x] GET ***/api/v1/groups/list***
+    - [x] GET ***/api/v1/groups/list/count***
+    - [x] PUT ***/api/v1/groups/state***
+    - [x] POST ***/api/v1/groups/create***
+    - [x] GET ***/api/v1/groups/group***
+    - [x] POST ***/api/v1/groups/user/create***
+    - [x] DELETE ***/api/v1/groups/user/delete***
+
+- textblob
+    - [x] POST ***/api/v1/textblob/sentiment***
+    - [x] POST ***/api/v1/textblob/spellcheck***
 
 - todos
     - [x] GET ***/api/v1/todo/list***
@@ -203,13 +237,10 @@ Pre-Commit & Hooks
 - [ ] Validate userId in ToDo's
 - [ ] Work on Connection Pool for SQLite and Postgres for scaling
 
-- PyPy Support
-    - [ ] Add PyPy Support
-        - Currently there are several issues preventing PyPy support. OrJSON and AsyncPG do not support PyPy. This will require figuring out alternative libraries.
 - Docker
   - [X] Docker-Compose example
     - Configuraton for Traefik (default) and [Jwilder/Nginx-Proxy](https://github.com/jwilder/nginx-proxy) & [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
 
 - Tutorials/Documentation
   - [ ] Basic Overview
-  - [ ] Explanation of functions
+  - [ ] Explantion of functions
