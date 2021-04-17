@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump pre-commit from 2.12.0 to 2.12.1 in /src/requirements. PR [#224](https://github.com/devsetgo/test-api/pull/224) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * editing sonar properties. PR [#220](https://github.com/devsetgo/test-api/pull/220) by [@devsetgo](https://github.com/devsetgo).
 * fixing path. PR [#219](https://github.com/devsetgo/test-api/pull/219) by [@devsetgo](https://github.com/devsetgo).
 * Sonar Exclusions. PR [#218](https://github.com/devsetgo/test-api/pull/218) by [@devsetgo](https://github.com/devsetgo).
