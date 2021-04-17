@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump flake8 from 3.9.0 to 3.9.1 in /src/requirements. PR [#221](https://github.com/devsetgo/test-api/pull/221) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump py-cpuinfo from 7.0.0 to 8.0.0 in /src/requirements. PR [#222](https://github.com/devsetgo/test-api/pull/222) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump orjson from 3.5.1 to 3.5.2 in /src/requirements. PR [#223](https://github.com/devsetgo/test-api/pull/223) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pre-commit from 2.12.0 to 2.12.1 in /src/requirements. PR [#224](https://github.com/devsetgo/test-api/pull/224) by [@dependabot[bot]](https://github.com/apps/dependabot).
