@@ -10,7 +10,7 @@ loguru==0.5.3
 orjson==3.5.2 # from 3.5.0
 passlib[bcrypt]==1.7.4
 psutil==5.8.0
-py-cpuinfo==7.0.0
+py-cpuinfo==8.0.0
 pyjokes==0.6.0
 python-dotenv==0.17.0 # from 0.15.0
 python-multipart==0.0.5
