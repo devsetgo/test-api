@@ -103,7 +103,6 @@ def create_groups(qty: int):
         for _ in range(random.randint(2, 10)):
             time.sleep(0.05)
             group_user_creator(group_id=id)
-        g_count += 1
 
 
 def group_user_creator(group_id: str):
