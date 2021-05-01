@@ -300,14 +300,15 @@ async def set_status_user_id(
         dict -- [description]
     """
     # user_information = {"is_active": False, "date_updated": get_current_datetime()}
-    user_data["date_updated"] = get_current_datetime()
+    data = user_data.dict()
+    data["date_updated"] = get_current_datetime()
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.user_id == user_data["user_id"])
+        query = users.update().where(users.c.user_id == data["user_id"])
         values = user_data
         result = await database.execute(query, values)
         return result
