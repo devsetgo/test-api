@@ -19,11 +19,10 @@ import uuid
 from fastapi import APIRouter, Form, Path, Query
 from loguru import logger
 
-from crud.crud_ops import execute_many_db
 from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
-from models.user_models import UserCreate, UserDeactivateManyModel, UserDeactiveModel
+from models.user_models import UserCreate, UserDeactiveModel
 
 router = APIRouter()
 
