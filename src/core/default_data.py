@@ -9,8 +9,8 @@ from datetime import datetime
 from fastapi import APIRouter
 from loguru import logger
 
-from crud.crud_ops import execute_one_db
 from core.db_setup import groups, groups_item
+from crud.crud_ops import execute_one_db
 from crud.group_crud import check_unique_name
 
 router = APIRouter()

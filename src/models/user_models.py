@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import Optional
 
-from pydantic import BaseModel, SecretStr
+from pydantic import BaseModel, Field, SecretStr
 
 
 # Shared properties
@@ -82,3 +82,13 @@ class UserList(UserBaseInDB):
     website: Optional[str] = None
     description: Optional[str] = None
     is_active: bool = True
+
+
+class UserDeactiveModel(BaseModel):
+    id: str
+    is_active: bool = Field(
+        False,
+        alias="isActive",
+        title="Status of user",
+        example="false",
+    )

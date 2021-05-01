@@ -17,19 +17,19 @@ from fastapi import APIRouter, Query, status
 from fastapi.responses import JSONResponse, ORJSONResponse
 from loguru import logger
 
-from crud.crud_ops import execute_one_db, fetch_all_db, fetch_one_db
 from core.db_setup import database, groups, groups_item
-from models.group_models import (
-    GroupCreate,
-    GroupItemDelete,
-    GroupTypeEnum,
-    GroupUser,
-)
+from crud.crud_ops import execute_one_db, fetch_all_db, fetch_one_db
 from crud.group_crud import (
     check_id_exists,
     check_unique_name,
     check_user_exists,
     check_user_id_exists,
+)
+from models.group_models import (
+    GroupCreate,
+    GroupItemDelete,
+    GroupTypeEnum,
+    GroupUser,
 )
 
 router = APIRouter()

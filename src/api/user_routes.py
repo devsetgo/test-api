@@ -22,7 +22,7 @@ from loguru import logger
 from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
-from models.user_models import UserCreate
+from models.user_models import UserCreate, UserDeactiveModel
 
 router = APIRouter()
 
@@ -257,7 +257,7 @@ async def get_user_id(
 
 
 @router.put(
-    "/deactivate/{user_id}",
+    "/status",
     tags=["users"],
     response_description="The created item",
     responses={
@@ -267,9 +267,9 @@ async def get_user_id(
         500: {"description": "Mommy!"},
     },
 )
-async def deactivate_user_id(
+async def set_status_user_id(
     *,
-    user_id: str = Path(..., title="The user id to be deactivated", alias="user_id"),
+    user_data: UserDeactiveModel,
     delay: int = Query(
         None,
         title=title,
@@ -279,7 +279,17 @@ async def deactivate_user_id(
     ),
 ) -> dict:
     """
-    Deactivate a specific user UUID
+    Set status of a specific user UUID
+
+    Args:
+        user_data (UserDeactiveModel): [id = UUID of user, isActive = True or False]
+        delay (int, optional): [description]. Defaults to Query( None, title=title, ge=1, le=10, alias="delay", ).
+
+    Returns:
+        dict: [description]
+    """
+    """
+    Set status of a specific user UUID
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
@@ -288,16 +298,17 @@ async def deactivate_user_id(
     Returns:
         dict -- [description]
     """
-    user_information = {"is_active": False, "date_updated": get_current_datetime()}
+
+    values = user_data.dict()
+    values["date_updated"] = get_current_datetime()
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.user_id == user_id)
-        values = user_information
-        result = await database.execute(query, values)
+        query = users.update().where(users.c.user_id == values["user_id"])
+        result = await database.execute(query=query, values=values)
         return result
     except Exception as e:
         logger.error(f"Critical Error: {e}")

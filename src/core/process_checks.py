@@ -2,8 +2,9 @@
 import multiprocessing
 import platform
 import sys
-from loguru import logger
+
 import psutil
+from loguru import logger
 
 # TODO: Make a status that gets app uptime
 # BODY: how to get uptime of app, not running os.
