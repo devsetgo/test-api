@@ -1,5 +1,6 @@
 # Release Notes
 
+* Dev. PR [#236](https://github.com/devsetgo/test-api/pull/236) by [@devsetgo](https://github.com/devsetgo).
 * minor changes. PR [#235](https://github.com/devsetgo/test-api/pull/235) by [@devsetgo](https://github.com/devsetgo).
 * fixing coverage exclusions. PR [#234](https://github.com/devsetgo/test-api/pull/234) by [@devsetgo](https://github.com/devsetgo).
 * adding tests and sonar fixes. PR [#227](https://github.com/devsetgo/test-api/pull/227) by [@devsetgo](https://github.com/devsetgo).
