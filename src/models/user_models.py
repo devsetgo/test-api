@@ -92,7 +92,3 @@ class UserDeactiveModel(BaseModel):
         title="Status of user",
         example="false",
     )
-
-
-class UserDeactivateManyModel(BaseModel):
-    users: List[UserDeactiveModel]
