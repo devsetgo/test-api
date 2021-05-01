@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump python-dotenv from 0.17.0 to 0.17.1 in /src/requirements. PR [#232](https://github.com/devsetgo/test-api/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump mkdocs-material from 7.1.1 to 7.1.2 in /src/requirements. PR [#226](https://github.com/devsetgo/test-api/pull/226) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump fastapi-login from 1.5.3 to 1.6.0 in /src/requirements. PR [#225](https://github.com/devsetgo/test-api/pull/225) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump flake8 from 3.9.0 to 3.9.1 in /src/requirements. PR [#221](https://github.com/devsetgo/test-api/pull/221) by [@dependabot[bot]](https://github.com/apps/dependabot).
