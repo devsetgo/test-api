@@ -102,10 +102,12 @@ async def startup_event():
     Startup events for application
     """
     try:
+        # connect to database
         await database.connect()
         logger.info("Connecting to database")
 
     except Exception as e:
+        # log error
         logger.info(f"Error: {e}")
         logger.trace(f"tracing: {e}")
 
@@ -114,20 +116,20 @@ async def startup_event():
         logger.debug("initiating logging for api")
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
+        # create sample data
         if config_settings.create_sample_data == True:
             create_data()
             logger.info("create data")
     else:
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
-    if config_settings.create_sample_data == True:
-        create_data()
-
+    # require HTTPS
     if config_settings.https_on == True:
         app.add_middleware(HTTPSRedirectMiddleware)
         logger.warning(
             f"https is set to {config_settings.https_on} and will required https connections"
         )
+    # add default group
     if config_settings.add_default_group == True:
         logger.warning("adding default group")
         await add_default_group(add_default=config_settings.add_default_group)
@@ -139,11 +141,15 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-
+    """
+    Shut down events
+    """
     try:
+        # discount database
         await database.disconnect()
         logger.info("Disconnecting from database")
     except Exception as e:
+        # log exception
         logger.info("Error: {error}", error=e)
         logger.trace("tracing: {exception} - {e}", error=e)
 
@@ -158,6 +164,7 @@ async def root():
     Returns:
         Redrects to openapi document
     """
+    # redirect to openapi docs
     response = RedirectResponse(url="/docs")
     return response
 
