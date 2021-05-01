@@ -188,7 +188,7 @@ async def joke(
         le=121,
         alias="delay",
     ),
-)->dict:
+) -> dict:
     """
     GET a Joke endpoint
 
@@ -203,9 +203,9 @@ async def joke(
     # set to one if not set
     if qty is None:
         qty = 1
-    # list to return 
-    jokes_result:list = []
-    #create quantity of jokes
+    # list to return
+    jokes_result: list = []
+    # create quantity of jokes
     for j in range(qty):
 
         j = pyjokes.get_joke()
