@@ -28,10 +28,3 @@ jobs:
         cd src
         cp .env_sample .env
         python3 -m pytest
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@master
-      with:
-        token: ${{secrets.CODECOV_TOKEN}}
-        file: ./src/coverage.xml
-        flags: unittests
-        name: codecov-umbrella
