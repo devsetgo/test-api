@@ -270,7 +270,6 @@ async def get_user_id(
 async def set_status_user_id(
     *,
     user_data: UserDeactiveModel,
-    # user_id: str = Path(..., title="The user id to be deactivated", alias="user_id"),
     delay: int = Query(
         None,
         title=title,
@@ -299,18 +298,17 @@ async def set_status_user_id(
     Returns:
         dict -- [description]
     """
-    # user_information = {"is_active": False, "date_updated": get_current_datetime()}
-    data = user_data.dict()
-    data["date_updated"] = get_current_datetime()
+
+    values = user_data.dict()
+    values["date_updated"] = get_current_datetime()
     # sleep if delay option is used
     if delay is not None:
         await asyncio.sleep(delay)
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.user_id == data["user_id"])
-        values = user_data
-        result = await database.execute(query, values)
+        query = users.update().where(users.c.user_id == values["user_id"])
+        result = await database.execute(query=query, values=values)
         return result
     except Exception as e:
         logger.error(f"Critical Error: {e}")
