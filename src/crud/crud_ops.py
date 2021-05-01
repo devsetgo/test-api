@@ -43,15 +43,3 @@ async def execute_one_db(query, values: dict = None):
     except Exception as e:
         logger.critical(f"error: {e}")
         return e
-
-
-"""async def execute_many_db(query, values: dict):
-    try:
-        logger.debug(query)
-        logger.debug(values)
-        result = await database.execute_many(query, values)
-        logger.debug(result)
-        return result
-    except Exception as e:
-        logger.critical(f"error: {e}")
-        return e"""

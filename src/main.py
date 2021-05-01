@@ -9,10 +9,6 @@ from loguru import logger
 from starlette.responses import RedirectResponse
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
-from core.db_setup import create_db, database
-from core.default_data import add_default_group
-from core.demo_data import create_data
-from core.logging_config import config_logging
 from api import group_routes as groups
 from api import health_routes as health
 from api import silly_routes as silly_users
@@ -20,6 +16,10 @@ from api import textblob_routes as textblob
 from api import todo_routes as todo
 from api import tool_routes as tools
 from api import user_routes as users
+from core.db_setup import create_db, database
+from core.default_data import add_default_group
+from core.demo_data import create_data
+from core.logging_config import config_logging
 from settings import config_settings
 
 # config logging start

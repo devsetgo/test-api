@@ -10,7 +10,6 @@ from datetime import datetime
 from functools import lru_cache
 
 from pydantic import AnyUrl, BaseSettings
-from loguru import logger
 
 
 class Settings(BaseSettings):

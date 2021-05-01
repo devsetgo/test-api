@@ -6,8 +6,8 @@ Crud functions to check if users, groups or ids exist for validation
 from loguru import logger
 from sqlalchemy import and_
 
-from crud.crud_ops import fetch_one_db
 from core.db_setup import groups, groups_item
+from crud.crud_ops import fetch_one_db
 
 
 async def check_unique_name(name: str) -> bool:
