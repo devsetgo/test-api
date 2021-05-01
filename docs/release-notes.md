@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump mkdocs-material from 7.1.2 to 7.1.3 in /src/requirements. PR [#230](https://github.com/devsetgo/test-api/pull/230) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump autopep8 from 1.5.6 to 1.5.7 in /src/requirements. PR [#228](https://github.com/devsetgo/test-api/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump black from 20.8b1 to 21.4b2 in /src/requirements. PR [#229](https://github.com/devsetgo/test-api/pull/229) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump requests-mock from 1.8.0 to 1.9.2 in /src/requirements. PR [#233](https://github.com/devsetgo/test-api/pull/233) by [@dependabot[bot]](https://github.com/apps/dependabot).
