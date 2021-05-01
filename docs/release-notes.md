@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump requests-mock from 1.8.0 to 1.9.2 in /src/requirements. PR [#233](https://github.com/devsetgo/test-api/pull/233) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.7.4 to 2.8.2 in /src/requirements. PR [#231](https://github.com/devsetgo/test-api/pull/231) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump python-dotenv from 0.17.0 to 0.17.1 in /src/requirements. PR [#232](https://github.com/devsetgo/test-api/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump mkdocs-material from 7.1.1 to 7.1.2 in /src/requirements. PR [#226](https://github.com/devsetgo/test-api/pull/226) by [@dependabot[bot]](https://github.com/apps/dependabot).
