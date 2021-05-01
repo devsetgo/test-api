@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, SecretStr
 
@@ -82,3 +82,12 @@ class UserList(UserBaseInDB):
     website: Optional[str] = None
     description: Optional[str] = None
     is_active: bool = True
+
+
+class UserDeactiveModel(BaseModel):
+    id: str
+    is_active: bool = False
+
+
+class UserDeactivateManyModel(BaseModel):
+    users: List[UserDeactiveModel]
