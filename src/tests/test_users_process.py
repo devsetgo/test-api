@@ -96,8 +96,14 @@ class Test(unittest.TestCase):
         response = client.get(f"/api/v1/users/{user_id['user_id']}?delay=1")
         assert response.status_code == 200
 
-    def test_users_put_deactivate(self):
+    def test_users_put_status_deactivate(self):
         user_id = open_json(test_data_users)
+        test_data = {"id": user_id["user_id"], "isActive": False}
+        response = client.put(f"/api/v1/users/status?delay=1", json=test_data)
+        assert response.status_code == 200
 
-        response = client.put(f"/api/v1/users/deactivate/{user_id['user_id']}?delay=1")
+    def test_users_put_status_activate(self):
+        user_id = open_json(test_data_users)
+        test_data = {"id": user_id["user_id"], "isActive": True}
+        response = client.put(f"/api/v1/users/status", json=test_data)
         assert response.status_code == 200

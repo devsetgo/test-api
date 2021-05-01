@@ -23,7 +23,7 @@ from crud.crud_ops import execute_many_db
 from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
-from models.user_models import UserCreate, UserDeactivateManyModel
+from models.user_models import UserCreate, UserDeactivateManyModel, UserDeactiveModel
 
 router = APIRouter()
 
@@ -258,7 +258,7 @@ async def get_user_id(
 
 
 @router.put(
-    "/deactivate/{user_id}",
+    "/status",
     tags=["users"],
     response_description="The created item",
     responses={
@@ -268,9 +268,10 @@ async def get_user_id(
         500: {"description": "Mommy!"},
     },
 )
-async def deactivate_user_id(
+async def set_status_user_id(
     *,
-    user_id: str = Path(..., title="The user id to be deactivated", alias="user_id"),
+    user_data: UserDeactiveModel,
+    # user_id: str = Path(..., title="The user id to be deactivated", alias="user_id"),
     delay: int = Query(
         None,
         title=title,
@@ -280,7 +281,17 @@ async def deactivate_user_id(
     ),
 ) -> dict:
     """
-    Deactivate a specific user UUID
+    Set status of a specific user UUID
+
+    Args:
+        user_data (UserDeactiveModel): [id = UUID of user, isActive = True or False]
+        delay (int, optional): [description]. Defaults to Query( None, title=title, ge=1, le=10, alias="delay", ).
+
+    Returns:
+        dict: [description]
+    """
+    """
+    Set status of a specific user UUID
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
@@ -299,57 +310,6 @@ async def deactivate_user_id(
         query = users.update().where(users.c.user_id == user_id)
         values = user_information
         result = await database.execute(query, values)
-        return result
-    except Exception as e:
-        logger.error(f"Critical Error: {e}")
-
-
-@router.put(
-    "/deactivate/multi",
-    tags=["users"],
-    response_description="The created item",
-    responses={
-        302: {"description": "Incorrect URL, redirecting"},
-        404: {"description": "Operation forbidden"},
-        405: {"description": "Method not allowed"},
-        500: {"description": "Mommy!"},
-    },
-)
-async def deactivate_multi_user_id(
-    *,
-    user_list: UserDeactivateManyModel,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
-) -> dict:
-    """
-    Deactivate a specific user UUID
-
-    Keyword Arguments:
-        user_id {str} -- [description] UUID of user_id property required
-        delay {int} -- [description] 0 seconds default, maximum is 122
-
-    Returns:
-        dict -- [description]
-    """
-    for u in user_list:
-        u["date_updated"] = get_current_datetime()
-
-    logger.critical(user_list)
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
-
-    try:
-        # Fetch single row
-        query = users.update().where(users.c.user_id == user_id)
-        values = user_list
-        result = await database.execute_many_db(query=query, values=values)
-        # (query, values)
         return result
     except Exception as e:
         logger.error(f"Critical Error: {e}")
