@@ -1,5 +1,6 @@
 # Release Notes
 
+* fixing coverage exclusions. PR [#234](https://github.com/devsetgo/test-api/pull/234) by [@devsetgo](https://github.com/devsetgo).
 * adding tests and sonar fixes. PR [#227](https://github.com/devsetgo/test-api/pull/227) by [@devsetgo](https://github.com/devsetgo).
 * Bump mkdocs-material from 7.1.2 to 7.1.3 in /src/requirements. PR [#230](https://github.com/devsetgo/test-api/pull/230) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump autopep8 from 1.5.6 to 1.5.7 in /src/requirements. PR [#228](https://github.com/devsetgo/test-api/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
