@@ -6,19 +6,18 @@ Python:
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 CI/CD Pipeline:
+[![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg)](https://github.com/devsetgo/test-api/actions)
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20Latest/badge.svg)](https://github.com/devsetgo/test-api/actions)
-![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
 
 
 SonarCloud:
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=coverage)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
-
+![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
 
 # Test-API a FASTAPI Example
 
