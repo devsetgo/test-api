@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump fastapi[all] from 0.64.0 to 0.65.1 in /src/requirements. PR [#247](https://github.com/devsetgo/test-api/pull/247) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump flake8 from 3.9.1 to 3.9.2 in /src/requirements. PR [#248](https://github.com/devsetgo/test-api/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Dev. PR [#243](https://github.com/devsetgo/test-api/pull/243) by [@devsetgo](https://github.com/devsetgo).
 * documentation link updates. PR [#237](https://github.com/devsetgo/test-api/pull/237) by [@devsetgo](https://github.com/devsetgo).
