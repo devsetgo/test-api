@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump starlette-exporter from 0.7.0 to 0.8.1 in /src/requirements. PR [#245](https://github.com/devsetgo/test-api/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pytest-cov from 2.11.1 to 2.12.0 in /src/requirements. PR [#246](https://github.com/devsetgo/test-api/pull/246) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump fastapi[all] from 0.64.0 to 0.65.1 in /src/requirements. PR [#247](https://github.com/devsetgo/test-api/pull/247) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump flake8 from 3.9.1 to 3.9.2 in /src/requirements. PR [#248](https://github.com/devsetgo/test-api/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).
