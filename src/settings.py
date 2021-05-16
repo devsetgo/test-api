@@ -33,9 +33,9 @@ class Settings(BaseSettings):
     secret_key: str = str(secrets.token_urlsafe(256))
     # demo data
     create_sample_data: bool = False
-    number_tasks: int = 10
-    number_users: int = 10
-    number_groups: int = 10
+    number_tasks: int = 0
+    number_users: int = 0
+    number_groups: int = 0
     # loguru settings
     loguru_retention: str = "10 days"
     loguru_rotation: str = "100 MB"
