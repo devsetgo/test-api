@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump pre-commit from 2.12.1 to 2.13.0 in /src/requirements. PR [#251](https://github.com/devsetgo/test-api/pull/251) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump asyncpg from 0.22.0 to 0.23.0 in /src/requirements. PR [#252](https://github.com/devsetgo/test-api/pull/252) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump black from 21.5b0 to 21.5b1 in /src/requirements. PR [#244](https://github.com/devsetgo/test-api/pull/244) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump starlette-exporter from 0.7.0 to 0.8.1 in /src/requirements. PR [#245](https://github.com/devsetgo/test-api/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).
