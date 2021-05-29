@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump starlette-exporter from 0.8.1 to 0.8.2 in /src/requirements. PR [#253](https://github.com/devsetgo/test-api/pull/253) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump alembic from 1.6.3 to 1.6.5 in /src/requirements. PR [#254](https://github.com/devsetgo/test-api/pull/254) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump requests-mock from 1.9.2 to 1.9.3 in /src/requirements. PR [#255](https://github.com/devsetgo/test-api/pull/255) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump alembic from 1.6.2 to 1.6.3 in /src/requirements. PR [#249](https://github.com/devsetgo/test-api/pull/249) by [@dependabot[bot]](https://github.com/apps/dependabot).
