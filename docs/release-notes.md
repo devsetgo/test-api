@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump orjson from 3.5.2 to 3.5.3 in /src/requirements. PR [#256](https://github.com/devsetgo/test-api/pull/256) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.8.2 to 2.8.3 in /src/requirements. PR [#259](https://github.com/devsetgo/test-api/pull/259) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump black from 21.5b1 to 21.5b2 in /src/requirements. PR [#260](https://github.com/devsetgo/test-api/pull/260) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump starlette-exporter from 0.8.1 to 0.8.2 in /src/requirements. PR [#253](https://github.com/devsetgo/test-api/pull/253) by [@dependabot[bot]](https://github.com/apps/dependabot).
