@@ -1,5 +1,26 @@
 # Release Notes
 
+* Bump orjson from 3.5.2 to 3.5.3 in /src/requirements. PR [#256](https://github.com/devsetgo/test-api/pull/256) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump pylint from 2.8.2 to 2.8.3 in /src/requirements. PR [#259](https://github.com/devsetgo/test-api/pull/259) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump black from 21.5b1 to 21.5b2 in /src/requirements. PR [#260](https://github.com/devsetgo/test-api/pull/260) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump starlette-exporter from 0.8.1 to 0.8.2 in /src/requirements. PR [#253](https://github.com/devsetgo/test-api/pull/253) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump alembic from 1.6.3 to 1.6.5 in /src/requirements. PR [#254](https://github.com/devsetgo/test-api/pull/254) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump requests-mock from 1.9.2 to 1.9.3 in /src/requirements. PR [#255](https://github.com/devsetgo/test-api/pull/255) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump alembic from 1.6.2 to 1.6.3 in /src/requirements. PR [#249](https://github.com/devsetgo/test-api/pull/249) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump mkdocs-material from 7.1.4 to 7.1.5 in /src/requirements. PR [#250](https://github.com/devsetgo/test-api/pull/250) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump pre-commit from 2.12.1 to 2.13.0 in /src/requirements. PR [#251](https://github.com/devsetgo/test-api/pull/251) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump asyncpg from 0.22.0 to 0.23.0 in /src/requirements. PR [#252](https://github.com/devsetgo/test-api/pull/252) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump black from 21.5b0 to 21.5b1 in /src/requirements. PR [#244](https://github.com/devsetgo/test-api/pull/244) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump starlette-exporter from 0.7.0 to 0.8.1 in /src/requirements. PR [#245](https://github.com/devsetgo/test-api/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump pytest-cov from 2.11.1 to 2.12.0 in /src/requirements. PR [#246](https://github.com/devsetgo/test-api/pull/246) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump fastapi[all] from 0.64.0 to 0.65.1 in /src/requirements. PR [#247](https://github.com/devsetgo/test-api/pull/247) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Bump flake8 from 3.9.1 to 3.9.2 in /src/requirements. PR [#248](https://github.com/devsetgo/test-api/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Dev. PR [#243](https://github.com/devsetgo/test-api/pull/243) by [@devsetgo](https://github.com/devsetgo).
+* documentation link updates. PR [#237](https://github.com/devsetgo/test-api/pull/237) by [@devsetgo](https://github.com/devsetgo).
+* Dev. PR [#236](https://github.com/devsetgo/test-api/pull/236) by [@devsetgo](https://github.com/devsetgo).
+* minor changes. PR [#235](https://github.com/devsetgo/test-api/pull/235) by [@devsetgo](https://github.com/devsetgo).
+* fixing coverage exclusions. PR [#234](https://github.com/devsetgo/test-api/pull/234) by [@devsetgo](https://github.com/devsetgo).
+* adding tests and sonar fixes. PR [#227](https://github.com/devsetgo/test-api/pull/227) by [@devsetgo](https://github.com/devsetgo).
 * Bump mkdocs-material from 7.1.2 to 7.1.3 in /src/requirements. PR [#230](https://github.com/devsetgo/test-api/pull/230) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump autopep8 from 1.5.6 to 1.5.7 in /src/requirements. PR [#228](https://github.com/devsetgo/test-api/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump black from 20.8b1 to 21.4b2 in /src/requirements. PR [#229](https://github.com/devsetgo/test-api/pull/229) by [@dependabot[bot]](https://github.com/apps/dependabot).
