@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump fastapi-login from 1.6.0 to 1.6.1 in /src/requirements. PR [#265](https://github.com/devsetgo/test-api/pull/265) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Update prd.txt. PR [#261](https://github.com/devsetgo/test-api/pull/261) by [@devsetgo](https://github.com/devsetgo).
 * Bump orjson from 3.5.2 to 3.5.3 in /src/requirements. PR [#256](https://github.com/devsetgo/test-api/pull/256) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump pylint from 2.8.2 to 2.8.3 in /src/requirements. PR [#259](https://github.com/devsetgo/test-api/pull/259) by [@dependabot[bot]](https://github.com/apps/dependabot).
