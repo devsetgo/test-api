@@ -1,5 +1,6 @@
 # Release Notes
 
+* Bump mkdocs from 1.1.2 to 1.2.1 in /src/requirements. PR [#263](https://github.com/devsetgo/test-api/pull/263) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump black from 21.5b2 to 21.6b0 in /src/requirements. PR [#264](https://github.com/devsetgo/test-api/pull/264) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump fastapi-login from 1.6.0 to 1.6.1 in /src/requirements. PR [#265](https://github.com/devsetgo/test-api/pull/265) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Update prd.txt. PR [#261](https://github.com/devsetgo/test-api/pull/261) by [@devsetgo](https://github.com/devsetgo).
