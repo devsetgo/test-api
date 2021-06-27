@@ -30,7 +30,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ## Create Environment
 
-- Copy the repo
+- Copy the repository
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
   python3.8 -m venv env
