@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from fastapi.testclient import TestClient
-
+import pytest
 from src import main
-from src.settings import config_settings
+from src.settings import config_settings, Settings
 
 client = TestClient(main.app)
 
 
 def test_settings():
-    assert config_settings.app_version != None
+    assert config_settings.app_version == "1.2.3"
     assert config_settings.owner != None
     assert config_settings.website != None
     assert config_settings.license_type != None

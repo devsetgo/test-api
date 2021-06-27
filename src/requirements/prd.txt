@@ -6,6 +6,7 @@ fastapi-login==1.6.2
 fastapi[all]==0.65.2 # from 0.63.0
 graphene==2.1.8
 gunicorn==20.1.0
+httpx==0.18.1
 loguru==0.5.3
 orjson==3.5.3
 passlib[bcrypt]==1.7.4

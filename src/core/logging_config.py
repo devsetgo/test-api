@@ -4,7 +4,22 @@ from pathlib import Path
 
 from loguru import logger
 
+
 from settings import config_settings
+
+
+import httpx
+
+client = httpx.AsyncClient()
+
+
+async def send_message(message):
+    # requests.post("http://127.0.0.1:8000/logs/post", data={"message": message})
+    url = "http://127.0.0.1"
+    await client.post(url=url, data={"message": message})
+
+
+# logger.add(send_message, level="WARNING")
 
 
 def config_logging():
