@@ -1,5 +1,6 @@
 # Release Notes
 
+* Dev. PR [#271](https://github.com/devsetgo/test-api/pull/271) by [@devsetgo](https://github.com/devsetgo).
 * Bump mkdocs-material from 7.1.8 to 7.1.9 in /src/requirements. PR [#269](https://github.com/devsetgo/test-api/pull/269) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump fastapi-login from 1.6.1 to 1.6.2 in /src/requirements. PR [#268](https://github.com/devsetgo/test-api/pull/268) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Bump python-dotenv from 0.17.1 to 0.18.0 in /src/requirements. PR [#270](https://github.com/devsetgo/test-api/pull/270) by [@dependabot[bot]](https://github.com/apps/dependabot).
