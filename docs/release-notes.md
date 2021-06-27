@@ -1,5 +1,6 @@
 # Release Notes
 
+* github actionts(deps): bump actions/setup-python from 1 to 2.2.2. PR [#272](https://github.com/devsetgo/test-api/pull/272) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump httpx from 0.18.1 to 0.18.2 in /src/requirements. PR [#273](https://github.com/devsetgo/test-api/pull/273) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Dev. PR [#271](https://github.com/devsetgo/test-api/pull/271) by [@devsetgo](https://github.com/devsetgo).
 * Bump mkdocs-material from 7.1.8 to 7.1.9 in /src/requirements. PR [#269](https://github.com/devsetgo/test-api/pull/269) by [@dependabot[bot]](https://github.com/apps/dependabot).
