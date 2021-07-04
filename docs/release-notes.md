@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump orjson from 3.5.3 to 3.5.4 in /src/requirements. PR [#274](https://github.com/devsetgo/test-api/pull/274) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pylint from 2.8.3 to 2.9.1 in /src/requirements. PR [#275](https://github.com/devsetgo/test-api/pull/275) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * github actionts(deps): bump actions/setup-python from 1 to 2.2.2. PR [#272](https://github.com/devsetgo/test-api/pull/272) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump httpx from 0.18.1 to 0.18.2 in /src/requirements. PR [#273](https://github.com/devsetgo/test-api/pull/273) by [@dependabot[bot]](https://github.com/apps/dependabot).
