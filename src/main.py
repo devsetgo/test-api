@@ -19,6 +19,7 @@ from api import user_routes as users
 from core.db_setup import create_db, database
 from core.default_data import add_default_group
 from core.demo_data import create_data
+
 # from core.logging_config import config_logging
 from devsetgo_lib import logging_config
 from settings import config_settings, Settings
