@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump python-dotenv from 0.18.0 to 0.19.0 in /src/requirements. PR [#284](https://github.com/devsetgo/test-api/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump starlette-exporter from 0.9.0 to 0.10.0 in /src/requirements. PR [#282](https://github.com/devsetgo/test-api/pull/282) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi-login from 1.6.2 to 1.6.3 in /src/requirements. PR [#281](https://github.com/devsetgo/test-api/pull/281) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pylint from 2.9.1 to 2.9.6 in /src/requirements. PR [#280](https://github.com/devsetgo/test-api/pull/280) by [@dependabot[bot]](https://github.com/apps/dependabot).
