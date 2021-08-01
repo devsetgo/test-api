@@ -23,7 +23,7 @@ from core.db_setup import create_db, database
 from core.default_data import add_default_group
 from core.demo_data import create_data
 from settings import config_settings
-
+from core.middleware import AccessLoggerMiddleware
 # config logging start
 logging_config.config_log()
 logger.info("API Logging initiated")
@@ -44,6 +44,7 @@ app.add_middleware(PrometheusMiddleware)
 # Add GZip
 app.add_middleware(GZipMiddleware, minimum_size=500)
 # 404
+app.add_middleware(AccessLoggerMiddleware,user_identifier='id')
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # Group router
