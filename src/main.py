@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
+
 import pyjokes
 import uvicorn
-import secrets
 
 # from core.logging_config import config_logging
 from devsetgo_lib import logging_config
@@ -10,6 +10,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from loguru import logger
+from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import RedirectResponse
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
@@ -23,9 +24,8 @@ from api import user_routes as users
 from core.db_setup import create_db, database
 from core.default_data import add_default_group
 from core.demo_data import create_data
-from settings import config_settings
 from core.middleware import AccessLoggerMiddleware
-from starlette.middleware.sessions import SessionMiddleware
+from settings import config_settings
 
 # config logging start
 logging_config.config_log()
