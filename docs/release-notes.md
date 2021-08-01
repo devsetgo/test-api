@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump pylint from 2.9.1 to 2.9.6 in /src/requirements. PR [#280](https://github.com/devsetgo/test-api/pull/280) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump black from 21.6b0 to 21.7b0 in /src/requirements. PR [#277](https://github.com/devsetgo/test-api/pull/277) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.5.4 to 3.6.0 in /src/requirements. PR [#278](https://github.com/devsetgo/test-api/pull/278) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.5.3 to 3.5.4 in /src/requirements. PR [#274](https://github.com/devsetgo/test-api/pull/274) by [@dependabot[bot]](https://github.com/apps/dependabot).
