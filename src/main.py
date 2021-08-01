@@ -2,6 +2,7 @@
 
 import pyjokes
 import uvicorn
+import secrets
 
 # from core.logging_config import config_logging
 from devsetgo_lib import logging_config
@@ -24,6 +25,8 @@ from core.default_data import add_default_group
 from core.demo_data import create_data
 from settings import config_settings
 from core.middleware import AccessLoggerMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+
 # config logging start
 logging_config.config_log()
 logger.info("API Logging initiated")
@@ -44,7 +47,15 @@ app.add_middleware(PrometheusMiddleware)
 # Add GZip
 app.add_middleware(GZipMiddleware, minimum_size=500)
 # 404
-app.add_middleware(AccessLoggerMiddleware,user_identifier='id')
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=config_settings.secret_key,
+    max_age=7200,
+    same_site="lax",
+    session_cookie="session_set",
+    https_only=False,
+)
+app.add_middleware(AccessLoggerMiddleware, user_identifier="id")
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # Group router
