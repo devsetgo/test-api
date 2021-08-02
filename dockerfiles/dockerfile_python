@@ -1,5 +1,5 @@
 # Created and maintained by github.com/devsetgo
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 RUN apt-get update && apt-get -y install build-essential
 EXPOSE 5000
 COPY /src /src
@@ -42,8 +42,10 @@ RUN useradd -m -r testapi && \
 USER testapi
 
 RUN echo $WORKERS
-CMD ["./scripts/run.sh"]
+CMD ["./src/scripts/run.sh"]
 
+#CMD ["gunicorn",  "-c", "gunicorn_cfg.py", "main:app"]
+# CMD ["./scripts/run.sh"]
 # CMD ["gunicorn main:app --workers=${WRKRS} --bind=0.0.0.0:5000 --worker-class=uvicorn.workers.UvicornH11Worker","--log-level=$LOGURU_LOGGING_LEVEL"]
 # CMD ["uvicorn", "main:app", "--workers", 2, "--host", "0.0.0.0", "--port", "5000"] #, "--log-level", ${LOGURU_LOGGING_LEVEL,,}]
 # CMD ["gunicorn", "main:app", "--workers $WORKERS", "--bind 0.0.0.0:5000", "--worker-class uvicorn.workers.UvicornH11Worker","--log-level $LOGGING_LEVEL"]

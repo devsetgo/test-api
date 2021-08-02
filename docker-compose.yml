@@ -11,7 +11,9 @@ services:
     ports:
     - "5000"
     volumes:
-    - .:/code
+    # - .:/code
+    - test-api:/src
+    # - test-api:/src/logging
     environment:
       # This is used to determin if .env or other external config is used. True is for a .env file and false for docker enviroment
       # option: dotenv, docker
@@ -19,16 +21,16 @@ services:
       # Application information
       TITLE: 'Test API'
       DESCRIPTION: 'Checklist APIs'
-      APP_VERSION: '20.12.26'
-      OWNER: 'Your Name'
-      WEBSITE: https://your.domain.com/support
+      APP_VERSION: '21.07.18'
+      OWNER: 'Mike'
+      WEBSITE: https://devsetgo.com
       # Demo settings
       CREATE_SAMPLE_DATA: 'True'
-      NUMBER_TASKS: 100
-      NUMBER_USERS: 100
-      NUMBER_GROUPS: 100
+      NUMBER_TASKS: 10
+      NUMBER_USERS: 10
+      NUMBER_GROUPS: 10
       # Cofigurations
-      HOST_DOMAIN: 'https://your.domain.com'
+      HOST_DOMAIN: 'https://test-api.devsetgo.com'
       #prd for production or dev for development
       RELEASE_ENV: 'prd'
       # Turn HTTPS Middleware on (True) or off (False)
@@ -39,9 +41,9 @@ services:
       # Loguru settings
       LOGURU_RETENTION: '10 days'
       LOGURU_ROTATION: '100 MB'
-      LOGURU_LOGGING_LEVEL: 'DEBUG'
+      LOGURU_LOGGING_LEVEL: 'INFO'
       # Workers - Set to 1 for CPUs x 2 + 1
-      WORKERS: 4
+      WORKERS: 2
       # Leave intact for license
       CREATED_BY: 'Mike Ryan'
       LICENSE_TYPE: 'MIT'
@@ -62,3 +64,7 @@ services:
 networks:
   web:
     external: true
+
+volumes:
+  test-api:
+    external: false

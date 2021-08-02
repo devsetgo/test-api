@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     sqlalchemy_database_uri: str = "sqlite:///sqlite_db/api.db"
     add_default_group: bool = False
     workers: int = 2
+    # session middleware settings
     secret_key: str = str(secrets.token_urlsafe(256))
     # demo data
     create_sample_data: bool = False

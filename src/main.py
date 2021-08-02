@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
+
 import pyjokes
 import uvicorn
+
+# from core.logging_config import config_logging
+from devsetgo_lib import logging_config
 from fastapi import FastAPI, Query
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from loguru import logger
+from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import RedirectResponse
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
@@ -19,11 +24,11 @@ from api import user_routes as users
 from core.db_setup import create_db, database
 from core.default_data import add_default_group
 from core.demo_data import create_data
-from core.logging_config import config_logging
-from settings import config_settings, Settings
+from core.middleware import AccessLoggerMiddleware
+from settings import config_settings
 
 # config logging start
-config_logging()
+logging_config.config_log()
 logger.info("API Logging initiated")
 # database start
 create_db()
@@ -42,6 +47,15 @@ app.add_middleware(PrometheusMiddleware)
 # Add GZip
 app.add_middleware(GZipMiddleware, minimum_size=500)
 # 404
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=config_settings.secret_key,
+    max_age=7200,
+    same_site="lax",
+    session_cookie="session_set",
+    https_only=False,
+)
+app.add_middleware(AccessLoggerMiddleware, user_identifier="id")
 four_zero_four = {404: {"description": "Not found"}}
 # Endpoint routers
 # Group router

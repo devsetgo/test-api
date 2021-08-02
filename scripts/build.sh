@@ -15,4 +15,3 @@ docker push mikeryan56/test-api:$CAL_VER-python38
 docker push mikeryan56/test-api:latest
 # echo 'Docker Build with PyPy'
 # docker build -t mikeryan56/test-api:$CAL_VER -f ./docker/dockerfile_pypy .
-
