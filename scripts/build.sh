@@ -7,7 +7,7 @@ set -x
 
 CAL_VER=$(date '+%Y-%m-%d')
 echo 'Docker Build Python'
-docker build -t mikeryan56/test-api:$CAL_VER-python38 -t mikeryan56/test-api:latest -f ./dockerfiles/dockerfile_python .
+docker build -t mikeryan56/test-api:$CAL_VER-python39 -t mikeryan56/test-api:latest -f ./dockerfiles/dockerfile_python .
 # echo "Running Docker Image"
 # docker run mikeryan56/test-api:$CAL_VER-python38
 echo "Push"
