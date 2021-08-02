@@ -1,5 +1,6 @@
 # Release Notes
 
+* Dev. PR [#276](https://github.com/devsetgo/test-api/pull/276) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump fastapi[all] from 0.65.2 to 0.68.0 in /src/requirements. PR [#286](https://github.com/devsetgo/test-api/pull/286) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.1.9 to 7.2.2 in /src/requirements. PR [#285](https://github.com/devsetgo/test-api/pull/285) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump python-dotenv from 0.18.0 to 0.19.0 in /src/requirements. PR [#284](https://github.com/devsetgo/test-api/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).
