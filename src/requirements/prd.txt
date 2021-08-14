@@ -1,6 +1,6 @@
 aiosqlite==0.17.0
 alembic==1.6.5
-asyncpg==0.23.0
+asyncpg==0.24.0
 databases==0.4.3
 devsetgo-lib==0.6.0
 fastapi-login==1.6.3 # from 1.6.0
