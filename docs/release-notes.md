@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump asyncpg from 0.23.0 to 0.24.0 in /src/requirements. PR [#292](https://github.com/devsetgo/test-api/pull/292) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pre-commit from 2.13.0 to 2.14.0 in /src/requirements. PR [#293](https://github.com/devsetgo/test-api/pull/293) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi-login from 1.6.2 to 1.6.3 in /src/requirements. PR [#291](https://github.com/devsetgo/test-api/pull/291) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.2.2 to 7.2.4 in /src/requirements. PR [#289](https://github.com/devsetgo/test-api/pull/289) by [@dependabot[bot]](https://github.com/apps/dependabot).
