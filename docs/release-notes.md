@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump fastapi-login from 1.6.2 to 1.6.3 in /src/requirements. PR [#291](https://github.com/devsetgo/test-api/pull/291) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.2.2 to 7.2.4 in /src/requirements. PR [#289](https://github.com/devsetgo/test-api/pull/289) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.0 to 3.6.1 in /src/requirements. PR [#290](https://github.com/devsetgo/test-api/pull/290) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi[all] from 0.66.0 to 0.68.0 in /src/requirements. PR [#288](https://github.com/devsetgo/test-api/pull/288) by [@dependabot[bot]](https://github.com/apps/dependabot).
