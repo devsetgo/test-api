@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump fastapi[all] from 0.66.0 to 0.68.0 in /src/requirements. PR [#288](https://github.com/devsetgo/test-api/pull/288) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Docker Image Fixes. PR [#287](https://github.com/devsetgo/test-api/pull/287) by [@devsetgo](https://github.com/devsetgo).
 * Dev. PR [#276](https://github.com/devsetgo/test-api/pull/276) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump fastapi[all] from 0.65.2 to 0.68.0 in /src/requirements. PR [#286](https://github.com/devsetgo/test-api/pull/286) by [@dependabot[bot]](https://github.com/apps/dependabot).
