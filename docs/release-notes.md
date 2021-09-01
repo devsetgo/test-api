@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump pre-commit from 2.14.0 to 2.14.1 in /src/requirements. PR [#301](https://github.com/devsetgo/test-api/pull/301) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump httpx from 0.18.2 to 0.19.0 in /src/requirements. PR [#302](https://github.com/devsetgo/test-api/pull/302) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.1 to 3.6.3 in /src/requirements. PR [#295](https://github.com/devsetgo/test-api/pull/295) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pylint from 2.9.6 to 2.10.2 in /src/requirements. PR [#296](https://github.com/devsetgo/test-api/pull/296) by [@dependabot[bot]](https://github.com/apps/dependabot).
