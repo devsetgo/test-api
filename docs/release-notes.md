@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump httpx from 0.18.2 to 0.19.0 in /src/requirements. PR [#302](https://github.com/devsetgo/test-api/pull/302) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.1 to 3.6.3 in /src/requirements. PR [#295](https://github.com/devsetgo/test-api/pull/295) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pylint from 2.9.6 to 2.10.2 in /src/requirements. PR [#296](https://github.com/devsetgo/test-api/pull/296) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.6.5 to 1.7.1 in /src/requirements. PR [#298](https://github.com/devsetgo/test-api/pull/298) by [@dependabot[bot]](https://github.com/apps/dependabot).
