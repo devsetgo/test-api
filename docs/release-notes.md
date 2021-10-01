@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump orjson from 3.6.3 to 3.6.4 in /src/requirements. PR [#308](https://github.com/devsetgo/test-api/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.7.1 to 1.7.3 in /src/requirements. PR [#307](https://github.com/devsetgo/test-api/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.2.4 to 7.2.6 in /src/requirements. PR [#300](https://github.com/devsetgo/test-api/pull/300) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pre-commit from 2.14.0 to 2.14.1 in /src/requirements. PR [#301](https://github.com/devsetgo/test-api/pull/301) by [@dependabot[bot]](https://github.com/apps/dependabot).
