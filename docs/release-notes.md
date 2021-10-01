@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump pylint from 2.10.2 to 2.11.1 in /src/requirements. PR [#304](https://github.com/devsetgo/test-api/pull/304) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi-login from 1.6.3 to 1.7.2 in /src/requirements. PR [#303](https://github.com/devsetgo/test-api/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.3 to 3.6.4 in /src/requirements. PR [#308](https://github.com/devsetgo/test-api/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.7.1 to 1.7.3 in /src/requirements. PR [#307](https://github.com/devsetgo/test-api/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
