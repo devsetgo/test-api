@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump fastapi-login from 1.6.3 to 1.7.2 in /src/requirements. PR [#303](https://github.com/devsetgo/test-api/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.3 to 3.6.4 in /src/requirements. PR [#308](https://github.com/devsetgo/test-api/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.7.1 to 1.7.3 in /src/requirements. PR [#307](https://github.com/devsetgo/test-api/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.2.4 to 7.2.6 in /src/requirements. PR [#300](https://github.com/devsetgo/test-api/pull/300) by [@dependabot[bot]](https://github.com/apps/dependabot).
