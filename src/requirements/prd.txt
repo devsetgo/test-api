@@ -1,5 +1,5 @@
 aiosqlite==0.17.0
-alembic==1.7.1
+alembic==1.7.3
 asyncpg==0.24.0
 databases==0.4.3
 devsetgo-lib==0.6.0
