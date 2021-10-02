@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump pre-commit from 2.14.1 to 2.15.0 in /src/requirements. PR [#312](https://github.com/devsetgo/test-api/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi[all] from 0.68.0 to 0.68.1 in /src/requirements. PR [#309](https://github.com/devsetgo/test-api/pull/309) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pytest from 6.2.4 to 6.2.5 in /src/requirements. PR [#305](https://github.com/devsetgo/test-api/pull/305) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.2.6 to 7.3.0 in /src/requirements. PR [#311](https://github.com/devsetgo/test-api/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
