@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from loguru import logger
 
+from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
 
@@ -26,7 +26,6 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
 
         if "referer" in request.headers:
             referer = request.headers["referer"]
-
 
         if self.user_identifier in request.session:
             user_id = request.session[self.user_identifier]

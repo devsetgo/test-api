@@ -3,8 +3,6 @@
 
 import pyjokes
 import uvicorn
-
-# from core.logging_config import config_logging
 from devsetgo_lib import logging_config
 from fastapi import FastAPI, Query
 from fastapi.middleware.gzip import GZipMiddleware
