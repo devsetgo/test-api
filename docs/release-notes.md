@@ -1,5 +1,30 @@
 # Release Notes
 
+* pip(deps-dev): bump black from 21.8b0 to 21.9b0 in /src/requirements. PR [#310](https://github.com/devsetgo/test-api/pull/310) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pre-commit from 2.14.1 to 2.15.0 in /src/requirements. PR [#312](https://github.com/devsetgo/test-api/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump fastapi[all] from 0.68.0 to 0.68.1 in /src/requirements. PR [#309](https://github.com/devsetgo/test-api/pull/309) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pytest from 6.2.4 to 6.2.5 in /src/requirements. PR [#305](https://github.com/devsetgo/test-api/pull/305) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 7.2.6 to 7.3.0 in /src/requirements. PR [#311](https://github.com/devsetgo/test-api/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump databases from 0.4.3 to 0.5.2 in /src/requirements. PR [#306](https://github.com/devsetgo/test-api/pull/306) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pylint from 2.10.2 to 2.11.1 in /src/requirements. PR [#304](https://github.com/devsetgo/test-api/pull/304) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump fastapi-login from 1.6.3 to 1.7.2 in /src/requirements. PR [#303](https://github.com/devsetgo/test-api/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump orjson from 3.6.3 to 3.6.4 in /src/requirements. PR [#308](https://github.com/devsetgo/test-api/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump alembic from 1.7.1 to 1.7.3 in /src/requirements. PR [#307](https://github.com/devsetgo/test-api/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 7.2.4 to 7.2.6 in /src/requirements. PR [#300](https://github.com/devsetgo/test-api/pull/300) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pre-commit from 2.14.0 to 2.14.1 in /src/requirements. PR [#301](https://github.com/devsetgo/test-api/pull/301) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump httpx from 0.18.2 to 0.19.0 in /src/requirements. PR [#302](https://github.com/devsetgo/test-api/pull/302) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump orjson from 3.6.1 to 3.6.3 in /src/requirements. PR [#295](https://github.com/devsetgo/test-api/pull/295) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pylint from 2.9.6 to 2.10.2 in /src/requirements. PR [#296](https://github.com/devsetgo/test-api/pull/296) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump alembic from 1.6.5 to 1.7.1 in /src/requirements. PR [#298](https://github.com/devsetgo/test-api/pull/298) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump black from 21.7b0 to 21.8b0 in /src/requirements. PR [#299](https://github.com/devsetgo/test-api/pull/299) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump asyncpg from 0.23.0 to 0.24.0 in /src/requirements. PR [#292](https://github.com/devsetgo/test-api/pull/292) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pre-commit from 2.13.0 to 2.14.0 in /src/requirements. PR [#293](https://github.com/devsetgo/test-api/pull/293) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump fastapi-login from 1.6.2 to 1.6.3 in /src/requirements. PR [#291](https://github.com/devsetgo/test-api/pull/291) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 7.2.2 to 7.2.4 in /src/requirements. PR [#289](https://github.com/devsetgo/test-api/pull/289) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump orjson from 3.6.0 to 3.6.1 in /src/requirements. PR [#290](https://github.com/devsetgo/test-api/pull/290) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump fastapi[all] from 0.66.0 to 0.68.0 in /src/requirements. PR [#288](https://github.com/devsetgo/test-api/pull/288) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* Docker Image Fixes. PR [#287](https://github.com/devsetgo/test-api/pull/287) by [@devsetgo](https://github.com/devsetgo).
+* Dev. PR [#276](https://github.com/devsetgo/test-api/pull/276) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump fastapi[all] from 0.65.2 to 0.68.0 in /src/requirements. PR [#286](https://github.com/devsetgo/test-api/pull/286) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 7.1.9 to 7.2.2 in /src/requirements. PR [#285](https://github.com/devsetgo/test-api/pull/285) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump python-dotenv from 0.18.0 to 0.19.0 in /src/requirements. PR [#284](https://github.com/devsetgo/test-api/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).

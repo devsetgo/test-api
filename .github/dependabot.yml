@@ -3,16 +3,16 @@
 
 version: 2
 updates:
-  # Enable version updates for npm
+  # Enable version updates for pip
   - package-ecosystem: "pip"
-    # Look for `package.json` and `lock` files in the `root` directory
+    # Look for `requirements`in directory
     directory: "/src/requirements"
-    # Check the npm registry for updates every day (weekdays)
+    # Check the pypi for updates
     labels:
       - "pip"
       - "dependencies"
     commit-message:
-      # Prefix all commit messages with "npm"
+      # Prefix all commit messages with "pip"
       prefix: "pip"
       include: "scope"
     schedule:
@@ -29,7 +29,7 @@ updates:
       - "github actions"
       - "dependencies"
     commit-message:
-      # Prefix all commit messages with "npm"
+      # Prefix all commit messages with "pip"
       prefix: "github actionts"
       include: "scope"
     schedule:
