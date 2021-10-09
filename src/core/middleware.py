@@ -27,8 +27,6 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         if "referer" in request.headers:
             referer = request.headers["referer"]
 
-        two = request.url.port
-        three = request.url.scheme
 
         if self.user_identifier in request.session:
             user_id = request.session[self.user_identifier]
