@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from loguru import logger
 
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -19,6 +20,13 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         method = request.method
         url = request.url
         client = request.client.host
+        referer = None
+
+        logger.debug(request.headers)
+
+        if "referer" in request.headers:
+            referer = request.headers["referer"]
+
 
         if self.user_identifier in request.session:
             user_id = request.session[self.user_identifier]
@@ -28,7 +36,7 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         # ignore favicon requests and log all access requests
         if "favicon.ico" not in str(url):
             logging.info(
-                f"Request Method: {method.upper()} request via {url} accessed from {client} by {user_id}"
+                f"Request Method: {method.upper()} request via {url} via referer {referer} accessed from {client} by {user_id}"
             )
             logging.debug(f"full_request_data: {dict(request)}")
         return response
