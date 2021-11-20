@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump python-dotenv from 0.19.0 to 0.19.1 in /src/requirements. PR [#315](https://github.com/devsetgo/test-api/pull/315) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi-login from 1.7.2 to 1.7.3 in /src/requirements. PR [#316](https://github.com/devsetgo/test-api/pull/316) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump pyyaml from 5.4.1 to 6.0 in /src/requirements. PR [#314](https://github.com/devsetgo/test-api/pull/314) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump unsync from 1.3.2 to 1.4.0 in /src/requirements. PR [#313](https://github.com/devsetgo/test-api/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).
