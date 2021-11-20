@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump fastapi-login from 1.7.2 to 1.7.3 in /src/requirements. PR [#316](https://github.com/devsetgo/test-api/pull/316) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump pyyaml from 5.4.1 to 6.0 in /src/requirements. PR [#314](https://github.com/devsetgo/test-api/pull/314) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump unsync from 1.3.2 to 1.4.0 in /src/requirements. PR [#313](https://github.com/devsetgo/test-api/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * python version change. PR [#294](https://github.com/devsetgo/test-api/pull/294) by [@devsetgo](https://github.com/devsetgo).
