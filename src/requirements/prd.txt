@@ -3,7 +3,7 @@ alembic==1.7.4 # from 1.6.5
 asyncpg==0.24.0 # from 0.23.0
 databases==0.5.2 # from 0.4.3
 devsetgo-lib==0.6.0
-fastapi-login==1.7.2 # from 1.6.2
+fastapi-login==1.7.3 # from 1.6.2
 fastapi[all]==0.70.0
 graphene==2.1.9 # from 2.1.8
 gunicorn==20.1.0
