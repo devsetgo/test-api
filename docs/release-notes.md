@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump unsync from 1.3.2 to 1.4.0 in /src/requirements. PR [#313](https://github.com/devsetgo/test-api/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * python version change. PR [#294](https://github.com/devsetgo/test-api/pull/294) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps-dev): bump black from 21.8b0 to 21.9b0 in /src/requirements. PR [#310](https://github.com/devsetgo/test-api/pull/310) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pre-commit from 2.14.1 to 2.15.0 in /src/requirements. PR [#312](https://github.com/devsetgo/test-api/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
