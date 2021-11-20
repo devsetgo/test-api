@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump autopep8 from 1.5.7 to 1.6.0 in /src/requirements. PR [#326](https://github.com/devsetgo/test-api/pull/326) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump asyncpg from 0.24.0 to 0.25.0 in /src/requirements. PR [#324](https://github.com/devsetgo/test-api/pull/324) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump databases from 0.5.2 to 0.5.3 in /src/requirements. PR [#318](https://github.com/devsetgo/test-api/pull/318) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump textblob from 0.15.3 to 0.17.1 in /src/requirements. PR [#319](https://github.com/devsetgo/test-api/pull/319) by [@dependabot[bot]](https://github.com/apps/dependabot).
