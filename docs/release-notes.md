@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump databases from 0.5.2 to 0.5.3 in /src/requirements. PR [#318](https://github.com/devsetgo/test-api/pull/318) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump textblob from 0.15.3 to 0.17.1 in /src/requirements. PR [#319](https://github.com/devsetgo/test-api/pull/319) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump python-dotenv from 0.19.1 to 0.19.2 in /src/requirements. PR [#320](https://github.com/devsetgo/test-api/pull/320) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump flake8 from 3.9.2 to 4.0.1 in /src/requirements. PR [#317](https://github.com/devsetgo/test-api/pull/317) by [@dependabot[bot]](https://github.com/apps/dependabot).
