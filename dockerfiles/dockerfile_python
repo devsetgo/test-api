@@ -36,7 +36,7 @@ ENV CREATED_BY='Mike Ryan'
 ENV LICENSE_TYPE='MIT'
 ENV LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 RUN pip install --upgrade setuptools pip
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements/dev.txt --use-deprecated=legacy-resolver
 RUN useradd -m -r testapi && \
     chown -R testapi /src
 USER testapi

@@ -6,8 +6,7 @@ Python:
 CI/CD Pipeline:
 
 [![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
-[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg)](https://github.com/devsetgo/test-api/actions)
-[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20Latest/badge.svg)](https://github.com/devsetgo/test-api/actions)
+[![Publish Docker image](https://github.com/devsetgo/test-api/actions/workflows/docker-latest.yml/badge.svg)](https://github.com/devsetgo/test-api/actions/workflows/docker-latest.yml)
 ![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
 
 SonarCloud:
