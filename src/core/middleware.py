@@ -35,7 +35,8 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         # ignore favicon requests and log all access requests
         if "favicon.ico" not in str(url):
             logging.info(
-                f"Request Method: {method.upper()} request via {url} via referer {referer} accessed from {client} by {user_id}"
+                f"Request Method: {method.upper()} request via {url}\
+                     via referer {referer} accessed from {client} by {user_id}"
             )
             logging.debug(f"full_request_data: {dict(request)}")
         return response

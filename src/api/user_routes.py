@@ -283,7 +283,8 @@ async def set_status_user_id(
 
     Args:
         user_data (UserDeactiveModel): [id = UUID of user, isActive = True or False]
-        delay (int, optional): [description]. Defaults to Query( None, title=title, ge=1, le=10, alias="delay", ).
+        delay (int, optional): [description]. Defaults to Query( None, title=title, \
+            ge=1, le=10, alias="delay", ).
 
     Returns:
         dict: [description]
