@@ -26,3 +26,7 @@ class Test(TestCase):
     def test_metrics(self):
         response = client.get("/api/health/metrics")
         assert response.status_code == 200
+
+    def test_robots(self):
+        response = client.get("/robots.txt")
+        assert response.status_code == 200
