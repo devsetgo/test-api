@@ -129,24 +129,25 @@ async def startup_event():
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
         # create sample data
-        if config_settings.create_sample_data == True:
+        if config_settings.create_sample_data is True:
             create_data()
             logger.info("create data")
     else:
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
     # require HTTPS
-    if config_settings.https_on == True:
+    if config_settings.https_on is True:
         app.add_middleware(HTTPSRedirectMiddleware)
         logger.warning(
-            f"https is set to {config_settings.https_on} and will required https connections"
+            f"https is set to {config_settings.https_on} and will required https\
+                 connections"
         )
     # add default group
-    if config_settings.add_default_group == True:
+    if config_settings.add_default_group is True:
         logger.warning("adding default group")
         await add_default_group(add_default=config_settings.add_default_group)
 
-    if config_settings.prometheus_on == True:
+    if config_settings.prometheus_on is True:
         app.add_route("/api/health/metrics", handle_metrics)
         logger.info("prometheus route added")
 
