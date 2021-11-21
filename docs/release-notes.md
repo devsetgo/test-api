@@ -1,5 +1,6 @@
 # Release Notes
 
+* fixing docker build. PR [#329](https://github.com/devsetgo/test-api/pull/329) by [@devsetgo](https://github.com/devsetgo).
 * Dev. PR [#328](https://github.com/devsetgo/test-api/pull/328) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps-dev): bump mkdocs from 1.2.2 to 1.2.3 in /src/requirements. PR [#327](https://github.com/devsetgo/test-api/pull/327) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump black from 21.9b0 to 21.11b1 in /src/requirements. PR [#325](https://github.com/devsetgo/test-api/pull/325) by [@dependabot[bot]](https://github.com/apps/dependabot).
