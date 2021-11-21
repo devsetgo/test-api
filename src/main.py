@@ -4,7 +4,7 @@
 import pyjokes
 import uvicorn
 from devsetgo_lib import logging_config
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Response
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from loguru import logger
@@ -179,6 +179,20 @@ async def root():
     # redirect to openapi docs
     response = RedirectResponse(url="/docs")
     return response
+
+@app.get("/robots.txt")
+async def robots():
+    """
+    Robots.txt endpoint
+
+    Returns:
+        Disallow all robots
+    """
+    data = """
+    User-agent: * 
+    Disallow: /
+    """
+    return Response(content=data, media_type="application/text")
 
 
 @app.get("/joke")
