@@ -180,6 +180,7 @@ async def root():
     response = RedirectResponse(url="/docs")
     return response
 
+
 @app.get("/robots.txt")
 async def robots():
     """
@@ -189,7 +190,7 @@ async def robots():
         Disallow all robots
     """
     data = """
-    User-agent: * 
+    User-agent: *
     Disallow: /
     """
     return Response(content=data, media_type="application/text")
