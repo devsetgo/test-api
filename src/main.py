@@ -54,35 +54,76 @@ app.add_middleware(
     https_only=False,
 )
 app.add_middleware(AccessLoggerMiddleware, user_identifier="id")
-four_zero_four = {404: {"description": "Not found"}}
+
 # Endpoint routers
 # Group router
 app.include_router(
     groups.router,
     prefix="/api/v1/groups",
     tags=["groups"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
+
 # Text router
 app.include_router(
     textblob.router,
     prefix="/api/v1/textblob",
     tags=["textblob"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 # To Do router
 app.include_router(
     todo.router,
     prefix="/api/v1/todo",
     tags=["todo"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 # User router
 app.include_router(
     users.router,
     prefix="/api/v1/users",
     tags=["users"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 
 # Silly router
@@ -90,21 +131,51 @@ app.include_router(
     silly_users.router,
     prefix="/api/v1/silly-users",
     tags=["silly users"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 # Tools router
 app.include_router(
     tools.router,
     prefix="/api/v1/tools",
     tags=["tools"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 # Health router
 app.include_router(
     health.router,
     prefix="/api/health",
     tags=["system-health"],
-    responses=four_zero_four,
+    responses={
+        302: {"description": "The item was moved"},
+        400: {"description": "Bad request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Insufficient privileges"},
+        404: {"description": "Not found"},
+        418: {
+            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+        },
+        429: {"description": "Rate limit exceeded"},
+    },
 )
 
 
