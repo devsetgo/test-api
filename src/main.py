@@ -68,7 +68,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -86,7 +87,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -103,7 +105,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -120,7 +123,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -138,7 +142,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -155,7 +160,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
@@ -172,7 +178,8 @@ app.include_router(
         403: {"description": "Insufficient privileges"},
         404: {"description": "Not found"},
         418: {
-            "I_am-a_teapot": "The server refuses the attempt to brew coffee with a teapot."
+            "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
         },
         429: {"description": "Rate limit exceeded"},
     },
