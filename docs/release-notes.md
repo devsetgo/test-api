@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump mkdocs-material from 7.3.2 to 8.0.4 in /src/requirements. PR [#335](https://github.com/devsetgo/test-api/pull/335) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.7.4 to 1.7.5 in /src/requirements. PR [#330](https://github.com/devsetgo/test-api/pull/330) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pre-commit from 2.15.0 to 2.16.0 in /src/requirements. PR [#333](https://github.com/devsetgo/test-api/pull/333) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * github actionts(deps): bump actions/setup-python from 2.2.2 to 2.3.1. PR [#334](https://github.com/devsetgo/test-api/pull/334) by [@dependabot[bot]](https://github.com/apps/dependabot).
