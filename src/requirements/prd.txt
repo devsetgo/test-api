@@ -9,7 +9,7 @@ graphene==3.0 # from 2.1.8
 gunicorn==20.1.0
 httpx==0.21.1 # from 0.18.1
 loguru==0.5.3
-orjson==3.6.4 # from 3.5.3
+orjson==3.6.5 # from 3.5.3
 passlib[bcrypt]==1.7.4
 psutil==5.8.0
 py-cpuinfo==8.0.0
