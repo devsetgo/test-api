@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps): bump psutil from 5.8.0 to 5.9.0 in /src/requirements. PR [#336](https://github.com/devsetgo/test-api/pull/336) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump black from 21.11b1 to 21.12b0 in /src/requirements. PR [#337](https://github.com/devsetgo/test-api/pull/337) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump orjson from 3.6.4 to 3.6.5 in /src/requirements. PR [#338](https://github.com/devsetgo/test-api/pull/338) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump fastapi[all] from 0.70.0 to 0.70.1 in /src/requirements. PR [#339](https://github.com/devsetgo/test-api/pull/339) by [@dependabot[bot]](https://github.com/apps/dependabot).
