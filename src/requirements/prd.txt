@@ -18,7 +18,7 @@ python-dotenv==0.19.2 # from 0.18.0
 python-multipart==0.0.5
 pyyaml==6.0
 silly==1.1.0
-starlette-exporter==0.11.0
+starlette-exporter==0.12.0
 textblob==0.17.1
 unsync==1.4.0
 xmltodict==0.12.0
