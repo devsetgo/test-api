@@ -3,7 +3,7 @@
 
 import pyjokes
 import uvicorn
-from devsetgo_lib import logging_config
+from dsg_lib import logging_config
 from fastapi import FastAPI, Query, Response
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
@@ -26,7 +26,21 @@ from core.middleware import AccessLoggerMiddleware
 from settings import config_settings
 
 # config logging start
-logging_config.config_log()
+logging_config.config_log(
+    logging_directory="log",
+    # or None and defaults to logging
+    log_name="log.log",
+    # or None and defaults to "log.log"
+    logging_level=config_settings.loguru_logging_level,
+    # or "info" or "debug" or "warning" or "error" or "critical" or None and defaults to "info"
+    log_rotation=config_settings.loguru_retention,
+    # or None and default is 10 MB
+    log_retention=config_settings.loguru_retention,
+    # or None and defaults to "14 Days"
+    log_backtrace=config_settings.loguru_backtrace,
+    # or None and defaults to False
+)
+logger.debug(f"config settings {dict(config_settings)}")
 logger.info("API Logging initiated")
 # database start
 create_db()
