@@ -34,19 +34,19 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 - Copy the repository
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
-  python3.8 -m venv env
+  python-3 -m venv env
   source env/bin/activate
   cd app
   ~~~~
 
 - Notes:
-    - Libraries require Python 3.6 or 3.7
+    - Libraries require Python 3.9, but should run 3.7 and higher
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-      - Upgrading (adding) [Python 3.7 to Ubuntu](https://jcutrer.com/linux/upgrade-python37-ubuntu1810) and setting it as the default for Python3
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
     - You may need to upgrade pip and setuptools first (pip3 install --upgrade pip setuptools)
 - Install requirements
   ~~~~
+  from src folder: ./scripts/install.sh
   Production: pip3 install -r requirements.txt
   Development: pip3 install -r requirements/dev.txt
   ~~~~
@@ -83,15 +83,13 @@ HTTPS_ON=false
 # Turn on Prometheus endpoint
 PROMETHEUS_ON=true
 
-# Add default group
-ADD_DEFAULT_GROUP=true
 # data base URI
 SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 # Loguru settings
 LOGURU_RETENTION='10 days'
 LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOGURU_LOGGING_LEVEL='DEBUG'
+LOGURU_LOGGING_LEVEL='INFO'
 # Workers - Set to 1 for CPUs x 2 + 1
 WORKERS=4
 # Leave intact for license
@@ -103,6 +101,12 @@ LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 
 Start the app
 ~~~~
+FROM SCR
+    Development"
+        ./scripts/dev_run.sh
+    Production:
+        ./scripts/prd_run.sh
+
 UVICORN
     Development:
         uvicorn main:app --port 5000 --reload

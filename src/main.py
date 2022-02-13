@@ -3,8 +3,8 @@
 
 import pyjokes
 import uvicorn
-from devsetgo_lib import logging_config
-from fastapi import FastAPI, Query
+from dsg_lib import logging_config
+from fastapi import FastAPI, Query, Response
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from loguru import logger
@@ -26,7 +26,21 @@ from core.middleware import AccessLoggerMiddleware
 from settings import config_settings
 
 # config logging start
-logging_config.config_log()
+logging_config.config_log(
+    logging_directory="log",
+    # or None and defaults to logging
+    log_name="log.log",
+    # or None and defaults to "log.log"
+    logging_level=config_settings.loguru_logging_level,
+    # or "info" or "debug" or "warning" or "error" or "critical" or None and defaults to "info"
+    log_rotation=config_settings.loguru_retention,
+    # or None and default is 10 MB
+    log_retention=config_settings.loguru_retention,
+    # or None and defaults to "14 Days"
+    log_backtrace=config_settings.loguru_backtrace,
+    # or None and defaults to False
+)
+logger.debug(f"config settings {dict(config_settings)}")
 logger.info("API Logging initiated")
 # database start
 create_db()
@@ -54,35 +68,48 @@ app.add_middleware(
     https_only=False,
 )
 app.add_middleware(AccessLoggerMiddleware, user_identifier="id")
-four_zero_four = {404: {"description": "Not found"}}
+
 # Endpoint routers
+router_responses: dict = {
+    302: {"description": "The item was moved"},
+    400: {"description": "Bad request"},
+    401: {"description": "Unauthorized"},
+    403: {"description": "Insufficient privileges"},
+    404: {"description": "Not found"},
+    418: {
+        "I_am-a_teapot": "The server refuses the attempt to \
+                brew coffee with a teapot."
+    },
+    429: {"description": "Rate limit exceeded"},
+}
 # Group router
 app.include_router(
     groups.router,
     prefix="/api/v1/groups",
     tags=["groups"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
+
 # Text router
 app.include_router(
     textblob.router,
     prefix="/api/v1/textblob",
     tags=["textblob"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 # To Do router
 app.include_router(
     todo.router,
     prefix="/api/v1/todo",
     tags=["todo"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 # User router
 app.include_router(
     users.router,
     prefix="/api/v1/users",
     tags=["users"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 
 # Silly router
@@ -90,21 +117,21 @@ app.include_router(
     silly_users.router,
     prefix="/api/v1/silly-users",
     tags=["silly users"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 # Tools router
 app.include_router(
     tools.router,
     prefix="/api/v1/tools",
     tags=["tools"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 # Health router
 app.include_router(
     health.router,
     prefix="/api/health",
     tags=["system-health"],
-    responses=four_zero_four,
+    responses=router_responses,
 )
 
 
@@ -129,24 +156,25 @@ async def startup_event():
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
         # create sample data
-        if config_settings.create_sample_data == True:
+        if config_settings.create_sample_data is True:
             create_data()
             logger.info("create data")
     else:
         logger.info(f"api initiated release_env: {config_settings.release_env}")
 
     # require HTTPS
-    if config_settings.https_on == True:
+    if config_settings.https_on is True:
         app.add_middleware(HTTPSRedirectMiddleware)
         logger.warning(
-            f"https is set to {config_settings.https_on} and will required https connections"
+            f"https is set to {config_settings.https_on} and will required https\
+                 connections"
         )
     # add default group
-    if config_settings.add_default_group == True:
+    if config_settings.add_default_group is True:
         logger.warning("adding default group")
         await add_default_group(add_default=config_settings.add_default_group)
 
-    if config_settings.prometheus_on == True:
+    if config_settings.prometheus_on is True:
         app.add_route("/api/health/metrics", handle_metrics)
         logger.info("prometheus route added")
 
@@ -179,6 +207,21 @@ async def root():
     # redirect to openapi docs
     response = RedirectResponse(url="/docs")
     return response
+
+
+@app.get("/robots.txt")
+async def robots():
+    """
+    Robots.txt endpoint
+
+    Returns:
+        Disallow all robots
+    """
+    data = """
+    User-agent: *
+    Disallow: /
+    """
+    return Response(content=data, media_type="application/text")
 
 
 @app.get("/joke")

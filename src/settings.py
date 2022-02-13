@@ -41,6 +41,7 @@ class Settings(BaseSettings):
     loguru_retention: str = "10 days"
     loguru_rotation: str = "100 MB"
     loguru_logging_level: str = "INFO"
+    loguru_backtrace: bool = False
     # Config info
     updated: datetime = datetime.utcnow()
 

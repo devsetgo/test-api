@@ -1,23 +1,24 @@
 Python:
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
-[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 CI/CD Pipeline:
-[![codecov](https://codecov.io/gh/devsetgo/test-api/branch/master/graph/badge.svg)](https://codecov.io/gh/devsetgo/test-api)
-[![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
-[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20RC/badge.svg)](https://github.com/devsetgo/test-api/actions)
-[![Actions Status](https://github.com/devsetgo/test-api/workflows/Docker%20Latest/badge.svg)](https://github.com/devsetgo/test-api/actions)
 
+[![Actions Status](https://github.com/devsetgo/test-api/workflows/Run%20Tests/badge.svg)](https://github.com/devsetgo/test-api/actions)
+[![Publish Docker image](https://github.com/devsetgo/test-api/actions/workflows/docker-latest.yml/badge.svg)](https://github.com/devsetgo/test-api/actions/workflows/docker-latest.yml)
+![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
 
 SonarCloud:
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=coverage)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=ncloc)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=security_rating)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=bugs)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
-![Docker Image](https://img.shields.io/docker/pulls/mikeryan56/test-api)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=devsetgo_test-api&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=devsetgo_test-api)
+
 
 # Test-API a FASTAPI Example
 
@@ -26,26 +27,26 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
 
 ### Note
 - This requires a *Nix environment to run. (Linux, Unix, Windows 10 WSL (unbuntu tested) and I think Mac OS (I don't use a Mac)
-- ~~This should be just consider a **beta version** api at this time.~~
+- It should be considered only an example and just something to learn from.
 
 ## Create Environment
 
-- Copy the repo
+- Copy the repository
   ~~~~
   git clone https://github.com/devsetgo/test-api.git
-  python3.8 -m venv env
+  python-3 -m venv env
   source env/bin/activate
   cd app
   ~~~~
 
 - Notes:
-    - Libraries require Python 3.6 or 3.7
+    - Libraries require Python 3.9, but should run 3.7 and higher
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-      - Upgrading (adding) [Python 3.7 to Ubuntu](https://jcutrer.com/linux/upgrade-python37-ubuntu1810) and setting it as the default for Python3
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
     - You may need to upgrade pip and setuptools first (pip3 install --upgrade pip setuptools)
 - Install requirements
   ~~~~
+  from src folder: ./scripts/install.sh
   Production: pip3 install -r requirements.txt
   Development: pip3 install -r requirements/dev.txt
   ~~~~
@@ -82,15 +83,13 @@ HTTPS_ON=false
 # Turn on Prometheus endpoint
 PROMETHEUS_ON=true
 
-# Add default group
-ADD_DEFAULT_GROUP=true
 # data base URI
 SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 # Loguru settings
 LOGURU_RETENTION='10 days'
 LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOGURU_LOGGING_LEVEL='DEBUG'
+LOGURU_LOGGING_LEVEL='INFO'
 # Workers - Set to 1 for CPUs x 2 + 1
 WORKERS=4
 # Leave intact for license
@@ -102,6 +101,12 @@ LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 
 Start the app
 ~~~~
+FROM SCR
+    Development"
+        ./scripts/dev_run.sh
+    Production:
+        ./scripts/prd_run.sh
+
 UVICORN
     Development:
         uvicorn main:app --port 5000 --reload
