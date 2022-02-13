@@ -1,5 +1,16 @@
 # Release Notes
 
+* pip(deps): bump orjson from 3.6.5 to 3.6.6 in /src/requirements. PR [#343](https://github.com/devsetgo/test-api/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 8.1.3 to 8.1.9 in /src/requirements. PR [#342](https://github.com/devsetgo/test-api/pull/342) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 8.0.4 to 8.1.3 in /src/requirements. PR [#341](https://github.com/devsetgo/test-api/pull/341) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump psutil from 5.8.0 to 5.9.0 in /src/requirements. PR [#336](https://github.com/devsetgo/test-api/pull/336) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump black from 21.11b1 to 21.12b0 in /src/requirements. PR [#337](https://github.com/devsetgo/test-api/pull/337) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump orjson from 3.6.4 to 3.6.5 in /src/requirements. PR [#338](https://github.com/devsetgo/test-api/pull/338) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump fastapi[all] from 0.70.0 to 0.70.1 in /src/requirements. PR [#339](https://github.com/devsetgo/test-api/pull/339) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump mkdocs-material from 7.3.2 to 8.0.4 in /src/requirements. PR [#335](https://github.com/devsetgo/test-api/pull/335) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps): bump alembic from 1.7.4 to 1.7.5 in /src/requirements. PR [#330](https://github.com/devsetgo/test-api/pull/330) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* pip(deps-dev): bump pre-commit from 2.15.0 to 2.16.0 in /src/requirements. PR [#333](https://github.com/devsetgo/test-api/pull/333) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* github actionts(deps): bump actions/setup-python from 2.2.2 to 2.3.1. PR [#334](https://github.com/devsetgo/test-api/pull/334) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * fixing docker build. PR [#329](https://github.com/devsetgo/test-api/pull/329) by [@devsetgo](https://github.com/devsetgo).
 * Dev. PR [#328](https://github.com/devsetgo/test-api/pull/328) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps-dev): bump mkdocs from 1.2.2 to 1.2.3 in /src/requirements. PR [#327](https://github.com/devsetgo/test-api/pull/327) by [@dependabot[bot]](https://github.com/apps/dependabot).
