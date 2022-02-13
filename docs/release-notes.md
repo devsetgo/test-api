@@ -1,5 +1,6 @@
 # Release Notes
 
+* removing loguru as a direct  dependency. PR [#350](https://github.com/devsetgo/test-api/pull/350) by [@devsetgo](https://github.com/devsetgo).
 * Updating DSG_LIB. PR [#349](https://github.com/devsetgo/test-api/pull/349) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump orjson from 3.6.5 to 3.6.6 in /src/requirements. PR [#343](https://github.com/devsetgo/test-api/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 8.1.3 to 8.1.9 in /src/requirements. PR [#342](https://github.com/devsetgo/test-api/pull/342) by [@dependabot[bot]](https://github.com/apps/dependabot).
