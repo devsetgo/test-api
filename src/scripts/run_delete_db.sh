@@ -1,22 +1,28 @@
 #!/bin/bash
 set -e
 set -x
+
 #delete db
-DB_NAME="~/pynote_2/src/sqlite_db/api.db"
-if [[ -f DB_NAME ]]
+if [[ -f ~/test-api/src/sqlite_db/api.db ]]
 then
-    echo "deleting api.db"
-    rm DB_NAME
+    echo "deleting db"
+    rm ~/test-api/src/sqlite_db/api.db
 fi
 
 #delete logs
-LOG_NAME="~/pynote_2/src/logging/log.log"
-if [[ -f LOG_NAME ]]
+if [[ -f ~/test-api/src/log/log.log ]]
 then
-    echo "deleting api.db"
-    rm LOG_NAME
+    echo "deleting log"
+    rm ~/test-api/src/log/log.log
 fi
 
 # run dev
-uvicorn main:app --port 5000 --reload --log-level debug
+read_var() {
+    VAR=$(grep $1 $2 | xargs)
+    IFS="=" read -ra VAR <<< "$VAR"
+    echo ${VAR[1],,}
+}
 
+LOGURU_LOGGING_LEVEL=$(read_var LOGURU_LOGGING_LEVEL .env)
+
+uvicorn main:app --port 5000 --reload --log-level ${LOGURU_LOGGING_LEVEL,,}
