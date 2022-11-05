@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<testsuites disabled="0" errors="0" failures="21" tests="34" time="3448.225598199997">
+	<testsuite disabled="0" errors="0" failures="21" name="schemathesis" skipped="0" tests="34" time="3448.225598199997" hostname="c44a6105d559">
+		<testcase name="POST /api/v1/textblob/spellcheck" time="2.777282">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+		</testcase>
+		<testcase name="POST /api/v1/textblob/sentiment" time="2.252786">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+		</testcase>
+		<testcase name="GET /api/v1/groups/list" time="101.791706">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/todo/list" time="101.256739">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/groups/list/count" time="115.852135">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="POST /api/v1/groups/create" time="122.359642"/>
+		<testcase name="GET /api/v1/groups/group" time="131.320419">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="POST /api/v1/groups/user/create" time="168.482893">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/todo/list/count" time="112.273763">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="PUT /api/v1/groups/state" time="223.912885">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="DELETE /api/v1/todo/{todo_id}" time="112.238649">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="DELETE /api/v1/users/{user_id}" time="1.035830"/>
+		<testcase name="POST /api/v1/todo/create/" time="142.408127">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/todo/{todo_id}" time="170.386117">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="POST /api/v1/users/create/" time="4.894036">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+		</testcase>
+		<testcase name="POST /api/v1/users/check-pwd/" time="5.605297"/>
+		<testcase name="PUT /api/v1/todo/complete/{todo_id}" time="190.460202">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="POST /api/v1/tools/xml-json" time="5.664767"/>
+		<testcase name="POST /api/v1/tools/json-xml" time="4.698916"/>
+		<testcase name="GET /api/health/status" time="0.006948"/>
+		<testcase name="GET /api/health/system-info" time="1.143830"/>
+		<testcase name="GET /api/health/processes" time="0.015922"/>
+		<testcase name="GET /api/health/configuration" time="0.007368"/>
+		<testcase name="GET /" time="0.011006"/>
+		<testcase name="GET /robots.txt" time="0.008650"/>
+		<testcase name="GET /joke" time="0.797251"/>
+		<testcase name="GET /info" time="0.007379"/>
+		<testcase name="DELETE /api/v1/groups/user/delete" time="371.783349">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/users/list" time="222.405417">
+			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
+			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="PUT /api/v1/users/status" time="180.849367">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/users/{user_id}" time="189.891210">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/silly-users/make-one" time="169.852419">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/users/list/count" time="236.520228">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+		<testcase name="GET /api/v1/silly-users/list" time="355.253058">
+			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -122,9 +122,16 @@ Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
-Run Tests
-
+### Run Tests
 By commands
+
+SchemaThesis
+~~~~
+st run --workers 8 --fixups fast_api --max-response-time 122000 --junit-xml junit.xml http://127.0.0.1:5000/openapi.json
+~~~~
+~~~~
+./scripts/tests.sh
+~~~~
 ~~~~
 python3 -m pytest
 ~~~~

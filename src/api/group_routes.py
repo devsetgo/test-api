@@ -45,7 +45,7 @@ async def group_list(
         title=title,
         description=delay_description,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
     qty: int = Query(

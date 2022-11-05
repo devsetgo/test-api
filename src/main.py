@@ -240,7 +240,7 @@ async def joke(
         title="Delay",
         description="Delay seconds (Max 121)",
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:

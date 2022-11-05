@@ -4,7 +4,7 @@ import uuid
 
 from starlette.testclient import TestClient
 
-from src.core.file_functions import open_json, save_json
+from dsg_lib.file_functions import open_json, save_json
 from src.main import app
 
 client = TestClient(app)
