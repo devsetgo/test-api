@@ -26,7 +26,7 @@ async def todo_list(
         title=title,
         description=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
@@ -63,7 +63,7 @@ async def todos_list_count(
         title=title,
         description=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
@@ -92,7 +92,7 @@ async def get_todo_id(
         title=title,
         description=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:
@@ -125,7 +125,7 @@ async def deactivate_todo_id(
         title=title,
         description=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:
@@ -161,18 +161,7 @@ async def deactivate_todo_id(
 async def delete_todo_id(
     *,
     todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
     # delete id
     query = todos.delete().where(todos.c.todo_id == todo_id)
     await database.execute(query)
@@ -199,7 +188,7 @@ async def create_todo(
         title=title,
         description=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:

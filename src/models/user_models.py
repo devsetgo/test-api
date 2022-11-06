@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from typing import Optional
+import uuid
+from pydantic import BaseModel, Field, SecretStr,ValidationError, validator
 
-from pydantic import BaseModel, Field, SecretStr
-
-
+sample_id:str = str(uuid.uuid4())
 # Shared properties
 class UserBase(BaseModel):
     user_name: str
@@ -19,7 +19,12 @@ class UserBase(BaseModel):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
-
+    
+    @validator('password')
+    def null_byte_check(cls, v):
+        if b'\x00' in v:
+            raise ValueError('passwords do not match')
+        return v
 
 class UserBaseInDB(UserBase):
     # user_id: str = None
@@ -42,12 +47,23 @@ class UserCreate(UserBase):
     email: Optional[str] = None
     website: Optional[str] = None
     description: Optional[str] = None
+    
+    @validator('password')
+    def null_byte_check(cls, v):
+        if b'\x00' in v:
+            raise ValueError('passwords do not match')
+        return v
 
 
 class UserPwd(UserBase):
     user_name: str
     password: SecretStr
-
+    
+    @validator('password')
+    def null_byte_check(cls, v):
+        if b'\x00' in v:
+            raise ValueError('passwords do not match')
+        return v
 
 # Properties to receive via API on update
 class UserDeactivate(UserBaseInDB):
@@ -85,7 +101,12 @@ class UserList(UserBaseInDB):
 
 
 class UserDeactiveModel(BaseModel):
-    id: str
+    id: str=Field(
+        ...,
+        alias="id",
+        title="Users ID",
+        example=sample_id,
+    )
     is_active: bool = Field(
         False,
         alias="isActive",

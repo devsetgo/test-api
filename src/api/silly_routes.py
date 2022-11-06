@@ -17,7 +17,7 @@ async def make_user(
         title="silly users",
         description="Seconds (max 121)",
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     )
 ) -> dict:
@@ -55,7 +55,7 @@ async def user_list(
         title="Delay",
         description="Delay seconds (Max 121)",
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:

@@ -36,7 +36,7 @@ async def user_list(
         title=title,
         description="Seconds to delay (max 121)",
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
     qty: int = Query(
@@ -208,7 +208,7 @@ async def get_user_id(
         None,
         title=title,
         ge=1,
-        le=121,
+        le=20,
         alias="delay",
     ),
 ) -> dict:
