@@ -13,7 +13,7 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Query, status
+from fastapi import APIRouter, Query, status, HTTPException
 from fastapi.responses import JSONResponse, ORJSONResponse
 from loguru import logger
 

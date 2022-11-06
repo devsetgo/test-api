@@ -15,7 +15,7 @@ async def make_user(
     delay: int = Query(
         None,
         title="silly users",
-        description="Seconds (max 121)",
+        description="Delay seconds (Max 20)",
         ge=1,
         le=20,
         alias="delay",
@@ -53,7 +53,7 @@ async def user_list(
     delay: int = Query(
         None,
         title="Delay",
-        description="Delay seconds (Max 121)",
+        description="Delay seconds (Max 20)",
         ge=1,
         le=20,
         alias="delay",

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import asyncio
 
-from fastapi import APIRouter, File, Query, UploadFile,HTTPException
+from fastapi import APIRouter, File, Query, UploadFile, HTTPException
 from fastapi.responses import ORJSONResponse
 from loguru import logger
 from textblob import TextBlob
@@ -42,13 +42,12 @@ async def spell_check(
         logger.info(f"Delay of {delay} seconds invoked")
         await asyncio.sleep(delay)
         logger.info(f"Delay of {delay} seconds completed")
-    
-    
+
     try:
         file_text = await myfile.read()
         text_decoded = file_text.decode("utf-8")
     except Exception as e:
-        error_note = {"message":f"File Read Error: {e}"}
+        error_note = {"message": f"File Read Error: {e}"}
         logger.error(error_note)
         raise HTTPException(status_code=422, detail=error_note)
 
@@ -108,7 +107,7 @@ async def sentiment_check(
         file_text = await myfile.read()
         text_decoded = file_text.decode("utf-8")
     except Exception as e:
-        error_note = {"message":f"File Read Error: {e}"}
+        error_note = {"message": f"File Read Error: {e}"}
         logger.error(error_note)
         raise HTTPException(status_code=422, detail=error_note)
 

@@ -34,7 +34,7 @@ async def user_list(
     delay: int = Query(
         None,
         title=title,
-        description="Seconds to delay (max 121)",
+        description="Seconds to delay (max 20)",
         ge=1,
         le=20,
         alias="delay",

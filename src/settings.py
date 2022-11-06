@@ -15,7 +15,7 @@ from pydantic import AnyUrl, BaseSettings
 class Settings(BaseSettings):
     title: str = "Test API"
     description: str = "Example API to learn from."
-    app_version: str = "1.0.0"
+    app_version: str = "2.0.0"
     owner: str = "Mike Ryan"
     website: AnyUrl = "https://devsetgo.com"
     license_type: str = "MIT"

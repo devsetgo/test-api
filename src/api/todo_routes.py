@@ -6,7 +6,7 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Path, Query, HTTPException
 from loguru import logger
 
 from core.db_setup import database, todos
@@ -103,6 +103,9 @@ async def get_todo_id(
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} not found")
+
     return result
 
 
@@ -144,6 +147,8 @@ async def deactivate_todo_id(
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
     return result
 
 
@@ -162,9 +167,19 @@ async def delete_todo_id(
     *,
     todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id"),
 ) -> dict:
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
+
     # delete id
     query = todos.delete().where(todos.c.todo_id == todo_id)
     await database.execute(query)
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
+
     result = {"status": f"{todo_id} deleted"}
     return result
 

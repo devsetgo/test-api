@@ -1,78 +1,10 @@
 <?xml version="1.0" ?>
-<testsuites disabled="0" errors="0" failures="19" tests="33" time="3578.1998235999636">
-	<testsuite disabled="0" errors="0" failures="19" name="schemathesis" skipped="0" tests="33" time="3578.1998235999636" hostname="026a8c118344">
-		<testcase name="DELETE /api/v1/groups/user/delete" time="5.596509"/>
-		<testcase name="POST /api/v1/groups/user/create" time="55.435853">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="POST /api/v1/textblob/sentiment" time="138.523325">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/groups/list" time="152.083381">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/groups/group" time="162.575438">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="DELETE /api/v1/todo/{todo_id}" time="1.661854"/>
-		<testcase name="POST /api/v1/groups/create" time="168.990376"/>
-		<testcase name="GET /api/v1/groups/list/count" time="170.106073">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/todo/list" time="129.613763">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/users/list/count" time="50.064984">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/todo/list/count" time="135.499568">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="DELETE /api/v1/users/{user_id}" time="1.167654"/>
-		<testcase name="POST /api/v1/todo/create/" time="169.260537">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="POST /api/v1/users/create/" time="15.121061"/>
-		<testcase name="POST /api/v1/users/check-pwd/" time="3.276212"/>
-		<testcase name="PUT /api/v1/groups/state" time="362.676528"/>
-		<testcase name="POST /api/v1/textblob/spellcheck" time="380.946684">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="PUT /api/v1/users/status" time="114.972583">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="PUT /api/v1/todo/complete/{todo_id}" time="258.914076">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/health/status" time="0.028981"/>
-		<testcase name="GET /api/health/system-info" time="1.152482"/>
-		<testcase name="GET /api/health/processes" time="0.033478"/>
-		<testcase name="GET /api/health/configuration" time="0.031509"/>
-		<testcase name="GET /" time="0.049799"/>
-		<testcase name="GET /robots.txt" time="0.036787"/>
-		<testcase name="GET /api/v1/todo/{todo_id}" time="273.863109">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /info" time="0.053770"/>
-		<testcase name="POST /api/v1/tools/json-xml" time="38.740304">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /joke" time="36.563079">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/silly-users/make-one" time="111.296164">
-			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
-			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/users/list" time="298.611981">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/users/{user_id}" time="234.265148">
-			<failure type="failure" message="1. Response timed out after 10000.00ms"/>
-		</testcase>
-		<testcase name="GET /api/v1/silly-users/list" time="106.986770">
-			<failure type="failure" message="1. Received a response with 5xx status code: 500"/>
-			<failure type="failure" message="2. Response timed out after 10000.00ms"/>
+<testsuites disabled="0" errors="0" failures="1" tests="3" time="67.17162809999991">
+	<testsuite disabled="0" errors="0" failures="1" name="schemathesis" skipped="0" tests="3" time="67.17162809999991" hostname="026a8c118344">
+		<testcase name="DELETE /api/v1/groups/user/delete" time="5.625903"/>
+		<testcase name="DELETE /api/v1/todo/{todo_id}" time="0.994508"/>
+		<testcase name="POST /api/v1/textblob/sentiment" time="60.551216">
+			<failure type="failure" message="1. Response timed out after 21000.00ms"/>
 		</testcase>
 	</testsuite>
 </testsuites>
