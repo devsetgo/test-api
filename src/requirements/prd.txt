@@ -1,24 +1,25 @@
 aiosqlite==0.17.0 # Vulnerbilities: None
-alembic==1.8.1 # From 1.7.6 | Vulnerbilities: None
-asyncpg==0.26.0 # From 0.25.0 | Vulnerbilities: None
-databases==0.6.1 # From 0.5.5 | Vulnerbilities: None
-devsetgo-lib==0.8.0 # From 0.7.1 | Vulnerbilities: None
-fastapi-login==1.8.3 # From 1.7.3 | Vulnerbilities: None
-fastapi[all]==0.85.1 # From 0.73.0 | Vulnerbilities: None
-graphene==3.1.1 # From 3.0 | Vulnerbilities: None
+alembic==1.8.1 # Vulnerbilities: None
+asyncpg==0.27.0 # From 0.26.0 | Vulnerbilities: None
+databases==0.6.2 # From 0.6.1 | Vulnerbilities: None
+devsetgo-lib==0.8.0 # Vulnerbilities: None
+fastapi-login==1.8.3 # Vulnerbilities: None
+fastapi[all]==0.86.0 # From 0.85.1 | Vulnerbilities: None
+graphene==3.1.1 # Vulnerbilities: None
 gunicorn==20.1.0 # Vulnerbilities: None
-httpx==0.23.0 # From 0.22.0 | Vulnerbilities: None
-orjson==3.8.0 # From 3.6.6 | Vulnerbilities: None
+httpx==0.23.0 # Vulnerbilities: None
+orjson==3.8.1 # From 3.8.0 | Vulnerbilities: None
 passlib[bcrypt]==1.7.4 # Vulnerbilities: None
-psutil==5.9.3 # From 5.9.0 | Vulnerbilities: None
-py-cpuinfo==8.0.0 # Vulnerbilities: None
+psutil==5.9.4 # From 5.9.3 | Vulnerbilities: None
+py-cpuinfo==9.0.0 # From 8.0.0 | Vulnerbilities: None
 pyjokes==0.6.0 # Vulnerbilities: None
-python-dotenv==0.21.0 # From 0.19.2 | Vulnerbilities: None
+python-dotenv==0.21.0 # Vulnerbilities: None
 python-multipart==0.0.5 # Vulnerbilities: None
 pyyaml==6.0 # Vulnerbilities: None
 silly==1.1.0 # Vulnerbilities: None
-sqlalchemy==1.4.41
-starlette-exporter==0.14.0 # From 0.12.0 | Vulnerbilities: None
+sqlalchemy==1.4.44 # From 1.4.41 | Vulnerbilities: None
+starlette-exporter==0.14.0 # Vulnerbilities: None
 textblob==0.17.1 # Vulnerbilities: None
 unsync==1.4.0 # Vulnerbilities: None
-xmltodict==0.13.0 # From 0.12.0 | Vulnerbilities: None
+xmltodict==0.13.0 # Vulnerbilities: None
+tqdm==4.64.1 # From none | Vulnerbilities: None
