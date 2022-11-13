@@ -16,25 +16,11 @@ router = APIRouter()
 # time variables
 currentTime = datetime.now()
 
-title = "Delay in Seconds"
-
 
 @router.get("/list", tags=["todo"])
 async def todo_list(
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     # Fetch multiple rows
     if is_complete is not None:
@@ -58,20 +44,9 @@ async def todo_list(
     },
 )
 async def todos_list_count(
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
@@ -87,19 +62,8 @@ async def todos_list_count(
 @router.get("/{todo_id}", tags=["todo"], response_description="Get todo information")
 async def get_todo_id(
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
 
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
@@ -123,20 +87,9 @@ async def get_todo_id(
 async def deactivate_todo_id(
     *,
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
 
     todo_information = {"is_complete": True, "date_complete": currentTime}
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     # Fetch single row
     query = todos.update().where(todos.c.todo_id == todo_id)
@@ -198,14 +151,6 @@ async def delete_todo_id(
 async def create_todo(
     *,
     todo: TodoCreate,
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
 
     value = todo.dict()
@@ -222,10 +167,6 @@ async def create_todo(
         # ,'checklist': []
         "date_complete": None,
     }
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     query = todos.insert()
     values = todo_information

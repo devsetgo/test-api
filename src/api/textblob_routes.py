@@ -27,21 +27,7 @@ title = "Delay in Seconds"
 )
 async def spell_check(
     myfile: UploadFile = File(..., description="File to spell check"),
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 121)",
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
-
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"Delay of {delay} seconds invoked")
-        await asyncio.sleep(delay)
-        logger.info(f"Delay of {delay} seconds completed")
 
     try:
         file_text = await myfile.read()
@@ -51,7 +37,6 @@ async def spell_check(
         logger.error(error_note)
         raise HTTPException(status_code=422, detail=error_note)
 
-
     try:
         tb = TextBlob(text_decoded)
         original_text = text_decoded
@@ -60,7 +45,6 @@ async def spell_check(
         error_note = {"message": f"File Read Error: {ex}"}
         logger.error(error_note)
         raise HTTPException(status_code=422, detail=error_note)
-
 
     if len(original_text) == 0:
         error: dict = {"error": "The file is empty or unreadable"}
@@ -95,20 +79,7 @@ async def spell_check(
 )
 async def sentiment_check(
     myfile: UploadFile = File(..., description="File to get sentiment"),
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 121)",
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"Delay of {delay} seconds invoked")
-        await asyncio.sleep(delay)
-        logger.info(f"Delay of {delay} seconds completed")
 
     try:
         file_text = await myfile.read()

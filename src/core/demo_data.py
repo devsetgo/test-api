@@ -27,19 +27,19 @@ def create_data():
 
     if int(user_count) == 0:
         create_users(config_settings.number_users)
-        time.sleep(0.001)
+        time.sleep(0.01)
     else:
         logger.info("existing data, sample users will not be created")
 
     if int(task_count) == 0:
         create_tasks(int(config_settings.number_tasks))
-        time.sleep(0.001)
+        time.sleep(0.01)
     else:
         logger.info("existing data, sample tasks will not be created")
 
     if int(group_count) == 0:
         create_groups(int(config_settings.number_groups))
-        time.sleep(0.001)
+        time.sleep(0.01)
         create_standard_groups()
     else:
         logger.info("existing data, sample groups will not be created")
@@ -79,15 +79,15 @@ async def count_tasks():
 def create_users(qty: int):
 
     for _ in range(0, qty):
-        time.sleep(0.005)
+        time.sleep(0.01)
         new_user = user_test_info()
         db_user_call(new_user)
 
 
 def create_groups(qty: int):
 
-    for _ in tqdm(range(0, qty),ascii=True,colour="red"):
-        time.sleep(0.005)
+    for _ in tqdm(range(0, qty), ascii=True, colour="red"):
+        time.sleep(0.01)
         id: str = str(uuid.uuid4())
         group_information = {
             "id": id,
@@ -102,7 +102,7 @@ def create_groups(qty: int):
         time.sleep(0.01)
 
         for _ in range(random.randint(2, 10)):
-            time.sleep(0.005)
+            time.sleep(0.01)
             group_user_creator(group_id=id)
 
 
@@ -378,7 +378,7 @@ def create_standard_groups():
         "Susan",
         "Donald",
     ]
-    for g in tqdm(groups,ascii=True,colour="blue"):
+    for g in tqdm(groups, ascii=True, colour="blue"):
         time.sleep(0.001)
         db_group_call(g)
         time.sleep(0.001)
@@ -400,8 +400,8 @@ def create_standard_group_user(group_id: str, name: str):
 
 def create_tasks(qty: int):
 
-    for _ in tqdm(range(0, qty),ascii=True,colour="green"):
-        time.sleep(0.001)
+    for _ in tqdm(range(0, qty), ascii=True, colour="green"):
+        time.sleep(0.01)
         todo_information = {
             "todo_id": str(uuid.uuid1()),
             "title": silly.thing(),

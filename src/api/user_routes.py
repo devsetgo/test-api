@@ -16,7 +16,8 @@ user unlock
 import asyncio
 import uuid
 
-from fastapi import APIRouter, Form, Path, Query
+from fastapi import APIRouter, Form, Path, Query, HTTPException, status
+from fastapi.responses import JSONResponse
 from loguru import logger
 
 from core.db_setup import database, users
@@ -26,19 +27,9 @@ from models.user_models import UserCreate, UserDeactiveModel
 
 router = APIRouter()
 
-title = "Delay in Seconds"
-
 
 @router.get("/list", tags=["users"])
 async def user_list(
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 20)",
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
     qty: int = Query(
         None,
         title="Quanity",
@@ -48,7 +39,12 @@ async def user_list(
         alias="qty",
     ),
     offset: int = Query(
-        None, title="Offset", description="Offset increment", ge=0, alias="offset"
+        None,
+        title="Offset",
+        description="Offset increment",
+        ge=0,
+        le=10000,
+        alias="offset",
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
     first_name: str = Query(None, title="first name", alias="firstname"),
@@ -64,7 +60,6 @@ async def user_list(
     list of users
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
         qty {int} -- [description] 100 returned results is default,
         maximum is 500
         offset {int} -- [description] 0 seconds default
@@ -76,10 +71,6 @@ async def user_list(
 
     """
     criteria = []
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
-
     if qty is None:
         qty: int = 100
 
@@ -145,7 +136,6 @@ async def user_list(
             "total_count": len(total_count),
             "offset": offset,
             "filter": is_active,
-            "delay": delay,
         },
         "users": result_set,
     }
@@ -162,29 +152,18 @@ async def user_list(
     },
 )
 async def users_list_count(
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
     is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
     """
     Count of users in the database
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
         Active {bool} -- [description] no default as not required,
         must be Active=true or false if used
 
     Returns:
         dict -- [description]
     """
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         # Fetch multiple rows
@@ -204,34 +183,28 @@ async def users_list_count(
 @router.get("/{user_id}", tags=["users"], response_description="Get user information")
 async def get_user_id(
     user_id: str = Path(..., title="The user id to be searched for", alias="user_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
     """
     User information for requested UUID
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
-        delay {int} -- [description] 0 seconds default, maximum is 122
 
 
     Returns:
         dict -- [description]
     """
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         # Fetch single row
         query = users.select().where(users.c.user_id == user_id)
         db_result = await database.fetch_one(query)
-
+        print(db_result)
+        if db_result is None:
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(error_note)
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
         user_data = {
             "user_id": db_result["user_id"],
             "user_name": db_result["user_name"],
@@ -270,21 +243,12 @@ async def get_user_id(
 async def set_status_user_id(
     *,
     user_data: UserDeactiveModel,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
 ) -> dict:
     """
     Set status of a specific user UUID
 
     Args:
         user_data (UserDeactiveModel): [id = UUID of user, isActive = True or False]
-        delay (int, optional): [description]. Defaults to Query( None, title=title, \
-            ge=1, le=10, alias="delay", ).
 
     Returns:
         dict: [description]
@@ -294,7 +258,7 @@ async def set_status_user_id(
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
-        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [description]
@@ -302,17 +266,35 @@ async def set_status_user_id(
 
     values = user_data.dict()
     values["date_updated"] = get_current_datetime()
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
+
+    user_id = values["id"]
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.user_id == values["user_id"])
-        result = await database.execute(query=query, values=values)
-        return result
+        query = users.select().where(users.c.user_id == user_id)
+        db_result = await database.fetch_one(query)
+
+        if db_result is None:
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(error_note)
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
+
     except Exception as e:
         logger.error(f"Critical Error: {e}")
+
+    try:
+        # Fetch single row
+        query = users.update().where(users.c.user_id == user_id)
+        result = await database.execute(query=query, values=values)
+
+    except Exception as e:
+        error_note = {"message": e}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
+
+    return result
 
 
 @router.delete(
@@ -338,6 +320,25 @@ async def delete_user_id(
     Returns:
         dict -- [result: user UUID deleted]
     """
+
+    try:
+        # Fetch single row
+        query = users.select().where(users.c.user_id == user_id)
+        db_result = await database.fetch_one(query)
+        print(db_result)
+        if db_result is None:
+
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(error_note)
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
+
+    except Exception as ex:
+        error_note = {"message": ex}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
+
     try:
         # delete id
         query = users.delete().where(users.c.user_id == user_id)
@@ -345,8 +346,11 @@ async def delete_user_id(
         result = {"status": f"{user_id} deleted"}
         return result
 
-    except Exception as e:
-        logger.error(f"Critical Error: {e}")
+    except Exception as ex:
+        error_note = {"message": ex}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
 
 
 @router.post(
@@ -363,13 +367,6 @@ async def delete_user_id(
 async def create_user(
     *,
     user: UserCreate,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
 ) -> dict:
     """
     POST/Create a new User. user_name (unique), firstName, lastName,
@@ -379,7 +376,7 @@ async def create_user(
         user {UserCreate} -- [description]
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [user_id: uuid, user_name: user_name]
@@ -407,10 +404,6 @@ async def create_user(
         "is_active": True,
         "is_superuser": False,
     }
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         query = users.insert()

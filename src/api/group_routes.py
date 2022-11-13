@@ -34,20 +34,9 @@ from models.group_models import (
 
 router = APIRouter()
 
-title = "Delay in Seconds"
-delay_description: str = "Seconds to delay (max 121)"
-
 
 @router.get("/list", tags=["groups"])
 async def group_list(
-    delay: int = Query(
-        None,
-        title=title,
-        description=delay_description,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
     qty: int = Query(
         None,
         title="Quanity",
@@ -57,7 +46,12 @@ async def group_list(
         alias="qty",
     ),
     offset: int = Query(
-        None, title="Offset", description="Offset increment", ge=0, alias="offset"
+        None,
+        title="Offset",
+        description="Offset increment",
+        ge=0,
+        le=10000,
+        alias="offset",
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
     group_type: GroupTypeEnum = Query(
@@ -74,12 +68,11 @@ async def group_list(
     Get list of all groups and associated information
 
     Args:
-        delay (int, optional): [description]. Defaults to Query( None, title=title,
-         description="Seconds to delay (max 121)", ge=1, le=20, alias="delay", ).
+
         qty (int, optional): [description]. Defaults to Query( None, title="Quanity",
          description="Records to return (max 500)", ge=1, le=500, alias="qty", ).
         offset (int, optional): [description]. Defaults to Query( None, title="Offset",
-         description="Offset increment", ge=0, alias="offset" ).
+         description="Offset increment", ge=0,le=10000, alias="offset" ).
         is_active (bool, optional): [description]. Defaults to Query(None,
          title="by active status", alias="active").
         group_type (GroupTypeEnum, optional): [description]. Defaults to Query( None,
@@ -90,9 +83,6 @@ async def group_list(
         GroupId, Name, Description, active state, dates created & updated
     """
     criteria = []
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     if qty is None:
         qty: int = 100
@@ -109,10 +99,12 @@ async def group_list(
     if group_name is not None:
 
         if group_name.isalnum() is False:
-            error_note = {"message": f"Group Name {group_name} is not a valud alpha numeric value"}
+            error_note = {
+                "message": f"Group Name {group_name} is not a valud alpha numeric value"
+            }
             logger.error(error_note)
             raise HTTPException(status_code=422, detail=error_note)
-        
+
         criteria.append((groups.c.name, group_name, "ilike"))
 
     query = groups.select().order_by(groups.c.date_create).limit(qty).offset(offset)
@@ -139,7 +131,6 @@ async def group_list(
             "total_count": len(total_count),
             "offset": offset,
             "filter": is_active,
-            "delay": delay,
         },
         "groups": db_result,
     }
@@ -148,14 +139,6 @@ async def group_list(
 
 @router.get("/list/count", tags=["groups"])
 async def group_list_count(
-    delay: int = Query(
-        None,
-        title=title,
-        description=delay_description,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
     is_active: bool = Query(None, title="by active status", alias="active"),
     group_type: GroupTypeEnum = Query(
         None, title="groupType", description="Type of group", alias="groupType"
@@ -164,9 +147,6 @@ async def group_list_count(
     """[summary]
     Get a count of groups
     Args:
-        delay (int, optional): [description]. Defaults to Query( None,
-         title=title, description="Seconds to delay (max 121)", ge=1, le=20, \
-             alias="delay", ).
         is_active (bool, optional): [description]. Defaults to Query(None,
          title="by active status", alias="active").
         group_type (GroupTypeEnum, optional): [description]. Defaults to Query( None,
@@ -177,9 +157,6 @@ async def group_list_count(
         count based on filters
     """
     criteria = []
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     if is_active is not None:
         criteria.append((groups.c.is_active, is_active))
@@ -201,7 +178,6 @@ async def group_list_count(
         "parameters": {
             "total_count": len(total_count),
             "filter": is_active,
-            "delay": delay,
         },
     }
     return result
@@ -236,14 +212,6 @@ async def group_state(
         description="true or false of status",
         alias="isActive",
     ),
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-        description="integer delay value for simulating delays",
-    ),
 ) -> dict:
     """[summary]
         Active or Deactivate a Group ID
@@ -253,17 +221,11 @@ async def group_state(
         state (bool, optional): [description]. Defaults to
          Query( ..., title="active state", description="true or false of state",\
               alias="state", ).
-        delay (int, optional): [description]. Defaults to
-         Query( None, title=title, ge=1, le=10, alias="delay",
-          description="integer delay value for simulating delays", ).
 
     Returns:
         dict: [id, state]
     """
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"adding a delay of {delay} seconds")
-        await asyncio.sleep(delay)
+
     if is_active is None:
         error: dict = {
             "error": "isActive must be true or false and \
@@ -319,30 +281,16 @@ async def group_state(
 async def create_group(
     *,
     group: GroupCreate,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
 ) -> dict:
     """[summary]
     Create a new group
     Args:
         group (GroupCreate): [description]
-        delay (int, optional): [description]. Defaults to Query(None,
-         title=title, ge=1, le=10, alias="delay",).
 
     Returns:
         dict: [description]
         Group data
     """
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"adding a delay of {delay} seconds")
-        await asyncio.sleep(delay)
-
     # approval or notification
     group_type_check: list = ["approval", "notification"]
     if group.group_type not in group_type_check:
@@ -400,14 +348,6 @@ async def group_id(
         description="Get by the Group Name",
         alias="groupName",
     ),
-    delay: int = Query(
-        None,
-        title=title,
-        description=delay_description,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
     """[summary]
     Get individual group data, including users
@@ -416,17 +356,12 @@ async def group_id(
          title="Group ID", description="Get by the Group UUID", alias="groupId", ).
         group_name (str, optional): [description]. Defaults to Query( None,
          title="Group Name", description="Get by the Group Name", alias="groupName", ).
-        delay (int, optional): [description]. Defaults to Query( None,
-         title=title, description="Seconds to delay (max 121)", ge=1, le=20, \
-             alias="delay", ).
+
 
     Returns:
         dict: [description]
         Group data and associated users
     """
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     # if search by ID
     if group_id is not None:
@@ -496,31 +431,17 @@ async def group_id(
 async def create_group_user(
     *,
     group: GroupUser,
-    delay: int = Query(
-        None,
-        title=title,
-        description=delay_description,
-        ge=1,
-        le=20,
-        alias="delay",
-    ),
 ) -> dict:
     """[summary]
     Add a user to a group
     Args:
         group (GroupUser): [description]
-        delay (int, optional): [description]. Defaults to Query( None,
-         title=title, description="Seconds to delay (max 121)", ge=1, \
-             le=20, alias="delay", ).
+
 
     Returns:
         dict: [description]
         Confirmation of user being added
     """
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"adding a delay of {delay} seconds")
-        await asyncio.sleep(delay)
 
     check_id = str(group.group_id)
     group_id_exists = await check_id_exists(id=check_id)

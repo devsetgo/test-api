@@ -120,6 +120,11 @@ class UserBase(BaseModel):
             raise ValueError("passwords do not match")
         return v
 
+    @validator("user_name")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
+        return v
+
 
 class UserBaseInDB(UserBase):
 
@@ -129,6 +134,11 @@ class UserBaseInDB(UserBase):
         title="Users Name",
         example="bob",
     )
+
+    @validator("user_name")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
+        return v
 
 
 # Properties to receive via API on creation
@@ -171,6 +181,11 @@ class UserCreate(UserBase):
             raise ValueError("passwords do not match")
         return v
 
+    @validator("user_name")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
+        return v
+
 
 class UserPwd(UserBase):
     user_name: str = Field(
@@ -192,6 +207,11 @@ class UserPwd(UserBase):
     def null_byte_check(cls, v):
         if b"\x00" in v:
             raise ValueError("passwords do not match")
+        return v
+
+    @validator("user_name")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
         return v
 
 
