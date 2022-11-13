@@ -107,6 +107,12 @@ async def group_list(
         criteria.append((groups.c.group_type, group_type, "equal"))
 
     if group_name is not None:
+
+        if group_name.isalnum() is False:
+            error_note = {"message": f"Group Name {group_name} is not a valud alpha numeric value"}
+            logger.error(error_note)
+            raise HTTPException(status_code=422, detail=error_note)
+        
         criteria.append((groups.c.name, group_name, "ilike"))
 
     query = groups.select().order_by(groups.c.date_create).limit(qty).offset(offset)

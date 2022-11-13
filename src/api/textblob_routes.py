@@ -46,14 +46,21 @@ async def spell_check(
     try:
         file_text = await myfile.read()
         text_decoded = file_text.decode("utf-8")
-    except Exception as e:
-        error_note = {"message": f"File Read Error: {e}"}
+    except Exception as ex:
+        error_note = {"message": f"File Read Error: {ex}"}
         logger.error(error_note)
         raise HTTPException(status_code=422, detail=error_note)
 
-    tb = TextBlob(text_decoded)
-    original_text = text_decoded
-    logger.debug(f"file text size {len(original_text)}")
+
+    try:
+        tb = TextBlob(text_decoded)
+        original_text = text_decoded
+        logger.debug(f"file text size {len(original_text)}")
+    except Exception as ex:
+        error_note = {"message": f"File Read Error: {ex}"}
+        logger.error(error_note)
+        raise HTTPException(status_code=422, detail=error_note)
+
 
     if len(original_text) == 0:
         error: dict = {"error": "The file is empty or unreadable"}

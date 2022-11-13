@@ -145,10 +145,10 @@ async def startup_event():
         await database.connect()
         logger.info("Connecting to database")
 
-    except Exception as e:
+    except Exception as ex:
         # log error
-        logger.info(f"Error: {e}")
-        logger.trace(f"tracing: {e}")
+        logger.info(f"Error: {ex}")
+        logger.trace(f"tracing: {ex}")
 
     # initiate log with statement
     if config_settings.release_env.lower() == "dev":

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="2" time="82.71467940000093">
+	<testsuite disabled="0" errors="0" failures="0" name="schemathesis" skipped="0" tests="2" time="82.71467940000093" hostname="59c9f050e2d1">
+		<testcase name="DELETE /api/v1/groups/user/delete" time="5.489883"/>
+		<testcase name="GET /api/v1/groups/group" time="77.224797"/>
+	</testsuite>
+</testsuites>
