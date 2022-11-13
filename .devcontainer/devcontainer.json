@@ -12,7 +12,7 @@
 		// Configure properties specific to VS Code.
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
-			"settings": { 
+			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
 				"python.linting.enabled": true,
 				"python.linting.pylintEnabled": true,
@@ -27,7 +27,7 @@
 				"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 				"python.testing.pytestPath": "/usr/local/py-utils/bin/pytest"
 			},
-			
+
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"ms-python.python",
