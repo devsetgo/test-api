@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from dsg_lib.file_functions import save_json
 from src.core.gen_user import user_test_info
@@ -41,24 +41,27 @@ class Test(unittest.TestCase):
     def test_users_post(self):
         test_user = user_test_info()
         save_json("test_data_test_user.json", test_user)
-        url = f"/api/v1/users/create/?delay=1"
+        url = f"/api/v1/users/create/"
 
         response = client.post(url, json=test_user)
-        assert response.status_code == 200
+        assert response.status_code == 201
         data = response.json()
 
         user_data = {
             "user_id": data["user_id"],
             "user_name": data["user_name"],
+            "first_name": test_user["first_name"],
+            "last_name": test_user["last_name"],
             "password": test_user["password"],
+            "email": test_user["email"],
         }
 
         save_json("test_data_users.json", user_data)
 
-    def test_users_post_two(self):
-        for _ in range(2):
+    def test_users_post_twenty(self):
+        for _ in range(20):
             test_user = user_test_info()
-            url = f"/api/v1/users/create/?delay=1"
+            url = f"/api/v1/users/create/"
 
             response = client.post(url, json=test_user)
-            assert response.status_code == 200
+            assert response.status_code != 500

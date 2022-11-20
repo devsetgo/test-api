@@ -24,6 +24,7 @@ from crud.group_crud import (
     check_unique_name,
     check_user_exists,
     check_user_id_exists,
+    delete_user_in_group,
 )
 from models.group_models import (
     GroupCreate,
@@ -35,7 +36,7 @@ from models.group_models import (
 router = APIRouter()
 
 
-@router.get("/list", tags=["groups"])
+@router.get("/list", tags=["groups"], status_code=200)
 async def group_list(
     qty: int = Query(
         None,
@@ -137,7 +138,7 @@ async def group_list(
     return result
 
 
-@router.get("/list/count", tags=["groups"])
+@router.get("/list/count", tags=["groups"], status_code=200)
 async def group_list_count(
     is_active: bool = Query(None, title="by active status", alias="active"),
     group_type: GroupTypeEnum = Query(
@@ -259,7 +260,7 @@ async def group_state(
     except Exception as e:
         error: dict = {"error": str(e)}
         logger.debug(e)
-        logger.critical(error)
+        logger.error(error)
         return JSONResponse(status_code=400, content=error)
 
 
@@ -330,11 +331,11 @@ async def create_group(
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=full_result)
     except Exception as e:
         error: dict = {"error": str(e)}
-        logger.critical(error)
+        logger.error(error)
         return JSONResponse(status_code=400, content=error)
 
 
-@router.get("/group", tags=["groups"])
+@router.get("/group", tags=["groups"], status_code=200)
 async def group_id(
     group_id: str = Query(
         None,
@@ -475,7 +476,7 @@ async def create_group_user(
     except Exception as e:
         error: dict = {"error": str(e)}
         logger.debug(e)
-        logger.critical(f"Critical Error: {e}")
+        logger.error(f"Error: {e}")
         return JSONResponse(status_code=400, content=error)
 
 
@@ -483,6 +484,7 @@ async def create_group_user(
     "/user/delete",
     tags=["groups"],
     response_description="The deleted item",
+    status_code=200,
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Not Found"},
@@ -504,23 +506,16 @@ async def delete_group_item_user_id(
         Confirmation of removal
     """
 
-    check_id = str(user.id)
-    group_id_exists = await check_user_id_exists(id=check_id)
-
+    user_id = str(user.id)
+    group_id = str(user.group_id)
+    group_id_exists = await check_user_id_exists(id=user_id, group_id=group_id)
+    print(group_id_exists)
     if group_id_exists is False:
-        error: dict = {"error": f"Group ID '{check_id}' does not exist"}
+        error: dict = {
+            "error": f"Group ID: {group_id} and/or User ID: {user_id} does not exists"
+        }
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)
 
-    try:
-        # delete id
-        logger.debug(str(user.id))
-        query = groups_item.delete().where(groups_item.c.id == user.id)
-        await execute_one_db(query)
-        result = {"status": f"{user.id} deleted"}
-        return JSONResponse(status_code=200, content=result)
-
-    except Exception as e:
-        error: dict = {"error": f"{e}"}
-        logger.error(error)
-        return JSONResponse(status_code=500, content=error)
+    result = await delete_user_in_group(id=user_id, group_id=group_id)
+    return result

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from src.main import app
 

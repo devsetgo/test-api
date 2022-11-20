@@ -2,7 +2,7 @@
 import secrets
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from dsg_lib.file_functions import open_json
 from src.main import app
@@ -24,18 +24,18 @@ class Test(unittest.TestCase):
         assert response.status_code == 422
 
     # Update Activate delay error
-    def test_groups_get_activate_error_delay(self):
-        group_id = open_json("test_data_group.json")
-        g_id: str = group_id["id"]
-        url = f"{base_url}/state?id={g_id}&delay=122&isActive=true"
-        response = client.put(url)
-        assert response.status_code == 422
+    # def test_groups_get_activate_error_delay(self):
+    #     group_id = open_json("test_data_group.json")
+    #     g_id: str = group_id["id"]
+    #     url = f"{base_url}/state?id={g_id}&isActive=true"
+    #     response = client.put(url)
+    #     assert response.status_code == 422
 
     # deactivate 404
     def test_groups_get_activate_not_found(self):
 
         g_id: str = secrets.token_hex(10)
-        url = f"{base_url}/state?id={g_id}&delay=1&isActive=true"
+        url = f"{base_url}/state?id={g_id}&isActive=true"
         response = client.put(url)
         assert response.status_code == 404
 
@@ -48,12 +48,12 @@ class Test(unittest.TestCase):
         assert response.status_code == 201
 
     # Update deactivate delay error
-    def test_groups_get_deactivate_error_delay(self):
-        group_id = open_json("test_data_group.json")
-        g_id: str = group_id["id"]
-        url = f"{base_url}/state?id={g_id}&delay=122&isActive=false"
-        response = client.put(url)
-        assert response.status_code == 422
+    # def test_groups_get_deactivate_error_delay(self):
+    #     group_id = open_json("test_data_group.json")
+    #     g_id: str = group_id["id"]
+    #     url = f"{base_url}/state?id={g_id}&delay=122&isActive=false"
+    #     response = client.put(url)
+    #     assert response.status_code == 422
 
     # deactivate 404
     def test_groups_get_deactivate_not_found(self):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 import uuid
-
+import secrets
 import silly
 
 
@@ -9,10 +9,10 @@ def user_test_info():
     set_id = str(uuid.uuid1())
     rand_name: str = silly.noun()
     rand_num: int = random.randint(1, 10000)
-    username: str = f"{rand_name}-{rand_num}"
+    username: str = f"{rand_name}{secrets.token_hex(4)}"
     first_name: str = silly.verb()
     last_name: str = rand_name
-    password: str = f"{silly.verb()}-{silly.noun()}"
+    password: str = secrets.token_hex(4)
     title: str = silly.title(capitalize=True)
     company: str = silly.company(capitalize=True)
     address: str = silly.address(capitalize=True)

@@ -24,6 +24,7 @@ from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
 from models.user_models import UserCreate, UserDeactiveModel
+from crud import user_crud
 
 router = APIRouter()
 
@@ -233,6 +234,7 @@ async def get_user_id(
     "/status",
     tags=["users"],
     response_description="The created item",
+    status_code=200,
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
@@ -267,16 +269,18 @@ async def set_status_user_id(
     values = user_data.dict()
     values["date_updated"] = get_current_datetime()
 
+    data = {"user_id": values["id"], "is_active": values["is_active"]}
     user_id = values["id"]
+    status = values["is_active"]
 
     try:
         # Fetch single row
         query = users.select().where(users.c.user_id == user_id)
         db_result = await database.fetch_one(query)
-
+        logger.debug(db_result)
         if db_result is None:
             error_note = {"message": f"user id {user_id} not found"}
-            logger.error(error_note)
+            logger.error(f"LOOK AT THIS: {error_note}")
             # raise HTTPException(status_code=404, detail=error_note)
             return JSONResponse(status_code=404, content=error_note)
 
@@ -286,7 +290,7 @@ async def set_status_user_id(
     try:
         # Fetch single row
         query = users.update().where(users.c.user_id == user_id)
-        result = await database.execute(query=query, values=values)
+        result = await database.execute(query=query, values=data)
 
     except Exception as e:
         error_note = {"message": e}
@@ -294,7 +298,7 @@ async def set_status_user_id(
         # raise HTTPException(status_code=400, detail=error_note)
         return JSONResponse(status_code=400, content=error_note)
 
-    return result
+    return {"message": f"{user_id} status set to {status}"}
 
 
 @router.delete(
@@ -357,10 +361,12 @@ async def delete_user_id(
     "/create/",
     tags=["users"],
     response_description="The created item",
+    status_code=201,
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
         405: {"description": "Method not allowed"},
+        422: {"description": "Validation Error"},
         500: {"description": "Mommy!"},
     },
 )
@@ -369,7 +375,7 @@ async def create_user(
     user: UserCreate,
 ) -> dict:
     """
-    POST/Create a new User. user_name (unique), firstName, lastName,
+    POST/Create a new User. user_name (unique), firstName, lastName, email,
     and password are required. All other fields are optional.
 
     Arguments:
@@ -382,6 +388,31 @@ async def create_user(
         dict -- [user_id: uuid, user_name: user_name]
     """
     value = user.dict()
+    logger.debug(f"input values {value}")
+    email = value["email"]
+    user_name = value["user_name"].lower()
+
+    if (
+        email is None
+        or user_name is None
+        or value["first_name"] is None
+        or value["last_name"] is None
+    ):
+        error_note = {"message": f"Required fields are missing"}
+        logger.error(error_note)
+        raise HTTPException(status_code=400, detail=error_note)
+
+    unique_check: bool = await user_crud.check_unique_contraints(
+        email=email, user_name=user_name
+    )
+    logger.debug(f"LOOK AT THIS RESULT {unique_check}")
+    if unique_check == True:
+        error_note = {
+            "message": f"The email '{email}' and/or user_name '{user_name}' is not unique and maybe in use"
+        }
+        logger.error(error_note)
+        raise HTTPException(status_code=400, detail=error_note)
+
     hash_pwd = encrypt_pass(value["password"])
 
     user_information = {
@@ -390,13 +421,13 @@ async def create_user(
         "first_name": value["first_name"],
         "last_name": value["last_name"],
         "password": hash_pwd,
+        "email": value["email"],
         "title": value["title"],
         "company": value["company"],
         "address": value["address"],
         "city": value["city"],
         "country": value["country"],
         "postal": value["postal"],
-        "email": value["email"],
         "website": value["website"],
         "description": value["description"],
         "date_create": get_current_datetime(),

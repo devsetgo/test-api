@@ -28,7 +28,7 @@ class UserOptional(BaseModel):
     address: str = Field(
         None,
         min_length=3,
-        max_length=50,
+        max_length=200,
         alias="address",
         title="Address",
         example="123 Maple Lane",
@@ -56,12 +56,6 @@ class UserOptional(BaseModel):
         alias="postal",
         title="Postal",
         example="90210",
-    )
-    email: EmailStr = Field(
-        None,
-        alias="email",
-        title="email",
-        example="me@example.com",
     )
     website: AnyHttpUrl = Field(
         None,
@@ -112,13 +106,19 @@ class UserBase(BaseModel):
         title="Password",
         example="NotLetMeIn",
     )
-    optionalFields: UserOptional
+    email: EmailStr = Field(
+        ...,
+        alias="email",
+        title="email",
+        example="me@example.com",
+    )
+    # optionalFields: UserOptional
 
-    @validator("password")
-    def null_byte_check(cls, v):
-        if b"\x00" in v:
-            raise ValueError("passwords do not match")
-        return v
+    # @validator("password")
+    # def null_byte_check(cls, v):
+    #     if b"\x00" in v:
+    #         raise ValueError("passwords do not match")
+    #     return v
 
     @validator("user_name")
     def username_alphanumeric(cls, v):
@@ -143,43 +143,80 @@ class UserBaseInDB(UserBase):
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
-    user_name: str = Field(
-        ...,
-        alias="user_name",
-        title="Users Name",
-        example="bob",
-    )
-    first_name: str = Field(
-        ...,
-        min_length=2,
+    title: str = Field(
+        None,
+        min_length=1,
         max_length=20,
-        alias="first_name",
-        title="First or Given Name",
-        example="Bob",
+        alias="title",
+        title="Title",
+        example="Captain",
     )
-    last_name: str = Field(
-        ...,
-        min_length=2,
+    company: str = Field(
+        None,
+        min_length=1,
+        max_length=50,
+        alias="company",
+        title="Company",
+        example="Something Co.",
+    )
+    address: str = Field(
+        None,
+        min_length=3,
+        max_length=200,
+        alias="address",
+        title="Address",
+        example="123 Maple Lane",
+    )
+    city: str = Field(
+        None,
+        min_length=1,
         max_length=20,
-        alias="last_name",
-        title="Surname Name",
-        example="Smith",
+        alias="city",
+        title="City",
+        example="Somewhere",
     )
-    password: str = Field(
-        ...,
-        min_length=8,
+    country: str = Field(
+        None,
+        min_length=1,
         max_length=20,
-        alias="password",
-        title="Password",
-        example="NotLetMeIn",
+        alias="country",
+        title="Country",
+        example="USA",
     )
-    optionalFields: UserOptional
+    postal: str = Field(
+        None,
+        min_length=1,
+        max_length=20,
+        alias="postal",
+        title="Postal",
+        example="90210",
+    )
+    email: EmailStr = Field(
+        None,
+        alias="email",
+        title="email",
+        example="me@example.com",
+    )
+    website: AnyHttpUrl = Field(
+        None,
+        alias="website",
+        title="Website",
+        example="http://example.com",
+    )
+    description: str = Field(
+        None,
+        min_length=1,
+        max_length=500,
+        alias="description",
+        title="description",
+        example="I am a thing",
+    )
 
-    @validator("password")
-    def null_byte_check(cls, v):
-        if b"\x00" in v:
-            raise ValueError("passwords do not match")
-        return v
+    # @validator("password")
+    # def null_byte_check(cls, v):
+    #     if b"\x00" in v:
+    #         raise ValueError("passwords do not match")
+    #     return v
 
     @validator("user_name")
     def username_alphanumeric(cls, v):
@@ -203,11 +240,11 @@ class UserPwd(UserBase):
         example="NotLetMeIn",
     )
 
-    @validator("password")
-    def null_byte_check(cls, v):
-        if b"\x00" in v:
-            raise ValueError("passwords do not match")
-        return v
+    # @validator("password")
+    # def null_byte_check(cls, v):
+    #     if b"\x00" in v:
+    #         raise ValueError("passwords do not match")
+    #     return v
 
     @validator("user_name")
     def username_alphanumeric(cls, v):

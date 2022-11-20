@@ -430,7 +430,7 @@ async def db_user_call(new_user: dict):
         logger.info(f"db user call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Critical Error: {e}")
+        logger.error(f"Critical Error: {e}")
 
 
 @unsync
@@ -443,7 +443,7 @@ async def db_todo_call(todo_information: dict):
         logger.info(f"db todo call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")
 
 
 @unsync
@@ -456,7 +456,7 @@ async def db_group_call(group_information: dict):
         logger.info(f"db group call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")
 
 
 @unsync
@@ -469,4 +469,4 @@ async def db_group_user_call(group_user_information: dict):
         logger.info(f"db group user call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")

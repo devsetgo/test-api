@@ -70,6 +70,13 @@ class GroupDeactivate(BaseModel):
 
 
 class GroupItemDelete(BaseModel):
+    group_id: str = Field(
+        ...,
+        alias="group_id",
+        title="The ID of the Group to delete a user from",
+        example="UUID-OF-THE-GROUP-TO-DELETE-USER",
+        min_length=1,
+    )
     id: str = Field(
         ...,
         alias="id",

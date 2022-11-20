@@ -67,6 +67,7 @@ async def get_todo_id(
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+
     if result is None:
         raise HTTPException(status_code=404, detail=f"{todo_id} not found")
 
@@ -120,9 +121,13 @@ async def delete_todo_id(
     *,
     todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id"),
 ) -> dict:
+    # query = todos.select().where(todos.c.todo_id == todo_id)
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+    # query = todos.select()
+    # result = await database.fetch_all(query)
     if result is None:
+        print(result)
         raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
 
     # delete id
@@ -131,10 +136,13 @@ async def delete_todo_id(
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
     if result is None:
-        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
-
-    result = {"status": f"{todo_id} deleted"}
-    return result
+        result = {"status": f"{todo_id} deleted"}
+        return result
+    else:
+        logger.error(f"something has happened and {todo_id} has not been deleted")
+        raise HTTPException(
+            status_code=400, detail=f"{todo_id} something has gone wrong"
+        )
 
 
 @router.post(

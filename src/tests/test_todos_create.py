@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 import unittest
-
-from starlette.testclient import TestClient
+import secrets
+from fastapi.testclient import TestClient
 
 from dsg_lib.file_functions import save_json
 from src.main import app
@@ -29,12 +29,11 @@ class Test(unittest.TestCase):
     def test_todos_post(self):
         file_name = "test_data_todos.json"
         test_data = {
-            "title": "Test",
-            "user_id": "123",
+            "userId": "123",
             "description": "test",
-            "date_due": "2019-08-22T23:51:28.873Z",
+            "dateDue": "2019-08-22T23:51:28.873Z",
         }
-        url = f"/api/v1/todo/create/?delay=1"
+        url = f"/api/v1/todo/create/"
 
         response = client.post(url, json=test_data)
 
@@ -42,3 +41,16 @@ class Test(unittest.TestCase):
         data = response.json()
         save_json(file_name, data)
         assert state == 200
+
+    def test_todos_post(self):
+        # file_name = "test_data_todos.json"
+        for _ in range(10):
+            test_data = {
+                "userId": "123",
+                "description": f"test{secrets.token_hex(2)}",
+                "dateDue": "2019-08-22T23:51:28.873Z",
+            }
+            url = f"/api/v1/todo/create/"
+            response = client.post(url, json=test_data)
+            state = response.status_code
+            assert state == 200

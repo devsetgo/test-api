@@ -13,6 +13,13 @@ repos:
       - id: detect-private-key
       - id: check-merge-conflict
       # - id:
+
+# -   repo: https://github.com/Kludex/bump-testclient
+#     rev: 0.3.0
+#     hooks:
+#       - id: bump_testclient
+
+
 # -   repo: git://github.com/doublify/pre-commit-isort
 #     sha: master
 #     hooks:

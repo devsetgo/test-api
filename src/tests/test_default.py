@@ -2,7 +2,7 @@
 # import unittest
 from unittest import TestCase
 import uuid
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from src.main import app
 

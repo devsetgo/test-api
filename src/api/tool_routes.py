@@ -35,7 +35,7 @@ async def convert_xml(
         error_exception = (
             f"API requires a XML docuement, but file {myfile.filename} is {file_type}"
         )
-        logger.critical(error_exception)
+        logger.error(error_exception)
         raise HTTPException(status_code=400, detail=error_exception)
 
     try:
@@ -49,7 +49,7 @@ async def convert_xml(
         return result
 
     except Exception as e:
-        logger.critical(f"error: {e}")
+        logger.error(f"error: {e}")
         err = str(e)
         # when error occurs output http exception
         if err.startswith("syntax error") is True or e is not None:
@@ -83,7 +83,7 @@ async def convert_json(
         error_exception = (
             f"API requirs a JSON docuement, but file {myfile.filename} is {file_type}"
         )
-        logger.critical(error_exception)
+        logger.error(error_exception)
         raise HTTPException(status_code=400, detail=error_exception)
 
     try:
@@ -97,7 +97,7 @@ async def convert_json(
         return result
 
     except Exception as e:
-        logger.critical(f"error: {e}")
+        logger.error(f"error: {e}")
         err = str(e)
         # when error occurs output http exception
         if err.startswith("Extra data") is True or e is not None:
