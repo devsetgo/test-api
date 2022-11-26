@@ -16,29 +16,23 @@ user unlock
 import asyncio
 import uuid
 
-from fastapi import APIRouter, Form, Path, Query
+from fastapi import APIRouter, Form, Path, Query, HTTPException, status
+from fastapi.responses import JSONResponse
 from loguru import logger
 
 from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
-from models.user_models import UserCreate, UserDeactiveModel
+from models.user_models import UserCreate, UserDeactiveModel, UserPwd
+from crud import user_crud
+from crud.crud_ops import fetch_one_db, execute_one_db, fetch_all_db
+
 
 router = APIRouter()
-
-title = "Delay in Seconds"
 
 
 @router.get("/list", tags=["users"])
 async def user_list(
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 121)",
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
     qty: int = Query(
         None,
         title="Quanity",
@@ -48,7 +42,12 @@ async def user_list(
         alias="qty",
     ),
     offset: int = Query(
-        None, title="Offset", description="Offset increment", ge=0, alias="offset"
+        None,
+        title="Offset",
+        description="Offset increment",
+        ge=0,
+        le=10000,
+        alias="offset",
     ),
     is_active: bool = Query(None, title="by active status", alias="active"),
     first_name: str = Query(None, title="first name", alias="firstname"),
@@ -64,7 +63,6 @@ async def user_list(
     list of users
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
         qty {int} -- [description] 100 returned results is default,
         maximum is 500
         offset {int} -- [description] 0 seconds default
@@ -76,10 +74,6 @@ async def user_list(
 
     """
     criteria = []
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
-
     if qty is None:
         qty: int = 100
 
@@ -145,7 +139,6 @@ async def user_list(
             "total_count": len(total_count),
             "offset": offset,
             "filter": is_active,
-            "delay": delay,
         },
         "users": result_set,
     }
@@ -162,29 +155,18 @@ async def user_list(
     },
 )
 async def users_list_count(
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
     is_active: bool = Query(None, title="by active status", alias="active"),
 ) -> dict:
     """
     Count of users in the database
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
         Active {bool} -- [description] no default as not required,
         must be Active=true or false if used
 
     Returns:
         dict -- [description]
     """
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         # Fetch multiple rows
@@ -204,34 +186,28 @@ async def users_list_count(
 @router.get("/{user_id}", tags=["users"], response_description="Get user information")
 async def get_user_id(
     user_id: str = Path(..., title="The user id to be searched for", alias="user_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
     """
     User information for requested UUID
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
-        delay {int} -- [description] 0 seconds default, maximum is 122
 
 
     Returns:
         dict -- [description]
     """
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         # Fetch single row
         query = users.select().where(users.c.user_id == user_id)
         db_result = await database.fetch_one(query)
-
+        print(db_result)
+        if db_result is None:
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(error_note)
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
         user_data = {
             "user_id": db_result["user_id"],
             "user_name": db_result["user_name"],
@@ -260,6 +236,7 @@ async def get_user_id(
     "/status",
     tags=["users"],
     response_description="The created item",
+    status_code=200,
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
@@ -270,21 +247,12 @@ async def get_user_id(
 async def set_status_user_id(
     *,
     user_data: UserDeactiveModel,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
 ) -> dict:
     """
     Set status of a specific user UUID
 
     Args:
         user_data (UserDeactiveModel): [id = UUID of user, isActive = True or False]
-        delay (int, optional): [description]. Defaults to Query( None, title=title, \
-            ge=1, le=10, alias="delay", ).
 
     Returns:
         dict: [description]
@@ -294,7 +262,7 @@ async def set_status_user_id(
 
     Keyword Arguments:
         user_id {str} -- [description] UUID of user_id property required
-        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [description]
@@ -302,17 +270,37 @@ async def set_status_user_id(
 
     values = user_data.dict()
     values["date_updated"] = get_current_datetime()
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
+
+    data = {"user_id": values["id"], "is_active": values["is_active"]}
+    user_id = values["id"]
+    status = values["is_active"]
 
     try:
         # Fetch single row
-        query = users.update().where(users.c.user_id == values["user_id"])
-        result = await database.execute(query=query, values=values)
-        return result
+        query = users.select().where(users.c.user_id == user_id)
+        db_result = await database.fetch_one(query)
+        logger.debug(db_result)
+        if db_result is None:
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(f"LOOK AT THIS: {error_note}")
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
+
     except Exception as e:
         logger.error(f"Critical Error: {e}")
+
+    try:
+        # Fetch single row
+        query = users.update().where(users.c.user_id == user_id)
+        result = await database.execute(query=query, values=data)
+
+    except Exception as e:
+        error_note = {"message": e}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
+
+    return {"message": f"{user_id} status set to {status}"}
 
 
 @router.delete(
@@ -338,6 +326,25 @@ async def delete_user_id(
     Returns:
         dict -- [result: user UUID deleted]
     """
+
+    try:
+        # Fetch single row
+        query = users.select().where(users.c.user_id == user_id)
+        db_result = await database.fetch_one(query)
+        # print(db_result)
+        if db_result is None:
+
+            error_note = {"message": f"user id {user_id} not found"}
+            logger.error(error_note)
+            # raise HTTPException(status_code=404, detail=error_note)
+            return JSONResponse(status_code=404, content=error_note)
+
+    except Exception as ex:
+        error_note = {"message": ex}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
+
     try:
         # delete id
         query = users.delete().where(users.c.user_id == user_id)
@@ -345,46 +352,69 @@ async def delete_user_id(
         result = {"status": f"{user_id} deleted"}
         return result
 
-    except Exception as e:
-        logger.error(f"Critical Error: {e}")
+    except Exception as ex:
+        error_note = {"message": ex}
+        logger.error(error_note)
+        # raise HTTPException(status_code=400, detail=error_note)
+        return JSONResponse(status_code=400, content=error_note)
 
 
 @router.post(
     "/create/",
     tags=["users"],
     response_description="The created item",
+    status_code=201,
     responses={
         302: {"description": "Incorrect URL, redirecting"},
         404: {"description": "Operation forbidden"},
         405: {"description": "Method not allowed"},
+        422: {"description": "Validation Error"},
         500: {"description": "Mommy!"},
     },
 )
 async def create_user(
     *,
     user: UserCreate,
-    delay: int = Query(
-        None,
-        title=title,
-        ge=1,
-        le=10,
-        alias="delay",
-    ),
 ) -> dict:
     """
-    POST/Create a new User. user_name (unique), firstName, lastName,
+    POST/Create a new User. user_name (unique), firstName, lastName, email,
     and password are required. All other fields are optional.
 
     Arguments:
         user {UserCreate} -- [description]
 
     Keyword Arguments:
-        delay {int} -- [description] 0 seconds default, maximum is 122
+
 
     Returns:
         dict -- [user_id: uuid, user_name: user_name]
     """
     value = user.dict()
+    logger.debug(f"input values {value}")
+    email = value["email"]
+    user_name = value["user_name"].lower()
+
+    if (
+        email is None
+        or user_name is None
+        or value["first_name"] is None
+        or value["last_name"] is None
+    ):
+        error_note = {"message": f"Required fields are missing"}
+        logger.error(error_note)
+        raise HTTPException(status_code=400, detail=error_note)
+
+    unique_check: bool = await user_crud.check_unique_contraints(
+        email=email, user_name=user_name
+    )
+    logger.debug(f"LOOK AT THIS RESULT {unique_check}")
+    if unique_check == True:
+        error_note = {
+            "message": f"The email '{email}' and/or user_name '{user_name}' is not unique and maybe in use"
+        }
+        logger.error(error_note)
+        raise HTTPException(status_code=400, detail=error_note)
+
     hash_pwd = encrypt_pass(value["password"])
 
     user_information = {
@@ -393,13 +423,13 @@ async def create_user(
         "first_name": value["first_name"],
         "last_name": value["last_name"],
         "password": hash_pwd,
+        "email": value["email"],
         "title": value["title"],
         "company": value["company"],
         "address": value["address"],
         "city": value["city"],
         "country": value["country"],
         "postal": value["postal"],
-        "email": value["email"],
         "website": value["website"],
         "description": value["description"],
         "date_create": get_current_datetime(),
@@ -407,10 +437,6 @@ async def create_user(
         "is_active": True,
         "is_superuser": False,
     }
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     try:
         query = users.insert()
@@ -423,7 +449,7 @@ async def create_user(
         }
         return result
     except Exception as e:
-        logger.error(f"Critical Error: {e}")
+        logger.error(f"Error: {e}")
 
 
 @router.post(
@@ -437,7 +463,10 @@ async def create_user(
         500: {"description": "Mommy!"},
     },
 )
-async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> dict:
+async def check_pwd(
+    userPwd: UserPwd,
+    # user_name: str = Form(...), password: str = Form(...)
+) -> dict:
     """
     Check password function
 
@@ -448,13 +477,19 @@ async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> di
     Returns:
         [Dict] -- [result: bool]
     """
-    try:
-        # Fetch single row
-        query = users.select().where(users.c.user_name == user_name.lower())
-        db_result = await database.fetch_one(query)
-        result = verify_pass(password, db_result["password"])
-        logger.info(f"password validation: user: {user_name.lower()} as {result}")
-        return {"result": result}
+    # try:
+    # Fetch single row
+    data = dict(userPwd)
+    query = users.select().where(users.c.user_name == data["user_name"].lower())
+    logger.debug(f"password check query: {query}")
+    db_result = await fetch_one_db(query)
+    if db_result is None:
+        error: dict = {"result": False, "message": "user_name, password is invalid"}
+        return JSONResponse(status_code=200, content=error)
+    logger.debug(f"verify password query result: {db_result}")
+    result = verify_pass(data["password"], db_result["password"])
+    logger.info(f"password validation: user: {data['user_name'].lower()} as {result}")
+    return {"result": result, "message": "user_name, password is valid"}
 
-    except Exception as e:
-        logger.error(f"Critical Error: {e}")
+    # except Exception as e:
+    #     logger.error(f"Verify Password Error: {e} = user_name: {user_name} - password: {password}")

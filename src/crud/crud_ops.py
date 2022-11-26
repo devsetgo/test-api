@@ -16,7 +16,7 @@ async def fetch_one_db(query):
         logger.debug(result)
         return result
     except Exception as e:
-        logger.critical(f"error: {e}")
+        logger.error(f"error: {e}")
         return e
 
 
@@ -27,7 +27,7 @@ async def fetch_all_db(query):
         logger.debug(result)
         return result
     except Exception as e:
-        logger.critical(f"error: {e}")
+        logger.error(f"error: {e}")
         return e
 
 
@@ -41,5 +41,5 @@ async def execute_one_db(query, values: dict = None):
         logger.debug(result)
         return result
     except Exception as e:
-        logger.critical(f"error: {e}")
+        logger.error(f"error: {e}")
         return e

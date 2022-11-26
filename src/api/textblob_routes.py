@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import asyncio
 
-from fastapi import APIRouter, File, Query, UploadFile
+from fastapi import APIRouter, File, Query, UploadFile, HTTPException
 from fastapi.responses import ORJSONResponse
 from loguru import logger
 from textblob import TextBlob
@@ -27,25 +27,24 @@ title = "Delay in Seconds"
 )
 async def spell_check(
     myfile: UploadFile = File(..., description="File to spell check"),
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 121)",
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
 
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"Delay of {delay} seconds invoked")
-        await asyncio.sleep(delay)
-        logger.info(f"Delay of {delay} seconds completed")
-    file_text = await myfile.read()
-    tb = TextBlob(file_text.decode("utf-8"))
-    original_text = file_text.decode("utf-8")
-    logger.debug(f"file text size {len(original_text)}")
+    try:
+        file_text = await myfile.read()
+        text_decoded = file_text.decode("utf-8")
+    except Exception as ex:
+        error_note = {"message": f"File Read Error: {ex}"}
+        logger.error(error_note)
+        raise HTTPException(status_code=422, detail=error_note)
+
+    try:
+        tb = TextBlob(text_decoded)
+        original_text = text_decoded
+        logger.debug(f"file text size {len(original_text)}")
+    except Exception as ex:
+        error_note = {"message": f"File Read Error: {ex}"}
+        logger.error(error_note)
+        raise HTTPException(status_code=422, detail=error_note)
 
     if len(original_text) == 0:
         error: dict = {"error": "The file is empty or unreadable"}
@@ -80,24 +79,18 @@ async def spell_check(
 )
 async def sentiment_check(
     myfile: UploadFile = File(..., description="File to get sentiment"),
-    delay: int = Query(
-        None,
-        title=title,
-        description="Seconds to delay (max 121)",
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
-    # sleep if delay option is used
-    if delay is not None:
-        logger.info(f"Delay of {delay} seconds invoked")
-        await asyncio.sleep(delay)
-        logger.info(f"Delay of {delay} seconds completed")
 
-    file_text = await myfile.read()
-    tb = TextBlob(file_text.decode("utf-8"))
-    original_text = file_text.decode("utf-8")
+    try:
+        file_text = await myfile.read()
+        text_decoded = file_text.decode("utf-8")
+    except Exception as e:
+        error_note = {"message": f"File Read Error: {e}"}
+        logger.error(error_note)
+        raise HTTPException(status_code=422, detail=error_note)
+
+    tb = TextBlob(text_decoded)
+    original_text = text_decoded
 
     if len(original_text) == 0:
         error: dict = {"error": "The file is empty or unreadable"}

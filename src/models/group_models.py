@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, SecretStr, ValidationError, validator
 
 
 # Shared properties
@@ -48,6 +48,11 @@ class GroupItemBase(BaseModel):
         example="abc123",
     )
 
+    @validator("user")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
+        return v
+
 
 class GroupCreate(GroupsBase):
 
@@ -65,9 +70,16 @@ class GroupDeactivate(BaseModel):
 
 
 class GroupItemDelete(BaseModel):
-    id: str = Field(
+    group_id: str = Field(
         ...,
-        alias="id",
+        alias="group_id",
+        title="The ID of the Group to delete a user from",
+        example="UUID-OF-THE-GROUP-TO-DELETE-USER",
+        min_length=1,
+    )
+    user: str = Field(
+        ...,
+        alias="user",
         title="The ID of the User",
         example="UUID-OF-THE-USER-TO-DELETE",
         min_length=1,
@@ -95,3 +107,8 @@ class GroupUser(BaseModel):
         max_length=6,
         example="abc123",
     )
+
+    @validator("user")
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), "must be alphanumeric"
+        return v

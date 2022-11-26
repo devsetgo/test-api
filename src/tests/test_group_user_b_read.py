@@ -2,9 +2,9 @@
 import secrets
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
-from src.core.file_functions import open_json
+from dsg_lib.file_functions import open_json
 from src.main import app
 
 client = TestClient(app)
@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
     # get group
     def test_groups_get_group_delay(self):
         group_id = open_json("test_data_group.json")
-        url = f"/api/v1/groups/group?groupId={group_id['id']}&delay=1"
+        url = f"/api/v1/groups/group?groupId={group_id['id']}"
         response = client.get(url)
         assert response.status_code == 200
 
@@ -28,12 +28,12 @@ class Test(unittest.TestCase):
         assert response.status_code == 200
 
     # get delay error
-    def test_groups_get_group_delay_error(self):
-        group_id = open_json("test_data_group.json")
-        url = f"/api/v1/groups/group?groupId={group_id['id']}&delay=122"
+    # def test_groups_get_group_delay_error(self):
+    #     group_id = open_json("test_data_group.json")
+    #     url = f"/api/v1/groups/group?groupId={group_id['id']}&delay=122"
 
-        response = client.get(url)
-        assert response.status_code == 422
+    #     response = client.get(url)
+    #     assert response.status_code == 422
 
     # get id not found
     def test_groups_get_group_not_found(self):

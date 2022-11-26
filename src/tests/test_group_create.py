@@ -3,9 +3,9 @@ import random
 import secrets
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
-from src.core.file_functions import save_json
+from dsg_lib.file_functions import save_json
 from src.main import app
 
 client = TestClient(app)
@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         test_data = {
             "name": f"test{secrets.token_hex(1)}",
             "description": f"test group {secrets.token_hex(2)}",
-            "group_type": secrets.token_hex(1),
+            "group_type": "l",
             "is_active": True,
         }
 
@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
             "is_active": True,
         }
         save_json("test_data_test_user.json", test_data)
-        url = f"/api/v1/groups/create?delay=1"
+        url = f"/api/v1/groups/create"
 
         response = client.post(url, json=test_data)
         assert response.status_code == 201
@@ -66,7 +66,7 @@ class Test(unittest.TestCase):
             test_data = {
                 "name": f"test{secrets.token_hex(4)}",
                 "description": "test group",
-                "group_type": "notification",
+                "group_type": "approval",
                 "is_active": random.choice([True, False]),
             }
             url = f"/api/v1/groups/create"
@@ -77,12 +77,12 @@ class Test(unittest.TestCase):
     def test_groups_post_two_error(self):
 
         test_data = {
-            "name": f"test{secrets.token_hex(4)}",
+            "name": f"test{secrets.token_hex(2)}",
             "description": "test group",
             "group_type": "notification",
             "is_active": False,
         }
         url = f"/api/v1/groups/create"
-        client.post(url, json=test_data)
+        r2 = client.post(url, json=test_data)
         response = client.post(url, json=test_data)
         assert response.status_code == 400

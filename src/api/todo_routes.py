@@ -6,7 +6,7 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Path, Query, HTTPException
 from loguru import logger
 
 from core.db_setup import database, todos
@@ -16,25 +16,11 @@ router = APIRouter()
 # time variables
 currentTime = datetime.now()
 
-title = "Delay in Seconds"
-
 
 @router.get("/list", tags=["todo"])
 async def todo_list(
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     # Fetch multiple rows
     if is_complete is not None:
@@ -58,20 +44,9 @@ async def todo_list(
     },
 )
 async def todos_list_count(
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
     is_complete: bool = Query(None, title="by completion status", alias="complete"),
 ) -> dict:
 
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
     # Fetch multiple rows
     if is_complete is not None:
         query = todos.select().where(todos.c.is_complete == is_complete)
@@ -87,22 +62,15 @@ async def todos_list_count(
 @router.get("/{todo_id}", tags=["todo"], response_description="Get todo information")
 async def get_todo_id(
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
 
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} not found")
+
     return result
 
 
@@ -120,20 +88,9 @@ async def get_todo_id(
 async def deactivate_todo_id(
     *,
     todo_id: str = Path(..., title="The ToDo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
 
     todo_information = {"is_complete": True, "date_complete": currentTime}
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     # Fetch single row
     query = todos.update().where(todos.c.todo_id == todo_id)
@@ -144,6 +101,8 @@ async def deactivate_todo_id(
     # Fetch single row
     query = todos.select().where(todos.c.todo_id == todo_id)
     result = await database.fetch_one(query)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
     return result
 
 
@@ -161,23 +120,29 @@ async def deactivate_todo_id(
 async def delete_todo_id(
     *,
     todo_id: str = Path(..., title="The todo id to be searched for", alias="todo_id"),
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
+    # query = todos.select().where(todos.c.todo_id == todo_id)
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
+    # query = todos.select()
+    # result = await database.fetch_all(query)
+    if result is None:
+        print(result)
+        raise HTTPException(status_code=404, detail=f"{todo_id} does not exist")
+
     # delete id
     query = todos.delete().where(todos.c.todo_id == todo_id)
     await database.execute(query)
-    result = {"status": f"{todo_id} deleted"}
-    return result
+    query = todos.select().where(todos.c.todo_id == todo_id)
+    result = await database.fetch_one(query)
+    if result is None:
+        result = {"status": f"{todo_id} deleted"}
+        return result
+    else:
+        logger.error(f"something has happened and {todo_id} has not been deleted")
+        raise HTTPException(
+            status_code=400, detail=f"{todo_id} something has gone wrong"
+        )
 
 
 @router.post(
@@ -194,14 +159,6 @@ async def delete_todo_id(
 async def create_todo(
     *,
     todo: TodoCreate,
-    delay: int = Query(
-        None,
-        title=title,
-        description=title,
-        ge=1,
-        le=121,
-        alias="delay",
-    ),
 ) -> dict:
 
     value = todo.dict()
@@ -218,10 +175,6 @@ async def create_todo(
         # ,'checklist': []
         "date_complete": None,
     }
-
-    # sleep if delay option is used
-    if delay is not None:
-        await asyncio.sleep(delay)
 
     query = todos.insert()
     values = todo_information

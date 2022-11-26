@@ -122,9 +122,18 @@ Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
-Run Tests
-
+### Run Tests
 By commands
+
+SchemaThesis
+~~~~
+st run --workers 10 --fixups fast_api --request-timeout 21000 --max-response-time 21000 --max-failures 2 --hypothesis-deadline 2000 --junit-xml junit.xml http://127.0.0.1:5000/openapi.json
+
+st run --workers 6 --fixups fast_api --request-timeout 21000 --max-response-time 21000 --max-failures 2 --junit-xml junit.xml http://127.0.0.1:5000/openapi.json
+~~~~
+~~~~
+./scripts/tests.sh
+~~~~
 ~~~~
 python3 -m pytest
 ~~~~

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
-from src.core.file_functions import open_json
+from dsg_lib.file_functions import open_json
 from src.main import app
 
 client = TestClient(app)
@@ -19,8 +19,8 @@ class Test(unittest.TestCase):
         user_id = open_json(test_data_users)
         test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}
         url = f"/api/v1/users/check-pwd/"
-
-        response = client.post(url, data=test_data)
+        response = client.request(method="POST", url=url, json=test_data)
+        # response = client.post(url, json=test_data)
         result = response.json()
         assert response.status_code == 200
         assert result["result"] == True
@@ -30,14 +30,14 @@ class Test(unittest.TestCase):
         response = client.get(f"api/v1/users/list/count")
         assert response.status_code == 200
 
-    def test_users_count_complete_delay(self):
+    # def test_users_count_complete_delay(self):
 
-        response = client.get(f"api/v1/users/list/count?delay=1&active=true")
-        assert response.status_code == 200
+    #     response = client.get(f"api/v1/users/list/count?delay=1&active=true")
+    #     assert response.status_code == 200
 
     def test_users_list_params(self):
 
-        response = client.get(f"api/v1/users/list?delay=1&qty=100&offset=1&active=true")
+        response = client.get(f"api/v1/users/list?qty=100&offset=1&active=true")
         assert response.status_code == 200
 
     def test_users_list_offset(self):
@@ -59,7 +59,7 @@ class Test(unittest.TestCase):
 
     def test_users_list_options(self):
 
-        response = client.get(f"/api/v1/users/list?delay=1&qty=2&active=true")
+        response = client.get(f"/api/v1/users/list?qty=2&active=true")
         assert response.status_code == 200
 
     def test_users_list_param_all(self):
@@ -76,10 +76,10 @@ class Test(unittest.TestCase):
         )
         assert response.status_code == 200
 
-    def test_users_error_delay(self):
+    # def test_users_error_delay(self):
 
-        response = client.get(f"/api/v1/users/list?delay=122")
-        assert response.status_code == 422
+    #     response = client.get(f"/api/v1/users/list?delay=122")
+    #     assert response.status_code == 422
 
     def test_users_id(self):
         user_id = open_json(test_data_users)
@@ -90,16 +90,16 @@ class Test(unittest.TestCase):
         assert state is 200
         assert response.json() is not None
 
-    def test_users_id_delay(self):
-        user_id = open_json(test_data_users)
+    # def test_users_id_delay(self):
+    #     user_id = open_json(test_data_users)
 
-        response = client.get(f"/api/v1/users/{user_id['user_id']}?delay=1")
-        assert response.status_code == 200
+    #     response = client.get(f"/api/v1/users/{user_id['user_id']}?delay=1")
+    #     assert response.status_code == 200
 
     def test_users_put_status_deactivate(self):
         user_id = open_json(test_data_users)
         test_data = {"id": user_id["user_id"], "isActive": False}
-        response = client.put(f"/api/v1/users/status?delay=1", json=test_data)
+        response = client.put(f"/api/v1/users/status", json=test_data)
         assert response.status_code == 200
 
     def test_users_put_status_activate(self):

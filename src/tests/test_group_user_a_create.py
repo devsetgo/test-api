@@ -2,9 +2,9 @@
 import unittest
 import uuid
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
-from src.core.file_functions import open_json, save_json
+from dsg_lib.file_functions import open_json, save_json
 from src.main import app
 
 client = TestClient(app)
@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
             url = f"/api/v1/groups/user/create"
             count += 1
             response = client.post(url, json=test_data)
+            save_json("test_second_group_user.json", data=response.json())
             assert response.status_code == 201
 
     def test_groups_post_two_user_error(self):
@@ -45,7 +46,7 @@ class Test(unittest.TestCase):
             "user": "abc123",
         }
         url = f"/api/v1/groups/user/create"
-        response = client.post(url, json=test_data)
+        r1 = client.post(url, json=test_data)
         response = client.post(url, json=test_data)
         assert response.status_code == 400
 
@@ -67,7 +68,7 @@ class Test(unittest.TestCase):
             "user": "abc001",
         }
         # save_json("test_data_test_group_user.json", test_data)
-        url = f"/api/v1/groups/user/create?delay=1"
+        url = f"/api/v1/groups/user/create"
 
         response = client.post(url, json=test_data)
         assert response.status_code == 201

@@ -1,9 +1,9 @@
 repos:
 -   repo: https://github.com/ambv/black
-    rev: 20.8b1
+    rev: "22.10.0"
     hooks:
     - id: black
-      language_version: python3.8
+      language_version: python3.11
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
@@ -13,6 +13,13 @@ repos:
       - id: detect-private-key
       - id: check-merge-conflict
       # - id:
+
+# -   repo: https://github.com/Kludex/bump-testclient
+#     rev: 0.3.0
+#     hooks:
+#       - id: bump_testclient
+
+
 # -   repo: git://github.com/doublify/pre-commit-isort
 #     sha: master
 #     hooks:

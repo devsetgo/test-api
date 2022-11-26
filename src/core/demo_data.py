@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import silly
 from loguru import logger
 from unsync import unsync
+from tqdm import tqdm
 
 from core.db_setup import database, groups, groups_item, todos, users
 from core.gen_user import user_test_info
@@ -26,19 +27,19 @@ def create_data():
 
     if int(user_count) == 0:
         create_users(config_settings.number_users)
-        time.sleep(1)
+        time.sleep(0.01)
     else:
         logger.info("existing data, sample users will not be created")
 
     if int(task_count) == 0:
         create_tasks(int(config_settings.number_tasks))
-        time.sleep(1)
+        time.sleep(0.01)
     else:
         logger.info("existing data, sample tasks will not be created")
 
     if int(group_count) == 0:
         create_groups(int(config_settings.number_groups))
-        time.sleep(1)
+        time.sleep(0.01)
         create_standard_groups()
     else:
         logger.info("existing data, sample groups will not be created")
@@ -78,15 +79,15 @@ async def count_tasks():
 def create_users(qty: int):
 
     for _ in range(0, qty):
-        time.sleep(0.05)
+        time.sleep(0.01)
         new_user = user_test_info()
         db_user_call(new_user)
 
 
 def create_groups(qty: int):
 
-    for _ in range(0, qty):
-        time.sleep(0.05)
+    for _ in tqdm(range(0, qty), ascii=True, colour="red"):
+        time.sleep(0.01)
         id: str = str(uuid.uuid4())
         group_information = {
             "id": id,
@@ -101,7 +102,7 @@ def create_groups(qty: int):
         time.sleep(0.01)
 
         for _ in range(random.randint(2, 10)):
-            time.sleep(0.05)
+            time.sleep(0.01)
             group_user_creator(group_id=id)
 
 
@@ -377,10 +378,10 @@ def create_standard_groups():
         "Susan",
         "Donald",
     ]
-    for g in groups:
-        time.sleep(0.01)
+    for g in tqdm(groups, ascii=True, colour="blue"):
+        time.sleep(0.001)
         db_group_call(g)
-        time.sleep(0.01)
+        time.sleep(0.001)
         for _ in range(random.randint(1, 5)):
             create_standard_group_user(
                 group_id=g["id"], name=users[random.randint(0, len(users) - 1)]
@@ -399,7 +400,7 @@ def create_standard_group_user(group_id: str, name: str):
 
 def create_tasks(qty: int):
 
-    for _ in range(0, qty):
+    for _ in tqdm(range(0, qty), ascii=True, colour="green"):
         time.sleep(0.01)
         todo_information = {
             "todo_id": str(uuid.uuid1()),
@@ -429,7 +430,7 @@ async def db_user_call(new_user: dict):
         logger.info(f"db user call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Critical Error: {e}")
+        logger.error(f"Critical Error: {e}")
 
 
 @unsync
@@ -442,7 +443,7 @@ async def db_todo_call(todo_information: dict):
         logger.info(f"db todo call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")
 
 
 @unsync
@@ -455,7 +456,7 @@ async def db_group_call(group_information: dict):
         logger.info(f"db group call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")
 
 
 @unsync
@@ -468,4 +469,4 @@ async def db_group_user_call(group_user_information: dict):
         logger.info(f"db group user call: {result}")
         return result
     except Exception as e:
-        logger.critical(f"Create Error: {e}")
+        logger.error(f"Create Error: {e}")

@@ -2,7 +2,7 @@
 import unittest
 from pathlib import Path
 
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from src.main import app
 
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample.json"
 
         url = f"/api/v1/tools/xml-json"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 400
 
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample.xml"
 
         url = f"/api/v1/tools/xml-json"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 200
 
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample_bad.xml"
 
         url = f"/api/v1/tools/xml-json"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 400
 
@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample.xml"
 
         url = f"/api/v1/tools/json-xml"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 400
 
@@ -60,7 +60,7 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample.json"
 
         url = f"/api/v1/tools/json-xml"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 200
 
@@ -70,6 +70,6 @@ class Test(unittest.TestCase):
         file_path = f"{directory_path}/test_sample_bad.json"
 
         url = f"/api/v1/tools/json-xml"
-        files = {"myfile": open(file_path, "r")}
+        files = {"myfile": open(file_path, "rb")}
         response = client.post(url, files=files)
         assert response.status_code == 400
