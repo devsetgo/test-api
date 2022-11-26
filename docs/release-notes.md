@@ -1,5 +1,6 @@
 # Release Notes
 
+* cleanup to make tests work in parallel. PR [#359](https://github.com/devsetgo/test-api/pull/359) by [@devsetgo](https://github.com/devsetgo).
 * removing loguru as a direct  dependency. PR [#350](https://github.com/devsetgo/test-api/pull/350) by [@devsetgo](https://github.com/devsetgo).
 * Updating DSG_LIB. PR [#349](https://github.com/devsetgo/test-api/pull/349) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump orjson from 3.6.5 to 3.6.6 in /src/requirements. PR [#343](https://github.com/devsetgo/test-api/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
