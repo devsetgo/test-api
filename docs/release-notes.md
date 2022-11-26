@@ -1,5 +1,6 @@
 # Release Notes
 
+* github actionts(deps): bump actions/setup-python from 2.3.1 to 4.3.0. PR [#351](https://github.com/devsetgo/test-api/pull/351) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * updating version. PR [#361](https://github.com/devsetgo/test-api/pull/361) by [@devsetgo](https://github.com/devsetgo).
 * cleanup to make tests work in parallel. PR [#359](https://github.com/devsetgo/test-api/pull/359) by [@devsetgo](https://github.com/devsetgo).
 * removing loguru as a direct  dependency. PR [#350](https://github.com/devsetgo/test-api/pull/350) by [@devsetgo](https://github.com/devsetgo).
