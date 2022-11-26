@@ -61,7 +61,7 @@ class UserOptional(BaseModel):
         None,
         alias="website",
         title="Website",
-        example="http://example.com",
+        example="https://example.com",
     )
     description: str = Field(
         None,
@@ -201,7 +201,7 @@ class UserCreate(UserBase):
         None,
         alias="website",
         title="Website",
-        example="http://example.com",
+        example="https://example.com",
     )
     description: str = Field(
         None,
