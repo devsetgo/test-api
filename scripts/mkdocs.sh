@@ -6,7 +6,7 @@ set -x
 mkdocs build
 
 # Copy Contribute to Github Contributing
-cp ~/test-api/docs/index.md ~/test-api/README.md
-cp ~/test-api/docs/contribute.md ~/test-api/CONTRIBUTING.md
+cp docs/index.md README.md
+cp docs/contribute.md CONTRIBUTING.md
 
 mkdocs gh-deploy
