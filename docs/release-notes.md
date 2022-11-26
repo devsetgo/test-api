@@ -1,5 +1,9 @@
 # Release Notes
 
+* github actionts(deps): bump actions/setup-python from 2.3.1 to 4.3.0. PR [#351](https://github.com/devsetgo/test-api/pull/351) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* updating version. PR [#361](https://github.com/devsetgo/test-api/pull/361) by [@devsetgo](https://github.com/devsetgo).
+* cleanup to make tests work in parallel. PR [#359](https://github.com/devsetgo/test-api/pull/359) by [@devsetgo](https://github.com/devsetgo).
+* removing loguru as a direct  dependency. PR [#350](https://github.com/devsetgo/test-api/pull/350) by [@devsetgo](https://github.com/devsetgo).
 * Updating DSG_LIB. PR [#349](https://github.com/devsetgo/test-api/pull/349) by [@devsetgo](https://github.com/devsetgo).
 * pip(deps): bump orjson from 3.6.5 to 3.6.6 in /src/requirements. PR [#343](https://github.com/devsetgo/test-api/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump mkdocs-material from 8.1.3 to 8.1.9 in /src/requirements. PR [#342](https://github.com/devsetgo/test-api/pull/342) by [@dependabot[bot]](https://github.com/apps/dependabot).
