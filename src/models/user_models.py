@@ -224,7 +224,7 @@ class UserCreate(UserBase):
         return v
 
 
-class UserPwd(UserBase):
+class UserPwd(BaseModel):
     user_name: str = Field(
         ...,
         alias="user_name",

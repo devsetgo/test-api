@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
             url = f"/api/v1/groups/user/create"
             count += 1
             response = client.post(url, json=test_data)
+            save_json("test_second_group_user.json", data=response.json())
             assert response.status_code == 201
 
     def test_groups_post_two_user_error(self):

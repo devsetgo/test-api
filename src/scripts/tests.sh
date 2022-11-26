@@ -31,8 +31,8 @@ fi
 pre-commit run -a
 
 # Run Pytest
-# python3 -m pytest
-python3 -m pytest -n auto
+python3 -m pytest
+# python3 -m pytest -n auto
 
 # python3 -m pytest -v -s
 sed -i "s/<source>\/workspace\/src<\/source>/<source>\/github\/workspace\/src<\/source>/g" /workspace/src/coverage.xml

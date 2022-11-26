@@ -23,8 +23,10 @@ from loguru import logger
 from core.db_setup import database, users
 from core.pass_lib import encrypt_pass, verify_pass
 from core.simple_functions import get_current_datetime
-from models.user_models import UserCreate, UserDeactiveModel
+from models.user_models import UserCreate, UserDeactiveModel, UserPwd
 from crud import user_crud
+from crud.crud_ops import fetch_one_db, execute_one_db, fetch_all_db
+
 
 router = APIRouter()
 
@@ -329,7 +331,7 @@ async def delete_user_id(
         # Fetch single row
         query = users.select().where(users.c.user_id == user_id)
         db_result = await database.fetch_one(query)
-        print(db_result)
+        # print(db_result)
         if db_result is None:
 
             error_note = {"message": f"user id {user_id} not found"}
@@ -447,7 +449,7 @@ async def create_user(
         }
         return result
     except Exception as e:
-        logger.error(f"Critical Error: {e}")
+        logger.error(f"Error: {e}")
 
 
 @router.post(
@@ -461,7 +463,10 @@ async def create_user(
         500: {"description": "Mommy!"},
     },
 )
-async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> dict:
+async def check_pwd(
+    userPwd: UserPwd,
+    # user_name: str = Form(...), password: str = Form(...)
+) -> dict:
     """
     Check password function
 
@@ -472,13 +477,19 @@ async def check_pwd(user_name: str = Form(...), password: str = Form(...)) -> di
     Returns:
         [Dict] -- [result: bool]
     """
-    try:
-        # Fetch single row
-        query = users.select().where(users.c.user_name == user_name.lower())
-        db_result = await database.fetch_one(query)
-        result = verify_pass(password, db_result["password"])
-        logger.info(f"password validation: user: {user_name.lower()} as {result}")
-        return {"result": result}
+    # try:
+    # Fetch single row
+    data = dict(userPwd)
+    query = users.select().where(users.c.user_name == data["user_name"].lower())
+    logger.debug(f"password check query: {query}")
+    db_result = await fetch_one_db(query)
+    if db_result is None:
+        error: dict = {"result": False, "message": "user_name, password is invalid"}
+        return JSONResponse(status_code=200, content=error)
+    logger.debug(f"verify password query result: {db_result}")
+    result = verify_pass(data["password"], db_result["password"])
+    logger.info(f"password validation: user: {data['user_name'].lower()} as {result}")
+    return {"result": result, "message": "user_name, password is valid"}
 
-    except Exception as e:
-        logger.error(f"Critical Error: {e}")
+    # except Exception as e:
+    #     logger.error(f"Verify Password Error: {e} = user_name: {user_name} - password: {password}")

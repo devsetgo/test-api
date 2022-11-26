@@ -506,13 +506,13 @@ async def delete_group_item_user_id(
         Confirmation of removal
     """
 
-    user_id = str(user.id)
+    user_id = str(user.user)
     group_id = str(user.group_id)
     group_id_exists = await check_user_id_exists(id=user_id, group_id=group_id)
-    print(group_id_exists)
+    # print(group_id_exists)
     if group_id_exists is False:
         error: dict = {
-            "error": f"Group ID: {group_id} and/or User ID: {user_id} does not exists"
+            "message": f"Group ID: {group_id} and/or User ID: {user_id} does not exist in Group"
         }
         logger.warning(error)
         return JSONResponse(status_code=404, content=error)

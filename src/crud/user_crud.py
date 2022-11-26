@@ -16,10 +16,12 @@ async def check_unique_contraints(email: str, user_name: str) -> bool:
         or_(users.c.email == email, users.c.user_name == user_name)
     )
     result = await fetch_all_db(query=query)
-    logger.error(result)
-    if result is not None:
-        logger.debug(f"existing email {email} and/or user_name{user_name}")
+    logger.critical(f"check_unique_contraints results: {result}")
+    if len(result) >= 1:
+        logger.info(
+            f"check_unique_contraints: existing email {email} and/or user_name{user_name}"
+        )
         return True
     else:
-        logger.debug("no duplicate value")
+        logger.info("check_unique_contraintsL no duplicate value")
         return False

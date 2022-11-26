@@ -77,9 +77,9 @@ class GroupItemDelete(BaseModel):
         example="UUID-OF-THE-GROUP-TO-DELETE-USER",
         min_length=1,
     )
-    id: str = Field(
+    user: str = Field(
         ...,
-        alias="id",
+        alias="user",
         title="The ID of the User",
         example="UUID-OF-THE-USER-TO-DELETE",
         min_length=1,

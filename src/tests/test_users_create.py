@@ -40,12 +40,16 @@ class Test(unittest.TestCase):
 
     def test_users_post(self):
         test_user = user_test_info()
+        del test_user["user_id"]
         save_json("test_data_test_user.json", test_user)
         url = f"/api/v1/users/create/"
 
-        response = client.post(url, json=test_user)
-        assert response.status_code == 201
+        response = client.request(method="POST", url=url, json=test_user)
+        # response = client.post(url, json=test_user)
         data = response.json()
+        # error_request: dict = {"test_user": test_user, "response": data}
+        # save_json("test_error.json", data=error_request)
+        assert response.status_code == 201
 
         user_data = {
             "user_id": data["user_id"],
@@ -56,7 +60,7 @@ class Test(unittest.TestCase):
             "email": test_user["email"],
         }
 
-        save_json("test_data_users.json", user_data)
+        save_json("test_data_users.json", data=user_data)
 
     def test_users_post_twenty(self):
         for _ in range(20):

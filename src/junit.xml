@@ -1,39 +1,39 @@
 <?xml version="1.0" ?>
-<testsuites disabled="0" errors="0" failures="0" tests="34" time="398.96292930000163">
-	<testsuite disabled="0" errors="0" failures="0" name="schemathesis" skipped="0" tests="34" time="398.96292930000163" hostname="bbc45d1bd1f1">
-		<testcase name="GET /api/v1/groups/list/count" time="1.778892"/>
-		<testcase name="PUT /api/v1/groups/state" time="2.574132"/>
-		<testcase name="GET /api/v1/groups/group" time="3.562407"/>
-		<testcase name="GET /api/v1/groups/list" time="4.890823"/>
-		<testcase name="GET /api/v1/todo/list" time="0.141452"/>
-		<testcase name="GET /api/v1/todo/list/count" time="0.114376"/>
-		<testcase name="GET /api/v1/todo/{todo_id}" time="2.071481"/>
-		<testcase name="DELETE /api/v1/todo/{todo_id}" time="2.319551"/>
-		<testcase name="PUT /api/v1/todo/complete/{todo_id}" time="2.018763"/>
-		<testcase name="DELETE /api/v1/groups/user/delete" time="22.734240"/>
-		<testcase name="POST /api/v1/groups/create" time="25.732950"/>
-		<testcase name="GET /api/v1/users/list/count" time="0.189188"/>
-		<testcase name="GET /api/v1/users/{user_id}" time="2.173688"/>
-		<testcase name="POST /api/v1/textblob/sentiment" time="25.679797"/>
-		<testcase name="GET /api/v1/users/list" time="5.044201"/>
-		<testcase name="DELETE /api/v1/users/{user_id}" time="2.836888"/>
-		<testcase name="POST /api/v1/groups/user/create" time="36.531820"/>
-		<testcase name="GET /api/v1/silly-users/make-one" time="0.056201"/>
-		<testcase name="POST /api/v1/textblob/spellcheck" time="38.692816"/>
-		<testcase name="GET /api/v1/silly-users/list" time="8.599063"/>
-		<testcase name="POST /api/v1/users/check-pwd/" time="20.593147"/>
-		<testcase name="GET /api/health/status" time="0.058893"/>
-		<testcase name="GET /api/health/system-info" time="1.176941"/>
-		<testcase name="GET /api/health/processes" time="0.056612"/>
-		<testcase name="GET /api/health/configuration" time="0.054124"/>
-		<testcase name="GET /" time="0.056934"/>
-		<testcase name="POST /api/v1/todo/create/" time="41.243429"/>
-		<testcase name="GET /robots.txt" time="0.071833"/>
-		<testcase name="GET /info" time="0.044376"/>
-		<testcase name="GET /joke" time="1.957870"/>
-		<testcase name="PUT /api/v1/users/status" time="30.086964"/>
-		<testcase name="POST /api/v1/users/create/" time="45.335260"/>
-		<testcase name="POST /api/v1/tools/xml-json" time="35.084585"/>
-		<testcase name="POST /api/v1/tools/json-xml" time="35.399234"/>
+<testsuites disabled="0" errors="0" failures="0" tests="34" time="624.6585434000044">
+	<testsuite disabled="0" errors="0" failures="0" name="schemathesis" skipped="0" tests="34" time="624.6585434000044" hostname="9d4c18adc9f5">
+		<testcase name="GET /api/v1/groups/list/count" time="3.163066"/>
+		<testcase name="PUT /api/v1/groups/state" time="3.937781"/>
+		<testcase name="GET /api/v1/groups/group" time="5.614012"/>
+		<testcase name="GET /api/v1/groups/list" time="6.648581"/>
+		<testcase name="GET /api/v1/todo/list" time="0.174341"/>
+		<testcase name="GET /api/v1/todo/list/count" time="0.114178"/>
+		<testcase name="GET /api/v1/todo/{todo_id}" time="2.997564"/>
+		<testcase name="DELETE /api/v1/todo/{todo_id}" time="3.002971"/>
+		<testcase name="PUT /api/v1/todo/complete/{todo_id}" time="4.272867"/>
+		<testcase name="POST /api/v1/groups/create" time="36.513312"/>
+		<testcase name="POST /api/v1/todo/create/" time="19.211847"/>
+		<testcase name="GET /api/v1/users/list/count" time="0.190889"/>
+		<testcase name="GET /api/v1/users/{user_id}" time="3.682864"/>
+		<testcase name="DELETE /api/v1/users/{user_id}" time="4.234955"/>
+		<testcase name="GET /api/v1/users/list" time="9.079609"/>
+		<testcase name="POST /api/v1/textblob/sentiment" time="42.474194"/>
+		<testcase name="DELETE /api/v1/groups/user/delete" time="52.344128"/>
+		<testcase name="GET /api/v1/silly-users/make-one" time="0.062843"/>
+		<testcase name="POST /api/v1/groups/user/create" time="59.017808"/>
+		<testcase name="GET /api/v1/silly-users/list" time="12.864696"/>
+		<testcase name="POST /api/v1/textblob/spellcheck" time="72.910500"/>
+		<testcase name="GET /api/health/status" time="0.069492"/>
+		<testcase name="GET /api/health/system-info" time="1.234685"/>
+		<testcase name="GET /api/health/processes" time="0.057186"/>
+		<testcase name="GET /api/health/configuration" time="0.105601"/>
+		<testcase name="GET /" time="0.101584"/>
+		<testcase name="GET /robots.txt" time="0.041952"/>
+		<testcase name="GET /joke" time="3.120135"/>
+		<testcase name="GET /info" time="0.066485"/>
+		<testcase name="POST /api/v1/users/check-pwd/" time="38.427855"/>
+		<testcase name="PUT /api/v1/users/status" time="41.631229"/>
+		<testcase name="POST /api/v1/tools/xml-json" time="57.054478"/>
+		<testcase name="POST /api/v1/tools/json-xml" time="57.971115"/>
+		<testcase name="POST /api/v1/users/create/" time="82.263742"/>
 	</testsuite>
 </testsuites>

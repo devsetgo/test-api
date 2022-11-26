@@ -19,8 +19,8 @@ class Test(unittest.TestCase):
         user_id = open_json(test_data_users)
         test_data = {"user_name": user_id["user_name"], "password": user_id["password"]}
         url = f"/api/v1/users/check-pwd/"
-
-        response = client.post(url, json=test_data)
+        response = client.request(method="POST", url=url, json=test_data)
+        # response = client.post(url, json=test_data)
         result = response.json()
         assert response.status_code == 200
         assert result["result"] == True

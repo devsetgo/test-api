@@ -50,12 +50,13 @@ async def check_user_exists(group_id: str, user: str) -> bool:
 
 async def check_user_id_exists(group_id: str, id: str) -> bool:
     query = groups_item.select().where(
-        groups_item.c.id == id, groups_item.c.group_id == group_id
+        groups_item.c.user == id, groups_item.c.group_id == group_id
     )
     result = await fetch_one_db(query=query)
-    logger.warning(result)
+    logger.debug(result)
+
     if result is None:
-        logger.warning(f"Group ID: {group_id} and/or User ID: {id} does not exists")
+        logger.info(f"Group ID: {group_id} and/or User ID: {id} does not exists")
         return False
     else:
         logger.info(f"Group ID: {group_id} and/or User ID: {id} exists")
@@ -64,17 +65,18 @@ async def check_user_id_exists(group_id: str, id: str) -> bool:
 
 async def delete_user_in_group(group_id: str, id: str) -> bool:
     query = groups_item.delete().where(
-        groups_item.c.id == id, groups_item.c.group_id == group_id
+        groups_item.c.user == id, groups_item.c.group_id == group_id
     )
     await execute_one_db(query)
     result = await check_user_id_exists(group_id=group_id, id=id)
-
-    if result == False:
+    logger.debug(f"check_user_id_exists result: {result}")
+    print(f"check_user_id_exists result: {result}")
+    if result == True:
         return {
             "message": f"User ID: {id} in Group ID: {group_id} has NOT been removed",
             "status": False,
         }
-    elif result == True:
+    elif result == False:
         return {
             "message": f"User ID: {id} in Group ID: {group_id} has been removed",
             "status": False,
