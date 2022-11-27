@@ -40,7 +40,7 @@ A test/psuedo API to use as sample data or test data. Inspired by [FakeResponse.
   ~~~~
 
 - Notes:
-    - Libraries require Python 3.9, but should run 3.7 and higher
+    - Everything has been test on Python 3.11. Should run on 3.7 - 3.11.
       - Note: I am using [Ubuntu via WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
       - Upgrading [Python3 and install venv](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
     - You may need to upgrade pip and setuptools first (pip3 install --upgrade pip setuptools)
