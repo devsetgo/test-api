@@ -1,7 +1,7 @@
 Python:
 ![image](https://img.shields.io/badge/calver-YYYY.MM.DD-22bfda.svg "CalVer")
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Python 3.11](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 CI/CD Pipeline:
 
@@ -122,9 +122,18 @@ Docker
     Docker: docker pull mikeryan56/test-api:latest
 ~~~~
 
-Run Tests
-
+### Run Tests
 By commands
+
+SchemaThesis
+~~~~
+st run --workers 10 --fixups fast_api --request-timeout 21000 --max-response-time 21000 --max-failures 2 --hypothesis-deadline 2000 --junit-xml junit.xml http://127.0.0.1:5000/openapi.json
+
+st run --workers 6 --fixups fast_api --request-timeout 21000 --max-response-time 21000 --max-failures 2 --junit-xml junit.xml http://127.0.0.1:5000/openapi.json
+~~~~
+~~~~
+./scripts/tests.sh
+~~~~
 ~~~~
 python3 -m pytest
 ~~~~
@@ -201,8 +210,6 @@ Pre-Commit & Hooks
     - ~~[X] [Travis-CI](https://travis-ci.org)~~ ***replaced by Github Actions***
     - [X] [SonarCloud](https://sonarcloud.io)
     - [x] [Github Actions](https://github.com/features/actions) found in .github/workflow/actions
-        - [x] tests - matrix run of Python 3.6 and 3.7
-            - [x] CodeCove.io upload
         - [x] docker-rc - docker build and push when pull request approved for release-candidate branch (calendar version - rc)
         - [x] docker-master - docker build and push when pull request approved for master branch (calender version and latest)
         - [x] ensure docker build only happens after pull_request approved and merged into higher branch
