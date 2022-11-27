@@ -1,5 +1,5 @@
 # Created and maintained by github.com/devsetgo
-FROM python:3.9-slim-buster
+FROM python:3.11-slim-buster
 RUN apt-get update && apt-get -y install build-essential
 EXPOSE 5000
 COPY /src /src
@@ -9,7 +9,7 @@ WORKDIR /src
 # Application information
 ENV TITLE="Test API"
 ENV DESCRIPTION="Example API to learn from."
-ENV APP_VERSION='20.12.11'
+ENV APP_VERSION='22.11.26'
 ENV OWNER='Your Name'
 ENV WEBSITE='https://your.domain.com/support'
 # Demo settings
