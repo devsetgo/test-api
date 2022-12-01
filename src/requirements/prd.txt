@@ -14,7 +14,7 @@ python-dotenv==0.21.0 # Vulnerbilities: None
 python-multipart==0.0.5 # Vulnerbilities: None
 pyyaml==6.0 # Vulnerbilities: None
 silly==1.1.0 # Vulnerbilities: None
-sqlalchemy==1.4.41 # Vulnerbilities: None
+sqlalchemy==1.4.44 # Vulnerbilities: None
 starlette-exporter==0.14.0 # Vulnerbilities: None
 textblob==0.17.1 # Vulnerbilities: None
 tqdm==4.64.1 # Vulnerbilities: None
