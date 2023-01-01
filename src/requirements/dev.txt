@@ -7,7 +7,7 @@ flake8==6.0.0 # From 5.0.4 | Vulnerbilities: None
 isort==5.10.1 # Vulnerbilities: None
 mkdocs==1.4.2 # Vulnerbilities: None
 mkdocs-material==8.5.10 # Vulnerbilities: None
-pre-commit==2.20.0 # Vulnerbilities: None
+pre-commit==2.21.0 # Vulnerbilities: None
 pytest==7.2.0 # Vulnerbilities: None
 pytest-cov==4.0.0 # Vulnerbilities: None
 pytest-xdist==3.0.2 # Vulnerbilities: None
