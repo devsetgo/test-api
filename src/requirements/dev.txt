@@ -4,7 +4,7 @@ autopep8==2.0.0 # Vulnerbilities: None
 black==22.10.0 # Vulnerbilities: None
 coverage-badge==1.1.0 # Vulnerbilities: None
 flake8==6.0.0 # From 5.0.4 | Vulnerbilities: None
-isort==5.10.1 # Vulnerbilities: None
+isort==5.11.4 # Vulnerbilities: None
 mkdocs==1.4.2 # Vulnerbilities: None
 mkdocs-material==8.5.10 # Vulnerbilities: None
 pre-commit==2.20.0 # Vulnerbilities: None
