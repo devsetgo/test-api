@@ -1,5 +1,5 @@
 aiosqlite==0.17.0 # Vulnerbilities: None
-alembic==1.8.1 # Vulnerbilities: None
+alembic==1.9.1 # Vulnerbilities: None
 asyncpg==0.27.0 # Vulnerbilities: None
 databases==0.6.2 # Vulnerbilities: None
 devsetgo-lib==0.8.0 # Vulnerbilities: None
