@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump black from 22.10.0 to 23.1.0 in /src/requirements. PR [#375](https://github.com/devsetgo/test-api/pull/375) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * Dev. PR [#366](https://github.com/devsetgo/test-api/pull/366) by [@devsetgo](https://github.com/devsetgo).
 * updates. PR [#362](https://github.com/devsetgo/test-api/pull/362) by [@devsetgo](https://github.com/devsetgo).
 * github actionts(deps): bump actions/setup-python from 2.3.1 to 4.3.0. PR [#351](https://github.com/devsetgo/test-api/pull/351) by [@dependabot[bot]](https://github.com/apps/dependabot).
