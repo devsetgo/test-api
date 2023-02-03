@@ -1,5 +1,6 @@
 # Release Notes
 
+* pip(deps-dev): bump isort from 5.10.1 to 5.12.0 in /src/requirements. PR [#373](https://github.com/devsetgo/test-api/pull/373) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps): bump alembic from 1.8.1 to 1.9.2 in /src/requirements. PR [#372](https://github.com/devsetgo/test-api/pull/372) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump pre-commit from 2.20.0 to 3.0.2 in /src/requirements. PR [#374](https://github.com/devsetgo/test-api/pull/374) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * pip(deps-dev): bump black from 22.10.0 to 23.1.0 in /src/requirements. PR [#375](https://github.com/devsetgo/test-api/pull/375) by [@dependabot[bot]](https://github.com/apps/dependabot).
