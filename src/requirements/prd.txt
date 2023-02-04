@@ -1,7 +1,7 @@
 aiosqlite==0.17.0 # Vulnerbilities: None
 alembic==1.9.2 # Vulnerbilities: None
 asyncpg==0.27.0 # Vulnerbilities: None
-databases==0.6.2 # Vulnerbilities: None
+databases==0.7.0 # Vulnerbilities: None
 devsetgo-lib==0.8.0 # Vulnerbilities: None
 fastapi-login==1.8.3 # Vulnerbilities: None
 fastapi[all]==0.87.0 # From 0.86.0 | Vulnerbilities: None
