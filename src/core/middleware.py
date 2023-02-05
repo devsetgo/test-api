@@ -21,6 +21,7 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         url = request.url
         client = request.client.host
         referer = None
+        real_ip = request.headers['x-real-ip']
 
         logger.debug(request.headers)
 
@@ -36,7 +37,7 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         if "favicon.ico" not in str(url):
             logging.info(
                 f"Request Method: {method.upper()} request via {url}\
-                     via referer {referer} accessed from {client} by {user_id}"
+                     via referer {referer} accessed from {client} by {user_id} "
             )
             logging.debug(f"full_request_data: {dict(request)}")
         return response

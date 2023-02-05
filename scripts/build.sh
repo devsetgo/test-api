@@ -7,11 +7,11 @@ set -x
 
 CAL_VER=$(TZ=":US/Eastern" date '+%Y-%m-%d')
 echo 'Docker Build Python'
-docker build -t mikeryan56/test-api:$CAL_VER-python39 -t mikeryan56/test-api:latest -f ./dockerfiles/dockerfile_python .
+docker build -t mikeryan56/test-api:$CAL_VER -t mikeryan56/test-api:latest -f ./dockerfiles/dockerfile_python .
 # echo "Running Docker Image"
 # docker run mikeryan56/test-api:$CAL_VER-python38
 echo "Push"
-docker push mikeryan56/test-api:$CAL_VER-python39
+docker push mikeryan56/test-api:$CAL_VER
 docker push mikeryan56/test-api:latest
 # echo 'Docker Build with PyPy'
 # docker build -t mikeryan56/test-api:$CAL_VER -f ./docker/dockerfile_pypy .
