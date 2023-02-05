@@ -26,10 +26,9 @@ class AccessLoggerMiddleware(BaseHTTPMiddleware):
         #     logger.critical(real_ip)
         headers = request.headers.items()
         logger.critical(headers)
-        for k,v in headers:
+        for k, v in headers:
             logger.debug(f"request key: {k} | value: {v}")
         logger.debug(f"full request: {request.headers}")
-
 
         if "referer" in request.headers:
             referer = request.headers["referer"]
