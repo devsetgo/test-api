@@ -9,7 +9,7 @@ WORKDIR /src
 # Application information
 ENV TITLE="Test API"
 ENV DESCRIPTION="Example API to learn from."
-ENV APP_VERSION='22.11.26'
+ENV APP_VERSION='22.12.11'
 ENV OWNER='Your Name'
 ENV WEBSITE='https://your.domain.com/support'
 # Demo settings
@@ -28,7 +28,7 @@ ENV SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
 ENV LOGURU_RETENTION='10 days'
 ENV LOGURU_ROTATION='100 MB'
 # Values NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL
-ENV LOGURU_LOGGING_LEVEL='INFO'
+ENV LOGURU_LOGGING_LEVEL='DEBUG'
 # Workers - Set to 1 or more (max = CPUs x 2 + 1)
 ENV WRKRS=2
 # Leave intact for license
@@ -36,7 +36,7 @@ ENV CREATED_BY='Mike Ryan'
 ENV LICENSE_TYPE='MIT'
 ENV LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
 RUN pip install --upgrade setuptools pip
-RUN pip3 install -r requirements/dev.txt --use-deprecated=legacy-resolver
+RUN pip3 install -r requirements.txt --use-deprecated=legacy-resolver
 RUN useradd -m -r testapi && \
     chown -R testapi /src
 USER testapi
